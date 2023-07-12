@@ -15,14 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('is_admin',['admin','user'])->default('user');
+            $table->enum('status',['active','inactive'])->default('inactive');
             $table->rememberToken();
+            $table->string('username')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+            $table->bigInteger('send_code')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

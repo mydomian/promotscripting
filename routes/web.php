@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+
+Route::prefix('/admin')->namespace('Admin')->group(function (){
+    Route::match(['get','post'], '/login', [AuthController::class, 'login'])->name('admin.login');
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
+
 });
