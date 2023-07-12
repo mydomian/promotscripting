@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Artisan;
@@ -31,17 +33,28 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 });
 
+
+
+Route::prefix('/admin')->namespace('Admin')->group(function (){
+    Route::match(['get','post'], '/login', [AuthController::class, 'login'])->name('admin.login');
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+    });
 
 Route::get('/clear', function () {
     Artisan::call('cache:clear');
@@ -51,5 +64,4 @@ Route::get('/clear', function () {
     Artisan::call('route:clear');
     Artisan::call('storage:link');
     return "Cleared!";
-
 });
