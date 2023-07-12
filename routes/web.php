@@ -33,13 +33,8 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -55,6 +50,7 @@ Route::prefix('/admin')->namespace('Admin')->group(function (){
             return view('dashboard');
         })->name('dashboard');
     });
+});
 
 Route::get('/clear', function () {
     Artisan::call('cache:clear');
@@ -65,3 +61,4 @@ Route::get('/clear', function () {
     Artisan::call('storage:link');
     return "Cleared!";
 });
+

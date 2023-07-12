@@ -12,8 +12,9 @@ class AuthController extends Controller
     public function login(Request $request){
 
         if($request->isMethod('post')){
+            $request->validate(['email' => 'required|email','password' => 'required']);
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_admin'=>'admin'])){
-                return view('admin.index')->with('success','Admin Login Successfully');
+                return view('admin.index');
             }
             return redirect()->route('admin.login')->with('@Sorry, Invalid Email and Password!');
         }
