@@ -30,6 +30,10 @@
         }
     },
     "autoload-dev": {
+        "files":[
+            "app/Helper/userHelper.php",
+            "app/Helper/adminHelper.php"
+        ],
         "psr-4": {
             "Tests\\": "tests/"
         }
