@@ -4,9 +4,13 @@
 use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\DashboardController;
+
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\RegisterController;
 use App\Models\SubCategory;
+use App\Http\Controllers\SellController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -15,20 +19,29 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('/','home')->name('home');
 });
 
+
+// ======================Marketplace=============================
+Route::controller(MarketplaceController::class)->group(function(){
+    Route::match(['get','post'],'/marketplace','marketplace')->name('marketplace');
+});
+
 //=========================Login/Register=========================
 Route::controller(RegisterController::class)->group(function(){
     Route::match(['get', 'post'], '/login', 'login')->name('user.login');
     Route::match(['get', 'post'], '/register', 'register')->name('user.register');
 });
 
-
-//=========================Front End=========================
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+//=======================Dashboard===========================
+Route::middleware(['user'])->group(function () {
+   Route::controller(DashboardController::class)->group(function(){
+        Route::get('/dashboard','dashboard')->name('user.dashboard');
+        Route::get('/logout','logout')->name('user.logout');
+   });
 });
+
+
+//============================Sell===========================
+Route::resource('sell', SellController::class);
 
 
 //=========================Admin=========================
