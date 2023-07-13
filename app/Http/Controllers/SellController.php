@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SellController extends Controller
 {
-    /**
+   
+    public function __construct()
+    {
+        $this->middleware('user', ['only' => ['create']]);
+    }
+
+     /**
      * Display a listing of the resource.
      */
     public function index()
@@ -18,8 +25,9 @@ class SellController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
+    {   
+        
+        return view('user.website.create-prompt');
     }
 
     /**

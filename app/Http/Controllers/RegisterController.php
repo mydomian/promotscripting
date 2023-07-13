@@ -30,17 +30,13 @@ class RegisterController extends Controller
         if($request->isMethod('post')){
             $request->validate([
                 'name'      => 'required|string',
-                'email'     => 'required|email|unique:users,email',
-                'phone'     => 'required|numeric',
-                'address'   => 'required|string',
+                'email'     => 'required|email|unique:users,email',           
                 'password'  => 'required|min:6',
                 'confirm_password'     => 'required|same:password'
             ]);
             try {
                 $user->name = $request->name;
                 $user->email = $request->email;
-                $user->phone = $request->phone;
-                $user->address = $request->address;
                 $user->profile_photo_path = 'default.png';
                 $user->password = \bcrypt($request->password);
                 $user->save();

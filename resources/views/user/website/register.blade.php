@@ -17,7 +17,7 @@ $system = App\Models\Setting::first();
                
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12 col-md-4 bg-dark bg-opacity-75 p-3 my-3 rounded">
+                        <div class="col-sm-12 col-md-6 col-lg-6 bg-dark bg-opacity-75 p-3 my-3 rounded">
                             <div class="auth-form-wrapper  m-3">
                                 
                                 <div class="text-white">
@@ -40,7 +40,7 @@ $system = App\Models\Setting::first();
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                        <div class="mb-2">
+                                        {{-- <div class="mb-2">
                                             <small class="form-label">Enter Your Phone</small>
                                             <input type="number" name="phone" value="{{old('phone')}}" class="form-control bg-dark  @error('phone') is-invalid @enderror" placeholder="Enter Phone...">
                                             @error('phone')
@@ -53,7 +53,7 @@ $system = App\Models\Setting::first();
                                             @error('phone')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
-                                        </div>
+                                        </div> --}}
                                         <div  class="mb-2">
                                             <small class="form-label">Enter Your Password</small>
                                             <input type="password" name="password" class="form-control bg-dark @error('password') is-invalid @enderror" placeholder="Enter Password...">
@@ -76,8 +76,8 @@ $system = App\Models\Setting::first();
 
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex text-center">
-                            <div class="align-self-center  mx-5">
+                        <div class="col-sm-12 col-md-6 col-lg-6 d-flex text-center">
+                            <div class="align-self-center  mx-5 user-register">
                                <h3>Welcome to the platform.</h3>
                                <p class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus ad sunt officiis modi repellendus omnis deleniti error nulla totam. Ullam assumenda suscipit consequuntur optio debitis deserunt cumque ad similique quaerat rerum eius nisi nobis ducimus ab, culpa nostrum Lorem</p>
                             </div>

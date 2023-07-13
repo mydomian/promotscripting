@@ -38,6 +38,8 @@ $system = App\Models\Setting::first();
     <!-- styles -->
     <link rel="stylesheet" href="{{asset("storage/website/assets")}}/styles/main.css" />
     <link rel="stylesheet" href="{{asset("storage/website/assets")}}/styles/main.res.css" />
+    <link rel="stylesheet" href="{{asset("storage/website/assets")}}/styles/style.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <style>
       .hide{
@@ -85,7 +87,8 @@ $system = App\Models\Setting::first();
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('marketplace')" href="{{route('marketplace')}}"> Marketplace </a>
+                {{-- {{route('marketplace')}} --}}
+                <a class="nav-link @yield('marketplace')" href="#"> Marketplace </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link @yield('hire')" href="#"> Hire </a>
