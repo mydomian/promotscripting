@@ -13,10 +13,12 @@ class AuthController extends Controller
         if($request->isMethod('post')){
             $request->validate(['email' => 'required|email','password' => 'required']);
             if(Auth::attempt(['email'=>$request->email,'password'=>$request->password,'is_admin'=>'admin'])){
-                return view('admin.index');
+                return redirect()->route('admin.dashboard');
             }
             return redirect()->route('admin.login')->with('@Sorry, Invalid Email and Password!');
         }
         return view('admin.login');
     }
+
+  
 }
