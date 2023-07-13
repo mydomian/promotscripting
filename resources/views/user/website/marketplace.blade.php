@@ -1,9 +1,9 @@
-@extends('website.includes.master')
-@section('marketplace','active')
+@extends('user.website.includes.master')
 
 @section('title')
    Marketplace
 @endsection
+@section('marketplace','active')
 
 @section('content')
 <main class="flex-shrink-0 bg-body">
@@ -153,7 +153,7 @@
               </div>
             </div>
             <div class="row g-3 mb-5 marketplace_append_data">
-               @include('website.includes.marketplace_append')
+               @include('user.website.includes.marketplace_append')
             </div>
             
             <div class="d-flex justify-content-center">

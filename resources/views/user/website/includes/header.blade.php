@@ -85,10 +85,13 @@ $system = App\Models\Setting::first();
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('marketplace')" href="#"> Marketplace </a>
+                <a class="nav-link @yield('marketplace')" href="{{route('marketplace')}}"> Marketplace </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link @yield('hire')" href="#"> Hire </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link @yield('sell')" href="{{route('sell.index')}}"> Sell </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link @yield('blog')" href="#"> Blog </a>
@@ -104,30 +107,27 @@ $system = App\Models\Setting::first();
             {{-- <a href="#" class="link-primary ms-lg-3 flex-shrink-0">
               Create Account
             </a> --}}
-           
-              {{-- <div class="dropdown ms-lg-3 flex-shrink-0">
+           @auth
+              <div class="dropdown ms-lg-3 flex-shrink-0">
                 <a class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Profile 
                 </a>
                 <ul class="dropdown-menu bg-primary w-100 text-center">
                   <li><a class="dropdown-item" href="#">Profile View</a></li>
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                  <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
+                  <li><a class="dropdown-item" href="">Favourites</a></li>
+                  <li><a class="dropdown-item" href="">Settings</a></li>
                 </ul>
               </div>
+           @endauth
+              
            
-            <div class="dropdown ms-lg-3 flex-shrink-0">
-              <a class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Profile 
-              </a>
-              <ul class="dropdown-menu bg-primary w-100 text-center">
-                <li><a class="dropdown-item" href="#">Profile View</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-              </ul>
-            </div> --}}
-           
+            
+           @guest
               <a href="{{route('user.register')}}" class="btn btn-outline-primary ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-none d-sm-inline  @yield('register')">Create Account</a>
               <a href="{{route('user.login')}}" class="btn btn-outline-primary ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-none d-sm-inline @yield('login')">Login </a>
-           
+            @endguest
+              
             
            
           </div>
@@ -158,7 +158,7 @@ $system = App\Models\Setting::first();
 
 
           <a
-            href="#"
+            href="{{route('user.login')}}"
             class="btn btn-outline-primary rounded-pill ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-sm-none px-2"
           >
             <i class="fa-solid fa-user"></i>
