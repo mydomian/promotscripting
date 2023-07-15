@@ -45,6 +45,12 @@ $system = App\Models\Setting::first();
       .hide{
         display: none;
       }
+
+      #prompt_file{
+        overflow-y: auto;
+        height: 250px;
+        resize: none; /* Remove this if you want the user to resize the textarea */
+    }
     </style>
   </head>
   <body class="d-flex flex-column min-vh-100">
