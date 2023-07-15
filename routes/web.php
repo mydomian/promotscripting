@@ -41,6 +41,8 @@ Route::middleware(['user'])->group(function () {
 
 
 //============================Sell===========================
+Route::post('sell/subcategory',[SellController::class,'subcategory'])->name('sell.subcategory');
+Route::post('/sell/country',[SellController::class,'country'])->name('sell.country');
 Route::resource('sell', SellController::class);
 
 
