@@ -9,7 +9,7 @@
         <div class="container page-header">
             <div class="row">
                 <div class="col-md-6">
-                    <form action="" method="post">
+                    <form action="{{route('sell.store')}}" method="post">
                         @csrf
                         <input type="hidden" name="category_id" value="{{$data['category_id']}}">
                         <input type="hidden" name="title" value="{{$data['title']}}">

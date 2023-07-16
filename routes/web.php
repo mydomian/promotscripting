@@ -11,6 +11,7 @@ use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\RegisterController;
 use App\Models\SubCategory;
 use App\Http\Controllers\SellController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,10 @@ Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::get('/logout','logout')->name('user.logout');
+   });
+
+   Route::controller(StripeController::class)->group(function(){
+        Route::get('/onboard-seller','onboard');
    });
 });
 
