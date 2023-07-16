@@ -20,7 +20,6 @@ $system = App\Models\Setting::first();
                     <div class="row">
                         <div class="col-sm-12 col-md-4 bg-dark bg-opacity-75 p-3 my-3 rounded">
                             <div class="auth-form-wrapper  m-5">
-                                
                                 <div class="text-white">
                                     <h5 class="mb-0">Login</h5>
                                     <small>Please Enter Your Email & Password!</small>
