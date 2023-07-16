@@ -28,9 +28,9 @@
                   Start Selling Your<span class="text-primary bubble-gradient"
                     >Prompts
               </h1>
-              <p class="text-body-secondary fs-5 w-75">voluptates in nostrum laborum? Adipisci autem officiis ab aut! Deleniti, et corrupti?
+              <p class="text-secondary fs-5 w-75">voluptates in nostrum laborum? Adipisci autem officiis ab aut! Deleniti, et corrupti?
               </p>
-              <p class="text-body-secondary fs-5 w-75">
+              <p class="text-secondary fs-5 w-75">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, mollitia nostrum ea beatae culpa ab minus reiciendis perspiciatis exercitationem quos.
               </p>
               <div

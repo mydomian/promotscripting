@@ -18,7 +18,7 @@
                 </h1>
                 <p class="text-body-secondary fs-5 mb-0">Tell us about the prompt you want to sell
                 </p>
-                <p class="text-body-secondary fs-5 ">
+                <p class="text-secondary fs-5 ">
                     These details are not final. Our team will make edits if it goes live.
                 </p>
                 <form action="{{route('sell.subcategory')}}" method="post">
@@ -41,7 +41,7 @@
                         </div>
                    </div>
                    <div class="col-md-12 d-flex flex-column text-white mb-3">
-                        <label for="" class="form-label">Name</label>
+                        <label for="" class="form-label">Title</label>
                         <i class="text-secondary"><small>Suggest a title for this prompt.</small></i>
                         <div>
                             <input type="text" name="title" id="" class="form-control bg-transparent @error('title') is-invalid @enderror" value="{{old('title')}}" placeholder="">

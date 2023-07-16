@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class SellController extends Controller
 {
@@ -50,6 +53,7 @@ class SellController extends Controller
         
         
         $subcategories = SubCategory::where('category_id',$data['category_id'])->get();
+
         
         return view('user.website.subcategory-select', compact('subcategories','data'));
     }
@@ -75,8 +79,42 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        $stripe_public_key = new \Stripe\StripeClient('pk_test_51MdVopI5vndzPyR8dKn6Rwiy8AnLUxlZKmMJ5A42U57LSajaTsHKjlaKTO3ZhrFP45G7uIAmj6JFaXV0i43WA5Wf000QVUrGy8');
-        $stripe_secret_key = new \Stripe\StripeClient('sk_test_51MdVopI5vndzPyR8raL9vEY79KT2Iv22xGMebpbPOnFMc8jClAEjvnCeqMIGYeJQGgD9SWAHqduTPB64YA1KqmIY00cfZ7o7Ml');
+        
+        $request->validate([
+            'sub_category_id'       => 'required',
+            'sub_sub_category_id'    => 'required',
+            'prompt_file'           => 'required|json',
+            'prompt_testing'        => 'required',
+            'gpt_engine'            => 'required',
+            'preview_input'         =>'required',
+            'preview_output'        =>'required',
+            'instructions'          => 'string'
+        ]);
+        
+        Product::create([
+            'user_id'                  => Auth::id(),
+            'sub_sub_category_id'      => $request->sub_sub_category_id,
+            'title'                    => $request->title,
+            'image'                    => 'paper-plane.png',
+            'price'                    => $request->price,
+            'description'              => $request->description,
+            'words'                    => Str::of($request->description)->wordCount(),
+            'is_tips'                  => $request->instructions ? 'yes' :'no',
+            'is_tested'                => $request->prompt_testing ? 'yes' : 'no',
+            'is_hq_images'             => 'no',
+            'status'                   => 'active',
+            'prompt_testing'           => $request->prompt_testing ,
+            'gpt_engine_id'            => $request->gpt_engine_id,
+            'preview_input'            => $request->preview_input,
+            'preview_output'           => $request->preview_output,
+            'instructions'             => $request->instructions
+        ]);
+
+
+        return redirect()->route('home')->with('success', 'Posted Successful');
+      
+
+       
 
     }
 
