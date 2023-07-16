@@ -28,46 +28,40 @@ $system = App\Models\Setting::first();
                         <span class="link-title">Dashboard</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#blogs" role="button" aria-expanded="false"
+                    <a class="nav-link" data-bs-toggle="collapse" href="#categories" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book-open"></i>
                         <span class="link-title">Category & Subcategory</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse" id="blogs">
+                    <div class="collapse" id="categories">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ route('categories.index') }}" class="nav-link">
-                                    <i class="link-icon" data-feather="circle"></i>
-                                    <span class="link-title">Categories</span>
-                                </a>
+                                <a href="{{ route('categories.index') }}" class="nav-link @yield('categories.index')">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('subcategories.index') }}" class="nav-link">
-                                    <i class="link-icon" data-feather="square"></i>
-                                    <span class="link-title">Sub Categories</span>
-                                </a>
+                                <a href="{{ route('subcategories.index') }}" class="nav-link @yield('subcategories.index')">Sub Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('subsubcategories.index') }}" class="nav-link @yield('subsubcategories.index')">Sub Sub Categories</a>
                             </li>
                         </ul>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#blogs" role="button" aria-expanded="false"
+                    <a class="nav-link" data-bs-toggle="collapse" href="#prompts" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book-open"></i>
-                        <span class="link-title">Jobs & Gigs</span>
+                        <span class="link-title">Prompts</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse" id="blogs">
+                    <div class="collapse" id="prompts">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="" class="nav-link">Job Posts Lists</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">Gigs Lists</a>
+                                <a href="" class="nav-link">Prompts</a>
                             </li>
                         </ul>
                     </div>
@@ -82,33 +76,24 @@ $system = App\Models\Setting::first();
                     </a>
                     <div class="collapse" id="blogs">
                         <ul class="nav sub-menu">
-                            {{-- <li class="nav-item">
-                                <a href="{{ route('admin.blogsbanner') }}" class="nav-link">Banner</a>
-                            </li> --}}
-                            
                             <li class="nav-item">
-                                <a href="" class="nav-link">Add Blogs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">Blogs List</a>
+                                <a href="{{ route('blogs.index') }}" class="nav-link">Blogs List</a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#aboutus" role="button" aria-expanded="false"
+                    <a class="nav-link" data-bs-toggle="collapse" href="#aboutUs" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book"></i>
                         <span class="link-title">About Us</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
-                    <div class="collapse" id="aboutus">
+                    <div class="collapse" id="aboutUs">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="" class="nav-link">Banner</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">About Company</a>
+                                <a href="{{ route('admin.aboutUs') }}" class="nav-link">About Company</a>
                             </li>
                             </li>
                         </ul>
@@ -125,30 +110,12 @@ $system = App\Models\Setting::first();
                         <ul class="nav sub-menu">
                         
                             <li class="nav-item">
-                                <a href="" class="nav-link">Contact Messages</a>
+                                <a href="{{ route('admin.contactmessages') }}" class="nav-link">Contact Messages</a>
                             </li>
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="collapse" href="#privacy" role="button" aria-expanded="false"
-                       aria-controls="emails">
-                        <i class="link-icon" data-feather="flag"></i>
-                        <span class="link-title">Privacy Policy</span>
-                        <i class="link-arrow" data-feather="chevron-down"></i>
-                    </a>
-                    <div class="collapse" id="privacy">
-                        <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="" class="nav-link">Banner</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" class="nav-link">Privacy&Policy
-                                    Content</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+               
               
                 <li class="nav-item">
                     <a href="" class="nav-link">
@@ -163,14 +130,9 @@ $system = App\Models\Setting::first();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="javascript:;" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();" class="nav-link">
-                        <i class="link-icon" data-feather="log-out"></i>
-                        <span class="link-title">Logout</span>
-                        <form id="logout-form" action="" method="POST"
-                              class="d-none">
-                            @csrf
-                        </form>
+                    <a href="" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">Profile</span>
                     </a>
                 </li>
             </ul>
@@ -257,14 +219,9 @@ $system = App\Models\Setting::first();
                                     </a>
                                 </li>
                                 <li class="dropdown-item py-2">
-                                    <a href="javascript:;" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();" class="text-body ms-0">
+                                    <a href="{{ route('admin.logout') }}" class="text-body ms-0">
                                         <i class="me-2 icon-md" data-feather="log-out"></i>
                                         <span>Log Out</span>
-                                        <form id="logout-form" action="" method="POST"
-                                              class="d-none">
-                                            @csrf
-                                        </form>
                                     </a>
                                 </li>
                             </ul>

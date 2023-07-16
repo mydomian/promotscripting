@@ -19,6 +19,11 @@ class AuthController extends Controller
         }
         return view('admin.login');
     }
+    
+    public function logout(){
+        Auth::logout();
+        return redirect()->route("admin.login")->with('success','Logout Successfully');
+    }
 
   
 }
