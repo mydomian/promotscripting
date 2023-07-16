@@ -1,10 +1,15 @@
 <?php
 namespace App\Services;
 
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Illuminate\Support\Facades\Auth;
+use Str;
+
 
 class Services{
  
@@ -77,6 +82,47 @@ class Services{
         }
         catch (\Exception $e) {
          return $e->getMessage();
+        }
+     }
+     function subSubCategoryCreate($data){
+        try{
+             $subSubCategory = new SubSubCategory;
+             $subSubCategory->sub_category_id = $data['sub_category_id'];
+             $subSubCategory->category_name = $data['category_name'];
+             $subSubCategory->save();
+             return $subSubCategory;
+        }
+        catch (\Exception $e) {
+         return $e->getMessage();
+        }
+     }
+     function subSubCategoryUpdate($subsubcategory,$data){
+        try{
+             $subsubcategory->sub_category_id = $data['sub_category_id'];
+             $subsubcategory->category_name = $data['category_name'];
+             $subsubcategory->save();
+             return $subsubcategory;
+        }
+        catch (\Exception $e) {
+         return $e->getMessage();
+        }
+     }
+     function blogCreate($data,$file){
+        try{
+             $blog = new Blog;
+             $blog->user_id = Auth::user()->id;
+             $blog->category_id = $data['category_id'];
+             $blog->sub_category_id = $data['sub_category_id'];
+             $blog->sub_sub_category_id = $data['sub_sub_category_id'];
+             $blog->title = $data['title'];
+             $blog->image = $file;
+             $blog->description = $data['description'];
+             $blog->slug = Str::slug($data['title'],'-');
+             $blog->save();
+             return $blog;
+        }
+        catch (\Exception $e) {
+            return $e->getMessage();
         }
      }
 }

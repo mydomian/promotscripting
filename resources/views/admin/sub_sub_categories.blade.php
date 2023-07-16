@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('title')
-Sub Category
+Sub Sub Category
 @endsection
 
 @push('styles')
@@ -16,7 +16,7 @@ Sub Category
 <nav class="page-breadcrumb">
 <ol class="breadcrumb">
 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-<li class="breadcrumb-item active" aria-current="page">Sub-categories</li>
+<li class="breadcrumb-item active" aria-current="page">Sub-Sub-Categories</li>
 </ol>
 </nav>
 
@@ -25,10 +25,10 @@ Sub Category
 <div class="card">
     <div class="card-body">
         <div class="row mb-5">
-            <div class="col-md-10"><h6 class="card-title">Sub Categories</h6></div>
-            <div class="col-md-2">
+            <div class="col-md-9"><h6 class="card-title">Sub Sub Categories</h6></div>
+            <div class="col-md-3">
                 <button class="btn btn-sm btn-outline-primary w-100" type="button" data-bs-toggle="modal"
-                        data-bs-target="#AddSubCategory">Add SubCategory
+                        data-bs-target="#AddSubSubCategory">Add SubSubCategory
                 </button>
             </div>
         </div>
@@ -39,61 +39,68 @@ Sub Category
                         <th>Id</th>
                         <th>Category name</th>
                         <th>Subcategory name</th>
+                        <th>Sub Subcategory name</th>
                         <th>Created At</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($subcategories as $subcategory)
+                    @forelse($subSubCategories as $subSubCategory)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $subcategory->category ? $subcategory->category->category_name : ""}}</td>
-                            <td>{{ $subcategory->category_name ?? ""}}</td>
-                            <td>{{ Carbon\Carbon::parse($subcategory->created_at)->format('d-m-Y') }}</td>
+                            <td>{{ $subSubCategory->subCategory->category ? $subSubCategory->subCategory->category->category_name : "" }}</td>
+                            <td>{{ $subSubCategory->subCategory ? $subSubCategory->subCategory->category_name : "" }}</td>
+                            <td>{{ $subSubCategory->category_name ?? "" }}</td>
+                            <td>{{ Carbon\Carbon::parse($subSubCategory->created_at)->format('d-m-Y') }}</td>
                             <td>
                                 <a data-bs-toggle="modal"
-                                data-bs-target="#UpdateTeam{{ $subcategory->id }}"
+                                data-bs-target="#UpdateTeam{{ $subSubCategory->id }}"
                                 class="btn btn-outline-info btn-icon">
                                     <i data-feather="edit"></i>
                                 </a>
                             </td>
                             <td>
-                                <a href="javascript:;" getUrl="{{ route('admin.subCategoryDestroy',['subcategory'=>$subcategory->id]) }}" class="btn btn-outline-danger btn-icon onsubCategoryDelete">
+                                <a href="javascript:;" getUrl="{{ route('admin.subSubCategoryDestroy',['subsubcategory'=>$subSubCategory->id]) }}" class="btn btn-outline-danger btn-icon onsubSubCategoryDelete">
                                     <i data-feather="trash"></i>
                                 </a>
                             </td>
                         </tr>
 
                         {{--  update modal--}}
-                        <div class="modal fade" id="UpdateTeam{{ $subcategory->id }}" tabindex="-1"
+                        <div class="modal fade" id="UpdateTeam{{ $subSubCategory->id }}" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-md">
                                 <div class="modal-content">
                                     <div class="modal-header bg-dark">
                                         <h5 class="modal-title text-white" id="exampleModalLabel">Update
-                                           Subcategory</h5>
+                                           Sub Subcategory</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="btn-close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="container">
-                                            <form action="{{ route('subcategories.update',['subcategory'=>$subcategory->id]) }}" method="post">
+                                            <form action="{{ route('subsubcategories.update',['subsubcategory'=>$subSubCategory->id]) }}" method="post">
                                                 @csrf
                                                 @method('PUT')
 
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label> Category Name </label>
-                                                            <select name="category_id" class="form-control" id="category" required>
-                                                                <option value="">Select Your Category</option>
+                                                            <label>Sub Category Name </label>
+                                                            <select name="sub_category_id" class="form-control" id="subcategory" required>
+                                                                <option value="">Select Your Sub Category</option>
                                                                 @foreach ($categories as $category)
-                                                                    <option value="{{ $category->id }}" @if($category->id == $subcategory->category->id) selected @endif>{{ $category->category_name }}</option>
+                                                                    <option value="#" disabled><strong>{{ $category->category_name }}</strong></option>
+                                                                    @if(!empty($category['subCategories']))
+                                                                        @foreach($category['subCategories'] as $subCat)
+                                                                            <option value="{{$subCat->id}}" @if($subCat->id === $subSubCategory->sub_category_id) selected @endif> ➥ {{$subCat->category_name}}</option>
+                                                                        @endforeach
+                                                                    @endempty
                                                                 @endforeach
                                                             </select>
-                                                            <label class="mt-2">Subcategory name</label>
-                                                            <input type="text" name="category_name" class="form-control" placeholder="Enter Your Subcategory Name..." value="{{ $subcategory->category_name }}" required>
+                                                            <label class="mt-2">Sub Subcategory name</label>
+                                                            <input type="text" name="category_name" class="form-control" value="{{ $subSubCategory->category_name }}" placeholder="Enter Your Sub Subcategory Name..." required>
                                                         </div>
                                                     </div>
 
@@ -123,29 +130,34 @@ Sub Category
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="AddSubCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="AddSubSubCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header bg-dark">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Add Subcategory</h5>
+                <h5 class="modal-title text-white" id="exampleModalLabel">Add Sub Subcategory</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form action="{{ route('subcategories.store') }}" method="post">
+                    <form action="{{ route('subsubcategories.store') }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label> Category Name </label>
-                                    <select name="category_id" class="form-control" id="category" required>
-                                        <option value="">Select Your Category</option>
+                                    <label>Sub Category Name </label>
+                                    <select name="sub_category_id" class="form-control" id="subcategory" required>
+                                        <option value="">Select Your Sub Category</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                            <option value="#" disabled><strong>{{ $category->category_name }}</strong></option>
+                                            @if(!empty($category['subCategories']))
+                                                @foreach($category['subCategories'] as $subCat)
+                                                    <option value="{{$subCat->id}}"> ➥ {{$subCat->category_name}}</option>
+                                                @endforeach
+                                            @endempty
                                         @endforeach
                                     </select>
-                                    <label class="mt-2">Subcategory name</label>
-                                    <input type="text" name="category_name" class="form-control" placeholder="Enter Your Subcategory Name..." required>
+                                    <label class="mt-2">Sub Subcategory name</label>
+                                    <input type="text" name="category_name" class="form-control" placeholder="Enter Your Sub Subcategory Name..." required>
                                 </div>
                                 <div class="col-md-12 text-end mt-2">
                                     <button class="btn btn-sm btn-dark" type="submit">Save <i data-feather="save"></i></button>
@@ -170,11 +182,11 @@ Sub Category
 
 <script>
 $(document).ready(function() {
-    $(document).on("click", ".onsubCategoryDelete", function () {
+    $(document).on("click", ".onsubSubCategoryDelete", function () {
         var url = $(this).attr('getUrl');
         Swal.fire({
             title: 'Are you sure?',
-            text: "Do you want to delete this subcategory!",
+            text: "Do you want to delete this sub subcategory!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

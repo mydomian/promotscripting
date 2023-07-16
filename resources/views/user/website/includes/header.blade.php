@@ -106,10 +106,10 @@ $system = App\Models\Setting::first();
                 <a class="nav-link @yield('blog')" href="#"> Blog </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('about')" href="#"> About </a>
+                <a class="nav-link @yield('about')" href="{{ route('aboutus') }}"> About </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('contact')" href="#"> Contact </a>
+                <a class="nav-link @yield('contact')" href="{{ route('contactus') }}"> Contact </a>
               </li>
               
             </ul>
@@ -123,9 +123,9 @@ $system = App\Models\Setting::first();
                 </a>
                 <ul class="dropdown-menu bg-primary w-100 text-center">
                   <li><a class="dropdown-item" href="#">Profile View</a></li>
-                  <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
                   <li><a class="dropdown-item" href="">Favourites</a></li>
                   <li><a class="dropdown-item" href="">Settings</a></li>
+                  <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
                 </ul>
               </div>
            @endauth

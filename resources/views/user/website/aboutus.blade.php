@@ -1,9 +1,8 @@
-@extends('website.includes.master')
+@extends('user.website.includes.master')
 @section('title')
     Aboutus
 @endsection
 @section('about','active')
-
 @section('content')
     <!-- >>>>>>>>>> Main Sections <<<<<<<<< -->
     <main class="flex-shrink-0">
@@ -29,9 +28,9 @@
               <div class="col-lg-5 order-1 order-lg-0">
                 <h1 class="display-6 fw-bold text-white">{{ $aboutus->heading ?? "" }}</h1>
                 <p class="text-body-tertiary mb-4 mb-lg-5">
-                  {{ $aboutus->short_description ?? "" }}
+                  {{ $aboutus->short_des ?? "" }}
                 </p>
-                <a href="{{route('blogs')}}" class="link-primary text-decoration-none">
+                <a href="" class="link-primary text-decoration-none">
                   See our blog</a
                 >
               </div>
@@ -39,8 +38,8 @@
                 <div class="text-center">
                   <img
              
-                    src="{{ asset('admin/assets/uploads/'.$banner->image) }}"
-                    alt="Banner"
+                    src="{{ asset('/admin/assets/uploads/'.$setting->logo) }}"
+                    alt="about-us"
                     width="960px"
                     height="800px"
                     class="img-fluid rounded"
@@ -61,7 +60,7 @@
                   <div class="col-lg-5">
                     <div class="ratio ratio-1x1">
                       <img
-                        src="{{ asset('admin/assets/uploads/'.$aboutus->image) }}"
+                        src="{{ asset('/storage/about_us/'.$aboutus->image) }}"
                         alt="Post"
                         width="600"
                         height="700"
@@ -72,7 +71,7 @@
                   <div class="col-lg-7 align-self-end">
                     <h3 class="h2 fw-bold">Who we are?</h3>
                     <p class="text-body-tertiary">
-                    {!!  $aboutus->detail ?? "" !!}
+                    {!!  $aboutus->details ?? "" !!}
                     </p>
                   </div>
                 </div>
@@ -87,7 +86,7 @@
           <div
             class="bg-holder"
             style="
-              background-image: url('{{asset('website/assets')}}/frontend_assets/images/about-us/curve-lines-bg.png');
+              background-image: url('{{asset('/storage/website/assets')}}/frontend_assets/images/about-us/curve-lines-bg.png');
             "
           ></div>
           <div class="section-fancy-slider">
@@ -119,7 +118,7 @@
                       class="img-fluid object-fit-cover rounded"
                     >
               
-                      <source src="{{asset('admin/assets/uploads/videos/'.$aboutus->promotional_video)}}" type="video/mp4" />
+                      <source src="{{asset('/storage/about_us/'.$aboutus->promotional_video)}}" type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
                   </div>
@@ -138,23 +137,23 @@
                     <div class="col-md-6">
                       <div class="card our-prompt-stat--card">
                         <div class="card-body p-4">
-                          <h4 class="h2 text-primary mb-2">{{ totalGigs() }}</h4>
-                          <p class="fs-5 text-white mb-0">Total Gigs</p>
+                          <h4 class="h2 text-primary mb-2"></h4>
+                          <p class="fs-5 text-white mb-0">Products</p>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="card our-prompt-stat--card">
                         <div class="card-body p-4">
-                          <h4 class="h2 text-primary mb-2">{{ totalJobPosts() }}</h4>
-                          <p class="fs-5 text-white mb-0">Marketplace</p>
+                          <h4 class="h2 text-primary mb-2"></h4>
+                          <p class="fs-5 text-white mb-0">Selling</p>
                         </div>
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="card our-prompt-stat--card">
                         <div class="card-body p-4">
-                          <h4 class="h2 text-primary mb-2">{{ totalUsers() }}</h4>
+                          <h4 class="h2 text-primary mb-2"></h4>
                           <p class="fs-5 text-white mb-0">Users</p>
                         </div>
                       </div>
@@ -162,7 +161,7 @@
                     <div class="col-md-6">
                       <div class="card our-prompt-stat--card">
                         <div class="card-body p-4">
-                          <h4 class="h2 text-primary mb-2">{{ totalBlogs() }}</h4>
+                          <h4 class="h2 text-primary mb-2"></h4>
                           <p class="fs-5 text-white mb-0">Blogs</p>
                         </div>
                       </div>
