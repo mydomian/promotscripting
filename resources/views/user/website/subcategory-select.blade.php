@@ -23,18 +23,21 @@
                                         What type of GPT prompt is this?
                                     </p>
                                     <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <select name="sub_category_id"
                                             class="form-control mt-2 bg-transparent form-select @error('sub_category_id')is-invalid  @enderror"
                                             id="">
                                             <option class="bg-body" value="" selected>Select sub category</option>
-                                            @forelse ($subcategories  as $subcategory)
-                                                <option class="bg-body" value="{{ $subcategory->id }}">
-                                                    {{ $subcategory->category_name }}</option>
+                                            @forelse ($categories  as $category)
+                                                <option class="bg-body" value="" disabled>{{ $category->category_name }}</option>
+                                                    @forelse ($category['subCategories'] as $subCategory)
+                                                        <option class="bg-body" value="{{ $subCategory->id }}"> ➥ {{ $subCategory->category_name }}</option>
+                                                    @empty
+                                                    @endforelse
                                             @empty
                                             @endforelse
                                         </select>
-                                        @error('category_id')
+                                        @error('sub_category_id')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -45,18 +48,21 @@
                                         Which sub type is that GPT?
                                     </p>
                                     <i class="text-secondary"><small>Select what sub type of GPT prompt this is.</small></i>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <select name="sub_sub_category_id"
                                             class="form-control mt-2 bg-transparent form-select @error('sub_sub_category_id')is-invalid  @enderror"
                                             id="">
                                             <option class="bg-body" value="" selected>Select sub sub category</option>
-
-                                            <option class="bg-body" value="1">Ads</option>
-                                            <option class="bg-body" value="2">Business</option>
-                                            <option class="bg-body" value="3">Chatbots</option>
-                                            <option class="bg-body" value="4">Emails</option>
-                                            <option class="bg-body" value="5">Fashion</option>
-                                            <option class="bg-body" value="6">Finance</option>
+                                            @if (!empty($subcategories))
+                                                @foreach ($subcategories as $subcategory)
+                                                    <option value="" disabled>{{ $subcategory->category_name }}</option>
+                                                        @if(!empty($subcategory['subSubCategories']))
+                                                            @foreach ($subcategory['subSubCategories'] as $subSubcategory)
+                                                                <option class="bg-body" value="{{ $subSubcategory->id }}"> ➥ {{ $subSubcategory->category_name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                @endforeach
+                                            @endif
 
                                         </select>
                                         @error('sub_sub_category_id')
@@ -92,23 +98,16 @@
                                     <label for="" class="form-label"><span class="text-danger">*</span>
                                         Engine</label>
                                     <small class="text-secondary">What GPT Engine does this prompt use?</small>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <select name="gpt_engine"
                                             class="form-control mt-2 bg-transparent form-select @error('gpt_engine')is-invalid  @enderror"
                                             id="">
                                             <option class="bg-body" value="" selected>Select enginee</option>
 
-                                            <option class="bg-body" value="1">text-davinci-003</option>
-                                            <option class="bg-body" value="2">text-davinci-002</option>
-                                            <option class="bg-body" value="3">text-curie-001</option>
-                                            <option class="bg-body" value="4">text-babbage-001</option>
-                                            <option class="bg-body" value="5">text-ada-001</option>
-                                            <option class="bg-body" value="6">text-davinci-001</option>
-                                            <option class="bg-body" value="7">davinci-instruct-beta</option>
-                                            <option class="bg-body" value="8">davinci</option>
-                                            <option class="bg-body" value="9">curie</option>
-                                            <option class="bg-body" value="10">babbage</option>
-                                            <option class="bg-body" value="11">ada</option>
+                                            @forelse ($gptEngines as $engine)
+                                                <option class="bg-body" value="{{ $engine }}">{{ $engine }}</option>
+                                            @empty
+                                            @endforelse
 
                                         </select>
                                         @error('gpt_engine')
@@ -160,14 +159,14 @@
                 @endif
 
 
-                @if ($data['category_id'] == 2)
+                @if ($data['category_id'] == 5)
                     <div class="row">
                         <div class="col-md-6">
-                                <div class="text-secondary mb-4">
-                                    <h3 class="mb-4">Prompt File</h3>
-                                    <p class="mb-0">Copy and paste your Midjourney prompt.</p>
-                                    <strong class="mt-0 "><span>*</span> Include all your settings as tags within the prompt (e.g. --v 4 --q 2)</strong>
-                                </div>
+                            <div class="text-secondary mb-4">
+                                <h3 class="mb-4">Prompt File</h3>
+                                <p class="mb-0">Copy and paste your Midjourney prompt.</p>
+                                <strong class="mt-0 "><span>*</span> Include all your settings as tags within the prompt (e.g. --v 4 --q 2)</strong>
+                            </div>
                             <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="category_id" value="{{ $data['category_id'] }}"
@@ -182,18 +181,21 @@
                                         What type of GPT prompt is this?
                                     </p>
                                     <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <select name="sub_category_id"
                                             class="form-control mt-2 bg-transparent form-select @error('sub_category_id')is-invalid  @enderror"
                                             id="">
                                             <option class="bg-body" value="" selected>Select sub category</option>
-                                            @forelse ($subcategories  as $subcategory)
-                                                <option class="bg-body" value="{{ $subcategory->id }}">
-                                                    {{ $subcategory->category_name }}</option>
+                                            @forelse ($categories  as $category)
+                                                <option class="bg-body" value="" disabled>{{ $category->category_name }}</option>
+                                                    @forelse ($category['subCategories'] as $subCategory)
+                                                        <option class="bg-body" value="{{ $subCategory->id }}"> ➥ {{ $subCategory->category_name }}</option>
+                                                    @empty
+                                                    @endforelse
                                             @empty
                                             @endforelse
                                         </select>
-                                        @error('category_id')
+                                        @error('sub_category_id')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -204,18 +206,22 @@
                                         What type of GPT prompt is this?
                                     </p>
                                     <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
-                                    <div class="col-md-4">
+                                    <div class="col-md-12">
                                         <select name="sub_sub_category_id"
                                             class="form-control mt-2 bg-transparent form-select @error('sub_sub_category_id')is-invalid  @enderror"
                                             id="">
-                                            <option class="bg-body" value="" selected>Select sub category</option>
-                                          
-                                                <option class="bg-body" value="1">sub_sub_1 </option>
-                                                <option class="bg-body" value="2">sub_sub_2 </option>
-                                                <option class="bg-body" value="3">sub_sub_3 </option>
-                                                <option class="bg-body" value="4">sub_sub_4 </option>
-                                                <option class="bg-body" value="5">sub_sub_5 </option>
-                                            
+                                            <option class="bg-body" value="" selected>Select sub sub category</option>
+                                            @if (!empty($subcategories))
+                                                @foreach ($subcategories as $subcategory)
+                                                    <option value="" disabled>{{ $subcategory->category_name }}</option>
+                                                        @if(!empty($subcategory['subSubCategories']))
+                                                            @foreach ($subcategory['subSubCategories'] as $subSubcategory)
+                                                                <option class="bg-body" value="{{ $subSubcategory->id }}"> ➥ {{ $subSubcategory->category_name }}</option>
+                                                            @endforeach
+                                                        @endif
+                                                @endforeach
+                                            @endif
+
                                         </select>
                                         @error('sub_sub_category_id')
                                             <small class="text-danger">{{ $message }}</small>

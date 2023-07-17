@@ -26,7 +26,7 @@
                    <div class="col-md-12 d-flex flex-column text-white mb-3">
                         <label for="" class="form-label">Prompt Type</label>
                         <i class="text-secondary"><small>Select the type of prompt you want to sell</small></i>
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <select name="category_id" class="form-control mt-2 bg-transparent form-select @error('category_id')is-invalid  @enderror" id="">
                                 <option class="bg-body" value="" selected>Select category</option>
                                 @forelse ($categories  as $category )
@@ -63,13 +63,8 @@
                    <div class="col-md-12 d-flex flex-column text-white mb-3">
                         <label for="" class="form-label">Estimeted Price</label>
                         <i class="text-secondary"><small class="">What do you think the price of this prompt should be?</small></i>
-                        <div class="col-md-2">
-                          <select name="price" class="form-control mt-2 bg-transparent form-select @error('price')is-invalid  @enderror" id="">
-                              <option class="bg-body" value="{{'2.99'}}" selected>$2.99</option>
-                              <option  class="bg-body" value="{{'3.99'}}">$3.99</option>
-                              <option  class="bg-body" value="{{'4.99'}}">$4.99</option>
-                              <option  class="bg-body" value="{{'5.99'}}">$5.99</option>
-                          </select>
+                        <div class="col-md-12">
+                          <input type="number" name="price" class="form-control bg-body @error('price') is-invalid  @enderror" placeholder="Enter your price" step="any" min="1">
                           @error('price')
                               <small class="text-danger">{{$message}}</small>
                           @enderror

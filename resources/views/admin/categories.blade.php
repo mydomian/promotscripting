@@ -23,12 +23,12 @@ Categories
 <div class="card">
     <div class="card-body">
         <div class="row mb-5">
-            <div class="col-md-10"><h6 class="card-title">Categories</h6></div>
-            <div class="col-md-2">
+            <div class="col-md-9"><h6 class="card-title">Categories</h6></div>
+            {{-- <div class="col-md-3">
                 <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="modal"
                         data-bs-target="#AddCategory">Add Category
                 </button>
-            </div>
+            </div> --}}
         </div>
         <div class="table-responsive">
             <table id="dataTableCategory" class="table">
@@ -40,7 +40,7 @@ Categories
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Edit</th>
-                    <th>Delete</th>
+                    {{-- <th>Delete</th> --}}
                 </tr>
                 </thead>
                 <tbody>
@@ -70,11 +70,11 @@ Categories
                                     <i data-feather="edit"></i>
                                 </a>
                             </td>
-                            <td>
+                            {{-- <td>
                                 <a href="javascript:;" getUrl="{{ route('admin.categoryDestroy',['category'=>$category->id]) }}" class="btn btn-outline-danger btn-icon oncategoryDelete">
                                     <i data-feather="trash"></i>
                                 </a>
-                            </td>
+                            </td> --}}
                         </tr>
 
                         {{--  update modal--}}
@@ -130,38 +130,38 @@ Categories
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="AddCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-md">
-<div class="modal-content">
-<div class="modal-header bg-dark">
-    <h5 class="modal-title text-white" id="exampleModalLabel">Add Category</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-</div>
-<div class="modal-body">
-    <div class="container">
-        <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label> Category Name </label>
-                        <input type="text" name="category_name" autocomplete="off" class="form-control"
-                                required="" placeholder="Category Name . . . ">
-                        <label class="mt-2"> Category Icon </label>
-                        <input type="file" name="category_icon" autocomplete="off" class="form-control"
-                                required="" accept="image/*">
-                    </div>
-                    <div class="col-md-12 text-end mt-2">
-                        <button class="btn btn-sm btn-dark" type="submit">Save <i data-feather="save"></i></button>
-                    </div>
+{{-- <div class="modal fade" id="AddCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Add Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="{{ route('categories.store') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label> Category Name </label>
+                                    <input type="text" name="category_name" autocomplete="off" class="form-control"
+                                            required="" placeholder="Category Name . . . ">
+                                    <label class="mt-2"> Category Icon </label>
+                                    <input type="file" name="category_icon" autocomplete="off" class="form-control"
+                                            required="" accept="image/*">
+                                </div>
+                                <div class="col-md-12 text-end mt-2">
+                                    <button class="btn btn-sm btn-dark" type="submit">Save <i data-feather="save"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
-</div>
-</div>
-</div>
+</div> --}}
 
 @endsection
 @push('scripts')

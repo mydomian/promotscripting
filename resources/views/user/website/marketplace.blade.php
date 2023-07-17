@@ -4,7 +4,6 @@
    Marketplace
 @endsection
 @section('marketplace','active')
-
 @section('content')
 <main class="flex-shrink-0 bg-body">
     <!-- Hero Marketplace -->
@@ -17,7 +16,7 @@
           <span class="fw-semibold text-primary">Marketplace</span>
         </h2>
         <p class="text-white text-center mb-0">
-          Find the very best ChatGPT Prompt Scripts for your Project today
+          Find the very best ChatGPT And Midjourney Prompt Scripts for your Project today
         </p>
       </div>
     </section>
@@ -27,7 +26,7 @@
     <section class="marketplace-area section pt-4">
       <div class="container">
         <div class="row">
-          <div class="col-xl-3">
+          <div class="col-xl-3 col-lg-0 col-md-0 col-sm-12">
             <aside
               class="offcanvas offcanvas-start marketplace--sidebar"
               tabindex="-1"
@@ -52,7 +51,7 @@
                     aria-expanded="false"
                     aria-controls="collapseMarketplaceItem1"
                   >
-                    <h5>Price range</h5>
+                    <h6>Price range</h6>
                     <i class="fa-solid fa-chevron-up icon"></i>
                   </header>
                   <div class="collapse show" id="collapseMarketplaceItem1">
@@ -101,24 +100,22 @@
                     aria-expanded="false"
                     aria-controls="collapseMarketplaceItem2"
                   >
-                    <h5>Categories</h5>
+                    <h6>Categories</h6>
                     <i class="fa-solid fa-chevron-up icon"></i>
                   </header>
                   <div class="collapse show" id="collapseMarketplaceItem2">
                     <form action="#" method="post">
-                      <div class="d-flex flex-column gap-3">
+                      <div class="d-flex flex-column gap-1">
                         @foreach ($categories as $category)
-                          <div class="ps-marketplace--item d-flex align-items-center justify-content-between gap-3">
+                          <div class="ps-marketplace--item d-flex align-items-center justify-content-between">
                             <div class="form-check">
                               <input class="form-check-input left_category" name="filter_category" type="checkbox" value="{{ $category->id }}" id="category{{ $category->id }}"
                               />
-                              <label class="form-check-label text-white" for="category{{ $category->id }}">{{ $category->category_name ?? "" }}</label>
+                              <label class="form-check-label text-white" style="font-size: 12px;" for="category{{ $category->id }}">{{ $category->category_name ?? "" }}</label>
                             </div>
-                            {{ $category->job_post_count }}
+                            {{-- {{ $category->job_post_count }} --}}
                           </div>
                         @endforeach
-                        
-
                       </div>
                     </form>
                   </div>
@@ -127,15 +124,13 @@
               </div>
             </aside>
           </div>
-          <div class="col-xl-9">
+          <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12">
             <div
               class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
             >
-              <span class="text-body-tertiary">
-                Showing {{ $jobPosts->count() }} of {{ totalJobPosts() }} results
-              </span>
+              
               <div class="d-flex align-items-center gap-2 gap-lg-3 ms-auto">
-                <select class="ps-select ps-select--unstyled filter-right">
+                <select class="ps-select ps-select--unstyled filter-price-value">
                     <option value="default">Default</option>
                     <option value="low">Low to High</option>
                     <option value="high">High to Low</option>
@@ -156,8 +151,8 @@
                @include('user.website.includes.marketplace_append')
             </div>
             
-            <div class="d-flex justify-content-center">
-                {!! $jobPosts->render() !!}
+            <div class="d-flex justify-content-center mt-5">
+                {!! $marketPlaces->render() !!}
             </div>
           </div>
         </div>
@@ -170,9 +165,8 @@
     <script>
         $(document).ready(function() {
             
-            $('.filter-right').on('change', function() {
+            $('.filter-price-value').on('change', function() {
                 var type = $(this).val();
-
                 $.ajax({
                 url: "{{ route('marketplace') }}",
                 method: "post",
