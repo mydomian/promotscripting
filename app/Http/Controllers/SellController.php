@@ -53,7 +53,7 @@ class SellController extends Controller
         
         
         $subcategories = SubCategory::where('category_id',$data['category_id'])->get();
-
+        
         
         return view('user.website.subcategory-select', compact('subcategories','data'));
     }
@@ -79,19 +79,22 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
-        
+       
         $request->validate([
+            'category_id'           => 'required',
             'sub_category_id'       => 'required',
             'sub_sub_category_id'    => 'required',
-            'prompt_file'           => 'required|json',
-            'prompt_testing'        => 'required',
-            'gpt_engine'            => 'required',
-            'preview_input'         =>'required',
-            'preview_output'        =>'required',
-            'instructions'          => 'string'
+            'prompt_file'           => 'required_if:category_id,1|json',
+            'prompt_testing'        => 'required_if:category_id,1',
+            'gpt_engine'            => 'required_if:category_id,1',
+            'preview_input'         =>  'required_if:category_id,1',
+            'preview_output'        =>  'required_if:category_id,1',
+            'midjourney_text'       => 'required_if:category_id,2',
+            'midjourney_profile'    => 'required_if:category_id,2',
+            'instructions'          => 'required|string'
         ]);
         
-        Product::create([
+       $products = Product::create([
             'user_id'                  => Auth::id(),
             'sub_sub_category_id'      => $request->sub_sub_category_id,
             'title'                    => $request->title,
@@ -100,15 +103,21 @@ class SellController extends Controller
             'description'              => $request->description,
             'words'                    => Str::of($request->description)->wordCount(),
             'is_tips'                  => $request->instructions ? 'yes' :'no',
-            'is_tested'                => $request->prompt_testing ? 'yes' : 'no',
+            'is_tested'                => ($request->prompt_testing ?? $request->midjourney_text) ? 'yes' : 'no',
             'is_hq_images'             => 'no',
             'status'                   => 'active',
-            'prompt_testing'           => $request->prompt_testing ,
-            'gpt_engine_id'            => $request->gpt_engine_id,
-            'preview_input'            => $request->preview_input,
-            'preview_output'           => $request->preview_output,
+            'prompt_testing'           => $request->prompt_testing ?? '' ,
+            'gpt_engine_id'            => $request->gpt_engine_id ?? '0',
+            'preview_input'            => $request->preview_input ?? '',
+            'preview_output'           => $request->preview_output ?? '',
             'instructions'             => $request->instructions
         ]);
+
+        if($request->file('images')){
+                
+        }
+
+
 
 
         return redirect()->route('home')->with('success', 'Posted Successful');

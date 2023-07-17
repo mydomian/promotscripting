@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label">Prompt Sub Type</label>
-                                    <p>
+                                    <p class="text-secondary">
                                         Which sub type is that GPT?
                                     </p>
                                     <i class="text-secondary"><small>Select what sub type of GPT prompt this is.</small></i>
@@ -163,8 +163,12 @@
                 @if ($data['category_id'] == 2)
                     <div class="row">
                         <div class="col-md-6">
-
-                            <form action="{{ route('sell.store') }}" method="POST">
+                                <div class="text-secondary mb-4">
+                                    <h3 class="mb-4">Prompt File</h3>
+                                    <p class="mb-0">Copy and paste your Midjourney prompt.</p>
+                                    <strong class="mt-0 "><span>*</span> Include all your settings as tags within the prompt (e.g. --v 4 --q 2)</strong>
+                                </div>
+                            <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="category_id" value="{{ $data['category_id'] }}"
                                     id="">
@@ -173,8 +177,53 @@
                                     id="">
                                 <input type="hidden" name="price" value="{{ $data['price'] }}" id="">
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
-                                    <label for="" class="form-label"><span class="text-danger">*</span> Prompt
-                                        File</label>
+                                    <label for="" class="form-label">Prompt sub Type</label>
+                                    <p>
+                                        What type of GPT prompt is this?
+                                    </p>
+                                    <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
+                                    <div class="col-md-4">
+                                        <select name="sub_category_id"
+                                            class="form-control mt-2 bg-transparent form-select @error('sub_category_id')is-invalid  @enderror"
+                                            id="">
+                                            <option class="bg-body" value="" selected>Select sub category</option>
+                                            @forelse ($subcategories  as $subcategory)
+                                                <option class="bg-body" value="{{ $subcategory->id }}">
+                                                    {{ $subcategory->category_name }}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                        @error('category_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                    <label for="" class="form-label">Prompt sub sub Type</label>
+                                    <p>
+                                        What type of GPT prompt is this?
+                                    </p>
+                                    <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
+                                    <div class="col-md-4">
+                                        <select name="sub_sub_category_id"
+                                            class="form-control mt-2 bg-transparent form-select @error('sub_sub_category_id')is-invalid  @enderror"
+                                            id="">
+                                            <option class="bg-body" value="" selected>Select sub category</option>
+                                          
+                                                <option class="bg-body" value="1">sub_sub_1 </option>
+                                                <option class="bg-body" value="2">sub_sub_2 </option>
+                                                <option class="bg-body" value="3">sub_sub_3 </option>
+                                                <option class="bg-body" value="4">sub_sub_4 </option>
+                                                <option class="bg-body" value="5">sub_sub_5 </option>
+                                            
+                                        </select>
+                                        @error('sub_sub_category_id')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                    <label for="" class="form-label"><span class="text-danger">*</span> Prompt</label>
                                     <small class="text-secondary mb-1">Put any variables in [square brackets].</small>
                                     <textarea name="midjourney_text" id="midjourney_text" class="form-control bg-transparent" rows="5"></textarea>
                                     <div class="error-div"></div>
@@ -188,23 +237,25 @@
                                     <textarea name="instructions" class="form-control bg-transparent" rows="3"
                                         placeholder="To use this prompt you need to..."></textarea>
                                 </div>
-                                <div class="col-md-12 d-flex flex-column text-white">
+                                <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Upload 9
                                         example images generated by this prompt (no collages or edits)</label>
                                     <small class="text-secondary">Only upload your images generated by Midjourney.</small>
                                     <small class="text-secondary">Prompts with more example images usually get more
                                         sales.</small>
 
-                                    <div class="images bg-transparent">
+                                    {{-- <div class="images bg-transparent">
                                         <div class="pic">
                                             add
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    <input type="file" name="images" class="uploader form-conrol bg-transparent mt-2" multiple accept="image/*" />
 
                                 </div>
-                                <div class="col-md-12  d-flex flex-column text-white">
+                                <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Midjourney Profile</label>
-                                    <small class="text-scondary">Copy the midjourney.com/app/users link to your profile (watch our video if you can't find this). You'll need an active Midjourney subscription to get this link.</small>
+                                    <small class="text-secondary">Copy the midjourney.com/app/users link to your profile (watch our video if you can't find this). You'll need an active Midjourney subscription to get this link.</small>
+                                    <input type="text" class="form-control bg-transparent" name="midjourney_profile" placeholder="www.midjourney.com/app/user">
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -312,18 +363,7 @@
     var queue = []
     var fullStock = 10
     var speedCloseNoti = 1000
-    
-    function generateID() {
-      var text = $('header span')
-      var newID = ''
-    
-      for(var i = 0; i < 3; i++) {
-        newID += Math.floor(Math.random() * 3)
-      }
-      
-      ID = 'ID: 5988' + newID
-      text.html(ID)
-    }
+
     
     function choose() {
       var li = $('.ways li')
@@ -375,12 +415,13 @@
         $('.select-option').removeClass('active')   
       })                  
     }
-    var imgCount = 0;
+   
     function uploadImage() {
       var button = $('.images .pic')
-      var uploader = $('<input type="file" name="images[]" accept="image/*" />')
+      var uploader = $('.uploader')
       var images = $('.images')
-   
+      var imageArr = []
+
       
       button.on('click', function () {
         var len = $('.img-len').length+1;
@@ -403,7 +444,10 @@
             images.prepend('<div class="img img-len" style="background-image: url(\'' + event.target.result + '\');" rel="'+ event.target.result  +'"><span>remove</span></div>')
           }
           reader.readAsDataURL(uploader[0].files[0])
-         
+          for(var i = 0; i < images.length; i++) {
+        imageArr.push({url: $(images[i]).attr('rel')})
+        consle.log(imageArr)
+}
        })
       
       images.on('click', '.img', function () {
@@ -421,12 +465,12 @@
           var title = $('#title')
           var cate  = $('#category')
           var images = $('.images .img')
-          var imageArr = []
+        //   var imageArr = []
 
           
-          for(var i = 0; i < images.length; i++) {
-            imageArr.push({url: $(images[i]).attr('rel')})
-          }
+        //   for(var i = 0; i < images.length; i++) {
+        //     imageArr.push({url: $(images[i]).attr('rel')})
+        //   }
           
           var newStock = {
             title: title.val(),
