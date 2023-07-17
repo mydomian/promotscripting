@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -27,5 +28,14 @@ class HomeController extends Controller
         $aboutus = About::first();
         $setting  = Setting::first();
         return view("user.website.aboutus", compact('aboutus','setting'));
+    }
+
+    public function blog(){
+        $blogs = Blog::with('category','subCategory','subSubCategory')->where('status','active')->latest()->paginate(3);
+        return view('user.website.blog',compact('blogs'));
+    }
+
+    public function blogSeeMoreLoad(Blog $blog){
+        return response()->json(['blog'=>$blog]);
     }
 }

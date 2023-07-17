@@ -30,4 +30,28 @@ class BlogController extends Controller
         $blog = $this->services->blogCreate($request->all(),$upload);
         if($blog) return back()->with('success','Blog Created Successfully');
     }
+
+    public function update(Request $request, Blog $blog){
+        if($request->hasFile('image')) $this->services->imageDestroy($blog->image,$request->file('image'),'blog/');
+        $blog = $this->services->blogUpdate($blog, $request->all(),$request->file('image'));
+        if($blog) return back()->with('success','Blog Updated Successfully');
+    }
+
+    public function blogStatus(Request $request, Blog $blog){
+        if($request->type == 'active'){
+            $blog->status = 'active';
+        }elseif($request->type == 'inactive'){
+            $blog->status = 'inactive';
+        }else{
+            $blog->status = 'ban';
+        }
+        $blog->save();
+        return back()->with('success','Blog Status Updated');
+    }
+
+    public function destroy(Blog $blog){
+        $this->services->imageDestroy($blog->image,'blog/');
+        $blog->delete();
+        return back()->with('success','Blog Deleted Successfully');
+    }
 }

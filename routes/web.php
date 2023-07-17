@@ -23,6 +23,8 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('/','home')->name('home');
      Route::match(['get','post'],'/contact-us','contactus')->name('contactus');
      Route::get('/about-us','aboutUs')->name('aboutus');
+     Route::get('/blogs','blog')->name('blogs');
+     Route::get('/blog-load/{blog}','blogSeeMoreLoad')->name('blogSeeMoreLoad');
      
 });
 
@@ -88,10 +90,12 @@ Route::prefix('/admin')->group(function (){
         //status route
         Route::get('/category-status-active/{category}',[CategoryController::class,'categoryStatusActive'])->name('admin.categoryStatusActive');
         Route::get('/category-status-inactive/{category}',[CategoryController::class,'categoryStatusInactive'])->name('admin.categoryStatusInactive');
+        Route::get('/blog-status/{blog}',[BlogController::class,'blogStatus'])->name('admin.blogStatus');
         //deleted route
         Route::get('/category-delete/{category}',[CategoryController::class,'destroy'])->name('admin.categoryDestroy');
         Route::get('/sub-category-delete/{subcategory}',[SubCategoryController::class,'destroy'])->name('admin.subCategoryDestroy');
         Route::get('/sub-sub-category-delete/{subsubcategory}',[SubSubCategoryController::class,'destroy'])->name('admin.subSubCategoryDestroy');
+        Route::get('/blog-delete/{blog}',[BlogController::class,'destroy'])->name('admin.blogDestroy');
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });

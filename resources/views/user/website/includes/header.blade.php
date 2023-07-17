@@ -104,7 +104,7 @@ $system = App\Models\Setting::first();
                 <a class="nav-link @yield('sell')" href="{{route('sell.index')}}"> Sell </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('blog')" href="#"> Blog </a>
+                <a class="nav-link @yield('blog')" href="{{ route('blogs') }}"> Blog </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link @yield('about')" href="{{ route('aboutus') }}"> About </a>
