@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Str;
 use App\Models\SubCategory;
+use App\Models\SubSubCategory;
 use Illuminate\Http\Request;
 use App\Services\Services;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class SellController extends Controller
      */
     public function create()
     {   
-        $categories = Category::get();
+        $categories = Category::where('status','active')->get();
         return view('user.website.create-prompt',compact('categories'));
     }
 
@@ -55,12 +56,11 @@ class SellController extends Controller
         $data['title']          = $request->title;
         $data['description']    = $request->description;
         $data['price']          = $request->price;
-       
-        
-        $subcategories = SubCategory::where('category_id',$data['category_id'])->get();
-        
-        
-        return view('user.website.subcategory-select', compact('subcategories','data'));
+        $gptEngines = $GPT_ENGINS = ['text-davinci-003','text-davinci-002','text-curie-001','text-babbage-001','text-ada-001','text-davinci-001','davinci-instruct-beta','davinci','curie','babbage','ada'];
+        $categories = Category::with('subCategories')->where('status','active')->latest()->get();
+        $subcategories = SubCategory::with('subSubCategories')->get();
+        return view('user.website.subcategory-select', compact('categories','subcategories','data','gptEngines'));
+
     }
 
    

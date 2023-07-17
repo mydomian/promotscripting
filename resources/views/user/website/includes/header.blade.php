@@ -51,7 +51,17 @@ $system = App\Models\Setting::first();
         overflow-y: auto;
         height: 250px;
         resize: none; /* Remove this if you want the user to resize the textarea */
-    }
+      }
+
+      /* .related-tag{
+        background: black;
+        height: auto;
+        color:white;
+        margin: 5px;
+        align-items: center;
+        opacity: .5;
+        
+      } */
     </style>
   </head>
   <body class="d-flex flex-column min-vh-100">
@@ -95,7 +105,7 @@ $system = App\Models\Setting::first();
               </li>
               <li class="nav-item">
                 {{-- {{route('marketplace')}} --}}
-                <a class="nav-link @yield('marketplace')" href="#"> Marketplace </a>
+                <a class="nav-link @yield('marketplace')" href="{{ route('marketplace') }}"> Marketplace </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link @yield('hire')" href="#"> Hire </a>
