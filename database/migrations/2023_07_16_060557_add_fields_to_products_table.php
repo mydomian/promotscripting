@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('gpt_engine_id')->nullable();
             $table->text('preview_input')->nullable();
             $table->text('preview_output')->nullable();
+            $table->text('midjourney_text')->nullable();
+            $table->text('midjourney_profile')->nullable();
             $table->text('instructions')->nullable();
         });
     }
