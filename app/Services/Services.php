@@ -125,4 +125,23 @@ class Services{
             return $e->getMessage();
         }
      }
+     function blogUpdate($blog,$data,$file){
+        try{
+             $blog->category_id = $data['category_id'];
+             $blog->sub_category_id = $data['sub_category_id'];
+             $blog->sub_sub_category_id = $data['sub_sub_category_id'];
+             $blog->title = $data['title'];
+             $blog->description = $data['description'];
+             $blog->slug = Str::slug($data['title'],'-');
+             if($file){
+                $blog->image = $this->imageUpload($file,'blog/');
+             }
+             
+             $blog->save();
+             return $blog;
+        }
+        catch (\Exception $e) {
+         return $e->getMessage();
+        }
+     }
 }

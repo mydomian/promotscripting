@@ -1,7 +1,7 @@
 @php
   $latestFirst = $blogs->first();
 @endphp
-@extends('website.includes.master')
+@extends('user.website.includes.master')
 @section('title')
    Blog
 @endsection
@@ -36,7 +36,7 @@
         <div class="row gy-4 g-md-3 mb-5">
           <div class="col-12">
             <div class="card latest-post--card latest-post--card-featured">
-              <div class="card-body">
+              <div class="card-body" style="height: 100%; overflow:auto">
                 <a href="#" class="latest-post--img">
                   <img
                     src="{{ asset('/storage/blog/'.$latestFirst->image) }}"
@@ -55,15 +55,16 @@
                       {{ $latestFirst->title }}
                     </a>
                   </h3>
+                  <small class="published-date">Writer: {{ $latestFirst->user->name ?? "" }}</small>
+                  <small class="published-date">Category: {{ $latestFirst->category->category_name ?? ""}}</small>
+                  <small class="published-date">Subcategory : {{ $latestFirst->subCategory->category_name ?? ""}}</small>
+                  <small class="published-date">Sub Subcategory : {{ $latestFirst->subSubCategory->category_name ?? ""}}</small>
                   <small class="published-date">{{ date('d F Y', strtotime($latestFirst->created_at)); }}</small>
                   <div class="peraAppend overflow-hidden">
                     <p class="text-body-tertiary latestFirstDes">
-                      {{ Str::limit($latestFirst->description,500) ?? "" }}
+                      {{ $latestFirst->description ?? "" }}
                     </p>
                   </div>
-
-                  
-                  <a href="javascript:;" class="link-primary text-decoration-none latestFirstSeeMore" latestFirstId="{{ $latestFirst->id }}">See more</a>
                 </div>
               </div>
             </div>
@@ -72,7 +73,7 @@
           @foreach ($blogs as $blog)
             <div class="col-md-6 col-lg-4">
             <div class="card latest-post--card">
-              <div class="card-body">
+              <div class="card-body" style="height: 100%; overflow:auto">
                 <a href="#" class="latest-post--img">
                   <img
                     src="{{ asset('/storage/blog/'.$blog->image) }}"
@@ -81,24 +82,20 @@
                     height="700"
                     class="img-fluid object-fit-cover"
                   />
-                  <span class="related-tag">{{ $blog->category ? $blog->category->category_name : "" }}</span>
+                  <span class="related-tag">{{ $blog->subSubCategory ? $blog->subSubCategory->category_name : "" }}</span>
                 </a>
                 <div>
-                  <h3 class="h2 fw-bold">
-                    <a
-                      href="#"
-                      class="link-dark text-decoration-none line-clamp line-clamp-3"
-                    >
-                      {{ $blog->title }}
-                    </a>
-                  </h3>
-                  <small class="published-date">{{ date('d F Y', strtotime($blog->created_at)); }}</small>
+                  <h6 class="h6 fw-bold">
+                    <a href="#" class="link-dark text-decoration-none line-clamp line-clamp-3">{{ $blog->title }}</a>
+                  </h6>
+                  <span class="published-date">Writer: {{ $blog->user->name ?? "" }}, {{ date('d F Y', strtotime($blog->created_at)) }}</span>
                   <div class="">
                     <p class="text-body-tertiary mb-4 mb-lg-5  blogDescriptionAppend-{{ $blog->id }}">
-                      {{ Str::limit($blog->description,300) ?? "" }}
+                      {{ Str::limit($blog->description,350) ?? "" }}
                     </p>
                   </div>
                   <a href="javascript:;" class="link-primary text-decoration-none blogSeeMore-{{ $blog->id }}" blogId="{{ $blog->id }}">See more</a>
+                  <a href="javascript:;" class="link-danger text-decoration-none blogLessMore-{{ $blog->id }}" blogId="{{ $blog->id }}">Less more</a>
                 </div>
               </div>
             </div>
@@ -107,6 +104,8 @@
             <script>
                $(document).ready(function(){
                    //blog
+                    
+                    $('.blogLessMore-{{ $blog->id }}').hide();
                     $( ".blogSeeMore-{{ $blog->id }}").click(function() {
                        //blog
                        var blog = $(this).attr('blogId');
@@ -114,17 +113,21 @@
                           url: "{{ route('blogSeeMoreLoad','') }}"+"/"+blog,
                           method: "get",
                           success: function(res) {
-                            console.log(res);
                             $('.blogSeeMore-{{ $blog->id }}').hide();
                             $('.blogDescriptionAppend-{{ $blog->id }}').empty("");
                             $('.blogDescriptionAppend-{{ $blog->id }}').html(res.blog.description);
-                  
+                            $('.blogLessMore-{{ $blog->id }}').show();
                           },
                           error: function(res){
                               console.log((res));
                           }
                         });
                     });
+
+                    $( ".blogLessMore-{{ $blog->id }}").click(function() {
+                        location.reload(true);
+                    });
+                    
                })
             </script>
           @endpush
@@ -140,27 +143,5 @@
   </main>
 @endsection
 @push('scripts')
- <script>
-  $(document).ready(function() {
-    //letestFirstBlog
-    $( ".latestFirstSeeMore" ).click(function() {
-      var blog = $(this).attr('latestFirstId');
-      $.ajax({
-        url: "{{ route('dataSeeMoreLoad','') }}"+"/"+blog,
-        method: "get",
-        success: function(res) {
-          $('.latestFirstSeeMore').hide();
-          $('.latestFirstDes').empty("");
-          $('.latestFirstDes').html(res.blog.description);
-
-        },
-        error: function(res){
-            console.log((res));
-        }
-      });
-    });
-
-    
-  });
- </script>
+ 
 @endpush
