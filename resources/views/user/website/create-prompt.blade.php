@@ -7,6 +7,7 @@
 @section('content')
 <main class="flex-shrink-o">
     <section class="hero-home bg-body">
+
         <div class="container  page-header">
             <div class="row align-items-center">
 

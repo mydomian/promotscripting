@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-md-6">
 
-                            <form action="{{ route('sell.store') }}" method="POST">
+                            <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="category_id" value="{{ $data['category_id'] }}" id="">
-                                <input type="hidden" name="title" value="{{ $data['title'] }}" id="">
-                                <input type="hidden" name="description" value="{{ $data['description'] }}" id="">
-                                <input type="hidden" name="price" value="{{ $data['price'] }}" id="">
+                                <input type="hidden" name="category_id" value="{{ $data['category_id'] ?? old('category_id') }}" id="">
+                                <input type="hidden" name="title" value="{{ $data['title'] ?? old('title') }}" id="">
+                                <input type="hidden" name="description" value="{{ $data['description'] ?? old('description')}}" id="">
+                                <input type="hidden" name="price" value="{{ $data['price'] ?? old('price')}}" id="">
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label">Prompt Type</label>
                                     <p>
@@ -34,7 +34,7 @@
                                             @empty
                                             @endforelse
                                         </select>
-                                        @error('category_id')
+                                        @error('sub_category_id')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -73,7 +73,7 @@
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Prompt
                                         File</label>
-                                    <textarea name="prompt_file" id="prompt_file" class="form-control bg-transparent" rows="10"></textarea>
+                                    <textarea name="prompt_file" id="prompt_file" class="form-control bg-transparent" rows="10">{{old('prompt_file')}}</textarea>
                                     <div class="error-div"></div>
                                 </div>
 
@@ -84,7 +84,7 @@
                                         e.g. if your prompt contained a variable like [Tone of voice], this variable should
                                         be changed to "happy" or "sad" in your test prompt. Buyers will not see this, it is
                                         only for PromptBase's internal testing.</small>
-                                    <textarea name="prompt_testing" id="testing_prompt" class="form-control bg-transparent" rows="10"></textarea>
+                                    <textarea name="prompt_testing" id="testing_prompt" class="form-control bg-transparent" rows="10">{{old('prompt_testing')}}</textarea>
                                     <div class="error-div"></div>
                                 </div>
 
@@ -118,6 +118,15 @@
                                     </div>
                                     <div class="error-div"></div>
                                 </div>
+                                <div class="c0l-md-12 d-flex flex-column text-white mb-3">
+                                    <label for="" class="form-label"><span class="text-danger">*</span> Upload thumbnail image</label>
+                                    <small class="text-secondary">Only upload your thumbnail image </small>
+                                   
+                                    <input type="file" name="image" class="uploader form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" multiple accept="image/*" />
+                                    @error('image')
+                                        <small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Preview
                                         input</label>
@@ -125,7 +134,7 @@
                                             show a potential buyer. Don't include your whole prompt here, just the bits that
                                             are editable - e.g. [Company]: Microsoft, [Tone of voice]: Happy.</small></i>
                                     <textarea name="preview_input" class="form-control bg-transparent @error('preview_input') is-invalid @enderror"
-                                        rows="3" placeholder="To use this prompt you need to..."></textarea>
+                                        rows="3" placeholder="To use this prompt you need to...">{{old('preview_input')}}</textarea>
                                     @error('preview_input')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -137,7 +146,7 @@
                                             demonstrate to a potential buyer what your prompt does. Do not include your
                                             input prompt.</small></i>
                                     <textarea name="preview_output" class="form-control bg-transparent" rows="3"
-                                        placeholder="To use this prompt you need to..."></textarea>
+                                        placeholder="To use this prompt you need to...">{{old('preview_output')}}</textarea>
                                 </div>
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
                                     <label for="" class="form-label"><span class="text-danger">*</span>Prompt
@@ -146,7 +155,7 @@
                                             to use
                                             this prompt.</small></i>
                                     <textarea name="instructions" class="form-control bg-transparent" rows="3"
-                                        placeholder="To use this prompt you need to..."></textarea>
+                                        placeholder="To use this prompt you need to...">{{old('instructions')}}</textarea>
                                 </div>
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -160,7 +169,7 @@
                 @endif
 
 
-                @if ($data['category_id'] == 2)
+                @if ($data['category_id'] == 2 || $data['category_id'] == 4)
                     <div class="row">
                         <div class="col-md-6">
                                 <div class="text-secondary mb-4">
@@ -170,12 +179,12 @@
                                 </div>
                             <form action="{{ route('sell.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="category_id" value="{{ $data['category_id'] }}"
+                                <input type="hidden" name="category_id" value="{{ $data['category_id'] ?? old('category_id')}}"
                                     id="">
-                                <input type="hidden" name="title" value="{{ $data['title'] }}" id="">
-                                <input type="hidden" name="description" value="{{ $data['description'] }}"
+                                <input type="hidden" name="title" value="{{ $data['title'] ??old('title') }}" id="">
+                                <input type="hidden" name="description" value="{{ $data['description'] ?? old('description')}}"
                                     id="">
-                                <input type="hidden" name="price" value="{{ $data['price'] }}" id="">
+                                <input type="hidden" name="price" value="{{ $data['price'] ?? old('price') }}" id="">
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label">Prompt sub Type</label>
                                     <p>
@@ -193,7 +202,7 @@
                                             @empty
                                             @endforelse
                                         </select>
-                                        @error('category_id')
+                                        @error('sub_category_id')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
@@ -225,8 +234,11 @@
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Prompt</label>
                                     <small class="text-secondary mb-1">Put any variables in [square brackets].</small>
-                                    <textarea name="midjourney_text" id="midjourney_text" class="form-control bg-transparent" rows="5"></textarea>
+                                    <textarea name="midjourney_text" id="midjourney_text" class="form-control bg-transparent" rows="5">{{old('midjourney_text')}}</textarea>
                                     <div class="error-div"></div>
+                                    @error('midjourney_text')
+                                         <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
                                     <label for="" class="form-label"><span class="text-danger">*</span>Prompt
@@ -235,7 +247,19 @@
                                             to use
                                             this prompt.</small></i>
                                     <textarea name="instructions" class="form-control bg-transparent" rows="3"
-                                        placeholder="To use this prompt you need to..."></textarea>
+                                        placeholder="To use this prompt you need to...">{{old('instructions')}}</textarea>
+                                        @error('instructions')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                </div>
+                                <div class="c0l-md-12 d-flex flex-column text-white mb-3">
+                                    <label for="" class="form-label"><span class="text-danger">*</span> Upload thumbnail image</label>
+                                    <small class="text-secondary">Only upload your thumbnail image </small>
+                                   
+                                    <input type="file" name="image" class="uploader form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" multiple accept="image/*" />
+                                    @error('image')
+                                        <small class="text-danger">{{$message}}</small>
+                                    @enderror
                                 </div>
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Upload 9
@@ -249,14 +273,32 @@
                                             add
                                         </div>
                                     </div> --}}
-                                    <input type="file" name="images" class="uploader form-conrol bg-transparent mt-2" multiple accept="image/*" />
-
+                                    <input type="file" name="images[]" class="uploader form-conrol bg-transparent mt-2 @error('images')is-invalid @enderror" multiple accept="image/*" />
+                                    @error('images')
+                                        <small class="text-danger">{{$message}}</small>
+                                    @enderror
                                 </div>
+                                @if($data['category_id'] == 2)
                                 <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Midjourney Profile</label>
                                     <small class="text-secondary">Copy the midjourney.com/app/users link to your profile (watch our video if you can't find this). You'll need an active Midjourney subscription to get this link.</small>
-                                    <input type="text" class="form-control bg-transparent" name="midjourney_profile" placeholder="www.midjourney.com/app/user">
+                                    <input type="text" class="form-control bg-transparent" name="midjourney_profile" value="{{old('midjourney_profile')}}" placeholder="www.midjourney.com/app/user">
+                                    @error('midjourney_profile')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
+                                @endif
+
+                                @if ($data['category_id'] == 4)
+                                <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
+                                    <label for="" class="form-label"><span class="text-danger">*</span> Image Verification Link</label>
+                                    <small class="text-secondary">Copy the labs.openai.com share link to one of your images.</small>
+                                    <input type="text" class="form-control bg-transparent" name="image_verification" value="{{old('image_verification')}}" placeholder="https://labs.openai.com/a/abcd123">
+                                    @error('image_verification')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                @endif
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Next
@@ -267,6 +309,7 @@
                         </div>
                     </div>
                 @endif
+                
             </div>
         </section>
     </main>
