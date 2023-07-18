@@ -60,7 +60,7 @@
                         <div class="col-6">
                             <input
                             type="hidden"
-                            name="price"
+                            name="filterType"
                             value="priceFilter"
                             />
                           <input
@@ -109,18 +109,80 @@
                         @foreach ($categories as $category)
                           <div class="ps-marketplace--item d-flex align-items-center justify-content-between">
                             <div class="form-check">
-                              <input class="form-check-input left_category" name="filter_category" type="checkbox" value="{{ $category->id }}" id="category{{ $category->id }}"
+                              <input class="form-check-input categoryFilter" name="category[]" type="checkbox" value="{{ $category->id }}" id="category{{ $category->id }}"
                               />
                               <label class="form-check-label text-white" style="font-size: 12px;" for="category{{ $category->id }}">{{ $category->category_name ?? "" }}</label>
                             </div>
-                            {{-- {{ $category->job_post_count }} --}}
                           </div>
                         @endforeach
                       </div>
                     </form>
                   </div>
                 </div>
-               
+                <hr class="ps-hr" />
+                <div class="marketplace--sidebar-block">
+                  <header
+                    class="d-flex gap-3 align-items-start justify-content-between py-3"
+                    style="cursor: pointer"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseMarketplaceItem3"
+                    aria-expanded="false"
+                    aria-controls="collapseMarketplaceItem3"
+                  >
+                    <h6>Subcategories</h6>
+                    <i class="fa-solid fa-chevron-up icon"></i>
+                  </header>
+                  <div class="collapse show" id="collapseMarketplaceItem3">
+                    <form action="#" method="post">
+                      <div class="d-flex flex-column gap-1">
+                        
+                        @forelse ($subCategories as $subCategory)
+                          <div class="ps-marketplace--item d-flex align-items-center justify-content-between">
+                            <div class="form-check">
+                              <input class="form-check-input subCategoryFilter" name="subCategory[]" type="checkbox" value="{{ $subCategory->id }}" id="subCategory{{ $subCategory->id }}"
+                              />
+                              <label class="form-check-label text-white" style="font-size: 12px;" for="subCategory{{ $subCategory->id }}">{{ $subCategory->category_name ?? "" }}</label>
+                            </div>
+                          </div>
+                        @empty
+                        <small>No data found</small>
+                        @endforelse
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <hr class="ps-hr" />
+                <div class="marketplace--sidebar-block">
+                  <header
+                    class="d-flex gap-3 align-items-start justify-content-between py-3"
+                    style="cursor: pointer"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseMarketplaceItem4"
+                    aria-expanded="false"
+                    aria-controls="collapseMarketplaceItem4"
+                  >
+                    <h6>Sub Subcategories</h6>
+                    <i class="fa-solid fa-chevron-up icon"></i>
+                  </header>
+                  <div class="collapse show" id="collapseMarketplaceItem4">
+                    <form action="#" method="post">
+                      <div class="d-flex flex-column gap-1">
+                        
+                        @forelse ($subSubCategories as $subSubCategory)
+                          <div class="ps-marketplace--item d-flex align-items-center justify-content-between">
+                            <div class="form-check">
+                              <input class="form-check-input subSubCategoryFilter" name="subSubCategory[]" type="checkbox" value="{{ $subSubCategory->id }}" id="subSubCategory{{ $subSubCategory->id }}"
+                              />
+                              <label class="form-check-label text-white" style="font-size: 12px;" for="subSubCategory{{ $subSubCategory->id }}">{{ $subSubCategory->category_name ?? "" }}</label>
+                            </div>
+                          </div>
+                        @empty
+                        <small>No data found</small>
+                        @endforelse
+                      </div>
+                    </form>
+                  </div>
+                </div>
               </div>
             </aside>
           </div>
@@ -164,7 +226,8 @@
 @push('scripts')
     <script>
         $(document).ready(function() {
-            
+
+            //right price filter
             $('.filter-price-value').on('change', function() {
                 var type = $(this).val();
                 $.ajax({
@@ -184,53 +247,85 @@
               });
             });
 
+            //left price filter
             $('#priceFilterLeft').submit(function(event) {
                 event.preventDefault();
-
                 var formData = $(this).serialize();
-                console.log(formData)
                 $.ajax({
                     type: 'POST',
                     url: "{{ route('marketplace') }}",
                     data: formData,
                     success: function(response) {
-                        console.log(response);
                         $(".marketplace_append_data").html("");
                         $(".marketplace_append_data").html(response);
                     },
                     error: function(error) {
-                            console.log('Form submission error:', error);
+                       console.log((error));
                     }
                 });
             });
 
             //left category checkbox
-            $('.left_category').change(function check(){
-              $('.left_category').each(function(idx, el){
-                  if($(el).is(':checked')){ 
+            $(".categoryFilter").on('click',function () {
+                  var category_id = getFilter('categoryFilter');
+                  $.ajax({
+                    url:"{{ route('marketplace') }}",
+                    method:"post",
+                    data:{category_id:category_id,filterType:'categoryFilter'},
+                    success:function (response) {
                   
-                      var selectedValue = $(el).val();
-                      var type = $(this).attr('name');
-                      $.ajax({
-                        type: 'POST',
-                        url: "{{ route('marketplace') }}",
-                        data: {
-                          selectedValue: selectedValue,
-                          type:type
-                        },
-                        success: function(response) {
-                            
-                            $(".marketplace_append_data").prepend("");
-                            $(".marketplace_append_data").prepend(response);
-                        },
-                        error: function(error) {
-                                console.log(error);
-                        }
-                      });
-                  }
+                      $(".marketplace_append_data").html("");
+                      $(".marketplace_append_data").html(response);
+                    },
+                    error: function(error) {
+                       console.log((error));
+                    }
+                  });
               });
 
-            });
+            //left subcategory checkbox
+            $(".subCategoryFilter").on('click',function () {
+                  var sub_category_id = getFilter('subCategoryFilter');
+                  $.ajax({
+                    url:"{{ route('marketplace') }}",
+                    method:"post",
+                    data:{sub_category_id:sub_category_id,filterType:'subCategoryFilter'},
+                    success:function (response) {
+                  
+                      $(".marketplace_append_data").html("");
+                      $(".marketplace_append_data").html(response);
+                    },
+                    error: function(error) {
+                       console.log((error));
+                    }
+                  });
+              });
+
+            //left sub subcategory checkbox
+            $(".subSubCategoryFilter").on('click',function () {
+                  var sub_sub_category_id = getFilter('subSubCategoryFilter');
+                  $.ajax({
+                    url:"{{ route('marketplace') }}",
+                    method:"post",
+                    data:{sub_sub_category_id:sub_sub_category_id,filterType:'subSubCategoryFilter'},
+                    success:function (response) {
+                  
+                      $(".marketplace_append_data").html("");
+                      $(".marketplace_append_data").html(response);
+                    },
+                    error: function(error) {
+                       console.log((error));
+                    }
+                  });
+              });
+
+            function getFilter(className) {
+                var filters = [];
+                $("."+className+":checked").each(function () {
+                    filters.push($(this).val());
+                });
+                return filters;
+            }
             
         });
          

@@ -9,6 +9,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $casts = [
+        'price' => 'decimal:2',
+    ];
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -16,6 +19,10 @@ class Product extends Model
 
     public function subSubCategory(){
         return $this->belongsTo(SubSubCategory::class)->with('subCategory');
+    }
+
+    public function productImages(){
+        return $this->hasMany(ProductImage::class);
     }
 
 }
