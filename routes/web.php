@@ -36,7 +36,7 @@ Route::controller(MarketplaceController::class)->group(function(){
 
 //============================Sell===========================
 Route::post('sell/subcategory',[SellController::class,'subcategory'])->name('sell.subcategory');
-Route::post('/sell/country',[SellController::class,'country'])->name('sell.country');
+Route::get('/sell/country',[SellController::class,'country'])->name('sell.country');
 Route::resource('sell', SellController::class);
 
 
@@ -58,7 +58,8 @@ Route::middleware(['user'])->group(function () {
    });
 
    Route::controller(StripeController::class)->group(function(){
-        Route::get('/onboard-seller','onboard');
+       
+        Route::post('/connect-acc','createAcc')->name('create.acc');
    });
 });
 

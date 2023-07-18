@@ -167,7 +167,7 @@
                     </div>
                 @endif
 
-                @if ($data['category_id'] == 5)
+                @if ($data['category_id'] == 2 || $data['category_id'] == 3 || $data['category_id'] == 4 || $data['category_id'] == 5)
 
                     <div class="row">
                         <div class="col-md-6">
@@ -246,6 +246,79 @@
                                          <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+
+                                @if ($data['category_id'] == 3)
+                                    <div class="col-md-12 d-flex flex-column text-white  mb-3">
+                                        <h6 class="text-secondary mt-2">Enter Your Diffusion Setting</h6>
+                                        <label for="" class="form-label">Model</label>
+                                       <div class="col-md-6">
+                                        <select name="model_version" class="form-control bg-transparent form-select" id="">
+                                            <option class="bg-body" value="1">verson_1</option>
+                                            <option class="bg-body" value="2">verson_2</option>
+                                            <option class="bg-body" value="3">verson_3</option>
+                                            <option class="bg-body" value="4">verson_4</option>
+                                        </select>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-md-12 d-flex flex-column text-white  mb-3">
+                                        
+                                        <label for="" class="form-label">Sampler</label>
+                                       <div class="col-md-6">
+                                        <select name="sampler" class="form-control bg-transparent form-select" id="">
+                                            <option class="bg-body" value="1">sample_1</option>
+                                            <option class="bg-body" value="2">sample_2</option>
+                                            <option class="bg-body" value="3">sample_3</option>
+                                            <option class="bg-body" value="4">sample_4</option>
+                                        </select>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="points">Image Width</label>
+                                        <div class="d-flex justify-content-between">
+                                            <input type="range" class="col-md-9" id="image_width" name="image_width" value="512" min="512" step="64" max="1024" >
+                                            <span class="col-md-2 mx-1" id="img_wdth">512px</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="points">Image height</label>
+                                        <div class="d-flex justify-content-between">
+                                            <input type="range" class="col-md-9" id="image_height" name="image_height" min="512" value="512" step="64" max="1024">
+                                            <span class="col-md-2 mx-1" id="img_hght">512px</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="points">Cfg Scale</label>
+                                        <div class="d-flex justify-content-between">
+                                            <input type="range" class="col-md-9" id="cfg_scale" name="cfg_scale" min="0.0" value="7.0" step="0.5" max="20.0" >
+                                            <span class="col-md-2 mx-1" id="cfg_value">7.0</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="points">Step</label>
+                                        <div class="d-flex justify-content-between">
+                                            <input type="range" class="col-md-9" id="step" name="step" min="10 " value="50" step="1" max="150" >
+                                            <span class="col-md-2 mx-1" id="step_value">50</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="points" class="form-label">Speed (Optional)</label>
+                                            <input type="text" class="form-control bg-transparent" id="" name="speed" placeholder="Random speed" >
+                                        
+                                    </div>
+                                    <div class="col-md-12  text-white mb-3">
+                                        <input type="checkbox" class="form-check-input" value="1" id="" name="clip" checked>
+                                        <label for="" class="form-label mx-1">Clip Guidance</label>
+                                    </div>
+
+                                    <div class="col-md-12 d-flex flex-column text-white mb-3">
+                                        <label for="" class="form-label">Negative Prompt</label>
+                                        <input type="text" name="negative_prompt" class="form-control bg-transparent" id="">
+                                    </div>
+                                    
+                                @endif
+
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
                                     <label for="" class="form-label"><span class="text-danger">*</span>Prompt
                                         Instructions</label>
@@ -295,6 +368,8 @@
                                 </div>
                                 @endif
 
+                                
+
                                 @if ($data['category_id'] == 4)
                                 <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Image Verification Link</label>
@@ -321,6 +396,22 @@
     </main>
 @endsection
 @push('scripts')
+<script>
+    $(document).ready(function(){
+        $('#image_width').on('change', function(){
+           $('#img_wdth').html($(this).val()+'px')
+        })
+        $('#image_height').on('change', function(){
+           $('#img_hght').html($(this).val()+'px')
+        })
+        $('#cfg_scale').on('change', function(){
+           $('#cfg_value').html($(this).val())
+        })
+        $('#step').on('change', function(){
+           $('#step_value').html($(this).val())
+        })
+    })
+</script>
     <script>
         $(document).ready(function() {
             $('#prompt_file').on('keyup', function() {
