@@ -92,18 +92,26 @@ class SellController extends Controller
             'prompt_file'           => 'required_if:category_id,1|json',
             'prompt_testing'        => 'required_if:category_id,1',
             'gpt_engine'            => 'required_if:category_id,1',
-            'preview_input'         =>  'required_if:category_id,1',
-            'preview_output'        =>  'required_if:category_id,1',
-            'midjourney_text'       => 'required_if:category_id,2',
+            'preview_input'         => 'required_if:category_id,1',
+            'preview_output'        => 'required_if:category_id,1',
+            'midjourney_text'       => 'required_if:category_id,2,3,4',
             'midjourney_profile'    => 'required_if:category_id,2',
             'image'                 => 'required',
             'images'                => 'required_if:category_id,2|array|size:9',
             'instructions'          => 'required|string',
-            'image_verification'    => 'required_if:category_id,4'
+            'image_verification'    => 'required_if:category_id,4',
+            'model_version'         => 'required_if:category_id,3',
+            'sampler'               => 'required_if:category_id,3',
+            'image_width'           => 'required_if:category_id,3|numeric|between:512,1024',
+            'image_height'          => 'required_if:category_id,3|numeric|between:512,1024',
+            'cfg_scale'             => 'required_if:category_id,3|numeric|between:0,20',
+            'step'                  => 'required_if:category_id,3|numeric|between:10,150',
+            'clip'                  => 'accepted_if:category_id,3',
+            'negative_prompt'       => 'string',
         ]);
 
         if($validator->fails()) {
-            return redirect()->route('sell.subcategory')->with('error', $validator->errors()->first());
+            return  $validator->errors()->first();
         }
        
        $product = Product::create([
@@ -123,10 +131,19 @@ class SellController extends Controller
             'gpt_engine_id'            => $request->gpt_engine_id ?? '0',
             'preview_input'            => $request->preview_input ?? '',
             'preview_output'           => $request->preview_output ?? '',
-            'midjourneY_text'          => $request->midjourneY_text ?? '',
-            'midjourneY_profile'       => $request->midjourneY_profile ?? '',
+            'midjourney_text'          => $request->midjourney_text ?? '',
+            'midjourney_profile'       => $request->midjourney_profile ?? '',
             'instructions'             => $request->instructions,
-            'image_verification'       => $request->image_verification ?? ''
+            'image_verification'       => $request->image_verification ?? '',
+            'model_version'            => $request->model_version ,
+            'sampler'                  => $request->sampler,
+            'image_width'              => $request->image_width ,
+            'image_height'             => $request->image_height ,
+            'cfg_scale'                => $request->cfg_scale ,
+            'step'                     => $request->step ,
+            'speed'                    => $request->speed,
+            'clip'                     => $request->clip,
+            'negative_prompt'          => $request->clinegative_promptp,
         ]);
 
         if($request->file('image')){
@@ -145,7 +162,7 @@ class SellController extends Controller
                 ]);
             }           
         }
-        return redirect()->route('home')->with('success', 'Posted Successful');
+        return redirect()->route('sell.country');
 
     }
 
@@ -184,17 +201,7 @@ class SellController extends Controller
 
     public function country(Request $request){
        
-        $request->validate([
-            'sub_category_id' => 'required',
-            'prompt_file'     =>'required|json',
-            'prompt_testing'  => 'string',
-            'gpt_engine'      => 'required',
-            'preview_input'   => 'string',
-            'preview_output'   => 'string',
-        ]);
-      
-        $data = $request->all();
         $countries = Country::all();
-        return view('user.website.select-country',compact('countries','data'));
+        return view('user.website.select-country',compact('countries'));
     }
 }
