@@ -32,6 +32,7 @@ Route::controller(HomeController::class)->group(function(){
 // ======================Marketplace=============================
 Route::controller(MarketplaceController::class)->group(function(){
     Route::match(['get','post'],'/marketplace','marketplace')->name('marketplace');
+    Route::get('/marketplace/{slug}/{product}','marketplaceDetails')->name('marketplaceDetails');
 });
 
 //============================Sell===========================
