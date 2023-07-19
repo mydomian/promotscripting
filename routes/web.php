@@ -87,7 +87,7 @@ Route::prefix('/admin')->group(function (){
 
         //Stripe
         Route::get('/payment/info',[AdminStripeController::class,'info'])->name('admin.payment');
-        Route::post('/payment/info/update',[AdminStripeController::class,'update'])->name('admin.paymentInfoUpdate')
+        Route::post('/payment/info/update',[AdminStripeController::class,'update'])->name('admin.paymentInfoUpdate');
         //contact us
         Route::get('/contact-messages', [ContactusController::class, 'contactmessages'])->name('admin.contactmessages');
         Route::get('/contact-us-seen/{contact}',[ContactusController::class, 'contactUsSeen'])->name('admin.contactUsSeen');
