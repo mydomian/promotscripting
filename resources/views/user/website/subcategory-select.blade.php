@@ -91,7 +91,7 @@
                                         be changed to "happy" or "sad" in your test prompt. Buyers will not see this, it is
                                         only for PromptBase's internal testing.</small>
                                     <textarea name="prompt_testing" id="testing_prompt" class="form-control bg-transparent" rows="10">{{old('prompt_testing')}}</textarea>
-                                    <div class="error-div"></div>
+                                    {{-- <div class="error-div"></div> --}}
                                 </div>
 
                                 <div class="col-md-12 mb-3 d-flex flex-column text-white ">
@@ -115,13 +115,13 @@
                                         @enderror
 
                                     </div>
-                                    <div class="error-div"></div>
+                                    {{-- <div class="error-div"></div> --}}
                                 </div>
                                 <div class="c0l-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Upload thumbnail image</label>
                                     <small class="text-secondary">Only upload your thumbnail image </small>
                                    
-                                    <input type="file" name="image" class="uploader form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" multiple accept="image/*" />
+                                    <input type="file" name="image" class="form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" accept="image/*" />
                                     @error('image')
                                         <small class="text-danger">{{$message}}</small>
                                     @enderror

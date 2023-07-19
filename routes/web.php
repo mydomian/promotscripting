@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactusController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\StripeController as AdminStripeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\DashboardController;
@@ -53,6 +54,7 @@ Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
+        Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
 
 
 
@@ -82,6 +84,10 @@ Route::prefix('/admin')->group(function (){
 
         //profile
         Route::match(['get','post'],'/profile/{user}',[AuthController::class,'profile'])->name('admin.adminProfile');
+
+        //Stripe
+        Route::get('/payment/info',[AdminStripeController::class,'info'])->name('admin.payment');
+        Route::post('/payment/info/update',[AdminStripeController::class,'update'])->name('admin.paymentInfoUpdate')
         //contact us
         Route::get('/contact-messages', [ContactusController::class, 'contactmessages'])->name('admin.contactmessages');
         Route::get('/contact-us-seen/{contact}',[ContactusController::class, 'contactUsSeen'])->name('admin.contactUsSeen');

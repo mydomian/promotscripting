@@ -40,7 +40,7 @@ class RegisterController extends Controller
                 $user->profile_photo_path = 'default.png';
                 $user->password = \bcrypt($request->password);
                 $user->save();
-                return back()->with('success', 'Succesfully Registered');
+                return redirect()->route('user.login')->with('success', 'Succesfully Registered, Login to continue');
             } catch (\Exception $e) {
                 return $e->getMessage();
             }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\Services;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,6 +21,7 @@ class DashboardController extends Controller
     public function dashboard(){
         return view('user.website.dashboard');
     }
+
 
     public function logout(){
         Auth::logout();
@@ -47,6 +49,7 @@ class DashboardController extends Controller
             if($request->hasFile('profile')) $user->profile_photo_path = $this->services->imageUpload($request->file('profile'), 'profile/');
             $user->save();
             return redirect()->back()->with('success','Profile Updated');
+
         }
         return view('user.website.profile',compact('user'));
     }
