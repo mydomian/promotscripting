@@ -58,7 +58,6 @@ class MarketplaceController extends Controller
 
     public function marketplaceDetails($slug, $product){
         $product = Product::with('user','subSubCategory','productImages')->find($product);
-        $marketPlaces = Product::where('user_id',Auth::user()->id)->get();
-        return view('user.website.marketplace_details',compact('product','marketPlaces'));
+        return view('user.website.marketplace_details',compact('product'));
     }
 }

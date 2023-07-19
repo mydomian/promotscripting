@@ -16,11 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user() && !Auth::user()->is_admin === "admin"){
-            return redirect()->route('/admin/login');
+        if(Auth::user() && Auth::user()->is_admin == 'admin'){
+            return $next($request); 
         }
-        return $next($request);
-        
+        return redirect()->route('admin.login')->with('error','Sorry! Unauthorized');
         
     }
 }

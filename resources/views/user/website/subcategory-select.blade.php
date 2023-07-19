@@ -335,7 +335,7 @@
                                     <label for="" class="form-label"><span class="text-danger">*</span> Upload thumbnail image</label>
                                     <small class="text-secondary">Only upload your thumbnail image </small>
                                    
-                                    <input type="file" name="image" class="uploader form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" multiple accept="image/*" />
+                                    <input type="file" name="image" class="uploader form-conrol bg-transparent mt-2 @error('image')is-invalid @enderror" accept="image/*" />
                                     @error('image')
                                         <small class="text-danger">{{$message}}</small>
                                     @enderror

@@ -45,7 +45,9 @@
                 <p style="text-align: justify;"><small >{{ $product->preview_input }}</small></p>
                 <p style="text-align: justify;"><small >{{ $product->description }}</small></p>
                 <h4><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
-                <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Promot</a>
+
+                <a href="#" class="btn btn-md btn-outline-primary">Get Promot</a>
+
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
                 <h6>{{ $product->created_at->diffForHumans() }}</h6>
@@ -54,10 +56,17 @@
             <div class="col-md-6 col-sm-12">
                
                 @if ($product->subSubCategory->subCategory->category->id == 1)
-                    <div class="d-flex justify-content-center" style="height:1000px;">
-                        <div class="col-sm-4">dfrerftret</div>
-                        <div class="col-sm-4">esdfregr</div>
-                        <div class="col-sm-4">edfregtg</div>
+                    <div class="row gap-0 chatGpt" style="height:1000px; overflow:auto">
+                        <div class="col-12 m-0 p-4 border border-secondary">
+                            <h5>Prompts Details</h5>
+                            <small><strong>Category:</strong> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br>
+                            <small ><strong>Subcategory:</strong> {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br>
+                            <small ><strong>Sub Subcategory:</strong> {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
+                            <small ><strong>Prompt Testing:</strong> {{ $product->prompt_testing ?? "" }}</small><br>
+                            <small ><strong>Previwe Input:</strong> {{ $product->preview_input ?? "" }}</small><br>
+                            <small ><strong>Previwe Output:</strong> {{ $product->preview_output ?? "" }}</small><br>
+
+                        </div>
                     </div>
                 @elseif($product->subSubCategory->subCategory->category->id == 5)
                 
@@ -74,11 +83,11 @@
                                 <img class="img-fluid object-fit-fill" style="width:100%; height:300px;"  src="@if(isset($image->images)) {{ asset('/storage/products/'.$image->images) }} @else https://img.freepik.com/free-vector/white-blurred-background_1034-249.jpg @endif" alt="mid-journey">
                             </div>
                         @empty
-                            No images found
                         @endforelse
                     </div>
                     <p style="text-align: justify;"><small >Puzzle effect is a watermark and not part of the image.</small></p>
-
+                    <p style="text-align: justify;"><small >{{ $product->midjourney_text ?? "" }}</small></p>
+                    <a href="#" style="text-align: justify;"><small >{{ $product->midjourney_profile ?? "" }}</small></a>
                 @endif
             </div>
         </div>
@@ -93,9 +102,12 @@
                 <div class="col-sm-12 p-0 m-0 gap-0">
                     <div class="search-profiles section text-white">
                         <div class="container-fluid">
-                          <h6>More from @ {{ strstr($product->user->name, ' ', true) ?? "" }}</h6>
+                          <h6 class="text-primary">More from @ {{ strstr($product->user->name, ' ', true) ?? "" }}</h6>
                           <div class="search-profiles-slider">
-
+                            @if (Auth::check())
+                                @php
+                                    $marketPlaces = App\Models\Product::where('user_id',Auth::user()->id)->where('status','active')->get();
+                                @endphp
                                 @forelse ($marketPlaces as $marketPlace)
                                     <div class="slick-slide gpa-0">
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
@@ -110,14 +122,20 @@
                                 @empty
                                     No data found
                                 @endforelse
+                            @else
+                                No data found    
+                            @endif
+                                
                             
                           </div>
                         </div>
 
                         <div class="container-fluid mt-2">
-                            <h6>More from @ {{ strstr($product->user->name, ' ', true) ?? "" }}</h6>
+                            @php
+                                $marketPlaces = App\Models\Product::where('sub_sub_category_id',$product->sub_sub_category_id)->where('status','active')->get();
+                            @endphp
+                            <h6 class="text-primary">Similar Prompts ({{ $marketPlaces->count() }})</h6>
                             <div class="search-profiles-slider">
-  
                                   @forelse ($marketPlaces as $marketPlace)
                                       <div class="slick-slide gpa-0">
                                           <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
@@ -136,9 +154,11 @@
                             </div>
                         </div>
                         <div class="container-fluid mt-2">
-                            <h6>More from @ {{ strstr($product->user->name, ' ', true) ?? "" }}</h6>
+                            @php
+                                $marketPlaces = App\Models\Product::where('status','active')->latest()->limit(15)->get();
+                            @endphp
+                            <h6 class="text-primary">Latest Prompts ({{ $marketPlaces->count() }})</h6>
                             <div class="search-profiles-slider">
-  
                                   @forelse ($marketPlaces as $marketPlace)
                                       <div class="slick-slide gpa-0">
                                           <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
@@ -157,6 +177,10 @@
                             </div>
                         </div>
                       </div>
+                      <div class="col-sm-4 d-flex justify-content-center m-auto">
+                        <a href="{{ route('marketplace') }}" class="btn btn-lg btn-outline-primary ">Browse Marketplace</a>
+                      </div>
+                      
                 </div>
                 
             </div>
@@ -172,11 +196,11 @@
 @push('scripts')
  <script>
     $(document).ready(function () {
-        // document.oncontextmenu = function() {return false;};
-        // $('body').mousedown(function(e) { return false;});
-        // $('body').mouseup(function(e) { return false;});
-        // $('body').keyup(function(e) { return false;});
-        // $('body').keydown(function(e) { return false;});
+        document.oncontextmenu = function() {return false;};
+        $('body').mousedown(function(e) { return false;});
+        $('body').mouseup(function(e) { return false;});
+        $('body').keyup(function(e) { return false;});
+        $('body').keydown(function(e) { return false;});
     });
  </script>
 @endpush

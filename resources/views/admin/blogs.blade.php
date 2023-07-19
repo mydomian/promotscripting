@@ -3,7 +3,7 @@
 @section('title')
 Blogs
 @endsection
-@section('categories.index','active')
+@section('blogs.index','active')
 @push('styles')
 <link rel="stylesheet" href="{{ asset('admin/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
 @endpush

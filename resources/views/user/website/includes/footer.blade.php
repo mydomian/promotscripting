@@ -13,7 +13,7 @@ $system = App\Models\Setting::first();
           <div class="col-md-6 col-lg-4">
             <a class="navbar-brand" href="./index.html">
               <img
-                src="{{asset('admin/assets/uploads/'.$system->logo)}}"
+                src="{{asset('/storage/images/logo/'.$system->logo)}}"
                 alt="Prompt Scripting"
                 width="316"
                 height="118"
