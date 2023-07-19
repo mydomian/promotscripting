@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactusController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\DashboardController;
@@ -40,18 +41,18 @@ Route::post('sell/subcategory',[SellController::class,'subcategory'])->name('sel
 Route::get('/sell/country',[SellController::class,'country'])->name('sell.country');
 Route::resource('sell', SellController::class);
 
-
-
 //=========================Login/Register=========================
 Route::controller(RegisterController::class)->group(function(){
     Route::match(['get', 'post'], '/login', 'login')->name('user.login');
     Route::match(['get', 'post'], '/register', 'register')->name('user.register');
+    Route::match(['get', 'post'], '/forget-password', 'forgetPassword')->name('user.forgetPassword');
 });
 
 //=======================Dashboard===========================
 Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
+        Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
 
 
 
@@ -64,14 +65,11 @@ Route::middleware(['user'])->group(function () {
    });
 });
 
-
-
-
-
 //=========================Admin=========================
 Route::prefix('/admin')->group(function (){
     Route::match(['get','post'], '/login', [AuthController::class, 'login'])->name('admin.login');
-    Route::group(['middleware' => 'admin'], function () {
+    Route::match(['get','post'], '/forget-password', [AuthController::class, 'forgetPassword'])->name('admin.forgetPassword');
+    Route::group(['middleware'=>'admin'], function () {
         Route::get('/dashboard', function () { return view('admin.index'); })->name('admin.dashboard');
    
         Route::resources([
@@ -82,13 +80,15 @@ Route::prefix('/admin')->group(function (){
      
         ]);
 
-
-        
+        //profile
+        Route::match(['get','post'],'/profile/{user}',[AuthController::class,'profile'])->name('admin.adminProfile');
         //contact us
         Route::get('/contact-messages', [ContactusController::class, 'contactmessages'])->name('admin.contactmessages');
         Route::get('/contact-us-seen/{contact}',[ContactusController::class, 'contactUsSeen'])->name('admin.contactUsSeen');
         //about us
         Route::match(['get','post'],'/about-us',[AboutUsController::class,'aboutUs'])->name('admin.aboutUs');
+        //settings
+        Route::match(['get','post'],'/settings',[SettingController::class,'setting'])->name('admin.setting');
         //status route
         Route::get('/category-status-active/{category}',[CategoryController::class,'categoryStatusActive'])->name('admin.categoryStatusActive');
         Route::get('/category-status-inactive/{category}',[CategoryController::class,'categoryStatusInactive'])->name('admin.categoryStatusInactive');

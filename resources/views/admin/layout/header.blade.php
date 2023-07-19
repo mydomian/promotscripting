@@ -11,7 +11,7 @@ $system = App\Models\Setting::first();
     <nav class="sidebar">
         <div class="sidebar-header">
             <a href="" class="sidebar-brand">
-                <img src="{{ URL::asset('admin/assets/uploads/'.$system->adminlogo) }}" alt="Logo" style="width:80%; background-color:black" >
+                <img src="{{ asset('storage/images/logo/'.$system->logo) }}" alt="Logo" style="width:80%; background-color:black" >
             </a>
             <div class="sidebar-toggler not-active">
                 <span></span>
@@ -23,7 +23,7 @@ $system = App\Models\Setting::first();
             <ul class="nav">
                 <li class="nav-item nav-category">Main</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link ">
                         <i class="link-icon" data-feather="box"></i>
                         <span class="link-title">Dashboard</span>
                     </a>
@@ -33,25 +33,25 @@ $system = App\Models\Setting::first();
                     <a class="nav-link" data-bs-toggle="collapse" href="#categories" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book-open"></i>
-                        <span class="link-title">Category & Subcategory</span>
+                        <span class="link-title">Menus</span>
                         <i class="link-arrow" data-feather="chevron-down"></i>
                     </a>
                     <div class="collapse" id="categories">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{ route('categories.index') }}" class="nav-link @yield('categories.index')">Categories</a>
+                                <a href="{{ route('categories.index') }}" class="nav-link @yield('categories')">Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('subcategories.index') }}" class="nav-link @yield('subcategories.index')">Sub Categories</a>
+                                <a href="{{ route('subcategories.index') }}" class="nav-link @yield('subcategories')">Sub Categories</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('subsubcategories.index') }}" class="nav-link @yield('subsubcategories.index')">Sub Sub Categories</a>
+                                <a href="{{ route('subsubcategories.index') }}" class="nav-link @yield('subsubcategories')">Sub Sub Categories</a>
                             </li>
                         </ul>
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#prompts" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book-open"></i>
@@ -65,7 +65,7 @@ $system = App\Models\Setting::first();
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#blogs" role="button" aria-expanded="false"
@@ -118,57 +118,15 @@ $system = App\Models\Setting::first();
                
               
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.setting') }}" class="nav-link @yield('settings')">
                         <i class="link-icon" data-feather="settings"></i>
                         <span class="link-title">Setting</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">Profile</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">Profile</span>
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-    <nav class="settings-sidebar">
-        <div class="sidebar-body">
-            <h6 class="text-muted mb-2">Sidebar:</h6>
-            <div class="mb-3 pb-3 border-bottom">
-                <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarLight"
-                           value="sidebar-light" checked>
-                    <label class="form-check-label" for="sidebarLight">
-                        Light
-                    </label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input type="radio" class="form-check-input" name="sidebarThemeSettings" id="sidebarDark"
-                           value="sidebar-dark">
-                    <label class="form-check-label" for="sidebarDark">
-                        Dark
-                    </label>
-                </div>
-            </div>
-            <div class="theme-wrapper">
-                <h6 class="text-muted mb-2">Light Theme:</h6>
-                <a class="theme-item active" href="../demo1/dashboard.html">
-                    <img src="{{ URL::asset('admin/assets/images/screenshots/light.jpg')}}" alt="light theme">
-                </a>
-                <h6 class="text-muted mb-2">Dark Theme:</h6>
-                <a class="theme-item" href="../demo2/dashboard.html">
-                    <img src="{{ URL::asset('admin/assets/images/screenshots/dark.jpg')}}" alt="light theme">
-                </a>
-            </div>
-        </div>
-    </nav>
+    
     <!-- partial -->
 
     <div class="page-wrapper">
@@ -187,7 +145,7 @@ $system = App\Models\Setting::first();
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             @if(!empty(Auth::user()->profile_photo_path))
                                 <img class="wd-30 ht-30 rounded-circle"
-                                     src="{{ url::asset('admin/assets/uploads/'.Auth::user()->profile_photo_path) }}"
+                                     src="{{ asset('/storage/profile/'.Auth::user()->profile_photo_path) }}"
                                      alt="profile">
                             @else
                                 <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30"
@@ -199,21 +157,24 @@ $system = App\Models\Setting::first();
                                 <div class="mb-3">
                                     @if(!empty(Auth::user()->profile_photo_path))
                                         <img class="wd-80 ht-80 rounded-circle"
-                                             src="{{ url::asset('admin/assets/uploads/'.Auth::user()->profile_photo_path) }}"
+                                             src="{{ asset('/storage/profile/'.Auth::user()->profile_photo_path) }}"
                                              alt="">
                                     @else
                                         <img class="wd-80 ht-80 rounded-circle" src="https://via.placeholder.com/80x80"
                                              alt="">
                                     @endif
                                 </div>
-                                <div class="text-center">
-                                    <p class="tx-16 fw-bolder">{{ Auth::user()->name }}</p>
-                                    <p class="tx-12 text-muted">{{ Auth::user()->email }}</p>
-                                </div>
+                                @if (Auth::check())
+                                    <div class="text-center">
+                                        <p class="tx-16 fw-bolder">{{ Auth::user()->name }}</p>
+                                        <p class="tx-12 text-muted">{{ Auth::user()->email }}</p>
+                                    </div>
+                                @endif
+                                
                             </div>
                             <ul class="list-unstyled p-1">
                                 <li class="dropdown-item py-2">
-                                    <a href="" class="text-body ms-0">
+                                    <a href="{{ route('admin.adminProfile',['user'=>Auth::user()->id]) }}" class="text-body ms-0">
                                         <i class="me-2 icon-md" data-feather="user"></i>
                                         <span>Profile</span>
                                     </a>

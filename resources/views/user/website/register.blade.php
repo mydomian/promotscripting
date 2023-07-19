@@ -13,11 +13,11 @@ $system = App\Models\Setting::first();
     <section class="prompt-details custom-offers section text-white bg-body">
        
 
-            <div style="background: linear-gradient(to right top, #80a69f, #648085, #4e5c64, #383b40, #1e1e1e);">
+            <div >
                
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6 bg-dark bg-opacity-75 p-3 my-3 rounded">
+                        <div class="col-sm-12 col-md-6 col-lg-6 p-3 my-3 rounded" style="background: linear-gradient(to right, #485563, #29323c);">
                             <div class="auth-form-wrapper  m-3">
                                 
                                 <div class="text-white">
@@ -28,14 +28,14 @@ $system = App\Models\Setting::first();
                                     @csrf
                                         <div class="mb-2">
                                             <small class="form-label">Enter Your Name</small>
-                                            <input type="text" name="name" value="{{old('name')}}" class="form-control bg-dark  @error('name') is-invalid @enderror" placeholder="Enter Name...">
+                                            <input type="text" name="name" value="{{old('name')}}" class="form-control   @error('name') is-invalid @enderror" placeholder="Enter Name...">
                                             @error('name')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
                                         <div class="mb-2">
                                             <small class="form-label">Enter Your Email</small>
-                                            <input type="text" name="email" value="{{old('email')}}" class="form-control bg-dark  @error('email') is-invalid @enderror" placeholder="Enter Email...">
+                                            <input type="text" name="email" value="{{old('email')}}" class="form-control  @error('email') is-invalid @enderror" placeholder="Enter Email...">
                                             @error('email')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
@@ -56,14 +56,14 @@ $system = App\Models\Setting::first();
                                         </div> --}}
                                         <div  class="mb-2">
                                             <small class="form-label">Enter Your Password</small>
-                                            <input type="password" name="password" class="form-control bg-dark @error('password') is-invalid @enderror" placeholder="Enter Password...">
+                                            <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" placeholder="Enter Password...">
                                             @error('password')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
                                         <div  class="mb-2">
                                             <small class="form-label">Confirm Password</small>
-                                            <input type="password" name="confirm_password" class="form-control bg-dark @error('confirm_password') is-invalid @enderror" placeholder="Enter Password...">
+                                            <input type="password" name="confirm_password" class="form-control  @error('confirm_password') is-invalid @enderror" placeholder="Enter Password...">
                                             @error('confirm_password')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
@@ -78,8 +78,8 @@ $system = App\Models\Setting::first();
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6 d-flex text-center">
                             <div class="align-self-center  mx-5 user-register">
-                               <h3>Welcome to the platform.</h3>
-                               <p class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus ad sunt officiis modi repellendus omnis deleniti error nulla totam. Ullam assumenda suscipit consequuntur optio debitis deserunt cumque ad similique quaerat rerum eius nisi nobis ducimus ab, culpa nostrum Lorem</p>
+                               <h3 class="text-primary">Welcome to the platform.</h3>
+                               <small class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus ad sunt officiis modi repellendus omnis deleniti error nulla totam. Ullam assumenda suscipit consequuntur optio debitis deserunt cumque ad similique quaerat rerum eius nisi nobis ducimus ab, culpa nostrum Lorem</small>
                             </div>
                         </div>
                     </div>

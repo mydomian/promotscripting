@@ -48,4 +48,11 @@ class RegisterController extends Controller
         return view('user.website.register');
         
     }
+
+    public function forgetPassword(Request $request){
+        if($request->isMethod('post')){
+            
+        }
+        return view('user.website.forget-password');
+    }
 }

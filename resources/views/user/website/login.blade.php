@@ -13,12 +13,12 @@ $system = App\Models\Setting::first();
     <section class="prompt-details custom-offers section text-white bg-body">
        
 
-            <div style="background: linear-gradient(to right top, #80a69f, #648085, #4e5c64, #383b40, #1e1e1e);">
+            <div>
                <div style="background-image: url({{asset('storage/hero-home-figure.png')}});  background-position: right bottom; background-repeat: no-repeat; background-size: 400px,350px,auto;
                padding: 10px;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6 bg-dark bg-opacity-75 p-3 my-3 rounded">
+                        <div class="col-sm-12 col-md-6 col-lg-6 p-3 my-3 rounded" style="background: linear-gradient(to right, #485563, #29323c);">
                             <div class="auth-form-wrapper  m-5">
                                 <div class="text-white">
                                     <h5 class="mb-0">Login</h5>
@@ -44,7 +44,7 @@ $system = App\Models\Setting::first();
                                             <button type="submit" class="btn btn-outline-primary form-control btn-sm">Login</button>
                               
                                         <div class="text-center mt-2">
-                                            <a href="#">Forgot Password?</a>
+                                            <a href="{{ route('user.forgetPassword') }}">Forgot Password?</a>
                                         </div>
                                 </form>
                                         <div class="mt-5 d-flex justify-content-center text-white">
@@ -57,8 +57,8 @@ $system = App\Models\Setting::first();
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6 d-flex text-center">
                             <div class="align-self-center  mx-5 user-register">
-                               <h3>Welcome to the platform.</h3>
-                               <p class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus </p>
+                               <h3 class="text-primary">Welcome to the platform.</h3>
+                               <small class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus </small>
                             </div>
                         </div>
                     </div>

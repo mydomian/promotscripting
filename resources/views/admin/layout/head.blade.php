@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo1/style.css') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/uploads/'.$system->favicon) }}"/>
+    <link rel="shortcut icon" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}"/>
     <style>
         .MyInput {
             height: 60px;

@@ -27,7 +27,7 @@ $system = App\Models\Setting::first();
     <div style="background: linear-gradient(to right top, #80a69f, #648085, #4e5c64, #383b40, #1e1e1e);">
         <div class="container">
             <div class="row d-flex justify-content-center">
-                <div class="col-sm-12 col-md-5 col-lg-6 bg-dark bg-opacity-75 p-5 my-5 rounded">
+                <div class="col-sm-12 col-md-5 col-lg-6 p-5 my-5 rounded" style="background: linear-gradient(to right, #485563, #29323c);">
                     <div class="auth-form-wrapper  m-3">
                         <div class="text-white mb-5">
                             <h5 class="mb-0">Log In</h5>
@@ -51,7 +51,7 @@ $system = App\Models\Setting::first();
                                     @enderror
                                 </div>
                                 <div class="mt-5">
-                                    <button type="submit" class="btn btn-outline-secondary form-control">Log in</button>
+                                    <button type="submit" class="btn btn-outline-info form-control">Log in</button>
                                 </div>
                         </form>
                         <div class="mt-5 d-flex justify-content-center text-white">
@@ -60,7 +60,7 @@ $system = App\Models\Setting::first();
                             <hr class="w-100">
                         </div>
                         <div class="text-center">
-                            <a href="#" class="text-white">Forgot Password?</a>
+                            <a href="{{ route('admin.forgetPassword') }}" class="text-white">Forgot Password?</a>
                         </div>
                     </div>
                 </div>

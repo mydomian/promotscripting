@@ -12,9 +12,9 @@ $system = App\Models\Setting::first();
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- favicon -->
    
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin/assets/uploads/'.$system->favicon) }}">
-    <link rel="icon" type="image/png" href="{{ asset('admin/assets/uploads/'.$system->favicon) }}" sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ asset('admin/assets/uploads/'.$system->favicon) }}" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}">
+    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="16x16">
     
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -52,16 +52,6 @@ $system = App\Models\Setting::first();
         height: 250px;
         resize: none; /* Remove this if you want the user to resize the textarea */
       }
-
-      /* .related-tag{
-        background: black;
-        height: auto;
-        color:white;
-        margin: 5px;
-        align-items: center;
-        opacity: .5;
-        
-      } */
     </style>
   </head>
   <body class="d-flex flex-column min-vh-100">
@@ -71,7 +61,7 @@ $system = App\Models\Setting::first();
         <div class="container">
           <a class="navbar-brand" href="{{ route("home")}}">
             <img
-              src="{{asset('admin/assets/uploads/1687609193brand-logo.png')}}"
+              src="{{ asset('/storage/images/logo/'.$system->logo) }}"
               alt="Prompt Scripting"
               width="316"
               height="118"
@@ -108,9 +98,6 @@ $system = App\Models\Setting::first();
                 <a class="nav-link @yield('marketplace')" href="{{ route('marketplace') }}"> Marketplace </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link @yield('hire')" href="#"> Hire </a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link @yield('sell')" href="{{route('sell.index')}}"> Sell </a>
               </li>
               <li class="nav-item">
@@ -133,10 +120,14 @@ $system = App\Models\Setting::first();
                   Profile 
                 </a>
                 <ul class="dropdown-menu bg-primary w-100 text-center">
-                  <li><a class="dropdown-item" href="#">Profile View</a></li>
+                  <li><a class="dropdown-item" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}">Profile View</a></li>
                   <li><a class="dropdown-item" href="">Favourites</a></li>
                   <li><a class="dropdown-item" href="">Settings</a></li>
-                  <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
+                  @if (Auth::user()->is_admin == 'admin')
+                    <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Logout</a></li>
+                  @else
+                    <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
+                  @endif
                 </ul>
               </div>
            @endauth
