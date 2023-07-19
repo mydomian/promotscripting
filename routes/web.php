@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactusController;
+use App\Http\Controllers\Admin\StripeController as AdminStripeController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\DashboardController;
@@ -52,6 +53,7 @@ Route::controller(RegisterController::class)->group(function(){
 Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
+        Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
 
 
 
@@ -83,7 +85,9 @@ Route::prefix('/admin')->group(function (){
         ]);
 
 
-        
+        //Stripe
+        Route::get('/payment/info',[AdminStripeController::class,'info'])->name('admin.payment');
+        Route::post('/payment/info/update',[AdminStripeController::class,'update'])->name('admin.paymentInfoUpdate');
         //contact us
         Route::get('/contact-messages', [ContactusController::class, 'contactmessages'])->name('admin.contactmessages');
         Route::get('/contact-us-seen/{contact}',[ContactusController::class, 'contactUsSeen'])->name('admin.contactUsSeen');
