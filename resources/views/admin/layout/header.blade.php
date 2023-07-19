@@ -38,14 +38,14 @@ $system = App\Models\Setting::first();
                     </a>
                     <div class="collapse" id="categories">
                         <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ route('categories.index') }}" class="nav-link @yield('categories.index')">Categories</a>
+                            <li class="nav-item @yield('categories.index')">
+                                <a href="{{ route('categories.index') }}" class="nav-link ">Categories</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('subcategories.index') }}" class="nav-link @yield('subcategories.index')">Sub Categories</a>
+                            <li class="nav-item @yield('subcategories.index')">
+                                <a href="{{ route('subcategories.index') }}" class="nav-link ">Sub Categories</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('subsubcategories.index') }}" class="nav-link @yield('subsubcategories.index')">Sub Sub Categories</a>
+                            <li class="nav-item @yield('subsubcategories.index')">
+                                <a href="{{ route('subsubcategories.index') }}" class="nav-link">Sub Sub Categories</a>
                             </li>
                         </ul>
                     </div>
@@ -124,9 +124,9 @@ $system = App\Models\Setting::first();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">Profile</span>
+                    <a href="{{route('admin.payment')}}" class="nav-link">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">Stripe Setting</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -135,6 +135,12 @@ $system = App\Models\Setting::first();
                         <span class="link-title">Profile</span>
                     </a>
                 </li>
+                {{-- <li class="nav-item">
+                    <a href="" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">Profile</span>
+                    </a>
+                </li> --}}
             </ul>
         </div>
     </nav>
