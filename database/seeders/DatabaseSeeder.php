@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            CountrySeeder::class,
-            StripeSeeder::class,
+            // CountrySeeder::class,
+            // StripeSeeder::class,
+            ChargeSeeder::class,
         ]);
     }
 }
