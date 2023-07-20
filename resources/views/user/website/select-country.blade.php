@@ -23,7 +23,7 @@
                             <i class="text-secondary"><small>We need to know this for sending payouts. Please read our FAQ if your country does not appear here.
 
                             </small></i>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <select name="country_id"
                                     class="form-control mt-2 bg-transparent form-select @error('country_id')is-invalid  @enderror"
                                     id="">
@@ -40,7 +40,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <button type="submit" class="btn btn-primary">
                                 Connect Bank
                               <i class="fa-solid fa-arrow-right-long"></i>

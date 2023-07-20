@@ -20,7 +20,7 @@ $system = App\Models\Setting::first();
     <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/demo1/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="shortcut icon" href="{{ URL::asset('admin/assets/uploads/'.$system->favicon) }}"/>
+    <link rel="shortcut icon" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}"/>
 </head>
 <body>
 <section class="prompt-details custom-offers section text-white bg-body">
@@ -64,8 +64,8 @@ $system = App\Models\Setting::first();
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-5 col-lg-6 d-flex text-center ">
-                    <div class="align-self-center register-text-div">
+                <div class="col-sm-12 col-md-5 col-lg-6 d-flex text-center">
+                    <div class="align-self-center register-text-div admin-login">
                        <h3 class="">Register today and get connected</h3>
                        <p class="px-5 mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum,Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum,</p>
                     </div>

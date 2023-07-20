@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use App\Services\Services;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class DashboardController extends Controller
 {
@@ -52,5 +55,48 @@ class DashboardController extends Controller
 
         }
         return view('user.website.profile',compact('user'));
+    }
+
+    public function prompts(Request $request){
+       
+        $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','active')->latest()->paginate(100);
+        if($request->isMethod('post')){
+            if($request->filterType == "active"){
+                $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','active')->latest()->paginate(100);
+            }elseif($request->filterType == "inactive"){
+                $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','inactive')->latest()->paginate(100);
+            }elseif($request->filterType == "default"){
+                $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','active')->latest()->paginate(100);
+            }elseif($request->filterType == "search"){
+                $prompts = Product::with('user','subSubCategory')->where('title','like','%'.$request->value.'%')->where(['user_id'=>Auth::id(),'status'=>'active'])->latest()->paginate(100);
+            }else{
+                $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','active')->latest()->paginate(100);
+            }
+            $prompts = $prompts->appends($request->all());
+            return view('user.website.includes.prompts_append',compact('prompts'));
+        }
+        $prompts = $prompts->appends($request->all());
+        return view('user.website.prompts',compact('prompts'));
+    }
+
+    public function promptsEdit(Request $request,$product){
+        
+        $prompt = Product::with('user','subSubCategory')->find($product);
+
+        if($request->isMethod('post')){
+            $request->validate([
+                'image'                 => 'nullable',
+                'title'                 => 'required',
+                'description'           => 'required',
+                'price'                 => 'required',
+                'sub_sub_category_id'   => 'required',
+                'instructions'          => 'required',
+            ]);
+          
+        }
+
+        $categories = Category::with('subCategories')->where('status','active')->latest()->get();
+        $subCategories = SubCategory::with('subSubCategories')->latest()->get();
+        return view('user.website.prompt_deatils',compact('prompt','categories','subCategories'));
     }
 }
