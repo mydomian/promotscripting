@@ -46,7 +46,7 @@
                 <p style="text-align: justify;"><small >{{ $product->description }}</small></p>
                 <h4><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
 
-                <a href="#" class="btn btn-md btn-outline-primary">Get Promot</a>
+                <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Promot</a>
 
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
