@@ -38,7 +38,7 @@
                 <div class="text-center">
                   <img
              
-                    src="{{ asset('/admin/assets/uploads/'.$setting->logo) }}"
+                    src="{{ asset('/storage/images/logo/'.$setting->logo) }}"
                     alt="about-us"
                     width="960px"
                     height="800px"

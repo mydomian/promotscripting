@@ -119,15 +119,26 @@ $system = App\Models\Setting::first();
                 <a class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Profile 
                 </a>
+
                 <ul class="dropdown-menu bg-primary w-100 text-center">
                   <li><a class="dropdown-item" href="{{route('user.dashboard')}}">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}">Profile View</a></li>
                   <li><a class="dropdown-item" href="">Favourites</a></li>
                   <li><a class="dropdown-item" href="{{route('user.settings')}}">Settings</a></li>
+
+                <ul class="dropdown-menu bg-dark w-100 ">
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"><i class="fa fa-user-circle"></i> <small>Profile</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.dashboard') }}"><i class="fa fa-dashboard"></i> <small>Dashboard</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i class="fa fa-list"></i> <small>Prompts</small></a></li>
+                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
+                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
+                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
+                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li>
+
                   @if (Auth::user()->is_admin == 'admin')
-                    <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Logout</a></li>
+                    <li><a class="dropdown-item text-primary" href="{{route('admin.dashboard')}}"><i class="fa fa-sign-out"></i> <small>Logout</small></a></li>
                   @else
-                    <li><a class="dropdown-item" href="{{route('user.logout')}}">Logout</a></li>
+                    <li><a class="dropdown-item text-primary" href="{{route('user.logout')}}"><i class="fa fa-sign-out"></i> <small>Logout</small></a></li>
                   @endif
                 </ul>
               </div>

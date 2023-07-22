@@ -55,7 +55,15 @@ Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
+
         Route::get('/settings','settings')->name('user.settings');
+
+
+        Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
+        Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
+        Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
+
+
 
 
 

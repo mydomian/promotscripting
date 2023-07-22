@@ -1,8 +1,5 @@
 @media only screen and (max-width: 760px){
-    .user-register{
-        display: none;
-    }
-    .admin-login{
+    .user-login{
         display: none;
     }
 }

@@ -167,7 +167,7 @@
                     </div>
                 @endif
 
-                @if ($data['category_id'] == 2 || $data['category_id'] == 3 || $data['category_id'] == 4 || $data['category_id'] == 5)
+                @if ($data['category_id'] == 6 || $data['category_id'] == 7 || $data['category_id'] == 8 || $data['category_id'] == 5)
 
                     <div class="row">
                         <div class="col-md-6">
@@ -247,7 +247,7 @@
                                     @enderror
                                 </div>
 
-                                @if ($data['category_id'] == 3)
+                                @if ($data['category_id'] == 6)
                                     <div class="col-md-12 d-flex flex-column text-white  mb-3">
                                         <h6 class="text-secondary mt-2">Enter Your Diffusion Setting</h6>
                                         <label for="" class="form-label">Model</label>
@@ -357,7 +357,7 @@
                                         <small class="text-danger">{{$message}}</small>
                                     @enderror
                                 </div>
-                                @if($data['category_id'] == 2)
+                                @if($data['category_id'] == 5)
                                 <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Midjourney Profile</label>
                                     <small class="text-secondary">Copy the midjourney.com/app/users link to your profile (watch our video if you can't find this). You'll need an active Midjourney subscription to get this link.</small>
@@ -370,7 +370,7 @@
 
                                 
 
-                                @if ($data['category_id'] == 4)
+                                @if ($data['category_id'] == 7)
                                 <div class="col-md-12  d-flex flex-column text-white mt-1 mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span> Image Verification Link</label>
                                     <small class="text-secondary">Copy the labs.openai.com share link to one of your images.</small>
