@@ -46,7 +46,7 @@
                 <p style="text-align: justify;"><small >{{ $product->description }}</small></p>
                 <h4><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
 
-                <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Promot</a>
+                <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
 
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
@@ -58,13 +58,19 @@
                 @if ($product->subSubCategory->subCategory->category->id == 1)
                     <div class="row gap-0 chatGpt" style="height:1000px; overflow:auto">
                         <div class="col-12 m-0 p-4 border border-secondary">
-                            <h5>Prompts Details</h5>
-                            <small><strong>Category:</strong> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br>
-                            <small ><strong>Subcategory:</strong> {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br>
-                            <small ><strong>Sub Subcategory:</strong> {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
-                            <small ><strong>Prompt Testing:</strong> {{ $product->prompt_testing ?? "" }}</small><br>
-                            <small ><strong>Previwe Input:</strong> {{ $product->preview_input ?? "" }}</small><br>
-                            <small ><strong>Previwe Output:</strong> {{ $product->preview_output ?? "" }}</small><br>
+                            <h5>Prompt Details</h5>
+                            <strong>Category:</strong><br>
+                            <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
+                            <strong>Subcategory:</strong><br>
+                            <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
+                            <strong>Sub Subcategory:</strong><br>
+                            <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
+                            <strong>Prompt Testing:</strong><br>
+                            <small > {{ $product->prompt_testing ?? "" }}</small><br><br>
+                            <strong>Preview Input:</strong><br>
+                            <small > {{ $product->preview_input ?? "" }}</small><br><br>
+                            <strong>Preview Output:</strong><br>
+                            <small > {{ $product->preview_output ?? "" }}</small><br><br>
 
                         </div>
                     </div>
@@ -195,12 +201,12 @@
 @endsection
 @push('scripts')
  <script>
-    $(document).ready(function () {
-        document.oncontextmenu = function() {return false;};
-        $('body').mousedown(function(e) { return false;});
-        $('body').mouseup(function(e) { return false;});
-        $('body').keyup(function(e) { return false;});
-        $('body').keydown(function(e) { return false;});
-    });
+    // $(document).ready(function () {
+    //     document.oncontextmenu = function() {return false;};
+    //     $('body').mousedown(function(e) { return false;});
+    //     $('body').mouseup(function(e) { return false;});
+    //     $('body').keyup(function(e) { return false;});
+    //     $('body').keydown(function(e) { return false;});
+    // });
  </script>
 @endpush

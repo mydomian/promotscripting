@@ -53,7 +53,7 @@ $system = App\Models\Setting::first();
                     </div>
                 </li>
 
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#prompts" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="book-open"></i>
@@ -63,11 +63,11 @@ $system = App\Models\Setting::first();
                     <div class="collapse" id="prompts">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="" class="nav-link">Prompts</a>
+                                <a href="{{ route('admin.prompts') }}" class="nav-link">Prompts</a>
                             </li>
                         </ul>
                     </div>
-                </li> --}}
+                </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#blogs" role="button" aria-expanded="false"

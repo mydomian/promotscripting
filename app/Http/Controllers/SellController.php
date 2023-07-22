@@ -125,7 +125,7 @@ class SellController extends Controller
             'is_tips'                  => $request->instructions ? 'yes' :'no',
             'is_tested'                => ($request->prompt_testing ?? $request->midjourney_text) ? 'yes' : 'no',
             'is_hq_images'             => 'no',
-            'status'                   => 'active',
+            'status'                   => 'inactive',
             'prompt_file'              => $request->prompt_file ?? '' ,
             'prompt_testing'           => $request->prompt_testing ?? '' ,
             'gpt_engine_id'            => $request->gpt_engine_id ?? '0',

@@ -55,11 +55,11 @@
                       {{ $latestFirst->title }}
                     </a>
                   </h3>
-                  <small class="published-date">Writer: {{ $latestFirst->user->name ?? "" }}</small>
-                  <small class="published-date">Category: {{ $latestFirst->category->category_name ?? ""}}</small>
-                  <small class="published-date">Subcategory : {{ $latestFirst->subCategory->category_name ?? ""}}</small>
-                  <small class="published-date">Sub Subcategory : {{ $latestFirst->subSubCategory->category_name ?? ""}}</small>
-                  <small class="published-date">{{ date('d F Y', strtotime($latestFirst->created_at)); }}</small>
+                  <small class=""><strong>Writer:</strong> {{ $latestFirst->user->name ?? "" }}</small><br>
+                  <small class=""><strong>Category:</strong> {{ $latestFirst->category->category_name ?? ""}}</small><br>
+                  <small class=""><strong>Subcategory:</strong> {{ $latestFirst->subCategory->category_name ?? ""}}</small><br>
+                  <small class=""><strong>Sub Subcategory:</strong> {{ $latestFirst->subSubCategory->category_name ?? ""}}</small><br><br>
+                  <small class="published-date">{{ date('d F Y', strtotime($latestFirst->created_at)); }}</small><br>
                   <div class="peraAppend overflow-hidden">
                     <p class="text-body-tertiary latestFirstDes">
                       {{ $latestFirst->description ?? "" }}
