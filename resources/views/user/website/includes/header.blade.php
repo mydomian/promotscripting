@@ -120,9 +120,10 @@ $system = App\Models\Setting::first();
                   Profile 
                 </a>
                 <ul class="dropdown-menu bg-primary w-100 text-center">
+                  <li><a class="dropdown-item" href="{{route('user.dashboard')}}">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}">Profile View</a></li>
                   <li><a class="dropdown-item" href="">Favourites</a></li>
-                  <li><a class="dropdown-item" href="">Settings</a></li>
+                  <li><a class="dropdown-item" href="{{route('user.settings')}}">Settings</a></li>
                   @if (Auth::user()->is_admin == 'admin')
                     <li><a class="dropdown-item" href="{{route('admin.dashboard')}}">Logout</a></li>
                   @else

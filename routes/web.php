@@ -55,7 +55,7 @@ Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
-      
+        Route::get('/settings','settings')->name('user.settings');
 
 
 

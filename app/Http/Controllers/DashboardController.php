@@ -53,4 +53,8 @@ class DashboardController extends Controller
         }
         return view('user.website.profile',compact('user'));
     }
+
+    public function settings(){
+        
+    }
 }
