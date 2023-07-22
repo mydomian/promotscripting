@@ -103,59 +103,71 @@
                 <h5>Settings</h5>
                 <hr>
             </div>
-              <div class="row mt-3">
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Payment</h6>
-                      <p>?</p>
+              <div class="col-sm-10 col-md-8 col-lg-6">
+                  <h4 class="mb-0">Account</h4>
+                  <small class="text-secondary">Your unique username displayed across PromptScripting.</small>
+                  <div class="col-md-4 col-sm-10 col-lg-4 d-flex mt-3 mb-5">
+                    <h5 class="fw-bolder mt-3 d-block">@</h5>
+                    <input type="text" name="username" class="form-control bg-transparent mx-2" value="{{auth()->user()->username}}">
                   </div>
+
+                  <h4>Notification Settings</h4>
+                  <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
+                    <div class="col-md-6 col-sm-6 cl-lg-6"></div>
+                    <div class="col-md-3 col-sm-3 col-lg-3">Email</div>
+                    <div class="col-md-3 col-sm-3 col-lg-3 mx-2">Notification</div>
                   </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Payment</h6>
-                      <p>?</p>
+                  <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="d-flex justify-content-start mb-0">
+                      <div class="col-md-6 col-sm-6 col-lg-6 d-flex flex-column">
+                        <p class="fw-bolder mb-0">New Sales</p>
+                        <small class="text-secondary">Whenever you make a sale</small>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-lg-3 d-flex justify-content-start"><input type="checkbox" name="sales_email" class="form-check-input" id="" checked></div>
+                      <div class="col-md-3 col-sm-3 col-lg-3 mx-2 d-flex justify-content-start"><input type="checkbox" name="sales_notification" class="form-check-input" id="" checked></div>
+                    </div>
+                    <hr class="mt-1">
                   </div>
+                  <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
+                    <div class="col-md-6 col-sm-6 cl-lg-6"></div>
+                    <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email" class="form-check-input" id="" checked></div>
+                    <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email" class="form-check-input" id="" checked></div>
                   </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Payment</h6>
-                      <p>?</p>
+                  
+                  {{-- <div class="col-md-12 ">
+                    <div class="d-flex justify-content-end mb-0">
+                      <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                        <p class="fw-bolder mb-0">New Favourites</p>
+                        <small class="text-secondary">Whenever someone favorites your prompts.</small>
+                      </div>
+                      <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="favourite_email" class="form-check-input" id="" checked></div>
+                      <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="favourite_notification" class="form-check-input" id="" checked></div>
+                    </div>
+                    <hr class="mt-1">
                   </div>
-                  </div>
-                </div>
+                  
+                  <div class="col-md-12 ">
+                    <div class="d-flex justify-content-end mb-0">
+                      <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                        <p class="fw-bolder mb-0">New Followers</p>
+                        <small class="text-secondary">Whenever someone follows you.</small>
+                      </div>
+                      <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="follower_email" class="form-check-input" id="" checked></div>
+                      <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="follower_notification" class="form-check-input" id="" checked></div>
+                    </div>
+                    <hr class="mt-1">
+                  </div> --}}
+                  <a href="{{route('user.logout')}}" class="btn btn-outline-secondary my-4 px-5"><span class="fw-bolder fs-5">Log Out</span></a>
               </div>
-              <div class="row mt-3">
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Blog</h6>
-                      <p>100</p>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Category</h6>
-                      <p>100</p>
-                  </div>
-                  </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                  <div class="card marketplace--card rounded-3">
-                    <div class="card-body text-center" style="color:white">
-                      <h6>Total Subcategory</h6>
-                      <p>100</p>
-                  </div>
-                  </div>
-                </div>
+              <div class="col-md-12 col-sm-12 col-lg-12 border border-danger rounded mt-5 p-3 d-flex flex-column">
+                <h5>Danger Zone</h5>
+                <small class="">Delete Account</small>
+                <small class="text-secondary"><i>Once you delete your account there is no going back, please be certain.</i></small>
+                <a href="" class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1">Delete Account</a>
               </div>
+
         </div>
+
         
       </div>
     </div>
@@ -166,25 +178,5 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- <script>
-   $(document).ready(function() {
-    $(document).on("click", ".switchSellerDashboard", function () {
-        var url = $(this).attr('switchUrl');
-        Swal.fire({
-          title: 'Are you sure?',
-          text: "Do you want to switch Seller Dashboard!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, switch it!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-              window.location.href=url;
-          }
-        });
-    });
-  });
- </script>
+
 @endpush

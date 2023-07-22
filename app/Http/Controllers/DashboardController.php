@@ -57,6 +57,10 @@ class DashboardController extends Controller
         return view('user.website.profile',compact('user'));
     }
 
+
+    public function settings(){
+        
+
     public function prompts(Request $request){
        
         $prompts = Product::with('user','subSubCategory')->where('user_id',Auth::id())->where('status','active')->latest()->paginate(100);
@@ -98,5 +102,6 @@ class DashboardController extends Controller
         $categories = Category::with('subCategories')->where('status','active')->latest()->get();
         $subCategories = SubCategory::with('subSubCategories')->latest()->get();
         return view('user.website.prompt_deatils',compact('prompt','categories','subCategories'));
+
     }
 }
