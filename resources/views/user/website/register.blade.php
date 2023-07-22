@@ -40,37 +40,31 @@ $system = App\Models\Setting::first();
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
                                         </div>
-                                        {{-- <div class="mb-2">
-                                            <small class="form-label">Enter Your Phone</small>
-                                            <input type="number" name="phone" value="{{old('phone')}}" class="form-control bg-dark  @error('phone') is-invalid @enderror" placeholder="Enter Phone...">
-                                            @error('phone')
-                                                <small class="text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div>
-                                        <div class="mb-2">
-                                            <small class="form-label">Enter Your Address</small>
-                                            <input type="text" name="address" value="{{old('address')}}" class="form-control bg-dark  @error('address') is-invalid @enderror" placeholder="Enter Address...">
-                                            @error('phone')
-                                                <small class="text-danger">{{$message}}</small>
-                                            @enderror
-                                        </div> --}}
+                                    
                                         <div  class="mb-2">
                                             <small class="form-label">Enter Your Password</small>
-                                            <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" placeholder="Enter Password...">
+                                            <div class="input-group">
+                                                <input type="password" name="password" class="password form-control bg-tranparent @error('password') is-invalid @enderror" placeholder="Enter Password...">
+                                                <span class="input-group-text bg-body opacity-25 text-white">
+                                                    <i class="far fa-eye-slash" id="togglePassword"
+                                                    style="cursor: pointer"></i>
+                                                </span>
+                                                
+                                            </div>
                                             @error('password')
                                                 <small class="text-danger">{{$message}}</small>
-                                            @enderror
+                                             @enderror
                                         </div>
                                         <div  class="mb-2">
                                             <small class="form-label">Confirm Password</small>
-                                            <input type="password" name="confirm_password" class="form-control  @error('confirm_password') is-invalid @enderror" placeholder="Enter Password...">
+                                            <input type="password" name="confirm_password" class="form-control  @error('confirm_password') is-invalid @enderror" placeholder="Enter Confirmed Password..."> 
                                             @error('confirm_password')
                                                 <small class="text-danger">{{$message}}</small>
                                             @enderror
+
                                         </div>
                                         
-                                       
-                                            <button type="submit" class="btn btn-outline-primary form-control btn-sm">SignUp</button>
+                                       <button type="submit" class="btn btn-outline-primary form-control btn-sm">SignUp</button>
                                 
                                 </form>
 
@@ -88,3 +82,24 @@ $system = App\Models\Setting::first();
             </div>
       </section>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            $("#togglePassword").click(function (e) {
+                
+                e.preventDefault();
+                var type = $(this).parent().parent().find(".password").attr("type");
+                if(type == "password"){
+                    $(this).removeClass("fa-eye-slash");
+                    $(this).addClass("fa-eye");
+                    $(this).parent().parent().find(".password").attr("type","text");
+                }else if(type == "text"){
+                    $(this).removeClass("fa-eye");
+                    $(this).addClass("fa-eye-slash");
+                    $(this).parent().parent().find(".password").attr("type","password");
+                }
+            });
+         
+        })
+    </script>
+@endpush

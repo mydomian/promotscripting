@@ -55,7 +55,7 @@
                                 <a class="dropdown-item" href="{{ route('user.promptsEdit',['product'=>$prompt->id]) }}">Prompts Edit</a>
                               </li>
                               <li>
-                                <a class="dropdown-item" href="#"
+                                <a class="dropdown-item onPromptDeleted" getUrl="{{ route('user.promptDelete',['product'=>$prompt->id]) }}" href="jacascript:;"
                                   >Prompts Delete</a
                                 >
                               </li>

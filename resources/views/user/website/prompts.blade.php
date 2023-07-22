@@ -50,9 +50,11 @@
   </main>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
 
+          
             //promptStatus
             $('.promptStatus').on('change', function() {
                 var type = $(this).val();
@@ -93,6 +95,25 @@
                 }
               });
            });
+
+          //prompt delete
+          $(document).on("click", ".onPromptDeleted", function () {
+                var url = $(this).attr('getUrl');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "Do you want to delete this prompt!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href=url
+                    }
+                })
+
+            });
 
 
         });

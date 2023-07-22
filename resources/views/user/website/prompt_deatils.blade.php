@@ -33,7 +33,7 @@
                                 class="d-none"
                                 />
                                 <label
-                                for="images"
+                                for="image"
                                 class="form-label custom-file-upload-box"
                                 style="background: linear-gradient(to right, #5b6c7d, #3a4450);"
                                 
@@ -56,7 +56,7 @@
                                     />
                                 </svg>
                                 <span class="text-body-tertiary d-block">
-                                    Thumbnil Photo
+                                    Profile Photo
                                 </span>
                                 <span class="text-body-tertiary d-block"> or </span>
                                 <span class="d-block"> Drop or Browse file </span>
@@ -98,84 +98,85 @@
                         <div class="w-100 py-5 px-2 m-0" >
                             @if($prompt->subSubCategory->subCategory->category->id == 1)
                                 <small class="form-label">Prompt Testing</small>
-                                <textarea name="prompt_testing" class="form-control bg-body opacity-50 w-100 mt-2" placeholder="Enter Prompt Testing @error('prompt_testing') is-invalid @enderror">{{ $prompt->prompt_testing }}</textarea>
+                                <textarea name="prompt_testing" class="form-control bg-body opacity-50 w-100 mt-2 @error('prompt_testing') is-invalid @enderror" placeholder="Enter Prompt Testing">{{ $prompt->prompt_testing }}</textarea>
                                 <small class="form-label">Preview Input</small>
-                                <textarea name="preview_input" class="form-control bg-body opacity-50 w-100 mt-2" placeholder="Enter Preview Input">{{$prompt->preview_input}}</textarea>
+                                <textarea name="preview_input" class="form-control bg-body opacity-50 w-100 mt-2 @error('preview_input') is-invalid @enderror" placeholder="Enter Preview Input">{{$prompt->preview_input}}</textarea>
                                 <small class="form-label">Preview Output</small>
-                                <textarea name="preview_output" class="form-control bg-body opacity-50 w-100 mt-2" placeholder="Enter Preview Output">{{$prompt->preview_output}}</textarea>
+                                <textarea name="preview_output" class="form-control bg-body opacity-50 w-100 mt-2 @error('preview_output') is-invalid @enderror" placeholder="Enter Preview Output">{{$prompt->preview_output}}</textarea>
                             @endif
                             
                             
                         
                             @if($prompt->subSubCategory->subCategory->category->id == 5 )
                                 <small class="form-label">Mid Journey Text</small>
-                                <textarea name="midjourney_text" class="form-control bg-body opacity-50 w-100 mt-2" placeholder="Enter Mid Journey Text">{{$prompt->midjourney_text}}</textarea>
+                                <textarea name="midjourney_text" class="form-control bg-body opacity-50 w-100 mt-2 @error('midjourney_text') is-invalid @enderror" placeholder="Enter Mid Journey Text">{{$prompt->midjourney_text}}</textarea>
                                 <small class="form-label">Mid Journey Profile</small>
-                                <textarea name="midjourney_profile" class="form-control bg-body opacity-50 w-100 mt-2" placeholder="Enter Mid Journey Profile">{{$prompt->midjourney_profile}}</textarea>
+                                <textarea name="midjourney_profile" class="form-control bg-body opacity-50 w-100 mt-2 @error('midjourney_profile') is-invalid @enderror" placeholder="Enter Mid Journey Profile">{{$prompt->midjourney_profile}}</textarea>
                                 <small class="form-label">Images (images*9)</small>
-                                <input type="file" class="form-control bg-body opacity-50" accept="image/*">
+                                <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                             @endif 
 
 
                             @if($prompt->subSubCategory->subCategory->category->id == 6 )
                                 <small class="form-label">Model</small>
-                                <select name="model_version" class="form-control bg-body opacity-50" id="">
-                                    <option class="bg-body" value="1">verson_1</option>
-                                    <option class="bg-body" value="2">verson_2</option>
-                                    <option class="bg-body" value="3">verson_3</option>
-                                    <option class="bg-body" value="4">verson_4</option>
+                                <select name="model_version" class="form-control bg-body opacity-50 @error('model_version') is-invalid @enderror" id="">
+                                    <option class="bg-body" value="">Select Your Model</option>
+                                    @foreach ($models = model() as $key=>$value)
+                                        <option class="bg-body" value="{{ $key }}" @if($prompt->model_version == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                    
                                 </select>
                                 <small class="form-label">Sampler</small>
-                                <select name="sampler" class="form-control bg-body opacity-50" id="">
-                                    <option class="bg-body" value="1">sample_1</option>
-                                    <option class="bg-body" value="2">sample_2</option>
-                                    <option class="bg-body" value="3">sample_3</option>
-                                    <option class="bg-body" value="4">sample_4</option>
+                                <select name="sampler" class="form-control bg-body opacity-50 @error('sampler') is-invalid @enderror" id="">
+                                    <option class="bg-body" value="">Select Your Sampler</option>
+                                    @foreach ($samplers = sampler() as $key=>$value)
+                                        <option class="bg-body" value="{{ $key }}" @if($prompt->sampler == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
                                 </select>
                                 <small class="form-label">Image Width</small>
                                 <div class="d-flex justify-content-between">
-                                    <input type="range" class="col-sm-10" id="image_width" name="image_width" value="512" min="512" step="64" max="1024" >
+                                    <input type="range" class="col-sm-10 @error('image_width') is-invalid @enderror" id="image_width" name="image_width" value="{{ $prompt->image_width }}" min="512" step="64" max="1024">
                                     <span class="col-md-2 mx-1" id="img_wdth">512px</span>
                                 </div>
                                 <small class="form-label">Image Height</small>
                                 <div class="d-flex justify-content-between">
-                                    <input type="range" class="col-md-10" id="image_height" name="image_height" min="512" value="512" step="64" max="1024">
+                                    <input type="range" class="col-md-10 @error('image_height') is-invalid @enderror" id="image_height" name="image_height" min="512" value="{{ $prompt->image_height }}" step="64" max="1024">
                                     <span class="col-md-2 mx-1" id="img_hght">512px</span>
                                 </div>
                                 <small class="form-label">Cfg Scale</small>
                                 <div class="d-flex justify-content-between">
-                                    <input type="range" class="col-md-10" id="cfg_scale" name="cfg_scale" min="0.0" value="7.0" step="0.5" max="20.0" >
+                                    <input type="range" class="col-md-10" @error('cfg_scale') is-invalid @enderror id="cfg_scale" name="cfg_scale" min="0.0" value="{{ $prompt->cfg_scale }}" step="0.5" max="20.0" >
                                     <span class="col-md-2 mx-1" id="cfg_value">7.0</span>
                                 </div>
                                 <small class="form-label">Step</small>
                                 <div class="d-flex justify-content-between">
-                                    <input type="range" class="col-md-10" id="step" name="step" min="10 " value="50" step="1" max="150" >
+                                    <input type="range" class="col-md-10 @error('step') is-invalid @enderror" id="step" name="step" min="10 " value="{{ $prompt->step }}" step="1" max="150" >
                                     <span class="col-md-2 mx-1" id="step_value">50</span>
                                 </div>
                                 <small class="form-label">Speed (Optional)</small>
                                 <input type="text" class="form-control bg-body opacity-50" id="" name="speed" placeholder="Random speed" >
 
                                 <small class="form-label">Negative Prompt</small>
-                                <input type="text" name="negative_prompt" placeholder="Enter Negative Prompt" class="form-control bg-body opacity-50" id="">
+                                <input type="text" name="negative_prompt" placeholder="Enter Negative Prompt" class="form-control bg-body opacity-50 @error('negative_prompt') is-invalid @enderror" value="{{ $prompt->negative_prompt }}" id="">
 
                                 
                                 <small class="form-label">Images (images*9)</small>
-                                <input type="file" class="form-control bg-body opacity-50" accept="image/*">
+                                <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                                 
                                 <small class="form-label">Clip Guidance</small>
-                                <input type="checkbox" class="form-check-input" value="1" id="" name="clip" checked>
+                                <input type="checkbox" class="form-check-input @error('clip') is-invalid @enderror" value="1" id="" name="clip" checked>
                             @endif 
 
                             @if($prompt->subSubCategory->subCategory->category->id == 7 )
                                 <small class="form-label">Images (images*9)</small>
-                                <input type="file" class="form-control bg-body opacity-50" accept="image/*">
+                                <input type="file" name="images[]" class="form-control bg-body opacity-50 " accept="image/*" multiple>
                                 <small class="form-label">Image Verification Links</small>
-                                <input type="text" class="form-control bg-body opacity-50" name="image_verification">
+                                <input type="text" class="form-control bg-body opacity-50 @error('image_verification') is-invalid @enderror" placeholder="Enter Image Verification Link" value="{{ $prompt->image_verification }}" name="image_verification">
                             @endif
 
                         @if($prompt->subSubCategory->subCategory->category->id == 8 )
                             <small class="form-label">Images (images*9)</small>
-                            <input type="file" class="form-control bg-body opacity-50" accept="image/*">
+                            <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                         @endif
                         
                     </div>

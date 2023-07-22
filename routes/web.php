@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\AuthController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactusController;
+use App\Http\Controllers\Admin\PromptController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StripeController as AdminStripeController;
 use App\Http\Controllers\Admin\SubCategoryController;
@@ -62,6 +63,8 @@ Route::middleware(['user'])->group(function () {
 
 
 
+        // deleted route
+        Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
 
         Route::get('/logout','logout')->name('user.logout');
    });
@@ -89,6 +92,8 @@ Route::prefix('/admin')->group(function (){
      
         ]);
 
+        //prompts
+        Route::match(['get','post'],'/prompts',[PromptController::class,'prompts'])->name('admin.prompts');
         //profile
         Route::match(['get','post'],'/profile/{user}',[AuthController::class,'profile'])->name('admin.adminProfile');
         //charge
