@@ -74,7 +74,7 @@ class StripeController extends Controller
 
     public function getPrompt($id)
     {
-        $product = Product::findOrFail(decrypt($id), ['id', 'title', 'price']);
+        $product = Product::findOrFail(decrypt($id), ['id','user_id', 'title', 'price']);
         $charge = Charge::first()->buyer_charge;
         $chargeAmount = number_format(($product->price * ($charge / 100)), 2) * 100;
         $sk = PaymentInfo::first()->secret_key;
@@ -87,6 +87,7 @@ class StripeController extends Controller
             'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
             'charge_percentage' => $charge,
             'collect_price'     =>  $chargeAmount  > 50 ? $product->price + ($chargeAmount / 100) : $product->price,
+            'seller_id'         => $product->user_id
         ]);
 
         $customer = $stripe->customers->create([
