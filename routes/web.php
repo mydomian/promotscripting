@@ -31,7 +31,10 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('/blog-load/{blog}','blogSeeMoreLoad')->name('blogSeeMoreLoad');
      
 });
-
+//======================EmailVerification========================
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 // ======================Marketplace=============================
 Route::controller(MarketplaceController::class)->group(function(){
@@ -56,7 +59,7 @@ Route::get('authorized/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('authorized/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 //=======================Dashboard===========================
-Route::middleware(['user'])->group(function () {
+Route::middleware(['user','verified'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
