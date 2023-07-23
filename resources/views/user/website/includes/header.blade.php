@@ -109,6 +109,13 @@ $system = App\Models\Setting::first();
               <li class="nav-item">
                 <a class="nav-link @yield('contact')" href="{{ route('contactus') }}"> Contact </a>
               </li>
+
+              @auth
+                <li class="nav-item">
+                  <a class="nav-link @yield('chat')" href="{{ url('/promptscripting-chat') }}" style="font-size: 22px;"> <i class="fas fa-comment-dots"></i> </a>
+                </li>
+              @endauth
+              
               
             </ul>
             {{-- <a href="#" class="link-primary ms-lg-3 flex-shrink-0">
@@ -119,12 +126,6 @@ $system = App\Models\Setting::first();
                 <a class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Profile 
                 </a>
-
-                <ul class="dropdown-menu bg-primary w-100 text-center">
-                  <li><a class="dropdown-item" href="{{route('user.dashboard')}}">Dashboard</a></li>
-                  <li><a class="dropdown-item" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}">Profile View</a></li>
-                  <li><a class="dropdown-item" href="">Favourites</a></li>
-                  <li><a class="dropdown-item" href="{{route('user.settings')}}">Settings</a></li>
 
                 <ul class="dropdown-menu bg-dark w-100 ">
                   <li><a class="dropdown-item text-primary" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"><i class="fa fa-user-circle"></i> <small>Profile</small></a></li>

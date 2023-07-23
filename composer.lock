@@ -1080,16 +1080,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.115",
+            "version": "v1.2.116",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "4531e4a70d55d10cbe7d41ac1ff0d75a5fe2ef1e"
+                "reference": "97e9fe30219e60092e107651abb379a38b342921"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/4531e4a70d55d10cbe7d41ac1ff0d75a5fe2ef1e",
-                "reference": "4531e4a70d55d10cbe7d41ac1ff0d75a5fe2ef1e",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/97e9fe30219e60092e107651abb379a38b342921",
+                "reference": "97e9fe30219e60092e107651abb379a38b342921",
                 "shasum": ""
             },
             "require": {
@@ -1126,9 +1126,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.115"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.116"
             },
-            "time": "2023-06-05T21:32:18+00:00"
+            "time": "2023-07-21T15:49:49+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -3875,16 +3875,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v10.17.0",
+            "version": "v10.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "73383b44de153f4d602b90dad3ef075259bcecef"
+                "reference": "c32549e443a619d1b885b99d624568ecae82d6a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/73383b44de153f4d602b90dad3ef075259bcecef",
-                "reference": "73383b44de153f4d602b90dad3ef075259bcecef",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/c32549e443a619d1b885b99d624568ecae82d6a0",
+                "reference": "c32549e443a619d1b885b99d624568ecae82d6a0",
                 "shasum": ""
             },
             "require": {
@@ -3930,9 +3930,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v10.17.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v10.18.0"
             },
-            "time": "2023-07-13T22:12:18+00:00"
+            "time": "2023-07-20T16:59:49+00:00"
         },
         {
             "name": "symfony/console",
