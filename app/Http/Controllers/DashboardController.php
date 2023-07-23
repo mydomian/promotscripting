@@ -60,7 +60,11 @@ class DashboardController extends Controller
     }
 
 
-    public function settings(){}
+
+    public function settings(){
+
+    }   
+
         
 
     public function prompts(Request $request){

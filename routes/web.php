@@ -104,6 +104,9 @@ Route::prefix('/admin')->group(function (){
 
         //prompts
         Route::match(['get','post'],'/prompts',[PromptController::class,'prompts'])->name('admin.prompts');
+        //orders
+        Route::match(['get','post'],'/orders',[PromptController::class,'orders'])->name('admin.orders');
+        Route::match(['get','post'],'/order-status/{order}/{type?}',[PromptController::class,'promptStatusUpdate'])->name('admin.promptStatusUpdate');
         //profile
         Route::match(['get','post'],'/profile/{user}',[AuthController::class,'profile'])->name('admin.adminProfile');
         //charge
