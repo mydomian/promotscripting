@@ -12,7 +12,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\RegisterController;
@@ -51,6 +51,10 @@ Route::controller(RegisterController::class)->group(function(){
     Route::match(['get', 'post'], '/forget-password', 'forgetPassword')->name('user.forgetPassword');
 });
 
+//=====================LoginWithGoogle=======================
+Route::get('authorized/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('authorized/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
 //=======================Dashboard===========================
 Route::middleware(['user'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
@@ -77,7 +81,9 @@ Route::middleware(['user'])->group(function () {
        
         Route::post('/connect-acc','createAcc')->name('create.acc'); 
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
-        route::get('/success','success')->name('success');
+        Route::get('/success','success')->name('success');
+        Route::get('/onboarding-completed/{id}','completed')->name('onboarding.completed');
+        
    });
 });
 
