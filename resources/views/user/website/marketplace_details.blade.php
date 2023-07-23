@@ -39,7 +39,10 @@
                     <li class="list-inline-item"><small>Tips @if($product->is_tips == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
                     <li class="list-inline-item"><small>HQ Images @if($product->is_hq_images == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
                     <li class="list-inline-item"><small><i class="fa fa-eye"></i> {{ $product->views }}</small></li>
+                
+     
                     <li class="list-inline-item"><small><i class="fa fa-heart"></i> {{ $product->favourites }}</small></li>
+               
                 </ul>
                 <hr>
                 <p style="text-align: justify;"><small >{{ $product->preview_input }}</small></p>
@@ -201,12 +204,12 @@
 @endsection
 @push('scripts')
  <script>
-    // $(document).ready(function () {
-    //     document.oncontextmenu = function() {return false;};
-    //     $('body').mousedown(function(e) { return false;});
-    //     $('body').mouseup(function(e) { return false;});
-    //     $('body').keyup(function(e) { return false;});
-    //     $('body').keydown(function(e) { return false;});
-    // });
+    $(document).ready(function () {
+        document.oncontextmenu = function() {return false;};
+        $('body').mousedown(function(e) { return false;});
+        $('body').mouseup(function(e) { return false;});
+        $('body').keyup(function(e) { return false;});
+        $('body').keydown(function(e) { return false;});
+    });
  </script>
 @endpush
