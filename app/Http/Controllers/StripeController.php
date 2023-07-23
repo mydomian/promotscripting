@@ -107,7 +107,7 @@ class StripeController extends Controller
                     'price_data' => [
                         'currency'     => 'usd',
                         'product_data' => [
-                            'name' => $product->title
+                            'name' => $product->id
                         ],
                         'unit_amount'  => $product->price * 100
                     ],
@@ -118,7 +118,6 @@ class StripeController extends Controller
             'success_url' => 'http://127.0.0.1:8000/success?session_id={CHECKOUT_SESSION_ID}&order_id=' . encrypt($order->id),
             'cancel_url'  => route('marketplace'),
         ]);
-
 
 
         if ($chargeAmount > 50) {
