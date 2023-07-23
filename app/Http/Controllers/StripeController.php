@@ -9,8 +9,10 @@ use App\Models\Order;
 use App\Models\PaymentInfo;
 use App\Models\Product;
 use App\Models\StripeCustomer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Redirect;
 use Ramsey\Uuid\Type\Integer;
 
@@ -27,45 +29,46 @@ class StripeController extends Controller
         $country_code = Country::find($request->country_id)->code;
 
         $secret_key = PaymentInfo::first()->secret_key;
-        $paymentInfo = CustomerPaymentInfo::where('user_id', Auth::id())->where('is_completed', 1)->first();
+        $user = User::where('id', Auth::id())->first();
 
 
-        if ($paymentInfo) {
+        if ($user->is_onboarding_completed == 0) {
 
-            //     $stripe = new \Stripe\StripeClient($secret_key);
-            //    $data = $stripe->accounts->createLoginLink(
-            //         $paymentInfo->account,
-            //         []
-            //     );
-            //     return Redirect::to($data->url);
+            if (empty($user->stripe_id)) {
 
-            return redirect()->route('user.dashboard')->with('success', 'Posted successfully!');
-        } else {
-            $stripe = new \Stripe\StripeClient($secret_key);
-            $id =   $stripe->accounts->create([
-                'type' => 'express',
-                'country' => $country_code,
-                'email' => Auth::user()->email,
-                'capabilities' => [
-                    'card_payments' => ['requested' => true],
-                    'transfers' => ['requested' => true],
-                ],
-            ]);
+                $stripe = new \Stripe\StripeClient($secret_key);
+                $id =   $stripe->accounts->create([
+                    'type' => 'express',
+                    'country' => $country_code,
+                    'email' => Auth::user()->email,
+                    'capabilities' => [
+                        'card_payments' => ['requested' => true],
+                        'transfers' => ['requested' => true],
+                    ],
+                ]);
 
+                $user->update([
+                    'stripe_id' => $id->id
+                ]);
+            }
+            $user->fresh();
             $stripe = new \Stripe\StripeClient($secret_key);
             $data =  $stripe->accountLinks->create([
                 'account' => $id->id,
                 'refresh_url' => 'http://127.0.0.1:8000/connect-bank',
-                'return_url' => 'http://127.0.0.1:8000/dashboard',
+                'return_url' => route('onboarding.completed',encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',
-            ]);
-            CustomerPaymentInfo::create([
-                'user_id' =>  Auth::id(),
-                'account' => $id->id,
-                'is_completed' => 1
             ]);
             return Redirect::to($data->url);
         }
+
+        $stripe = new \Stripe\StripeClient($secret_key);
+        $loginLink = $stripe->accounts->createLoginLink(
+            $user->stripe_id
+        );
+
+        return Redirect::to($loginLink->url);
+
     }
 
 
@@ -78,12 +81,12 @@ class StripeController extends Controller
         $stripe = new \Stripe\StripeClient($sk);
 
         $order = Order::create([
-                'user_id'           => Auth::id(),
-                'product_id'        => $product->id,
-                'price'             => $product->price,
-                'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
-                'charge_percentage' => $charge,
-                'collect_price'     =>  $chargeAmount  > 50 ? $product->price + ($chargeAmount / 100) : $product->price,
+            'user_id'           => Auth::id(),
+            'product_id'        => $product->id,
+            'price'             => $product->price,
+            'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
+            'charge_percentage' => $charge,
+            'collect_price'     =>  $chargeAmount  > 50 ? $product->price + ($chargeAmount / 100) : $product->price,
         ]);
 
         $customer = $stripe->customers->create([
@@ -111,7 +114,7 @@ class StripeController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => 'http://127.0.0.1:8000/success?session_id={CHECKOUT_SESSION_ID}&order_id='.encrypt($order->id),
+            'success_url' => 'http://127.0.0.1:8000/success?session_id={CHECKOUT_SESSION_ID}&order_id=' . encrypt($order->id),
             'cancel_url'  => route('marketplace'),
         ]);
 
@@ -132,19 +135,29 @@ class StripeController extends Controller
 
 
     public function success(Request $request)
-    {   
+    {
         $order = Order::find(decrypt($request->order_id));
         $secret_key = PaymentInfo::first()->secret_key;
         $stripe = new \Stripe\StripeClient($secret_key);
-       $session= $stripe->checkout->sessions->retrieve(
+        $session = $stripe->checkout->sessions->retrieve(
             $request->session_id
         );
 
         $order->update([
             'is_paid'        => $session->payment_status,
             'transaction_id' => $session->payment_intent
-          ]);
+        ]);
 
         return view('user.website.success');
+    }
+    
+
+    public function completed($id){
+        $user = User::whereStripeId(decrypt($id))->firstOrFail();
+        $user->update([
+            'is_onboarding_completed' => 1
+         ]);
+         
+         return redirect(route('user.dashboard'))->with('success', 'Onboarding Successsful!');
     }
 }

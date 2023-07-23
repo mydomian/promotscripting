@@ -120,11 +120,11 @@ $system = App\Models\Setting::first();
                   Profile 
                 </a>
 
-                <ul class="dropdown-menu bg-primary w-100 text-center">
+                {{-- <ul class="dropdown-menu bg-primary w-100 text-center">
                   <li><a class="dropdown-item" href="{{route('user.dashboard')}}">Dashboard</a></li>
                   <li><a class="dropdown-item" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}">Profile View</a></li>
                   <li><a class="dropdown-item" href="">Favourites</a></li>
-                  <li><a class="dropdown-item" href="{{route('user.settings')}}">Settings</a></li>
+                  <li><a class="dropdown-item" href="{{route('user.settings')}}">Settings</a></li> --}}
 
                 <ul class="dropdown-menu bg-dark w-100 ">
                   <li><a class="dropdown-item text-primary" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"><i class="fa fa-user-circle"></i> <small>Profile</small></a></li>
