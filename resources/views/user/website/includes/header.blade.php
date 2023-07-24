@@ -124,11 +124,12 @@ $system = App\Models\Setting::first();
             {{-- <a href="#" class="link-primary ms-lg-3 flex-shrink-0">
               Create Account
             </a> --}}
-           @auth
-              <div class="dropdown ms-lg-3 flex-shrink-0">
-                <a class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Profile 
-                </a>
+            @auth
+               <div class="dropdown ms-lg-3 flex-shrink-0">
+                  <a href="" class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Profile
+                  </a>
+                
 
                 <ul class="dropdown-menu bg-dark w-100 ">
                   <li><a class="dropdown-item text-primary" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"><i class="fa fa-user-circle"></i> <small>Public Profile</small></a></li>

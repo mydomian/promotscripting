@@ -29,4 +29,8 @@ class StripeController extends Controller
 
         return back()->with('success', 'Updated!');
     }
+
+    public function checkouts(){
+        return view('admin.checkouts');
+    }
 }
