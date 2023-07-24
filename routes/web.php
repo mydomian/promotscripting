@@ -133,6 +133,8 @@ Route::prefix('/admin')->group(function (){
         Route::get('/sub-category-delete/{subcategory}',[SubCategoryController::class,'destroy'])->name('admin.subCategoryDestroy');
         Route::get('/sub-sub-category-delete/{subsubcategory}',[SubSubCategoryController::class,'destroy'])->name('admin.subSubCategoryDestroy');
         Route::get('/blog-delete/{blog}',[BlogController::class,'destroy'])->name('admin.blogDestroy');
+        //transactions
+        Route::get('/checkouts',[AdminStripeController::class,'checkouts'])->name('admin.checkouts');
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });

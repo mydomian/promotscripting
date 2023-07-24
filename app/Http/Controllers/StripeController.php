@@ -8,6 +8,7 @@ use App\Models\CustomerPaymentInfo;
 use App\Models\Order;
 use App\Models\PaymentInfo;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\StripeCustomer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -146,6 +147,14 @@ class StripeController extends Controller
         $order->update([
             'is_paid'        => $session->payment_status,
             'transaction_id' => $session->payment_intent
+        ]);
+
+        $sale = Sale::create([
+            'user_id'       => $order->user_id,
+            'product_id'    => $order->product_id,
+            'price'         => $order->price,
+            'seller_id'     => $order->product->user_id,
+            'order_id'      => $order->id
         ]);
 
         return view('user.website.success');

@@ -113,7 +113,8 @@ class SellController extends Controller
         if($validator->fails()) {
             return  $validator->errors()->first();
         }
-       
+      $type = ($request->category_id == 1 ? "gpt" : ($request->category_id == 5 ? "midjourney" : ($request->category_id == 6 ? "stablediffusion" : ($request->category_id == 7 ? 'dalle' : 'promptbase'))));
+
        $product = Product::create([
             'user_id'                  => Auth::id(),
             'sub_sub_category_id'      => $request->sub_sub_category_id,
@@ -144,6 +145,7 @@ class SellController extends Controller
             'speed'                    => $request->speed,
             'clip'                     => $request->clip,
             'negative_prompt'          => $request->clinegative_promptp,
+            'is_type'                  => $type,
         ]);
 
         if($request->file('image')){

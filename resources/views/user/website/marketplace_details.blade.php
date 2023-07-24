@@ -47,10 +47,10 @@
                 <hr>
                 <p style="text-align: justify;"><small >{{ $product->preview_input }}</small></p>
                 <p style="text-align: justify;"><small >{{ $product->description }}</small></p>
-                <h4><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
-
-                <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
-
+                <h4 class="fw-bolder"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
+                @if(Auth::id() !== $product->user_id)
+                    <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
+                @endif
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
                 <h6>{{ $product->created_at->diffForHumans() }}</h6>

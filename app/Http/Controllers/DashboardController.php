@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\User;
 use App\Services\Services;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Sale;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +25,10 @@ class DashboardController extends Controller
     }
 
     public function dashboard(){
-        return view('user.website.dashboard');
+        $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
+        $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
+        
+        return view('user.website.dashboard',compact('purchases','sales'));
     }
 
 
