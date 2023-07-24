@@ -101,6 +101,9 @@ $system = App\Models\Setting::first();
                 <a class="nav-link @yield('sell')" href="{{route('sell.index')}}"> Sell </a>
               </li>
               <li class="nav-item">
+                <a class="nav-link @yield('hire')" href="{{route('hire')}}"> Hire </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link @yield('blog')" href="{{ route('blogs') }}"> Blog </a>
               </li>
               <li class="nav-item">
@@ -135,7 +138,7 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li>
 
                   @if (Auth::user()->is_admin == 'admin')
