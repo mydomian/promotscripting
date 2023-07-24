@@ -1,3 +1,7 @@
+@php
+  $purchases = purchases();
+  $sales = sales();
+@endphp
 @extends('user.website.includes.master')
 
 @section('title', '| Profile')

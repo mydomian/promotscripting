@@ -55,7 +55,7 @@ class StripeController extends Controller
             $user->fresh();
             $stripe = new \Stripe\StripeClient($secret_key);
             $data =  $stripe->accountLinks->create([
-                'account' => $id->id,
+                'account' => $user->stripe_id,
                 'refresh_url' => 'http://127.0.0.1:8000/connect-bank',
                 'return_url' => route('onboarding.completed',encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',
@@ -63,12 +63,13 @@ class StripeController extends Controller
             return Redirect::to($data->url);
         }
 
-        $stripe = new \Stripe\StripeClient($secret_key);
-        $loginLink = $stripe->accounts->createLoginLink(
-            $user->stripe_id
-        );
+        // $stripe = new \Stripe\StripeClient($secret_key);
+        // $loginLink = $stripe->accounts->createLoginLink(
+        //     $user->stripe_id
+        // );
 
-        return Redirect::to($loginLink->url);
+        // return Redirect::to($loginLink->url);
+        return redirect()->route('user.dashboard')->with('success','Your prompt is ready to be approved, Please wait!');
 
     }
 

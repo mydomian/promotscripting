@@ -32,7 +32,8 @@ Orders
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>User</th>
+                    <th>Buyer</th>
+                    <th>Seller</th>
                     <th>Category</th>
                     <th>Subcategory</th>
                     <th>Sub Subcategory</th>
@@ -52,6 +53,7 @@ Orders
                         <tr>
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->user->name ?? "" }}</td>
+                            <td>{{ $order->product->user->name ?? "" }}</td>
                             <td>{{ $order->product->subSubCategory->subCategory->category->category_name ?? "" }}</td>
                             <td>{{ $order->product->subSubCategory->subCategory->category_name ?? "" }}</td>
                             <td>{{ $order->product->subSubCategory->category_name ?? "" }}</td>
