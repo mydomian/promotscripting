@@ -55,7 +55,7 @@ class StripeController extends Controller
             $user->fresh();
             $stripe = new \Stripe\StripeClient($secret_key);
             $data =  $stripe->accountLinks->create([
-                'account' => $id->id,
+                'account' => $user->stripe_id,
                 'refresh_url' => 'http://127.0.0.1:8000/connect-bank',
                 'return_url' => route('onboarding.completed',encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',

@@ -9,6 +9,7 @@ use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Setting;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -54,7 +55,15 @@ class HomeController extends Controller
 
     public function hire(){
         $mostOrders = Order::with('user','product')->inRandomOrder()->limit(50)->get();
-        $midJourneys = Product::with('user')->where(['status'=>'active'])->get()->unique('user_id');
-        return view('user.website.hire',compact('mostOrders','midJourneys'));
+        $midjourneys = Product::with('user')->where(['status'=>'active','is_type'=>'midjourney'])->get()->unique('user_id');
+        $gpts = Product::with('user')->where(['status'=>'active','is_type'=>'gpt'])->get()->unique('user_id');
+        $stablediffusions = Product::with('user')->where(['status'=>'active','is_type'=>'stablediffusion'])->get()->unique('user_id');
+        $dalles = Product::with('user')->where(['status'=>'active','is_type'=>'dalle'])->get()->unique('user_id');
+        $promptbases = Product::with('user')->where(['status'=>'active','is_type'=>'promptbase'])->get()->unique('user_id');
+        return view('user.website.hire',compact('mostOrders','midjourneys','gpts','stablediffusions','dalles','promptbases'));
+    }
+
+    public function publicProfile(User $user){
+        return view('user.website.hire_details',compact('user'));
     }
 }
