@@ -79,7 +79,13 @@ $system = App\Models\Setting::first();
                     <div class="collapse" id="transactions">
                         <ul class="nav sub-menu">
                             <li class="nav-item">
-                                <a href="{{route('admin.checkouts')}}" class="nav-link">Checkouts</a>
+                                <a href="{{route('admin.checkouts')}}" class="nav-link">All Checkouts</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">All Charges</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">All Transfers</a>
                             </li>
                         </ul>
                     </div>

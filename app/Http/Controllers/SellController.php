@@ -164,6 +164,11 @@ class SellController extends Controller
                 ]);
             }           
         }
+        
+        if(Auth::user()->is_onboarding_completed == 1){
+            return redirect()->route('user.dashboard')->with('success','Your prompt is ready to be approved, Please wait!');
+        }
+
         return redirect()->route('sell.country');
 
     }

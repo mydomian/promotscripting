@@ -31,6 +31,10 @@ class StripeController extends Controller
     }
 
     public function checkouts(){
+
+        // $stripe = new \Stripe\StripeClient('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+        // $checkouts=$stripe->checkout->sessions->all();
+        // return $checkouts;
         return view('admin.checkouts');
     }
 }

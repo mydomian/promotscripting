@@ -26,10 +26,10 @@ class DashboardController extends Controller
     }
 
     public function dashboard(){
-        $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-        $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
+        // $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
+        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
         
-        return view('user.website.dashboard',compact('purchases','sales'));
+        return view('user.website.dashboard');
     }
 
 
