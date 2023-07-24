@@ -24,7 +24,7 @@ function purchases()
 function sales()
 {
     return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
-
+}
 function userLocalIp(){
     return gethostbyname(gethostname());
 }
