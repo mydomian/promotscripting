@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\User;
 use App\Services\Services;
@@ -108,8 +109,6 @@ class DashboardController extends Controller
                 'instructions'          => 'required',
             ]);
 
-            
-
             if($prompt->subSubCategory->subCategory->category->id == 1) {
                 $request->validate(['prompt_testing'=>'required','preview_input'=>'required','preview_output'=>'required']);
 
@@ -193,5 +192,22 @@ class DashboardController extends Controller
             $product_image->save();
         }
        
+    }
+
+    public function favourites(Request $request){
+        $favs = Favourite::with('product')->where('user_ip',userLocalIp())->latest()->paginate(100);
+        if($request->isMethod('post')){
+            if($request->filterType == "search"){
+
+                $favs = Favourite::whereHas('product', function($query) use ($request) {
+                    $query->where('title','like','%'.$request->value.'%')->where('status','active');
+                })->latest()->paginate(100);
+               
+                $favs = $favs->appends($request->all());
+                return view('user.website.includes.favourite_append',compact('favs'));
+            }
+        }
+        $favs = $favs->appends($request->all());
+        return view('user.website.favourites',compact('favs'));
     }
 }
