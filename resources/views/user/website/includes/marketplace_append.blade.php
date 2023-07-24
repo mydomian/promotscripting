@@ -40,7 +40,7 @@
                     <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $marketPlace->subSubCategory->subCategory->category ? $marketPlace->subSubCategory->subCategory->category->category_name : $marketPlace->subSubCategory->category_name }}</span>
                     </a>
                     <div class="d-flex justify-content-between gap-3">
-                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none">{{ Str::limit($marketPlace->title,22) ?? "" }}</a>
+                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none">{{ Str::limit($marketPlace->title,18) ?? "" }}</a>
                         <small class="text-body-tertiary">$ {{ $marketPlace->price }}</small>
                 
                     </div>

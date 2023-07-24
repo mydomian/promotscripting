@@ -40,8 +40,8 @@
                     <li class="list-inline-item"><small>HQ Images @if($product->is_hq_images == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
                     <li class="list-inline-item"><small><i class="fa fa-eye"></i> {{ $product->views }}</small></li>
                 
-     
-                    <li class="list-inline-item"><small><i class="fa fa-heart"></i> {{ $product->favourites }}</small></li>
+                   
+                    <li class="list-inline-item"><small><i class="user-favourite fa fa-heart @if(userFav($product->id,userLocalIp())) > 0) text-danger @endif" productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
                
                 </ul>
                 <hr>
@@ -203,8 +203,42 @@
   </main>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
     $(document).ready(function () {
+
+        $( ".user-favourite" ).click(function() {
+
+            var productId = $(this).attr('productId');
+            var type = $(this).hasClass('text-danger');
+            var url = "{{ route('userFavourite','') }}"+"/"+productId+"/"+type;
+
+            if(type === true){
+                
+                var text = "Do you want to unfavourite this prompt!";
+                var confirmButtonText = "Yes, Unfavourite it!";
+            }else{
+                var text = "Do you want to favourite this prompt!";
+                var confirmButtonText = "Yes, Favourite it!";
+            }
+
+            Swal.fire({
+            title: 'Are you sure?',
+            text: text,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: confirmButtonText
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href=url
+                }
+            })
+
+        });
+
+
         document.oncontextmenu = function() {return false;};
         $('body').mousedown(function(e) { return false;});
         $('body').mouseup(function(e) { return false;});

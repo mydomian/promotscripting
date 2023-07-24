@@ -29,6 +29,10 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('/about-us','aboutUs')->name('aboutus');
      Route::get('/blogs','blog')->name('blogs');
      Route::get('/blog-load/{blog}','blogSeeMoreLoad')->name('blogSeeMoreLoad');
+
+     Route::get('hire','hire')->name('hire');
+
+     Route::get('/prompt-favourite/{product}/{type?}','userFavourite')->name('userFavourite');
      
 });
 //======================EmailVerification========================
@@ -70,7 +74,8 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
-
+        //favourite
+        Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
 
 
         // deleted route

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Blog;
 use App\Models\Contact;
+use App\Models\Favourite;
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 
@@ -37,5 +40,21 @@ class HomeController extends Controller
 
     public function blogSeeMoreLoad(Blog $blog){
         return response()->json(['blog'=>$blog]);
+    }
+
+    public function userFavourite($product){
+        $fav = Favourite::where(['product_id'=>$product,'user_ip'=>userLocalIp()])->first();
+        if($fav){
+            $fav->delete();
+        }else{
+            $fav = Favourite::create(['product_id'=>$product,'user_ip'=>userLocalIp()]);
+        }
+        return back()->with('success','Check Favourite Lists');
+    }
+
+    public function hire(){
+        $mostOrders = Order::with('user','product')->inRandomOrder()->limit(50)->get();
+        $midJourneys = Product::with('user')->where(['status'=>'active'])->get()->unique('user_id');
+        return view('user.website.hire',compact('mostOrders','midJourneys'));
     }
 }

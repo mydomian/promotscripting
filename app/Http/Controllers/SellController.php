@@ -113,7 +113,7 @@ class SellController extends Controller
         if($validator->fails()) {
             return  $validator->errors()->first();
         }
-       
+   
        $product = Product::create([
             'user_id'                  => Auth::id(),
             'sub_sub_category_id'      => $request->sub_sub_category_id,
