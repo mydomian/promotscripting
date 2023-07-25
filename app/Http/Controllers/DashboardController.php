@@ -27,7 +27,10 @@ class DashboardController extends Controller
 
     public function dashboard(){
         // $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
+        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get(); 
+        // $favourites = Favourite::where('user_ip', userLocalIp())->latest()->get();
+        // $prompts = Product::with('user')->where('user_id', 1)->latest()->get();
+       
         
         return view('user.website.dashboard');
     }

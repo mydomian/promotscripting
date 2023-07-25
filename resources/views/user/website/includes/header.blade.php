@@ -52,6 +52,17 @@ $system = App\Models\Setting::first();
         height: 250px;
         resize: none; /* Remove this if you want the user to resize the textarea */
       }
+      .preview {
+            display: inline-block;
+            width: auto;
+            height: 100px;
+            margin: 10px;
+        }
+      .preview img {
+            max-width: 10px;
+            max-height: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
   </head>
   <body class="d-flex flex-column min-vh-100">
@@ -137,9 +148,9 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i class="fa fa-list"></i> <small>Prompts</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                  {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li> --}}
                   <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li>
+                  {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li> --}}
 
                   @if (Auth::user()->is_admin == 'admin')
                     <li><a class="dropdown-item text-primary" href="{{route('admin.dashboard')}}"><i class="fa fa-sign-out"></i> <small>Logout</small></a></li>
