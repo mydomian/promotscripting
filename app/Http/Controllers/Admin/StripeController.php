@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Auth;
 
 class StripeController extends Controller
 {
-    public function info(){
+    public function info()
+    {
         $charges = Charge::first();
-        $user_id = User::where('id', Auth::id())->where('is_admin','admin')->first();
-        $info = PaymentInfo::where('user_id', $user_id->id )->first();
-        return view('admin.payment-info',compact('info','charges'));
+        $user_id = User::where('id', Auth::id())->where('is_admin', 'admin')->first();
+        $info = PaymentInfo::where('user_id', $user_id->id)->first();
+        return view('admin.payment-info', compact('info', 'charges'));
     }
 
-    public function update(Request $request){
-        
+    public function update(Request $request)
+    {
+
         $info = PaymentInfo::first();
         $info->update([
             'user_id' => Auth::id(),
@@ -30,11 +32,22 @@ class StripeController extends Controller
         return back()->with('success', 'Updated!');
     }
 
-    public function checkouts(){
-
+    public function checkouts()
+    {
+       
         // $stripe = new \Stripe\StripeClient('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
-        // $checkouts=$stripe->checkout->sessions->all();
+        // $checkouts = $stripe->checkout->sessions->all();
         // return $checkouts;
         return view('admin.checkouts');
+    }
+
+
+    public function charges()
+    {
+
+        // $stripe = new \Stripe\StripeClient('sk_test_51MdVopI5vndzPyR8raL9vEY79KT2Iv22xGMebpbPOnFMc8jClAEjvnCeqMIGYeJQGgD9SWAHqduTPB64YA1KqmIY00cfZ7o7Ml');
+        // $charges = $stripe->charges->all();
+        // return $charges;
+        return view('admin.charges');
     }
 }

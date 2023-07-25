@@ -7,7 +7,6 @@ use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\View;
-
 function model(){
     return $model = array('1'=>'Version 1','2'=>'Version 2','3'=>'Version 3','4'=>'Version 4','5'=>'Version 5');
 }
@@ -41,6 +40,7 @@ function userTotalFav($userIp){
 function totalPromptSell($userId){
     $orders = Order::where(['user_id'=>$userId,'status'=>'approve','is_paid'=>'paid'])->count();
     return $orders;
+
 }
 function userPromotCategoriesWise($userId){
     $prompts = Product::where(['user_id'=>$userId,'status'=>'active'])->get()->unique('is_type');
@@ -66,3 +66,15 @@ function ProductViews($productId){
     $userProducts = Product::where(['user_id'=>$userId,'status'=>'active'])->get()->pluck('id');
     return $view = Favourite::whereIn('product_id',$userProducts)->count();
  }
+}
+
+function favourites()
+{
+    return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->get();
+}
+
+function prompts()
+{
+    return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
+}
+

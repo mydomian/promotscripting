@@ -54,6 +54,11 @@
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
                 <h6>{{ $product->created_at->diffForHumans() }}</h6>
+               
+                {{-- @if ($product->user_id == Auth::id())
+                     <a href="{{route('delete.prompt',encrypt($product->id))}}" class="btn btn-outline-secondary">Delete Prompt</a>
+                @endif --}}
+                
             </div>
 
             <div class="col-md-6 col-sm-12">
