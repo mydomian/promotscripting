@@ -41,7 +41,7 @@
                     <li class="list-inline-item"><small><i class="fa fa-eye text-primary"></i> {{ ProductViews($product->id) }}</small></li>
                 
                    
-                    <li class="list-inline-item"><small><i class="user-favourite fa fa-heart @if(userFav($product->id,userLocalIp())) > 0) text-danger @endif" productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
+                    <li class="list-inline-item" style="cursor: pointer"><small><i class="user-favourite fa fa-heart @if(userFav($product->id,userLocalIp())) > 0) text-danger @endif" productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
                
                 </ul>
                 <hr>

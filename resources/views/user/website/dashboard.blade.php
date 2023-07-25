@@ -1,9 +1,9 @@
-@php
+{{-- @php
     $purchases = purchases();
     $sales = sales();
     $favourites = favourites();
     $prompts = prompts();
-@endphp
+@endphp --}}
 @extends('user.website.includes.master')
 
 @section('title', '| Profile')
@@ -28,27 +28,27 @@
                             id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                             role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
                     </li> --}}
-                    <li class="nav-item" role="presentation">
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
                             role="tab" aria-controls="pills-prompts" aria-selected="false">Prompts</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
+                    </li> --}}
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2" id="pills-sells-tab"
                             data-bs-toggle="pill" data-bs-target="#pills-sells" type="button" role="tab"
                             aria-controls="pills-sells" aria-selected="false">Sales</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
+                    </li> --}}
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
                             role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
-                    </li>
-                    <li class="nav-item" role="presentation">
+                    </li> --}}
+                    {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-favourites-tab" data-bs-toggle="pill" data-bs-target="#pills-favourites"
                             type="button" role="tab" aria-controls="pills-favourites"
                             aria-selected="false">Favourites</a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
@@ -74,7 +74,7 @@
     </section>
 
     <section class="hero-marketplace bg-body">
-        <div class="container">
+        <div class="container" style="margin-bottom: 100px">
             <div class="col-12 text-white">
                 <div class="tab-content" id="pills-tabContent">
 
@@ -85,34 +85,114 @@
                             <hr>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6 col-lg-4">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
-                                            <h6>New Job Posts</h6>
-                                            <p>100</p>
-                                        </div>
-                                    </div>
-                                </a>
-
-                            </div>
-                            <div class="col-md-6 col-lg-4">
-                                <a href="" class="text-decoration-none">
-                                    <div class="card marketplace--card rounded-3">
-                                        <div class="card-body text-center" style="color:white">
-                                            <h6>Processing Job Posts</h6>
-                                            <p>100</p>
+                                            <h6>This Month Sale</h6>
+                                            <p>{{thisMonthSale()}}</p>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-6 col-lg-4">
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
-                                            <h6>Completed Job Posts</h6>
-                                            <p>100</p>
+                                            <h6>Total Prompts</h6>
+                                            <p>{{totalPrompt()->count()}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Active Prompts</h6>
+                                            <p>{{totalPrompt()->where('status','active')->count()}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Inactive Prompts</h6>
+                                            <p>{{totalPrompt()->where('status','inactive')->count()}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Prompt Sale</h6>
+                                            <p>{{totalPromptSell(auth()->id())}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Sale Amount</h6>
+                                            <p>{{'$ '.number_format(totalSaleAmount(),2)}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Views</h6>
+                                            <p>{{userAllProductView(auth()->id())}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Favourites</h6>
+                                            <p>{{userAllProductFav(auth()->id())}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Prompt Purchase</h6>
+                                            <p>{{ totalPurchase()->count()}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>Total Purchase Amount</h6>
+                                            <p>{{'$ '.number_format(totalPurchase()->sum('price'),2)}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            
+                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                                <a href="" class="text-decoration-none">
+                                    <div class="card marketplace--card rounded-3">
+                                        <div class="card-body text-center" style="color:white">
+                                            <h6>My Favourites</h6>
+                                            <p>{{userTotalFav( userLocalIp() )}}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -121,7 +201,7 @@
                     </div>
 
 
-                    <div class="tab-pane fade" id="pills-payouts" role="tabpanel" aria-labelledby="pills-payouts-tab"
+                    {{-- <div class="tab-pane fade" id="pills-payouts" role="tabpanel" aria-labelledby="pills-payouts-tab"
                         tabindex="0">
                         <div>
                             <h5>Payouts</h5>
@@ -165,7 +245,7 @@
                                         class="form-check-input" id="" checked></div>
                             </div>
 
-                            {{-- <div class="col-md-12 ">
+                            <div class="col-md-12 ">
                                 <div class="d-flex justify-content-end mb-0">
                                   <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
                                     <p class="fw-bolder mb-0">New Favourites</p>
@@ -187,7 +267,7 @@
                                   <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="follower_notification" class="form-check-input" id="" checked></div>
                                 </div>
                                 <hr class="mt-1">
-                              </div> --}}
+                              </div>
                             <a href="{{ route('user.logout') }}" class="btn btn-outline-secondary my-4 px-5"><span
                                     class="fw-bolder fs-5">Log Out</span></a>
                         </div>
@@ -202,10 +282,10 @@
                                 Account</a>
                         </div>
 
-                    </div>
+                    </div> --}}
 
 
-                    <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
+                    {{-- <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
                         tabindex="0">
                         <div>
                             <h5>Prompts</h5>
@@ -289,10 +369,10 @@
 
 
 
-                    </div>
+                    </div> --}}
 
 
-                    <div class="tab-pane fade" id="pills-sells" role="tabpanel" aria-labelledby="pills-sells-tab"
+                    {{-- <div class="tab-pane fade" id="pills-sells" role="tabpanel" aria-labelledby="pills-sells-tab"
                         tabindex="0">
 
                         <div class="row g-3 mb-5">
@@ -327,10 +407,10 @@
 
 
 
-                    </div>
+                    </div> --}}
 
 
-                    <div class="tab-pane fade" id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab"
+                    {{-- <div class="tab-pane fade" id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab"
                         tabindex="0">
                         <div>
                             <h5>Purchases</h5>
@@ -397,10 +477,10 @@
 
 
 
-                    </div>
+                    </div> --}}
 
 
-                    <div class="tab-pane fade " id="pills-favourites" role="tabpanel"
+                    {{-- <div class="tab-pane fade " id="pills-favourites" role="tabpanel"
                         aria-labelledby="pills-favourites-tab" tabindex="0">
                         <div>
                             <h5>Favourites</h5>
@@ -465,10 +545,10 @@
                                 <p class="text-white">Nothing to show!</p>
                             @endforelse
                         </div>
-                    </div>
+                    </div> --}}
 
 
-                    <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab"
+                    {{-- <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab"
                         tabindex="0">
                         <div>
                             <h5>Settings</h5>
@@ -504,15 +584,15 @@
                                 </div>
                                 <hr class="mt-1">
                             </div>
-                            {{-- <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
+                            <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
                                 <div class="col-md-6 col-sm-6 cl-lg-6"></div>
                                 <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
                                         class="form-check-input" id="" checked></div>
                                 <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
                                         class="form-check-input" id="" checked></div>
-                            </div> --}}
+                            </div>
 
-                            {{-- <div class="col-md-12 ">
+                            <div class="col-md-12 ">
                                     <div class="d-flex justify-content-end mb-0">
                                       <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
                                         <p class="fw-bolder mb-0">New Favourites</p>
@@ -534,7 +614,7 @@
                                       <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="follower_notification" class="form-check-input" id="" checked></div>
                                     </div>
                                     <hr class="mt-1">
-                                  </div> --}}
+                                  </div>
                             <a href="{{ route('user.logout') }}" class="btn btn-outline-secondary my-4 px-5"><span
                                     class="fw-bolder fs-5">Log Out</span></a>
                         </div>
@@ -549,9 +629,7 @@
                                 Account</a>
                         </div>
 
-                    </div>
-
-
+                    </div> --}}
 
 
                 </div>
