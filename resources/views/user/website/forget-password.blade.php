@@ -25,7 +25,12 @@ $system = App\Models\Setting::first();
                                 <div class="text-white">
                                     <h5 class="mb-0">Forgot Password?</h5>
                                 </div>
-                                <form class="mt-3 text-white mb-5" method="POST" action="{{url('/login')}}">
+                                @if (session('status'))
+                                <div class="alert alert-danger mt-2" role="alert">
+                                    <small class="text-danger"> {{ session('status') }}</small>
+                                </div>
+                                @endif
+                                <form class="mt-3 text-white mb-5" method="POST" action="{{ route('password.email')}}">
                                     @csrf
                                         <div class="mb-5">
                                             <small class="form-label text-primary">Enter your registered email</small>

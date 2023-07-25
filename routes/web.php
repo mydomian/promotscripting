@@ -75,6 +75,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
+        
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
 
@@ -100,7 +101,7 @@ Route::middleware(['user','verified'])->group(function () {
 Route::prefix('/admin')->group(function (){
     Route::match(['get','post'], '/login', [AuthController::class, 'login'])->name('admin.login');
     Route::match(['get','post'], '/forget-password', [AuthController::class, 'forgetPassword'])->name('admin.forgetPassword');
-    Route::group(['middleware'=>'admin'], function () {
+        Route::group(['middleware'=>['admin','verified']], function () {
         Route::get('/dashboard', function () { return view('admin.index'); })->name('admin.dashboard');
    
         Route::resources([
@@ -141,6 +142,7 @@ Route::prefix('/admin')->group(function (){
         Route::get('/blog-delete/{blog}',[BlogController::class,'destroy'])->name('admin.blogDestroy');
         //transactions
         Route::get('/checkouts',[AdminStripeController::class,'checkouts'])->name('admin.checkouts');
+        Route::get('/charges',[AdminStripeController::class,'charges'])->name('admin.charges');
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });

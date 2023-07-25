@@ -69,7 +69,7 @@
     </div>
 
 @empty
-    <p>No Job Posts Available</p>
+    <p class="text-white">No Prompts Available</p>
 @endforelse
 
       

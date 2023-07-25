@@ -82,7 +82,7 @@ $system = App\Models\Setting::first();
                                 <a href="{{route('admin.checkouts')}}" class="nav-link">All Checkouts</a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">All Charges</a>
+                                <a href="{{route('admin.charges')}}" class="nav-link">All Charges</a>
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">All Transfers</a>
