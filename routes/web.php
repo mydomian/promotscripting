@@ -37,9 +37,7 @@ Route::controller(HomeController::class)->group(function(){
      
 });
 //======================EmailVerification========================
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+Route::get('/email/verify', function () { return view('auth.verify-email');})->middleware('auth')->name('verification.notice');
 
 // ======================Marketplace=============================
 Route::controller(MarketplaceController::class)->group(function(){
@@ -78,7 +76,9 @@ Route::middleware(['user','verified'])->group(function () {
         
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
-
+        //custom order
+        Route::get('/prompt-custom-order/{userId}/{sellerId?}','promptCustomOrder')->name('user.promptCustomOrder');
+        Route::get('/custom-order/success','CustomOrderSuccess');
 
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');

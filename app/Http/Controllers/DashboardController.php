@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Charge;
 use App\Models\Category;
+use App\Models\CustomPromptOrder;
 use App\Models\Favourite;
 use App\Models\Order;
+use App\Models\PaymentInfo;
 use App\Models\User;
 use App\Services\Services;
 use App\Models\Product;
@@ -212,5 +215,78 @@ class DashboardController extends Controller
         }
         $favs = $favs->appends($request->all());
         return view('user.website.favourites',compact('favs'));
+    }
+
+    public function promptCustomOrder($userId,$sellerId){
+
+        if(is_numeric($userId) and is_numeric($sellerId)){
+            $sk = PaymentInfo::first()->secret_key;
+            $stripe = new \Stripe\StripeClient($sk);
+            $charge = Charge::first()->buyer_charge;
+            $chargeAmount = number_format((49.99 * ($charge / 100)), 2) * 100;
+            $collected_price = $chargeAmount  > 50 ? 49.99 + ($chargeAmount / 100) : 49.99;
+        
+            $order = CustomPromptOrder::create([
+                'user_id'           => $userId,
+                'seller_id'         => $sellerId,
+                'price'             => 49.99,
+                'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
+                'charge_percentage' => $charge,
+                'collected_price'   =>  $collected_price,
+                'transaction_id'    => "",
+                'is_paid'           => "unpaid",
+                'status'            => "pending",
+            ]);
+
+            $session = $stripe->checkout->sessions->create([
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency'     => 'usd',
+                            'product_data' => [
+                                'name' => "Custom Order"
+                            ],
+                            'unit_amount'  => 49.99 * 100
+                        ],
+                        'quantity' => 1,
+                    ],
+                ],
+                'mode' => 'payment',
+                'success_url' => env('APP_URL')."/custom-order/success?session_id={CHECKOUT_SESSION_ID}&order_id=".encrypt($order->id),
+                'cancel_url'  => url('/promptscripting-chat',$userId),
+            ]);
+
+            if ($chargeAmount > 50) {
+                $stripe->charges->create([
+                    'amount'    => $chargeAmount,
+                    'currency'  => 'usd',
+                    'source'    => 'tok_amex',
+                ]);
+            }
+
+
+             return redirect()->away($session->url);
+            
+        }else{
+            return redirect('/promptscripting-chat');
+        }
+
+        
+    }
+
+    public function CustomOrderSuccess(Request $request){
+        $order = CustomPromptOrder::find(decrypt($request->order_id));
+        $secret_key = PaymentInfo::first()->secret_key;
+        $stripe = new \Stripe\StripeClient($secret_key);
+        $session = $stripe->checkout->sessions->retrieve(
+            $request->session_id
+        );
+       
+        $order->update([
+            'is_paid'        => $session->payment_status,
+            'transaction_id' => $session->payment_intent
+        ]);
+
+        return view('user.website.custom_order_success');
     }
 }
