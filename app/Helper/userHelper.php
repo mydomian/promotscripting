@@ -7,20 +7,13 @@ use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\View;
+use Illuminate\Support\Carbon;
 
 function model(){
     return $model = array('1'=>'Version 1','2'=>'Version 2','3'=>'Version 3','4'=>'Version 4','5'=>'Version 5');
 }
 function sampler(){
     return $sampler = array('1'=>'Sampler 1','2'=>'Sampler 2','3'=>'Sampler 3','4'=>'Sampler 4','5'=>'Sampler 5');
-}
-function purchases()
-{
-    return \App\Models\Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-}
-function sales()
-{
-    return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
 }
 function userLocalIp(){
     return gethostbyname(gethostname());
@@ -67,15 +60,37 @@ function ProductViews($productId){
     $userProducts = Product::where(['user_id'=>$userId,'status'=>'active'])->get()->pluck('id');
     return $view = Favourite::whereIn('product_id',$userProducts)->count();
  }
-
-
-function favourites()
-{
-    return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->get();
+function totalPrompt(){
+    return Product::where('user_id',Auth::id());
+}
+function totalSaleAmount(){
+    return Order::where('seller_id',Auth::id())->where('is_paid','paid')->where('status','approve')->sum('price');
+}
+function totalPurchase(){
+    return Order::where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve');
+}
+function thisMonthSale(){
+    return  Order::where(['user_id'=>Auth::id(),'status'=>'approve','is_paid'=>'paid'])->whereMonth('created_at', Carbon::now()->month)->count();
 }
 
-function prompts()
-{
-    return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
-}
+
+// function favourites()
+// {
+//     return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->get();
+// }
+
+// function prompts()
+// {
+//     return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
+// }
+
+// function purchases()
+// {
+//     return \App\Models\Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
+// }
+
+// function sales()
+// {
+//     return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
+// }
 
