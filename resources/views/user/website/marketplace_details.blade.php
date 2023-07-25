@@ -35,10 +35,10 @@
                 <ul class="list-inline">
                     <li class="list-inline-item"><small>@ {{ strstr($product->user->name, ' ', true) ?? "" }}</small></li>
                     <li class="list-inline-item"><small>{{ $product->words }} Words</small></li>
-                    <li class="list-inline-item"><small>Tested @if($product->is_tested == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
-                    <li class="list-inline-item"><small>Tips @if($product->is_tips == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
-                    <li class="list-inline-item"><small>HQ Images @if($product->is_hq_images == 'yes') <i class="fa fa-check-circle"></i> @else <i class="fa fa-times-circle"></i> @endif</small></li>
-                    <li class="list-inline-item"><small><i class="fa fa-eye"></i> {{ $product->views }}</small></li>
+                    <li class="list-inline-item"><small>Tested @if($product->is_tested == 'yes') <i class="fa fa-check-circle text-primary"></i> @else <i class="fa fa-times-circle text-danger"></i> @endif</small></li>
+                    <li class="list-inline-item"><small>Tips @if($product->is_tips == 'yes') <i class="fa fa-check-circle text-primary"></i> @else <i class="fa fa-times-circle text-danger"></i> @endif</small></li>
+                    <li class="list-inline-item"><small>HQ Images @if($product->is_hq_images == 'yes') <i class="fa fa-check-circle text-primary"></i> @else <i class="fa fa-times-circle text-danger"></i> @endif</small></li>
+                    <li class="list-inline-item"><small><i class="fa fa-eye text-primary"></i> {{ ProductViews($product->id) }}</small></li>
                 
                    
                     <li class="list-inline-item"><small><i class="user-favourite fa fa-heart @if(userFav($product->id,userLocalIp())) > 0) text-danger @endif" productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>

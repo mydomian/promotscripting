@@ -400,6 +400,11 @@ function IDinfo(id) {
           "background-image",
           'url("' + data.user_avatar + '")'
         );
+
+       //customerSellerId
+       $(".sellerCustomId")
+       .data("sellerId",data.fetch.id);
+        
         // Show shared and actions
         $(".messenger-infoView-btns .delete-conversation").show();
         $(".messenger-infoView-shared").show();

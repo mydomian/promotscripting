@@ -57,6 +57,7 @@ class MarketplaceController extends Controller
     }
 
     public function marketplaceDetails($slug, $product){
+        viewAdd(userLocalIp(),$product);
         $product = Product::with('user','subSubCategory','productImages')->find($product);
         return view('user.website.marketplace_details',compact('product'));
     }

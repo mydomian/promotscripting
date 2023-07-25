@@ -47,7 +47,8 @@
                                 </div>
                                 <h6 class="text-center text-white">@ {{ strstr( $item->user->name . ' ', ' ', true ) }}</h6>
                                 <div class="text-primary d-flex justify-content-between">
-                                    <small><i class="fa fa-eye"></i> 0</small>
+                                    <small><i class="fa fa-eye"></i> {{ userAllProductView($item->user->id) }}</small>
+                                    <small><i class="fa fa-heart"></i> {{ userAllProductFav($item->user->id) }}</small>
                                     <small><i class="fas fa-tags"></i> {{ totalPromptSell($item->user_id) }}</small>
                                 </div>
                             </a>
@@ -100,7 +101,8 @@
                                             </div>
                                             <h6 class="text-center text-white">@ {{ strstr( $midJourney->user->name . ' ', ' ', true ) }}</h6>
                                             <div class="text-primary d-flex justify-content-between">
-                                                <small><i class="fa fa-eye"></i> 0</small>
+                                                <small><i class="fa fa-eye"></i> {{ userAllProductView($midJourney->user->id) }}</small>
+                                                <small><i class="fa fa-heart"></i> {{ userAllProductFav($midJourney->user->id) }}</small>
                                                 <small><i class="fas fa-tags"></i> {{ totalPromptSell($midJourney->user_id) }}</small>
                                             </div>
                                         </a>
@@ -139,7 +141,8 @@
                                             </div>
                                             <h6 class="text-center text-white">@ {{ strstr( $gpt->user->name . ' ', ' ', true ) }}</h6>
                                             <div class="text-primary d-flex justify-content-between">
-                                                <small><i class="fa fa-eye"></i> 0</small>
+                                                <small><i class="fa fa-eye"></i> {{ userAllProductView($gpt->user->id) }}</small>
+                                                <small><i class="fa fa-heart"></i> {{ userAllProductFav($gpt->user->id) }}</small>
                                                 <small><i class="fas fa-tags"></i> {{ totalPromptSell($gpt->user_id) }}</small>
                                             </div>
                                         </a>
@@ -178,7 +181,8 @@
                                             </div>
                                             <h6 class="text-center text-white">@ {{ strstr( $stablediffusion->user->name . ' ', ' ', true ) }}</h6>
                                             <div class="text-primary d-flex justify-content-between">
-                                                <small><i class="fa fa-eye"></i> 0</small>
+                                                <small><i class="fa fa-eye"></i> {{ userAllProductView($stablediffusion->user->id) }}</small>
+                                                <small><i class="fa fa-heart"></i> {{ userAllProductFav($stablediffusion->user->id) }}</small>
                                                 <small><i class="fas fa-tags"></i> {{ totalPromptSell($stablediffusion->user_id) }}</small>
                                             </div>
                                         </a>
@@ -217,7 +221,8 @@
                                             </div>
                                             <h6 class="text-center text-white">@ {{ strstr( $dalle->user->name . ' ', ' ', true ) }}</h6>
                                             <div class="text-primary d-flex justify-content-between">
-                                                <small><i class="fa fa-eye"></i> 0</small>
+                                                <small><i class="fa fa-eye"></i> {{ userAllProductView($dalle->user->id) }}</small>
+                                                <small><i class="fa fa-heart"></i> {{ userAllProductFav($dalle->user->id) }}</small>
                                                 <small><i class="fas fa-tags"></i> {{ totalPromptSell($dalle->user_id) }}</small>
                                             </div>
                                         </a>
@@ -256,7 +261,8 @@
                                             </div>
                                             <h6 class="text-center text-white">@ {{ strstr( $promptbase->user->name . ' ', ' ', true ) }}</h6>
                                             <div class="text-primary d-flex justify-content-between">
-                                                <small><i class="fa fa-eye"></i> 0</small>
+                                                <small><i class="fa fa-eye"></i> {{ userAllProductView($promptbase->user->id) }}</small>
+                                                <small><i class="fa fa-heart"></i> {{ userAllProductFav($promptbase->user->id) }}</small>
                                                 <small><i class="fas fa-tags"></i> {{ totalPromptSell($promptbase->user_id) }}</small>
                                             </div>
                                         </a>
