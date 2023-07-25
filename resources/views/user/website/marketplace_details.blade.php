@@ -82,7 +82,7 @@
 
                         </div>
                     </div>
-                @elseif($product->subSubCategory->subCategory->category->id == 5)
+                {{-- @elseif($product->subSubCategory->subCategory->category->id == 5)
                 
                     <div class="row gap-0 midJourney" style="height:1000px; overflow:auto">
                         @forelse ($images = $product->productImages as $image)
@@ -101,7 +101,7 @@
                     </div>
                     <p style="text-align: justify;"><small >Puzzle effect is a watermark and not part of the image.</small></p>
                     <p style="text-align: justify;"><small >{{ $product->midjourney_text ?? "" }}</small></p>
-                    <a href="#" style="text-align: justify;"><small >{{ $product->midjourney_profile ?? "" }}</small></a>
+                    <a href="#" style="text-align: justify;"><small >{{ $product->midjourney_profile ?? "" }}</small></a> --}}
                 @endif
             </div>
         </div>

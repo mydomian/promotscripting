@@ -97,7 +97,7 @@ class SellController extends Controller
             'midjourney_text'       => 'required_if:category_id,5,6,7',
             'midjourney_profile'    => 'required_if:category_id,5',
             'image'                 => 'required',
-            'images'                => 'required_if:category_id,5|array|size:9',
+            'images'                => 'required_if:category_id,5|array|size:6',
             'instructions'          => 'required|string',
             'image_verification'    => 'required_if:category_id,7',
             'model_version'         => 'required_if:category_id,6',
