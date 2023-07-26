@@ -303,7 +303,7 @@ class DashboardController extends Controller
         }
         $customOrders = $customOrders->appends($request->all());
         return view('user.website.custom_orders',compact('customOrders'));
-
+    }
     public function accountDelete(){
        $user = User::find(Auth::id());
        $user->delete();
