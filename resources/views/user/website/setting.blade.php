@@ -90,19 +90,39 @@
                                     <tr>
                                         <th scope="row" colspan="3" class="w-75">
                                             <div class="d-flex flex-column">
+                                                <strong class="mb-0"><small>New Purchases</small></strong>
+                                                <small class="text-secondary">Whenever your prompt is purchased.</small>
+                                            </div>
+                                        </th>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="purchase_email" name="purchase_email" {{$settings->new_purchase_email == 1 ? 'checked' : ''}} >
+                                                <label class="form-check-label" for="flexCheckChecked"> </label>
+                                              </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"  id="purchase_notification" name="purchase_notification" {{$settings->new_purchase_notification == 1 ? 'checked' : ''}}>
+                                                <label class="form-check-label" for="flexCheckChecked"> </label>
+                                              </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" colspan="3" class="w-75">
+                                            <div class="d-flex flex-column">
                                                 <strong class="mb-0"><small>New Prompts</small></strong>
                                                 <small class="text-secondary">Whenever new prompts are posted.</small>
                                             </div>
                                         </th>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order_email" name="order_email" {{$settings->new_order_email == 1 ? 'checked' : ''}}>
+                                                <input class="form-check-input" type="checkbox" id="order_email" name="prompt_email" {{$settings->new_prompt_email == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="order_notification" name="order_notification" {{$settings->new_order_notification == 1 ? 'checked' : ''}}>
+                                                <input class="form-check-input" type="checkbox" id="order_notification" name="prompt_notification" {{$settings->new_prompt_notification == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
