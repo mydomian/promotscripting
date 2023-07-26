@@ -150,7 +150,7 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                   {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li> --}}
                   <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
-                  {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li> --}}
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.settings')}}"><i class="fa fa-gear"></i> <small>Settings</small></a></li>
 
                   @if (Auth::user()->is_admin == 'admin')
                     <li><a class="dropdown-item text-primary" href="{{route('admin.dashboard')}}"><i class="fa fa-sign-out"></i> <small>Logout</small></a></li>

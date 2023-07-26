@@ -74,7 +74,7 @@ class DashboardController extends Controller
 
 
     public function settings(){
-
+        return view('user.website.setting');
     }   
 
         
@@ -288,5 +288,11 @@ class DashboardController extends Controller
         ]);
 
         return view('user.website.custom_order_success');
+    }
+
+    public function accountDelete(){
+       $user = User::find(Auth::id());
+       $user->delete();
+       return redirect()->route('home');
     }
 }
