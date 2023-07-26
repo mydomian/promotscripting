@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('notification_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->tinyInteger('new_prompt_notification')->default(1);
             $table->tinyInteger('new_sale_notification')->default(1);
-            $table->tinyInteger('new_order_notification')->default(1);
+            $table->tinyInteger('new_purchase_notification')->default(1);
             $table->tinyInteger('new_favourites_notification')->default(1);
+            $table->tinyInteger('new_prompt_email')->default(1);
             $table->tinyInteger('new_sale_email')->default(1);
-            $table->tinyInteger('new_order_email')->default(1);
+            $table->tinyInteger('new_purchase_email')->default(1);
             $table->tinyInteger('new_favourites_email')->default(1);
             $table->timestamps();
         });

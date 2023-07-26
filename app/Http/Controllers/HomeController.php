@@ -49,12 +49,13 @@ class HomeController extends Controller
             $fav->delete();
         }else{
             $fav = Favourite::create(['product_id'=>$product,'user_ip'=>userLocalIp()]);
+            createNotification($fav->id,'favourites');
         }
         return back()->with('success','Check Favourite Lists');
     }
 
     public function hire(){
-        $mostOrders = Order::with('user','product')->inRandomOrder()->limit(50)->get();
+        $mostOrders = Order::with('user','product')->where('status','approve')->inRandomOrder()->limit(50)->get();
         $midjourneys = Product::with('user')->where(['status'=>'active','is_type'=>'midjourney'])->get()->unique('user_id');
         $gpts = Product::with('user')->where(['status'=>'active','is_type'=>'gpt'])->get()->unique('user_id');
         $stablediffusions = Product::with('user')->where(['status'=>'active','is_type'=>'stablediffusion'])->get()->unique('user_id');

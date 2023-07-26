@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Favourite;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\View;
@@ -72,6 +73,15 @@ function totalPurchase(){
 function thisMonthSale(){
     return  Order::where(['user_id'=>Auth::id(),'status'=>'approve','is_paid'=>'paid'])->whereMonth('created_at', Carbon::now()->month)->count();
 }
+
+function createNotification($typeId, $type){
+    $notification = Notification::create([
+        'type_id'=>$typeId,
+        'type'=>$type,
+    ]);
+    return $notification;
+}
+
 
 
 // function favourites()
