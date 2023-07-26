@@ -64,7 +64,7 @@
                         </li>
                     @endif
                     <li class="nav-item" role="presentation">
-                        <a href=""
+                        <a href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"
                             class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none mx-1 p-2">Public
                             Profile</a>
                     </li>

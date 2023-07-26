@@ -57,7 +57,7 @@ class StripeController extends Controller
             $data =  $stripe->accountLinks->create([
                 'account' => $user->stripe_id,
                 'refresh_url' => 'http://127.0.0.1:8000/connect-bank',
-                'return_url' => route('onboarding.completed',encrypt($user->stripe_id)),
+                'return_url' => route('onboarding.completed', encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',
             ]);
             return Redirect::to($data->url);
@@ -69,14 +69,13 @@ class StripeController extends Controller
         // );
 
         // return Redirect::to($loginLink->url);
-        return redirect()->route('user.dashboard')->with('success','Your prompt is ready to be approved, Please wait!');
-
+        return redirect()->route('user.dashboard')->with('success', 'Your prompt is ready to be approved, Please wait!');
     }
 
 
     public function getPrompt($id)
     {
-        $product = Product::findOrFail(decrypt($id), ['id','user_id', 'title', 'price']);
+        $product = Product::findOrFail(decrypt($id), ['id', 'user_id', 'title', 'price']);
         $charge = Charge::first()->buyer_charge;
         $chargeAmount = number_format(($product->price * ($charge / 100)), 2) * 100;
         $sk = PaymentInfo::first()->secret_key;
@@ -160,14 +159,34 @@ class StripeController extends Controller
 
         return view('user.website.success');
     }
-    
 
-    public function completed($id){
+
+    public function completed($id)
+    {
         $user = User::whereStripeId(decrypt($id))->firstOrFail();
         $user->update([
             'is_onboarding_completed' => 1
-         ]);
-         
-         return redirect(route('user.dashboard'))->with('success', 'Onboarding Successsful!');
+        ]);
+
+        return redirect(route('user.dashboard'))->with('success', 'Onboarding Successsful!');
+    }
+
+    public function destroy()
+    {
+        $account = User::find(Auth::id());
+        $sk = PaymentInfo::first()->secret_key;
+        if (!empty($account->stripe_id)) {
+            $stripe = new \Stripe\StripeClient($sk);
+            $success =  $stripe->accounts->delete(
+                $account->stripe_id,
+                []
+            );
+            $account->update([
+                'stripe_id' => NULL,
+                'is_onboarding_completed' => 0
+            ]);
+            return back()->with('success', 'Stripe Account Deleted');
+        }
+        return back()->with('error', "You haven't connect a stripe account yet");
     }
 }
