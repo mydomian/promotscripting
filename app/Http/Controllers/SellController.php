@@ -164,6 +164,8 @@ class SellController extends Controller
                 ]);
             }           
         }
+
+        createNotification($product->id,'prompts');
         
         if(Auth::user()->is_onboarding_completed == 1){
             return redirect()->route('user.dashboard')->with('success','Your prompt is ready to be approved, Please wait!');
