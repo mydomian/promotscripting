@@ -169,10 +169,16 @@
                                         placeholder="To use this prompt you need to...">{{ old('instructions') }}</textarea>
                                 </div>
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Next
-                                        <i class="fa-solid fa-arrow-right-long"></i>
-                                    </button>
+                                    <div class="d-flex align-items-center  pt-4 mt-4 pt-xxl-5 mt-xl-5">
+                                        <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
+                                            <i class="fa-solid fa-arrow-left-long"></i>
+                                            Back
+                                        </a>
+                                        <button type="submit" class="btn btn-outline-primary mx-3">
+                                            Next
+                                            <i class="fa-solid fa-arrow-right-long"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                         </div>

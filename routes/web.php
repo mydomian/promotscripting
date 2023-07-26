@@ -66,6 +66,7 @@ Route::middleware(['user','verified'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
+        Route::get('/delete', 'accountDelete')->name('account.delete');
 
         Route::get('/settings','settings')->name('user.settings');
 
@@ -93,6 +94,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::get('/success','success')->name('success');
         Route::get('/onboarding-completed/{id}','completed')->name('onboarding.completed');
+        Route::get('/delete-stripe','destroy')->name('account.stripe.delete');
         
    });
 });
