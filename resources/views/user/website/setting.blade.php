@@ -56,6 +56,8 @@
                         </div>
                         <h4>Notification Setting</h4>
                         <div class="col-sm-12 col-md-8 col-lg-8  table-responsive">
+                            <form action="{{route('change.setting')}}" method="post">
+                            @csrf
                             <table class="table bg-transparent text-white">
                                 <thead>
                                     <tr>
@@ -74,13 +76,13 @@
                                         </th>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox" id="sale_email" name="sale_email" {{$settings->new_sale_email == 1 ? 'checked' : ''}} >
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox"  id="sale_notification" name="sale_notification" {{$settings->new_sale_notification == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
@@ -88,19 +90,19 @@
                                     <tr>
                                         <th scope="row" colspan="3" class="w-75">
                                             <div class="d-flex flex-column">
-                                                <strong class="mb-0"><small>New Jobs</small></strong>
-                                                <small class="text-secondary">Whenever you get a new custom prompt job.</small>
+                                                <strong class="mb-0"><small>New Prompts</small></strong>
+                                                <small class="text-secondary">Whenever new prompts are posted.</small>
                                             </div>
                                         </th>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox" id="order_email" name="order_email" {{$settings->new_order_email == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox" id="order_notification" name="order_notification" {{$settings->new_order_notification == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
@@ -114,13 +116,13 @@
                                         </th>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox" id="favourite_email" name="favourite_email" {{$settings->new_favourites_email == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
                                         <td>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value=""  checked>
+                                                <input class="form-check-input" type="checkbox" id="favourite_notification" name="favourite_notification" {{$settings->new_favourites_notification == 1 ? 'checked' : ''}}>
                                                 <label class="form-check-label" for="flexCheckChecked"> </label>
                                               </div>
                                         </td>
@@ -128,6 +130,8 @@
                                     
                                 </tbody>
                             </table>
+                            <button type="submit" class="btn btn-primary btn-sm form-control bg-transparent">Change Email & Notification Setting</button>
+                        </form>
                         </div>
                         <div class="col-md-12 col-sm-12 col-lg-12 border border-danger rounded mt-5 p-3 d-flex flex-column">
                             <h5>Danger Zone</h5>
@@ -196,5 +200,43 @@
         });
     });
  </script>
+ {{-- <script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+ </script>
+ <script>
+    $(document).ready(function(){
+        // var sale_email = $('#sale_email').val()
+        // var order_email = $('#order_email').val()
+        // var favourite_email = $('#favourite_email').val()
+        // var sale_notification = $('#sale_notification').val()
+        // var order_notification = $('#order_notification').val()
+        // var favourite_notification = $('#favourite_notification').val()
+        // var data =[
+        //     'new_sale_email' => sale_email,
+        //     'new_sale_notification' => sale_notification,
+        //     'new_order_email' => order_email,
+        //     'new_order_notfication' => order_notification,
+        //     'new_favourite_email' => favourite_email,
+        //     'new_favourite_notification' => favourite_notification
+        // ]
+        $('#sale_email').on('change',function(){
+           var sale_email = $('#sale_email').is(":checked") ? 1 : 0
+            $.ajax({
+                url: "{{route('change.notification')}}",
+                method:'post',
+                data: {
+                    sale_email:sale_email
+                },success:function(res){
+                    console.log('ok')
+                }
+            })
+        })
+      
+    })
+ </script> --}}
 @endpush
 

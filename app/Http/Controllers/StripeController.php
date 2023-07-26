@@ -56,7 +56,7 @@ class StripeController extends Controller
             $stripe = new \Stripe\StripeClient($secret_key);
             $data =  $stripe->accountLinks->create([
                 'account' => $user->stripe_id,
-                'refresh_url' => 'http://127.0.0.1:8000/connect-bank',
+                'refresh_url' => env('APP_URL').'/connect-bank',
                 'return_url' => route('onboarding.completed', encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',
             ]);
@@ -116,7 +116,7 @@ class StripeController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => 'http://127.0.0.1:8000/success?session_id={CHECKOUT_SESSION_ID}&order_id=' . encrypt($order->id),
+            'success_url' => env('APP_URL').'/success?session_id={CHECKOUT_SESSION_ID}&order_id='.encrypt($order->id),
             'cancel_url'  => route('marketplace'),
         ]);
 
@@ -179,13 +179,15 @@ class StripeController extends Controller
             $stripe = new \Stripe\StripeClient($sk);
             $success =  $stripe->accounts->delete(
                 $account->stripe_id,
-                []
             );
-            $account->update([
-                'stripe_id' => NULL,
-                'is_onboarding_completed' => 0
-            ]);
-            return back()->with('success', 'Stripe Account Deleted');
+
+            if($success->deleted == 'true'){
+                $account->update([
+                    'stripe_id' => NULL,
+                    'is_onboarding_completed' => 0
+                ]);
+                return back()->with('success', 'Stripe Account Deleted');
+            }
         }
         return back()->with('error', "You haven't connect a stripe account yet");
     }

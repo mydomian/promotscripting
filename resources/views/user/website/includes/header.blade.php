@@ -179,8 +179,8 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"><i class="fa fa-user-circle"></i> <small>Public Profile</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.dashboard') }}"><i class="fa fa-dashboard"></i> <small>Dashboard</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i class="fa fa-list"></i> <small>Prompts</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{route('user.purchases')}}"><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists',['user'=>Auth::user()->id]) }}"><i class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
                   {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li> --}}
                   <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>

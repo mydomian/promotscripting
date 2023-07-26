@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotificationSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,9 @@ class RegisterController extends Controller
                 $user->password = \bcrypt($request->password);
                 $user->username = $request->name.rand(0,9999999);
                 $user->save();
+                NotificationSetting::create([
+                    'user_id' => $user->id
+                ]);
                 return redirect()->route('user.login')->with('success', 'Succesfully Registered, Login to continue');
             } catch (\Exception $e) {
                 return $e->getMessage();
