@@ -235,7 +235,7 @@ class DashboardController extends Controller
                 'collected_price'   =>  $collected_price,
                 'transaction_id'    => "",
                 'is_paid'           => "unpaid",
-                'status'            => "pending",
+                'status'            => "approve",
             ]);
 
             $session = $stripe->checkout->sessions->create([
@@ -288,5 +288,20 @@ class DashboardController extends Controller
         ]);
 
         return view('user.website.custom_order_success');
+    }
+
+    public function customOrderLists(Request $request, User $user){
+        $customOrders = CustomPromptOrder::with('user')->where(['user_id'=>$user->id,'status'=>'approve','is_paid'=>'paid'])->paginate(200);
+        if($request->isMethod('post')){
+            if($request->filterType == "search"){
+
+                $customOrders = CustomPromptOrder::whereHas('user', function($query) use ($request) {
+                    $query->where('name','like','%'.$request->value.'%');
+                })->where(['user_id'=>$user->id,'status'=>'approve','is_paid'=>'paid'])->latest()->paginate(100);
+                return view('user.website.includes.custom_order_append',compact('customOrders'));
+            }
+        }
+        $customOrders = $customOrders->appends($request->all());
+        return view('user.website.custom_orders',compact('customOrders'));
     }
 }

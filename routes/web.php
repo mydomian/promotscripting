@@ -61,6 +61,7 @@ Route::controller(RegisterController::class)->group(function(){
 Route::get('authorized/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('authorized/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {});
 //=======================Dashboard===========================
 Route::middleware(['user','verified'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
@@ -77,6 +78,7 @@ Route::middleware(['user','verified'])->group(function () {
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
+        Route::match(['get','post'],'/custom-orders/{user}','customOrderLists')->name('user.customOrderLists');
         Route::get('/prompt-custom-order/{userId}/{sellerId?}','promptCustomOrder')->name('user.promptCustomOrder');
         Route::get('/custom-order/success','CustomOrderSuccess');
 
@@ -149,7 +151,7 @@ Route::prefix('/admin')->group(function (){
 });
 
 Route::get('/clear', function () {
-    Artisan::call('cache:clear'); Artisan::call('config:clear'); Artisan::call('config:cache'); Artisan::call('view:clear'); Artisan::call('route:clear'); Artisan::call('storage:link');
+    Artisan::call('cache:clear'); Artisan::call('config:clear'); Artisan::call('config:cache'); Artisan::call('view:clear'); Artisan::call('route:clear'); Artisan::call('optimize:clear'); Artisan::call('storage:link');
     return "Cleared!";
 });
 

@@ -128,6 +128,39 @@ $system = App\Models\Setting::first();
                 <li class="nav-item">
                   <a class="nav-link @yield('chat')" href="{{ url('/promptscripting-chat') }}" style="font-size: 22px;"> <i class="fas fa-comment-dots"></i> </a>
                 </li>
+                {{-- <div class="dropdown ms-lg-3 flex-shrink-0">
+                  <button type="button" class=" btn btn-sm btn-primary rounded-5 position-relative" style="margin-top:10px;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                  </button>
+                
+
+                <ul class="dropdown-menu bg-dark w-auto p-2">
+                  <li class="p-1 d-flex justify-content">
+                    <img src="https://picsum.photos/200" alt="Avatar" width="50" height="50" class="rounded-pill object-fit-cover" />
+                    <h6 class="text-white">dsfgfdhfthythjytjuy</h6>
+                  </li>
+                  
+                </ul>
+              </div> --}}
+
+
+              <div class="dropstart">
+                <button type="button" class=" btn btn-sm btn-primary rounded-5 position-relative" style="margin-top:10px;" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bell"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                </button>
+                <ul class="dropdown-menu bg-dark">
+                  <li class="p-1 d-flex justify-content">
+                    <img src="https://picsum.photos/200" alt="Avatar" width="50" height="50" class="rounded-pill object-fit-cover" />
+                    <div class="m-auto p-2">
+                      <h6 class="text-primary m-auto">dsfgfdhfthythjytjuydfdsgfrfsgdtrgsdr</h6>
+                    </div>
+                  </li>
+                 
+                </ul>
+              </div>
+
+
+
               @endauth
               
               
@@ -148,6 +181,7 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i class="fa fa-list"></i> <small>Prompts</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
                   <li><a class="dropdown-item text-primary" href=""><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
+                  <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists',['user'=>Auth::user()->id]) }}"><i class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
                   {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li> --}}
                   <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
                   {{-- <li><a class="dropdown-item text-primary" href=""><i class="fa fa-gear"></i> <small>Settings</small></a></li> --}}
