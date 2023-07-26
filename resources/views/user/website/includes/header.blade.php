@@ -146,15 +146,101 @@ $system = App\Models\Setting::first();
 
               <div class="dropstart">
                 <button type="button" class=" btn btn-sm btn-primary rounded-5 position-relative" style="margin-top:10px;" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa fa-bell"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
+                  <i class="fa fa-bell"></i> {{-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99</span> --}}
+                  
                 </button>
-                <ul class="dropdown-menu bg-dark">
-                  <li class="p-1 d-flex justify-content">
-                    <img src="https://picsum.photos/200" alt="Avatar" width="50" height="50" class="rounded-pill object-fit-cover" />
-                    <div class="m-auto p-2">
-                      <h6 class="text-primary m-auto">dsfgfdhfthythjytjuydfdsgfrfsgdtrgsdr</h6>
-                    </div>
-                  </li>
+                <ul class="dropdown-menu bg-dark" style="width:400px;">
+                  @php
+                      $setting = App\Models\NotificationSetting::where('user_id',Auth::id())->first();
+                      
+                  @endphp
+
+                  @if($setting->new_favourites_notification == 1)
+                    @php
+                      $notifications = App\Models\Notification::where('type','favourites')->where('created_at','>',Carbon\Carbon::now()->subHours(3)->toDateTimeString())->get();
+                    @endphp
+                    <small class="text-primary px-2">Favourites</small>
+                    <hr class="text-primary">
+
+                    @foreach ($notifications as $notification)
+                      @php
+                          $notific = App\Models\Favourite::with('product')->find($notification->type_id);
+                      @endphp
+         
+                      @if ($notific->product->user_id == Auth::id())
+                        <li class="p-1 d-flex justify-content w-atuo mb-2">
+                          <img src="@if($notific->product->image) {{ asset('/storage/products/thumbnil/'.$notific->product->image) }} @else https://picsum.photos/200 @endif" alt="Avatar" width="50" height="40" class="rounded-pill object-fit-cover" />
+                          <small class="text-white m-atuo p-2">{{ $notific->product->title }}</small>
+                        </li>
+                      @endif
+                      
+                    @endforeach
+                  @endif
+
+                  @if($setting->new_prompt_notification == 1)
+                    @php
+                      $notifications = App\Models\Notification::where('type','prompts')->where('created_at','>',Carbon\Carbon::now()->subHours(3)->toDateTimeString())->get();
+                    @endphp
+                    <small class="text-primary px-2">New Prompts</small>
+                    <hr class="text-primary">
+
+                    @foreach ($notifications as $notification)
+                      @php
+                          $prompt = App\Models\Product::with('user')->find($notification->type_id);
+                      @endphp
+         
+                      @if ($prompt->user_id == Auth::id())
+                        <li class="p-1 d-flex justify-content" >
+                          <img src="@if($prompt->image) {{ asset('/storage/products/thumbnil/'.$prompt->image) }} @else https://picsum.photos/200 @endif" alt="Avatar" width="50" height="40" class="rounded-pill object-fit-cover" />
+                          <small class="text-white m-atuo p-2">{{ $prompt->title }}</small>
+                        </li>
+                      @endif
+                      
+                    @endforeach
+                  @endif
+                  @if($setting->new_sale_notification == 1)
+                      @php
+                        $notifications = App\Models\Notification::where('type','orders')->where('created_at','>',Carbon\Carbon::now()->subHours(3)->toDateTimeString())->get();
+                      @endphp
+                      <small class="text-primary px-2">New Sales</small>
+                      <hr class="text-primary">
+
+                      @foreach ($notifications as $notification)
+                        @php
+                            $sale = App\Models\Order::with('product')->find($notification->type_id);
+                        @endphp
+          
+                        @if ($sale->seller_id == Auth::id())
+                          <li class="p-1 d-flex justify-content" >
+                            <img src="@if($sale->product->image) {{ asset('/storage/products/thumbnil/'.$sale->product->image) }} @else https://picsum.photos/200 @endif" alt="Avatar" width="50" height="40" class="rounded-pill object-fit-cover" />
+                            <small class="text-white m-atuo p-2">{{ $sale->product->title }}</small>
+                          </li>
+                        @endif
+                        
+                      @endforeach
+                  @endif
+                  @if($setting->new_purchase_notification == 1)
+                      @php
+                        $notifications = App\Models\Notification::where('type','orders')->where('created_at','>',Carbon\Carbon::now()->subHours(3)->toDateTimeString())->get();
+                      @endphp
+                      <small class="text-primary px-2">New Purchases</small>
+                      <hr class="text-primary">
+
+                      @foreach ($notifications as $notification)
+                        @php
+                            $purchase = App\Models\Order::with('product')->find($notification->type_id);
+                        @endphp
+          
+                        @if ($purchase->user_id == Auth::id())
+                          <li class="p-1 d-flex justify-content" >
+                            <img src="@if($purchase->product->image) {{ asset('/storage/products/thumbnil/'.$purchase->product->image) }} @else https://picsum.photos/200 @endif" alt="Avatar" width="50" height="40" class="rounded-pill object-fit-cover" />
+                            <small class="text-white m-atuo p-2">{{ $purchase->product->title }}</small>
+                          </li>
+                        @endif
+                        
+                      @endforeach
+                  @endif
+                  
                  
                 </ul>
               </div>

@@ -91,6 +91,8 @@ class StripeController extends Controller
             'seller_id'         => $product->user_id
         ]);
 
+        createNotification($order->id,'orders');
+
         $customer = $stripe->customers->create([
             'description' => $product->id,
         ]);
