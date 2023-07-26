@@ -94,13 +94,13 @@ function createNotification($typeId, $type){
 //     return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
 // }
 
-// function purchases()
-// {
-//     return \App\Models\Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-// }
+function purchases()
+{
+    return \App\Models\Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
+}
 
-// function sales()
-// {
-//     return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
-// }
+function sales()
+{
+    return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
+}
 

@@ -6,6 +6,7 @@ use App\Models\Charge;
 use App\Models\Category;
 use App\Models\CustomPromptOrder;
 use App\Models\Favourite;
+use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\PaymentInfo;
 use App\Models\User;
@@ -74,7 +75,8 @@ class DashboardController extends Controller
 
 
     public function settings(){
-        return view('user.website.setting');
+        $settings = NotificationSetting::where('user_id',Auth::id())->first();
+        return view('user.website.setting',compact('settings'));
     }   
 
         
@@ -309,5 +311,12 @@ class DashboardController extends Controller
        $user->delete();
        return redirect()->route('home');
 
+    }
+
+    public function sales(){
+        return view('user.website.sales');
+    }
+    public function purchases(){
+        return view('user.website.purchases');
     }
 }

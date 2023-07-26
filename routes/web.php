@@ -15,6 +15,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MarketplaceController;
+use App\Http\Controllers\NotificationSettingController;
 use App\Http\Controllers\RegisterController;
 use App\Models\SubCategory;
 use App\Http\Controllers\SellController;
@@ -74,6 +75,8 @@ Route::middleware(['user','verified'])->group(function () {
 
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
+        Route::get('/sales','sales')->name('user.sales');
+        Route::get('/purchases','purchases')->name('user.purchases');
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
         
         //favourite
@@ -88,6 +91,10 @@ Route::middleware(['user','verified'])->group(function () {
 
 
         Route::get('/logout','logout')->name('user.logout');
+   });
+
+   Route::controller(NotificationSettingController::class)->group(function(){
+        Route::post('/change-satting','change')->name('change.setting');
    });
 
    Route::controller(StripeController::class)->group(function(){
