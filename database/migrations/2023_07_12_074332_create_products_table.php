@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('is_tips',['yes','no']);
             $table->enum('is_tested',['yes','no']);
             $table->enum('is_hq_images',['yes','no']);
-            $table->enum('status',['active','inactive']);
+           
             $table->timestamps();
         });
     }

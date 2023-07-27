@@ -66,11 +66,16 @@ Orders
                             <td>{{ $order->created_at->format('Y-m-d') ?? "" }}</td>
                             <td><a href="javascript:;" class="" title="For View" data-bs-toggle="modal" data-bs-target="#viewOrderProduct{{ $order->id }}">Prompt Details</a></td>
                             <td style="width:50px">
+
+                               @php
+                                   $status = ['pending','approve','cancel'];
+                               @endphp
                                 <select name="order_status" class="order-status" orderId="{{ $order->id }}">
-                                    <option value="pending">Status</option>
-                                    <option value="pending" @if($order->status == 'pending') selected @endif>Pending</option>
-                                    <option value="approve" @if($order->status == 'approve') selected @endif>Approve</option>
-                                    <option value="cancel" @if($order->status == 'cancel') selected @endif>Cancel</option>
+                                    <option value="">Status</option>
+                                    @forelse ($status as $item)
+                                        <option value="{{ $item }}" @if($order->status == $item) selected @endif>{{ $item }}</option>
+                                    @empty
+                                    @endforelse
                                 </select>
                             </td>
                             

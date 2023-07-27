@@ -63,6 +63,7 @@ Route::get('authorized/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('authorized/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {});
+
 //=======================Dashboard===========================
 Route::middleware(['user','verified'])->group(function () {
    Route::controller(DashboardController::class)->group(function(){
@@ -120,11 +121,12 @@ Route::prefix('/admin')->group(function (){
             '/subcategories' => SubCategoryController::class,
             '/subsubcategories' => SubSubCategoryController::class,
             '/blogs' => BlogController::class,
-     
         ]);
 
         //prompts
         Route::match(['get','post'],'/prompts',[PromptController::class,'prompts'])->name('admin.prompts');
+        Route::match(['get','post'],'/prompt-status/{product}/{type?}',[PromptController::class,'promptStatusChecked'])->name('admin.promptStatusChecked');
+
         //orders
         Route::match(['get','post'],'/orders',[PromptController::class,'orders'])->name('admin.orders');
         Route::match(['get','post'],'/order-status/{order}/{type?}',[PromptController::class,'promptStatusUpdate'])->name('admin.promptStatusUpdate');

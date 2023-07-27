@@ -57,7 +57,18 @@ Prompts
                             <td>{{ $prompt->title ?? "" }}</td>
                             <td>{{ $prompt->price ?? "" }}</td>
                             <td>{{ $prompt->created_at->format('Y-m-d') }}</td>
-                            <td>{{ $prompt->status }}</td>
+                            <td>
+                                @php
+                                    $status = ['active','inactive','ban'];
+                                @endphp
+                                <select name="prompt_status" class="prompt-status" promptId="{{ $prompt->id }}">
+                                    <option value="" selected>Status</option>
+                                    @forelse ($status as $item)
+                                        <option value="{{ $item }}" @if($prompt->status == $item) selected @endif>{{ $item }}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </td>
                             <td>
                                 <a title="For View" data-bs-toggle="modal" data-bs-target="#viewPrompt{{ $prompt->id }}" class="btn btn-outline-info btn-icon">
                                     <i data-feather="eye"></i>
@@ -207,6 +218,26 @@ Prompts
 
 <script>
     $(document).ready(function() {
+
+        $('.prompt-status').on('change', function() {
+            var promptId = $(this).attr('promptId');
+            var value = $(this).val();
+            var url = "{{ route('admin.promptStatusChecked','') }}"+"/"+promptId+"/"+value;
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "Do you want to status "+value+"!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, '+value+'it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href=url
+                }
+            });
+        });
+
         $('#dataTablePrompt').DataTable( {
             "paging":   false,
             "ordering": false,
