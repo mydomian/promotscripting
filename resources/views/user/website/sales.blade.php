@@ -403,7 +403,7 @@
                                       
                                 </tbody>
                             </table>
-                            @if (sales()->count()>= 0)
+                            @if (sales()->count() < 1)
                             <p class="text-white">No sales yet !</p>
                         @endif
                         </div>

@@ -88,7 +88,9 @@ $system = App\Models\Setting::first();
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span id="burger" class="navbar-toggler-icon"></span>
+            <span class="d-flex"><i class="fa-solid fa-xmark align-self-center cross hide" style="color: #9ac6b7;"></i></span>
+          
           </button>
           <div
             class="collapse navbar-collapse order-2 order-lg-0"
@@ -329,3 +331,20 @@ $system = App\Models\Setting::first();
       </nav>
     </header>
     <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
+@push('scripts')
+  <script>
+    $(document).ready(function(){
+      $('#burger').on('click',function(){
+       var value= $('.order-1').attr("aria-expanded")
+       if(value == 'true'){
+        $('#burger').addClass('hide')
+        $('.cross').removeClass('hide')
+       }
+      })
+      $('.cross').on('click', function(){
+        $('.cross').addClass('hide')
+        $('#burger').removeClass('hide')
+       })
+    })
+  </script>
+@endpush

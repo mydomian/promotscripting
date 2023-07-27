@@ -1,9 +1,10 @@
-{{-- @php
+@php
     $purchases = purchases();
     $sales = sales();
-    $favourites = favourites();
+    $favs = favourites();
     $prompts = prompts();
-@endphp --}}
+    $settings = userSetting();
+@endphp
 @extends('user.website.includes.master')
 
 @section('title', '| Profile')
@@ -16,60 +17,68 @@
         <div class="bg-holder bg-opacity-25"></div>
         <!--// bg-holder  -->
         <div class="container">
-            <div class="d-flex justify-content-between">
-                <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
-                            role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
-                    </li>
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
-                            role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
-                            role="tab" aria-controls="pills-prompts" aria-selected="false">Prompts</a>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2" id="pills-sells-tab"
-                            data-bs-toggle="pill" data-bs-target="#pills-sells" type="button" role="tab"
-                            aria-controls="pills-sells" aria-selected="false">Sales</a>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
-                            role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-favourites-tab" data-bs-toggle="pill" data-bs-target="#pills-favourites"
-                            type="button" role="tab" aria-controls="pills-favourites"
-                            aria-selected="false">Favourites</a>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
-                            role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
-                    </li> --}}
-                </ul>
-                <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                    @if (Auth::user()->is_onboarding_completed == 0)
+           <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between">
+           
+                <div class="col-sm-6 col-md-6 col-lg-8">
+                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a href="{{ route('sell.country') }}"
-                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Connect
-                                Bank Account</a>
+                            <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
+                                role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
                         </li>
-                    @endif
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('user.profile',['user'=>Auth::user()->id]) }}"
-                            class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none mx-1 p-2">Public
-                            Profile</a>
-                    </li>
-                </ul>
-            </div>
+                        {{-- <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
+                                role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
+                        </li> --}}
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
+                                role="tab" aria-controls="pills-prompts" aria-selected="false">Prompts</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2" id="pills-sells-tab"
+                                data-bs-toggle="pill" data-bs-target="#pills-sells" type="button" role="tab"
+                                aria-controls="pills-sells" aria-selected="false">Sales</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
+                                role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-favourites-tab" data-bs-toggle="pill" data-bs-target="#pills-favourites"
+                                type="button" role="tab" aria-controls="pills-favourites"
+                                aria-selected="false">Favourites</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                                id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
+                                role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="col-sm-6 col-md-6 col-lg-4 d-flex justify-content-end">
+                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        @if (Auth::user()->is_onboarding_completed == 0)
+                            <li class="nav-item" role="presentation">
+                                <a href="{{ route('sell.country') }}"
+                                    class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Connect
+                                    Bank Account</a>
+                            </li>
+                        @endif
+                        <li class="nav-item" role="presentation">
+                            <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
+                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none mx-1 p-2">Public
+                                Profile</a>
+                        </li>
+                    </ul>
+                </div>
+                
+           
+           </div>
         </div>
     </section>
 
@@ -78,20 +87,20 @@
             <div class="col-12 text-white">
                 <div class="tab-content" id="pills-tabContent">
 
-                    <div class="tab-pane fade  show active" id="pills-dashboard" role="tabpanel" aria-labelledby="pills-dashboard-tab"
-                        tabindex="0">
+                    <div class="tab-pane fade  show active" id="pills-dashboard" role="tabpanel"
+                        aria-labelledby="pills-dashboard-tab" tabindex="0">
                         <div>
                             <h5>Overview</h5>
                             <hr>
                         </div>
 
                         <div class="row d-flex justify-content-center">
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-6 col-md-3 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>This Month Sale</h6>
-                                            <p>{{thisMonthSale()}}</p>
+                                            <p>{{ thisMonthSale() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -101,7 +110,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Prompts</h6>
-                                            <p>{{totalPrompt()->count()}}</p>
+                                            <p>{{ totalPrompt()->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -111,7 +120,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Active Prompts</h6>
-                                            <p>{{totalPrompt()->where('status','active')->count()}}</p>
+                                            <p>{{ totalPrompt()->where('status', 'active')->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -121,7 +130,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Inactive Prompts</h6>
-                                            <p>{{totalPrompt()->where('status','inactive')->count()}}</p>
+                                            <p>{{ totalPrompt()->where('status', 'inactive')->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -131,7 +140,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Prompt Sale</h6>
-                                            <p>{{totalPromptSell(auth()->id())}}</p>
+                                            <p>{{ totalPromptSell(auth()->id()) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -141,7 +150,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Sale Amount</h6>
-                                            <p>{{'$ '.number_format(totalSaleAmount(),2)}}</p>
+                                            <p>{{ '$ ' . number_format(totalSaleAmount(), 2) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -151,7 +160,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Views</h6>
-                                            <p>{{userAllProductView(auth()->id())}}</p>
+                                            <p>{{ userAllProductView(auth()->id()) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -161,7 +170,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Favourites</h6>
-                                            <p>{{userAllProductFav(auth()->id())}}</p>
+                                            <p>{{ userAllProductFav(auth()->id()) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -171,7 +180,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Prompt Purchase</h6>
-                                            <p>{{ totalPurchase()->count()}}</p>
+                                            <p>{{ totalPurchase()->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -181,18 +190,18 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Purchase Amount</h6>
-                                            <p>{{'$ '.number_format(totalPurchase()->sum('price'),2)}}</p>
+                                            <p>{{ '$ ' . number_format(totalPurchase()->sum('price'), 2) }}</p>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                            
+
                             <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>My Favourites</h6>
-                                            <p>{{userTotalFav( userLocalIp() )}}</p>
+                                            <p>{{ userTotalFav(userLocalIp()) }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -201,7 +210,7 @@
                     </div>
 
 
-                    {{-- <div class="tab-pane fade" id="pills-payouts" role="tabpanel" aria-labelledby="pills-payouts-tab"
+                    <div class="tab-pane fade" id="pills-payouts" role="tabpanel" aria-labelledby="pills-payouts-tab"
                         tabindex="0">
                         <div>
                             <h5>Payouts</h5>
@@ -247,27 +256,33 @@
 
                             <div class="col-md-12 ">
                                 <div class="d-flex justify-content-end mb-0">
-                                  <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
-                                    <p class="fw-bolder mb-0">New Favourites</p>
-                                    <small class="text-secondary">Whenever someone favorites your prompts.</small>
-                                  </div>
-                                  <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="favourite_email" class="form-check-input" id="" checked></div>
-                                  <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="favourite_notification" class="form-check-input" id="" checked></div>
+                                    <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                                        <p class="fw-bolder mb-0">New Favourites</p>
+                                        <small class="text-secondary">Whenever someone favorites your prompts.</small>
+                                    </div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="favourite_email"
+                                            class="form-check-input" id="" checked></div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox"
+                                            name="favourite_notification" class="form-check-input" id=""
+                                            checked></div>
                                 </div>
                                 <hr class="mt-1">
-                              </div>
-                              
-                              <div class="col-md-12 ">
+                            </div>
+
+                            <div class="col-md-12 ">
                                 <div class="d-flex justify-content-end mb-0">
-                                  <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
-                                    <p class="fw-bolder mb-0">New Followers</p>
-                                    <small class="text-secondary">Whenever someone follows you.</small>
-                                  </div>
-                                  <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="follower_email" class="form-check-input" id="" checked></div>
-                                  <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="follower_notification" class="form-check-input" id="" checked></div>
+                                    <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                                        <p class="fw-bolder mb-0">New Followers</p>
+                                        <small class="text-secondary">Whenever someone follows you.</small>
+                                    </div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="follower_email"
+                                            class="form-check-input" id="" checked></div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox"
+                                            name="follower_notification" class="form-check-input" id="" checked>
+                                    </div>
                                 </div>
                                 <hr class="mt-1">
-                              </div>
+                            </div>
                             <a href="{{ route('user.logout') }}" class="btn btn-outline-secondary my-4 px-5"><span
                                     class="fw-bolder fs-5">Log Out</span></a>
                         </div>
@@ -282,10 +297,10 @@
                                 Account</a>
                         </div>
 
-                    </div> --}}
+                    </div>
 
 
-                    {{-- <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
+                    <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
                         tabindex="0">
                         <div>
                             <h5>Prompts</h5>
@@ -335,27 +350,26 @@
                                                     style="height: 25px;">{{ $prompt->subSubCategory->subCategory->category ? $prompt->subSubCategory->subCategory->category->category_name : $prompt->subSubCategory->category_name }}</span>
                                             </a>
                                             <div class="d-flex justify-content-between gap-3">
-                                                <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="link-light text-decoration-none">{{ Str::limit($prompt->title,15) ?? "" }}</a>
+                                                <a href="{{ route('marketplaceDetails', ['slug' => Str::slug($prompt->title, '-'), 'product' => $prompt->id]) }}"
+                                                    class="link-light text-decoration-none">{{ Str::limit($prompt->title, 15) ?? '' }}</a>
                                                 <div class="dropdown">
-                                                    <button
-                                                      class="btn dropdown-toggle"
-                                                      type="button"
-                                                      data-bs-toggle="dropdown"
-                                                      aria-expanded="false"
-                                                    >
-                                                      <i class="fa-solid fa-ellipsis"></i>
+                                                    <button class="btn dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa-solid fa-ellipsis"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-dark">
-                                                      <li>
-                                                        <a class="dropdown-item" href="{{ route('user.promptsEdit',['product'=>$prompt->id]) }}">Prompts Edit</a>
-                                                      </li>
-                                                      <li>
-                                                        <a class="dropdown-item onPromptDeleted" getUrl="{{ route('user.promptDelete',['product'=>$prompt->id]) }}" href="jacascript:;"
-                                                          >Prompts Delete</a
-                                                        >
-                                                      </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('user.promptsEdit', ['product' => $prompt->id]) }}">Prompts
+                                                                Edit</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item onPromptDeleted"
+                                                                getUrl="{{ route('user.promptDelete', ['product' => $prompt->id]) }}"
+                                                                href="jacascript:;">Prompts Delete</a>
+                                                        </li>
                                                     </ul>
-                                                  </div>
+                                                </div>
                                             </div>
                                             <small class="text-body-tertiary">$ {{ $prompt->price }}</small>
                                         </div>
@@ -369,13 +383,17 @@
 
 
 
-                    </div> --}}
+                    </div>
 
 
-                    {{-- <div class="tab-pane fade" id="pills-sells" role="tabpanel" aria-labelledby="pills-sells-tab"
+                    <div class="tab-pane fade" id="pills-sells" role="tabpanel" aria-labelledby="pills-sells-tab"
                         tabindex="0">
-
-                        <div class="row g-3 mb-5">
+                        <div>
+                            <h5>Sales</h5>
+                            <hr>
+                        </div>
+                        
+                        <div class="col-sm-12 col-md-8 col-lg-8  table-responsive mb-5">
 
                             <table class="table text-white">
                                 <thead>
@@ -398,19 +416,21 @@
                                             <td>{{ $sale->created_at->format("D, M 'y") }}</td>
                                         </tr>
                                     @empty
-                                        <p class="text-white">No sales yet!</p>
                                     @endforelse
 
                                 </tbody>
                             </table>
+                            @if (!$sales->count())
+                                <p class="text-white">No sales yet!</p>
+                            @endif
                         </div>
 
 
 
-                    </div> --}}
+                    </div>
 
 
-                    {{-- <div class="tab-pane fade" id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab"
+                    <div class="tab-pane fade" id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab"
                         tabindex="0">
                         <div>
                             <h5>Purchases</h5>
@@ -477,17 +497,17 @@
 
 
 
-                    </div> --}}
+                    </div>
 
 
-                    {{-- <div class="tab-pane fade " id="pills-favourites" role="tabpanel"
-                        aria-labelledby="pills-favourites-tab" tabindex="0">
+                    <div class="tab-pane fade " id="pills-favourites" role="tabpanel" aria-labelledby="pills-favourites-tab" 
+                        tabindex="0">
                         <div>
                             <h5>Favourites</h5>
                             <hr>
                         </div>
 
-                        <div class="row g-3 mb-5">
+                        {{-- <div class="row g-3 mb-5">
 
                             @forelse ($favourites as $favourite)
                                 <div class="col-md-4 col-lg-3">
@@ -544,92 +564,172 @@
                             @empty
                                 <p class="text-white">Nothing to show!</p>
                             @endforelse
-                        </div>
-                    </div> --}}
+                        </div> --}}
+
+                        <section class="marketplace-area section pt-4">
+                            <div class="container">
+                                <div class="row text-white">
+                                    <div class="col-sm-12 d-flex justify-content-center">
+                                        <input type="search" class="form-control bg-body"
+                                            placeholder="Search Favourites By Title........" id="searchFavourites"
+                                            name="favourites">
+                                    </div>
+                                    <hr class="mt-3">
+                                </div>
+                                <div class="row favourite_append_data">
+                                    @include('user.website.includes.favourite_append')
+                                </div>
+                                <div class="d-flex justify-content-center mt-5">
+                                    {!! $favs->render() !!}
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
 
 
-                    {{-- <div class="tab-pane fade" id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab"
+                    <div class="tab-pane fade " id="pills-settings" role="tabpanel" aria-labelledby="pills-settings-tab"
                         tabindex="0">
                         <div>
                             <h5>Settings</h5>
                             <hr>
                         </div>
-                        <div class="col-sm-10 col-md-8 col-lg-6">
-                            <h4 class="mb-0">Account</h4>
-                            <small class="text-secondary">Your unique username displayed across PromptScripting.</small>
-                            <div class="col-md-4 col-sm-10 col-lg-4 d-flex mt-3 mb-5">
-                                <h5 class="fw-bolder mt-3 d-block">@</h5>
-                                <input type="text" name="username" class="form-control bg-transparent mx-2"
-                                    value="{{ auth()->user()->username }}">
-                            </div>
+                        <h4>Notification Setting</h4>
+                        <div class="col-sm-12 col-md-8 col-lg-8  table-responsive">
+                            <form action="{{ route('change.setting') }}" method="post">
+                                @csrf
+                                <table class="table bg-transparent text-white">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colspan="3" class="w-75"></th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Notification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Sales</small></strong>
+                                                    <small class="text-secondary">Whenever you make a sale.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="sale_email"
+                                                        name="sale_email"
+                                                        {{ $settings->new_sale_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="sale_notification" name="sale_notification"
+                                                        {{ $settings->new_sale_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Purchases</small></strong>
+                                                    <small class="text-secondary">Whenever your prompt is
+                                                        purchased.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="purchase_email"
+                                                        name="purchase_email"
+                                                        {{ $settings->new_purchase_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="purchase_notification" name="purchase_notification"
+                                                        {{ $settings->new_purchase_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Prompts</small></strong>
+                                                    <small class="text-secondary">Whenever new prompts are posted.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order_email"
+                                                        name="prompt_email"
+                                                        {{ $settings->new_prompt_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="order_notification" name="prompt_notification"
+                                                        {{ $settings->new_prompt_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Favourites</small></strong>
+                                                    <small class="text-secondary">Whenever someone favorites your
+                                                        prompts.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="favourite_email"
+                                                        name="favourite_email"
+                                                        {{ $settings->new_favourites_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="favourite_notification" name="favourite_notification"
+                                                        {{ $settings->new_favourites_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
 
-                            <h4>Notification Settings</h4>
-                            <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
-                                <div class="col-md-6 col-sm-6 cl-lg-6"></div>
-                                <div class="col-md-3 col-sm-3 col-lg-3">Email</div>
-                                <div class="col-md-3 col-sm-3 col-lg-3 mx-2">Notification</div>
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-lg-12">
-                                <div class="d-flex justify-content-start mb-0">
-                                    <div class="col-md-6 col-sm-6 col-lg-6 d-flex flex-column">
-                                        <p class="fw-bolder mb-0">New Sales</p>
-                                        <small class="text-secondary">Whenever you make a sale</small>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-lg-3 d-flex justify-content-start"><input
-                                            type="checkbox" name="sales_email" class="form-check-input" id=""
-                                            checked></div>
-                                    <div class="col-md-3 col-sm-3 col-lg-3 mx-2 d-flex justify-content-start"><input
-                                            type="checkbox" name="sales_notification" class="form-check-input"
-                                            id="" checked></div>
-                                </div>
-                                <hr class="mt-1">
-                            </div>
-                            <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
-                                <div class="col-md-6 col-sm-6 cl-lg-6"></div>
-                                <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
-                                        class="form-check-input" id="" checked></div>
-                                <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
-                                        class="form-check-input" id="" checked></div>
-                            </div>
-
-                            <div class="col-md-12 ">
-                                    <div class="d-flex justify-content-end mb-0">
-                                      <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
-                                        <p class="fw-bolder mb-0">New Favourites</p>
-                                        <small class="text-secondary">Whenever someone favorites your prompts.</small>
-                                      </div>
-                                      <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="favourite_email" class="form-check-input" id="" checked></div>
-                                      <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="favourite_notification" class="form-check-input" id="" checked></div>
-                                    </div>
-                                    <hr class="mt-1">
-                                  </div>
-                                  
-                                  <div class="col-md-12 ">
-                                    <div class="d-flex justify-content-end mb-0">
-                                      <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
-                                        <p class="fw-bolder mb-0">New Followers</p>
-                                        <small class="text-secondary">Whenever someone follows you.</small>
-                                      </div>
-                                      <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="follower_email" class="form-check-input" id="" checked></div>
-                                      <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox" name="follower_notification" class="form-check-input" id="" checked></div>
-                                    </div>
-                                    <hr class="mt-1">
-                                  </div>
-                            <a href="{{ route('user.logout') }}" class="btn btn-outline-secondary my-4 px-5"><span
-                                    class="fw-bolder fs-5">Log Out</span></a>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary btn-sm form-control bg-transparent">Change
+                                    Email & Notification Setting</button>
+                            </form>
                         </div>
                         <div
                             class="col-md-12 col-sm-12 col-lg-12 border border-danger rounded mt-5 p-3 d-flex flex-column">
                             <h5>Danger Zone</h5>
-                            <small class="">Delete Account</small>
+                            <small class="">Delete Stripe Account</small>
+                            <small class="text-secondary"><i>Delete and disconnect your Stripe connect account.</i></small>
+                            <a
+                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1 stripe-del">Delete
+                                Stripe
+                                Account</a>
+                            <small class="mt-3">Delete Account</small>
                             <small class="text-secondary"><i>Once you delete your account there is no going back, please be
                                     certain.</i></small>
-                            <a href=""
-                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1">Delete
+                            <a
+                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1 user_delete">Delete
                                 Account</a>
                         </div>
 
-                    </div> --}}
+                    </div>
 
 
                 </div>
@@ -640,4 +740,31 @@
     @endsection
 
     @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            $(document).ready(function() {
+
+                //search
+                $("#searchFavourites").on("keyup change", function(e) {
+                    var value = $(this).val();
+                    $.ajax({
+                        url: "{{ route('user.favourites') }}",
+                        method: "post",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            filterType: "search",
+                            value: value
+                        }),
+                        success: function(res) {
+                            $(".favourite_append_data").html("");
+                            $(".favourite_append_data").html(res);
+                        },
+                        error: function(res) {
+                            console.log((res));
+                        }
+                    });
+                });
+
+            });
+        </script>
     @endpush

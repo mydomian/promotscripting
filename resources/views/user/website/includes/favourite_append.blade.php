@@ -50,7 +50,7 @@
     </div>
 
 @empty
-    <p>No Job Posts Available</p>
+    <p class="text-white">No Favourites Yet!</p>
 @endforelse
 
       

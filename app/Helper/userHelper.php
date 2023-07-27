@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Favourite;
 use App\Models\Notification;
+use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Setting;
@@ -85,15 +86,15 @@ function createNotification($typeId, $type){
 
 
 
-// function favourites()
-// {
-//     return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->get();
-// }
+function favourites()
+{
+    return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->paginate(20);
+}
 
-// function prompts()
-// {
-//     return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
-// }
+function prompts()
+{
+    return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
+}
 
 function purchases()
 {
@@ -109,4 +110,9 @@ function sales()
 function systemSetting()
 {
     return Setting::first();
+}
+
+function userSetting()
+{
+    return NotificationSetting::where('user_id',Auth::id())->first();
 }

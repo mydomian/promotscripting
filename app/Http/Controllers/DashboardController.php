@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
 
     public function settings(){
-        $settings = NotificationSetting::where('user_id',Auth::id())->first();
+        $settings = userSetting();
         return view('user.website.setting',compact('settings'));
     }   
 
