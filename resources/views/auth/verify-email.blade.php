@@ -2,6 +2,7 @@
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
+            {{-- <img src="{{asset('storage/images/logo/'.systemSetting()->logo)}}" class="img-fluid rounded-top" alt=""> --}}
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">

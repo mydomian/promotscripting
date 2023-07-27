@@ -7,6 +7,7 @@ use App\Models\Favourite;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\View;
 use Illuminate\Support\Carbon;
 
@@ -104,3 +105,8 @@ function sales()
     return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
 }
 
+
+function systemSetting()
+{
+    return Setting::first();
+}
