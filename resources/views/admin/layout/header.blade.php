@@ -69,7 +69,7 @@ $system = App\Models\Setting::first();
                     </div>
                 </li>
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#transactions" role="button" aria-expanded="false"
                        aria-controls="emails">
                         <i class="link-icon" data-feather="dollar-sign"></i>
@@ -89,7 +89,7 @@ $system = App\Models\Setting::first();
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="collapse" href="#orders" role="button" aria-expanded="false"
@@ -171,7 +171,7 @@ $system = App\Models\Setting::first();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{ route('admin.adminProfile',['user'=>Auth::id()]) }}" class="nav-link">
                         <i class="link-icon" data-feather="user"></i>
                         <span class="link-title">Profile</span>
                     </a>

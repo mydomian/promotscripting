@@ -34,6 +34,13 @@ class PromptController extends Controller
             return back()->with('success','Status '.$type.' Successfully');
         }
     }
+    public function promptStatusChecked(Product $product,$type){
+        if(isset($type)){
+            $product->update(['status'=>$type]);
+            return back()->with('success','Status '.$type.' Successfully');
+        }
+    }
+
 
     
 }
