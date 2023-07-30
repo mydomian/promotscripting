@@ -760,7 +760,7 @@
           make a living from your skills.
         </p>
         <p class="text-body-emphasis text-center">
-          PromptBase is a marketplace for buying and selling quality prompts
+          PromptScripting is a marketplace for buying and selling quality prompts
           that produce the best results, and save you money on API costs.
         </p>
       </div>
