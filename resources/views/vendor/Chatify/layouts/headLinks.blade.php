@@ -2,9 +2,9 @@
 $system = App\Models\Setting::first();
 ?>
 <title>{{ config('chatify.name') }}</title>
-<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}">
-<link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="32x32">
-<link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="16x16">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('public/storage/images/favicon/'.$system->favicon) }}">
+<link rel="icon" type="image/png" href="{{ asset('public/storage/images/favicon/'.$system->favicon) }}" sizes="32x32">
+<link rel="icon" type="image/png" href="{{ asset('public/storage/images/favicon/'.$system->favicon) }}" sizes="16x16">
 
 {{-- Meta tags --}}
 <meta name="viewport" content="width=device-width, initial-scale=1">
