@@ -17,10 +17,10 @@
         <div class="bg-holder bg-opacity-25"></div>
         <!--// bg-holder  -->
         <div class="container">
-           <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between">
+           <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between parent">
            
-                <div class="col-sm-6 col-md-6 col-lg-8">
-                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+               
+                    <ul class="nav nav-pills dashboard-pills child" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
@@ -58,12 +58,12 @@
                                 role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
                         </li>
                     </ul>
-                </div>
+               
                 
-                <div class="col-sm-6 col-md-6 col-lg-4 d-flex justify-content-end">
-                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+               
+                    <ul class="nav nav-pills bank-pills child"  role="tablist">
                         @if (Auth::user()->is_onboarding_completed == 0)
-                            <li class="nav-item" role="presentation">
+                            <li class="nav-item" role="presentation" style="margin-inline-end: 2px">
                                 <a href="{{ route('sell.country') }}"
                                     class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Connect
                                     Bank Account</a>
@@ -71,11 +71,11 @@
                         @endif
                         <li class="nav-item" role="presentation">
                             <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
-                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none mx-1 p-2">Public
+                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Public
                                 Profile</a>
                         </li>
                     </ul>
-                </div>
+                
                 
            
            </div>
@@ -89,13 +89,13 @@
 
                     <div class="tab-pane fade  show active" id="pills-dashboard" role="tabpanel"
                         aria-labelledby="pills-dashboard-tab" tabindex="0">
-                        <div>
+                        <div class="dashboaed-title">
                             <h5>Overview</h5>
                             <hr>
                         </div>
 
                         <div class="row d-flex justify-content-center">
-                            <div class="col-sm-6 col-md-3 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -105,7 +105,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -115,7 +115,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -125,7 +125,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -135,7 +135,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -145,7 +145,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -155,7 +155,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -165,7 +165,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -175,7 +175,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -185,7 +185,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
@@ -195,8 +195,7 @@
                                     </div>
                                 </a>
                             </div>
-
-                            <div class="col-sm-6 col-md-4 col-lg-3 shadow p-3 mb-3 mx-2 bg-body rounded">
+                            <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
                                 <a href="" class="text-decoration-none">
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
