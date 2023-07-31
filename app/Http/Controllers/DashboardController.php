@@ -15,7 +15,9 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Sale;
 use App\Models\SubCategory;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,12 +33,27 @@ class DashboardController extends Controller
 
     public function dashboard(){
         // $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get(); 
         // $favourites = Favourite::where('user_ip', userLocalIp())->latest()->get();
         // $prompts = Product::with('user')->where('user_id', 1)->latest()->get();
-       
-        
-        return view('user.website.dashboard');
+        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get(); 
+        $registerDate = User::find(Auth::id())->created_at;
+        $registerDate = Carbon::parse($registerDate);
+        $years = [$registerDate->format('Y')];
+        for ($i = 0; $i <= 6; $i++) {
+            $years[] = $registerDate->addYear()->format('Y');
+        }
+        $yearlySales = [];
+        foreach($years as $year){
+            $yearlySales[] = Sale::where('seller_id', Auth::id())->whereYear('created_at', $year)->sum('price'); 
+        }
+        // return Carbon::now()->startofMonth()->addDays(19);
+        $monthlySale = Sale::where('seller_id', Auth::id())->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month);
+        $firstTen = $monthlySale->whereBetween('created_at',[Carbon::now()->startOfMonth(), Carbon::now()->startOfMonth()->addDays(9)])->count();
+        $secondTen = $monthlySale->whereBetween('created_at',[Carbon::now()->startOfMonth()->addDays(10), Carbon::now()->startofMonth()->addDays(19)])->count();
+        return $secondTen;
+        $perTenDayTotalSale = [];
+        return Carbon::now()->startOfMonth()->addDays(9);
+        return view('user.website.dashboard',compact('years','yearlySales'));
     }
 
 

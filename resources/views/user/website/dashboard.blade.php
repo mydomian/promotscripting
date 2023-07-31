@@ -17,68 +17,61 @@
         <div class="bg-holder bg-opacity-25"></div>
         <!--// bg-holder  -->
         <div class="container">
-           <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between parent">
-           
-               
-                    <ul class="nav nav-pills dashboard-pills child" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
-                                id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
-                                role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
-                        </li>
-                        {{-- <li class="nav-item" role="presentation">
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-between parent">
+
+                <ul class="nav nav-pills dashboard-pills child" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
+                            role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
+                    </li>
+                    {{-- <li class="nav-item" role="presentation">
                             <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                                 role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
                         </li> --}}
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                                id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
-                                role="tab" aria-controls="pills-prompts" aria-selected="false">Prompts</a>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
+                            role="tab" aria-controls="pills-prompts" aria-selected="false">Prompts</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2" id="pills-sells-tab"
+                            data-bs-toggle="pill" data-bs-target="#pills-sells" type="button" role="tab"
+                            aria-controls="pills-sells" aria-selected="false">Sales</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
+                            role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-favourites-tab" data-bs-toggle="pill" data-bs-target="#pills-favourites"
+                            type="button" role="tab" aria-controls="pills-favourites"
+                            aria-selected="false">Favourites</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
+                            role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
+                    </li>
+                </ul>
+                <ul class="nav nav-pills bank-pills child" role="tablist">
+                    @if (Auth::user()->is_onboarding_completed == 0)
+                        <li class="nav-item" role="presentation" style="margin-inline-end: 2px">
+                            <a href="{{ route('sell.country') }}"
+                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Connect
+                                Bank Account</a>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2" id="pills-sells-tab"
-                                data-bs-toggle="pill" data-bs-target="#pills-sells" type="button" role="tab"
-                                aria-controls="pills-sells" aria-selected="false">Sales</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                                id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
-                                role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                                id="pills-favourites-tab" data-bs-toggle="pill" data-bs-target="#pills-favourites"
-                                type="button" role="tab" aria-controls="pills-favourites"
-                                aria-selected="false">Favourites</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
-                                id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
-                                role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
-                        </li>
-                    </ul>
-               
-                
-               
-                    <ul class="nav nav-pills bank-pills child"  role="tablist">
-                        @if (Auth::user()->is_onboarding_completed == 0)
-                            <li class="nav-item" role="presentation" style="margin-inline-end: 2px">
-                                <a href="{{ route('sell.country') }}"
-                                    class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Connect
-                                    Bank Account</a>
-                            </li>
-                        @endif
-                        <li class="nav-item" role="presentation">
-                            <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
-                                class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Public
-                                Profile</a>
-                        </li>
-                    </ul>
-                
-                
-           
-           </div>
+                    @endif
+                    <li class="nav-item" role="presentation">
+                        <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
+                            class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Public
+                            Profile</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 
@@ -89,10 +82,39 @@
 
                     <div class="tab-pane fade  show active" id="pills-dashboard" role="tabpanel"
                         aria-labelledby="pills-dashboard-tab" tabindex="0">
-                        <div class="dashboaed-title">
-                            <h5>Overview</h5>
-                            <hr>
+
+
+
+                        <div class="row mb-5 d-flex justify-content-around">
+                            <div class="card col-5 marketplace--card rounded">
+                                <div class="card-header  text-white  d-flex justify-content-between">
+                                    <h5 class="card-title text-primary align-self-center">Total Sell (<span
+                                            class="text-danger">{{ '$' . number_format(sales()->sum('price'), 2) }}</span>)
+                                    </h5>
+                                    <span class="card-subtitle text-secondary align-self-center">Statistics of total
+                                        sell</span>
+                                </div>
+                                <div class="card-body">
+                                    <div id="total_sell"></div>
+                                </div>
+                            </div>
+                            <div class="card col-5 marketplace--card rounded">
+                                <div class="card-header  text-white  d-flex justify-content-between">
+                                    <h5 class="card-title text-primary align-self-center">This Month Sell</h5>
+                                    <span class="card-subtitle text-secondary align-self-center">Statistics of monthly
+                                        sell</span>
+                                </div>
+                                <div class="card-body">
+                                    <div id="monthly_sales"></div>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="dashboard-title">
+                            <h5>Overview</h5>
+                            <hr class="border">
+                        </div>
+
 
                         <div class="row d-flex justify-content-center">
                             <div class="col-sm-3 col-md-4 col-lg-3 shadow-md shadow-lg p-3 mb-3 mx-2 bg-body rounded stat">
@@ -140,7 +162,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>Total Prompt Sale</h6>
-                                            <p>{{ totalPromptSell(auth()->id()) }}</p>
+                                            <p>{{ $sales->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -391,7 +413,7 @@
                             <h5>Sales</h5>
                             <hr>
                         </div>
-                        
+
                         <div class="col-sm-12 col-md-8 col-lg-8  table-responsive mb-5">
 
                             <table class="table text-white">
@@ -499,8 +521,8 @@
                     </div>
 
 
-                    <div class="tab-pane fade " id="pills-favourites" role="tabpanel" aria-labelledby="pills-favourites-tab" 
-                        tabindex="0">
+                    <div class="tab-pane fade " id="pills-favourites" role="tabpanel"
+                        aria-labelledby="pills-favourites-tab" tabindex="0">
                         <div>
                             <h5>Favourites</h5>
                             <hr>
@@ -740,6 +762,7 @@
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
             $(document).ready(function() {
 
@@ -765,5 +788,47 @@
                 });
 
             });
+        </script>
+        <script>
+            var options = {
+                chart: {
+                    type: 'bar'
+                },
+                series: [{
+                    name: 'sales',
+                    data: @json($yearlySales)
+                }],
+                xaxis: {
+                    categories: @json($years)
+                }
+            }
+
+            var chart = new ApexCharts(document.querySelector("#total_sell"), options);
+
+            chart.render();
+        </script>
+        <script>
+            var options = {
+                series: [44, 55, 41],
+                chart: {
+                    type: 'donut',
+                },
+                labels: ['Day 1-10', 'Day 11-20', 'Day 21-rest'],
+                
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            };
+
+            var chart = new ApexCharts(document.querySelector("#monthly_sales"), options);
+            chart.render();
         </script>
     @endpush
