@@ -86,7 +86,7 @@
 
 
                         <div class="row mb-5 d-flex justify-content-around">
-                            <div class="card col-5 marketplace--card rounded">
+                            <div class="card col-sm-10 col-md-5 col-lg-5 marketplace--card rounded">
                                 <div class="card-header  text-white  d-flex justify-content-between">
                                     <h5 class="card-title text-primary align-self-center">Total Sell (<span
                                             class="text-danger">{{ '$' . number_format(sales()->sum('price'), 2) }}</span>)
@@ -98,10 +98,11 @@
                                     <div id="total_sell"></div>
                                 </div>
                             </div>
-                            <div class="card col-5 marketplace--card rounded">
+                            <div class="card col-sm-10 col-md-5 col-lg-5 monthlySaleChart  marketplace--card rounded">
                                 <div class="card-header  text-white  d-flex justify-content-between">
-                                    <h5 class="card-title text-primary align-self-center">This Month Sell</h5>
-                                    <span class="card-subtitle text-secondary align-self-center">Statistics of monthly
+                                    <h5 class="card-title text-primary align-self-center">This Month Sell (<span
+                                        class="text-danger">{{'$' . number_format(thisMonthSale()->sum('price'), 2) }}</span>)</h5>
+                                    <span class="card-subtitle text-secondary align-self-center">Monthly
                                         sell</span>
                                 </div>
                                 <div class="card-body">
@@ -122,7 +123,7 @@
                                     <div class="card marketplace--card rounded-3">
                                         <div class="card-body text-center" style="color:white">
                                             <h6>This Month Sale</h6>
-                                            <p>{{ thisMonthSale() }}</p>
+                                            <p>{{ thisMonthSale()->count() }}</p>
                                         </div>
                                     </div>
                                 </a>
@@ -796,7 +797,7 @@
                 },
                 series: [{
                     name: 'sales',
-                    data: @json($yearlySales)
+                    data: @json($yearlySales),
                 }],
                 xaxis: {
                     categories: @json($years)
@@ -809,18 +810,17 @@
         </script>
         <script>
             var options = {
-                series: [44, 55, 41],
+                series: @json($perTenDaySale),
                 chart: {
                     type: 'donut',
                 },
                 labels: ['Day 1-10', 'Day 11-20', 'Day 21-rest'],
-                
                 responsive: [{
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 200
-                        },
+                            width: 300
+                            },
                         legend: {
                             position: 'bottom'
                         }
