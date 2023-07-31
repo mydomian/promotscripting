@@ -16,29 +16,27 @@
         max-width: 45%;
         box-shadow: none;
     }
-
-    .stat h6{
+   .stat h6{
         font-size: 75%;
     }
-
     .parent{
         flex-direction: column;
     }
-
     .child{
         width: 100%;
     }
-
     .bank-pills{
         order: 1;
         margin-bottom: 5px;
     }
-
     .dashboard-pills{
         order: 2;
     }
    .dashboard-title h5{
     margin-bottom: 0rem !important;
+   }
+   .monthlySaleChart{
+    margin-top: 10px;
    }
     
 }
