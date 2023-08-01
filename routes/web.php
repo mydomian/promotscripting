@@ -90,7 +90,7 @@ Route::middleware(['user','verified'])->group(function () {
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
 
-
+       
         Route::get('/logout','logout')->name('user.logout');
    });
 
@@ -105,7 +105,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/success','success')->name('success');
         Route::get('/onboarding-completed/{id}','completed')->name('onboarding.completed');
         Route::get('/delete-stripe','destroy')->name('account.stripe.delete');
-        
+         Route::get('/payout','payout')->name('user.payout');
    });
 });
 

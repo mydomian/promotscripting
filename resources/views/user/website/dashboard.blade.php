@@ -25,11 +25,11 @@
                             id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
                             role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
                     </li>
-                    {{-- <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation">
                             <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                                 role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
-                        </li> --}}
+                    </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
@@ -43,7 +43,7 @@
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#pills-purchase" type="button"
-                            role="tab" aria-controls="pills-purchase" aria-selected="false">Purchase</a>
+                            role="tab" aria-controls="pills-purchase" aria-selected="false">Purchases</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
@@ -56,6 +56,12 @@
                             id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
                             role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
                     </li>
+                    {{-- <li class="nav-item custom d-none" role="presentation">
+                        <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
+                            id="pills-custom-tab" data-bs-toggle="pill" data-bs-target="#pills-custom" type="button"
+                            role="tab" aria-controls="pills-custom" aria-selected="false">Custom Order</a>
+                    </li> --}}
+                    
                 </ul>
                 <ul class="nav nav-pills bank-pills child" role="tablist">
                     @if (Auth::user()->is_onboarding_completed == 0)
@@ -754,6 +760,150 @@
                     </div>
 
 
+                    <div class="tab-pane fade " id="pills-custom" role="tabpanel" aria-labelledby="pills-custom-tab"
+                        tabindex="0">
+                        <div>
+                            <h5>Custom</h5>
+                            <hr>
+                        </div>
+                        <h4>Notification Setting</h4>
+                        <div class="col-sm-12 col-md-8 col-lg-8  table-responsive">
+                            <form action="{{ route('change.setting') }}" method="post">
+                                @csrf
+                                <table class="table bg-transparent text-white">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colspan="3" class="w-75"></th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Notification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Sales</small></strong>
+                                                    <small class="text-secondary">Whenever you make a sale.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="sale_email"
+                                                        name="sale_email"
+                                                        {{ $settings->new_sale_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="sale_notification" name="sale_notification"
+                                                        {{ $settings->new_sale_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Purchases</small></strong>
+                                                    <small class="text-secondary">Whenever your prompt is
+                                                        purchased.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="purchase_email"
+                                                        name="purchase_email"
+                                                        {{ $settings->new_purchase_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="purchase_notification" name="purchase_notification"
+                                                        {{ $settings->new_purchase_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Prompts</small></strong>
+                                                    <small class="text-secondary">Whenever new prompts are posted.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="order_email"
+                                                        name="prompt_email"
+                                                        {{ $settings->new_prompt_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="order_notification" name="prompt_notification"
+                                                        {{ $settings->new_prompt_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row" colspan="3" class="w-75">
+                                                <div class="d-flex flex-column">
+                                                    <strong class="mb-0"><small>New Favourites</small></strong>
+                                                    <small class="text-secondary">Whenever someone favorites your
+                                                        prompts.</small>
+                                                </div>
+                                            </th>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="favourite_email"
+                                                        name="favourite_email"
+                                                        {{ $settings->new_favourites_email == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        id="favourite_notification" name="favourite_notification"
+                                                        {{ $settings->new_favourites_notification == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="flexCheckChecked"> </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary btn-sm form-control bg-transparent">Change
+                                    Email & Notification Setting</button>
+                            </form>
+                        </div>
+                        <div
+                            class="col-md-12 col-sm-12 col-lg-12 border border-danger rounded mt-5 p-3 d-flex flex-column">
+                            <h5>Danger Zone</h5>
+                            <small class="">Delete Stripe Account</small>
+                            <small class="text-secondary"><i>Delete and disconnect your Stripe connect account.</i></small>
+                            <a
+                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1 stripe-del">Delete
+                                Stripe
+                                Account</a>
+                            <small class="mt-3">Delete Account</small>
+                            <small class="text-secondary"><i>Once you delete your account there is no going back, please be
+                                    certain.</i></small>
+                            <a
+                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1 user_delete">Delete
+                                Account</a>
+                        </div>
+
+                    </div>
+
+
                 </div>
 
             </div>
@@ -819,16 +969,59 @@
                     breakpoint: 480,
                     options: {
                         chart: {
-                            width: 300
+                            width: 300,
                             },
                         legend: {
-                            position: 'bottom'
-                        }
+                            position: 'bottom',
+                        },
                     }
                 }]
             };
+            
 
             var chart = new ApexCharts(document.querySelector("#monthly_sales"), options);
             chart.render();
         </script>
     @endpush
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+       $(document).ready(function () {
+           
+           $( ".user_delete" ).click(function() {
+               var url = "{{ route('account.delete') }}";
+               Swal.fire({
+               title: 'Are you sure?',
+               text: 'Delete Account',
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes'
+               }).then((result) => {
+                   if (result.isConfirmed) {
+                       window.location.href=url
+                   }
+               })
+   
+           });
+           $( ".stripe-del" ).click(function() {
+               var url = "{{ route('account.stripe.delete') }}";
+               Swal.fire({
+               title: 'Think Twice!',
+               text: 'Sure to delete stripe account?',
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#3085d6',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, Damn Sure!'
+               }).then((result) => {
+                   if (result.isConfirmed) {
+                       window.location.href=url
+                   }
+               })
+   
+           });
+       });
+    </script>
+   @endpush

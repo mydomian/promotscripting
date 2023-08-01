@@ -90,7 +90,7 @@ class DashboardController extends Controller
         return view('user.website.setting',compact('settings'));
     }   
 
-        
+    
 
     public function prompts(Request $request){
        
@@ -330,4 +330,5 @@ class DashboardController extends Controller
     public function purchases(){
         return view('user.website.purchases');
     }
+    
 }

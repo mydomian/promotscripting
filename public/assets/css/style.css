@@ -1,3 +1,17 @@
+@media only screen and (max-width: 992px){
+    #user_profile{
+        display: none;
+    }
+    .chat-icon{
+        display: none;
+    }
+    .custom, 
+    .logout,
+    .menu-chat{
+        display: inline-block !important;
+    }
+
+}
 
 @media only screen and (max-width: 760px){
     .user-register{
