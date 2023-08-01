@@ -64,7 +64,7 @@ $system = App\Models\Setting::first();
     <!-- >>>>>>>>>> Footer Copyright <<<<<<<<< -->
   </footer>
   <!-- >>>>>>>>>> Footer Main <<<<<<<<< -->
-
+ 
   <!-- jQuery -->
   <script src="{{asset("storage/website/assets")}}/libs/jQuery/jquery-3.7.0.min.js"></script>
   <!-- bootstrap -->

@@ -127,9 +127,11 @@ $system = App\Models\Setting::first();
               </li>
 
               @auth
-                <li class="nav-item">
-                  <a class="nav-link @yield('chat')" href="{{ url('/promptscripting-chat') }}" style="font-size: 22px;"> <i class="fas fa-comment-dots"></i> </a>
+                <li class="nav-item chat-icon">
+                  <a class="nav-link @yield('chat')" href="{{ url('/promptscripting-chat') }}" style="font-size: 22px;"> <i class="fas fa-comment-dots"></i></a>
                 </li>
+
+    
                 {{-- <div class="dropdown ms-lg-3 flex-shrink-0">
                   <button type="button" class=" btn btn-sm btn-primary rounded-5 position-relative" style="margin-top:10px;" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-bell"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
@@ -249,7 +251,12 @@ $system = App\Models\Setting::first();
                 @endif
               </div>
 
-
+              <li class="nav-item menu-chat d-none">
+                <a class="nav-link" href="{{ url('/promptscripting-chat') }}"> Chat </a>
+              </li>
+              <li class="nav-item logout d-none">
+                <a class="nav-link" href="{{ route('user.logout') }}"> Log Out </a>
+              </li>
 
               @endauth
               
@@ -259,7 +266,7 @@ $system = App\Models\Setting::first();
               Create Account
             </a> --}}
             @auth
-               <div class="dropdown ms-lg-3 flex-shrink-0">
+               <div class="dropdown ms-lg-3 flex-shrink-0" id="user_profile">
                   <a href="" class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Profile
                   </a>
@@ -271,8 +278,8 @@ $system = App\Models\Setting::first();
                   <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i class="fa fa-list"></i> <small>Prompts</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{route('user.purchases')}}"><i class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
-                  <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists',['user'=>Auth::user()->id]) }}"><i class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
-                  <li><a class="dropdown-item text-primary" href=""><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                  {{-- <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists',['user'=>Auth::user()->id]) }}"><i class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li> --}}
+                  <li><a class="dropdown-item text-primary" href="{{route('user.payout')}}"><i class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i class="fa fa-heart"></i> <small>Favourites</small></a></li>
                   <li><a class="dropdown-item text-primary" href="{{ route('user.settings')}}"><i class="fa fa-gear"></i> <small>Settings</small></a></li>
 
@@ -320,13 +327,15 @@ $system = App\Models\Setting::first();
           
           {{-- @endif --}}
 
-
+          @guest
           <a
-            href="{{route('user.login')}}"
-            class="btn btn-outline-primary rounded-pill ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-sm-none px-2"
-          >
-            <i class="fa-solid fa-user"></i>
-          </a>
+          href="{{route('user.login')}}"
+          class="btn btn-outline-primary rounded-pill ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-sm-none px-2"
+        >
+          <i class="fa-solid fa-user"></i>
+        </a>
+          @endguest
+          
         </div>
       </nav>
     </header>
