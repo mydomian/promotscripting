@@ -53,10 +53,10 @@
                             <h5>Balance</h5>
                             <hr>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12  table-responsive">
+                        <div class="col-sm-12 col-md-12 col-lg-12  table-responsive mb-5">
                             <table class="table bg-transparent table-borderless">
                                 <thead>
-                                    <tr ></tr>
+                                    <tr>
                                       <th class="text-primary">Total balance <i class="fa-solid fa-circle-exclamation tips" style="color: #9ac6b7;" ></i></th>
                                       <th class="text-primary">Available to payout <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
                                       <th class="text-primary">Available soon <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
@@ -66,17 +66,44 @@
                                   </thead>
                                   <tbody class="text-white">
                                     <tr>
-                                      <th scope="row">{{'$'.$totalBalance}} <small>{{$currency}}</small></th>
-                                      <td>{{'$'.$availableAmount}} <small>{{$currency}}</small></td>
-                                      <td>{{'$'.$pendingAmount}} <small>{{$currency}}</small></td>
-                                      <td>@mdo</td>
-                                      <td>@mdo</td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($totalBalance,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($availableAmount,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($pendingAmount,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($minimum_payout->minimum_payout,2)}}  <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{ucfirst($schedule)}}</td>
                                     </tr>
-                                    
                                   </tbody>
                             </table>
                         </div>
-                        
+                        <div>
+                            <h5>Payouts</h5>
+                            <hr>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12  table-responsive mb-3">
+                            <table class="table bg-transparent table-borderless mb-0">
+                                <thead>
+                                    <tr>
+                                      <th class="text-primary">Amount </th>
+                                      <th class="text-primary">Status </th>
+                                      <th class="text-primary">Initiated </th>
+                                      <th class="text-primary">Est. Arrival </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="text-white">
+                                    @foreach($payoutList as $payout )
+                                    <tr>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($payout->amount/100,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$payout->status}}</td>
+                                      <td class="p-0 fs-5">{{date('m-j-Y',$payout->created)}}</td>
+                                      <td class="p-0 fs-5">{{date('m-j-Y',$payout->arrival_date)}}</td>
+                                    </tr>
+                                    @endforeach
+                                  </tbody>
+                            </table>
+                            @if (!$payoutList)
+                                <p class="">No Payouts Yet</p>
+                             @endif
+                        </div>
 
                     </div>
 
