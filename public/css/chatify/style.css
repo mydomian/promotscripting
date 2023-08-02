@@ -147,6 +147,7 @@ body {
   background: transparent;
 }
 
+
  @media only screen and (max-width: 1240px) {
   .m-header {
     margin-top: 76px;
@@ -155,6 +156,7 @@ body {
      margin-top: 76px;
   }
 } 
+
 .m-header-right {
   display: flex;
   align-items: center;
@@ -1191,3 +1193,72 @@ div.loadingPlaceholder-date {
   border-radius: 4px;
   background: transparent;
 }
+
+@media only screen and (max-width: 5000px) {
+  .messenger-listView{
+    background: linear-gradient(to right, #232526, #414345) !important;
+    border:none !important;
+  }
+ .messenger-infoView{
+    background: linear-gradient(to right, #232526, #414345) !important;
+    border:none !important;
+ }
+ .message-card.mc-sender .message{
+  background: rgb(106, 176, 124) !important;
+ }
+ .m-list-active{
+  background: rgb(106, 176, 124) !important;
+ }
+ .messenger-list-item{
+  background: none !important;
+ }
+ tr:hover {
+  background: #394746;
+  border-radius: 10px;
+}
+.messenger-list-item.m-list-active{
+  background: none !important;
+}
+table tr:hover td:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+table tr:hover td:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+tr:hover td p{
+  color: white !important;
+}
+
+
+} 
+
+@media only screen and (max-width: 1061px) {
+  .messenger-infoView.app-scroll{
+    display: none;
+    margin-top:128px;
+  }
+} 
+
+@media only screen and (max-width: 981px) {
+  .messenger-listView{
+    display: none;
+    margin-top:128px;
+  }
+} 
+
+@media only screen and (max-width: 681px) {
+  .messenger-messagingView{
+    margin:0px;
+    padding:0px;
+  }
+  .header-main.fixed-top{
+    display: none;
+  }
+  #footerMain{
+    display: none;
+   
+  }
+  
+} 

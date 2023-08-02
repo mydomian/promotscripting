@@ -95,6 +95,7 @@ class MessagesController extends Controller
      */
     public function send(Request $request)
     {
+        
         // default variables
         $error = (object)[
             'status' => 0,
@@ -130,6 +131,8 @@ class MessagesController extends Controller
         }
 
         if (!$error->status) {
+
+            
             $message = Chatify::newMessage([
                 'from_id' => Auth::user()->id,
                 'to_id' => $request['id'],
@@ -140,6 +143,7 @@ class MessagesController extends Controller
                 ]) : null,
             ]);
             $messageData = Chatify::parseMessage($message);
+           
             if (Auth::user()->id != $request['id']) {
                 Chatify::push("private-chatify.".$request['id'], 'messaging', [
                     'from_id' => Auth::user()->id,

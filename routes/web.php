@@ -84,8 +84,9 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
         Route::match(['get','post'],'/custom-orders/{user}','customOrderLists')->name('user.customOrderLists');
-        Route::get('/prompt-custom-order/{userId}/{sellerId?}','promptCustomOrder')->name('user.promptCustomOrder');
+        Route::match(['get','post'],'/prompt-custom-order','promptCustomOrder')->name('user.promptCustomOrder');
         Route::get('/custom-order/success','CustomOrderSuccess');
+        Route::get('/message-copytoclickboard/{id}','copyToClickBoard')->name('user.copyToClickBoard');
 
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');

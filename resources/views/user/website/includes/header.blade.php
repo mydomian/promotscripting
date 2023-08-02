@@ -13,11 +13,11 @@ $system = App\Models\Setting::first();
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- favicon -->
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/storage/images/favicon/' . $system->favicon) }}">
-    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/' . $system->favicon) }}"
-        sizes="32x32">
-    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/' . $system->favicon) }}"
-        sizes="16x16">
+   
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}">
+    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}" sizes="16x16">
+   
 
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

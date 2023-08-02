@@ -5,19 +5,23 @@ $timeAndSeen = "<span data-time='$created_at' class='message-time'>
     </span>";
 ?>
 
-<div class="message-card @if($isSender) mc-sender @endif" data-id="{{ $id }}">
+<div class="message-card text-primary @if($isSender) mc-sender @endif" data-id="{{ $id }}">
     {{-- Delete Message Button --}}
     @if ($isSender)
         <div class="actions">
-            <i class="fas fa-trash delete-btn" data-id="{{ $id }}"></i>
+            <i class="fas fa-trash delete-btn text-danger" data-id="{{ $id }}"></i>
         </div>
     @endif
+    &nbsp;&nbsp;
+    <a href="javascript:;" class="btn btn-sm btn-primary copyToClick" data-id="{{ $id }}"><i class="fa fa-copy text-white"></i></a>
+    &nbsp;&nbsp;
     {{-- Card --}}
     <div class="message-card-content">
         @if (@$attachment->type != 'image' || $message)
-            <div class="message">
-                {!! ($message == null && $attachment != null && @$attachment->type != 'file') ? $attachment->title : nl2br($message) !!}
+            <div class="message" id="forCopy">
+                {!! ($message == null && $attachment != null && @$attachment->type != 'file') ? $attachment->title : html_entity_decode($message) !!}
                 {!! $timeAndSeen !!}
+             
                 {{-- If attachment is a file --}}
                 @if(@$attachment->type == 'file')
                 <a href="{{ route(config('chatify.attachments.download_route_name'), ['fileName'=>$attachment->file]) }}" class="file-download">
@@ -25,6 +29,7 @@ $timeAndSeen = "<span data-time='$created_at' class='message-time'>
                 @endif
             </div>
         @endif
+       
         @if(@$attachment->type == 'image')
         <div class="image-wrapper" style="text-align: {{$isSender ? 'end' : 'start'}}">
             <div class="image-file chat-image" style="background-image: url('{{ Chatify::getAttachmentUrl($attachment->file) }}')">
@@ -35,5 +40,6 @@ $timeAndSeen = "<span data-time='$created_at' class='message-time'>
             </div>
         </div>
         @endif
+       
     </div>
 </div>
