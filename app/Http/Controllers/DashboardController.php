@@ -17,6 +17,7 @@ use App\Models\Sale;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -33,13 +34,22 @@ class DashboardController extends Controller
     }
 
     public function dashboard(){
-        // $purchases = Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
-        // $sales = Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get(); 
-        // $favourites = Favourite::where('user_ip', userLocalIp())->latest()->get();
-        // $prompts = Product::with('user')->where('user_id', 1)->latest()->get();
-       
-        
-        return view('user.website.dashboard');
+        $registerDate = User::find(Auth::id())->created_at;
+        $registerDate = Carbon::parse($registerDate);
+        $years = [$registerDate->format('Y')];
+        for ($i = 0; $i <= 6; $i++) {
+            $years[] = $registerDate->addYear()->format('Y');
+        }
+        $yearlySales = [];
+        foreach($years as $year){
+            $yearlySales[] = Sale::where('seller_id', Auth::id())->whereYear('created_at', $year)->sum('price'); 
+        }
+
+        $firstTen = Sale::where('seller_id', Auth::id())->whereBetween('created_at',[Carbon::now()->startOfMonth(), Carbon::now()->startOfMonth()->addDays(9)])->sum('price');
+        $secondTen = Sale::where('seller_id', Auth::id())->whereBetween('created_at',[Carbon::now()->startOfMonth()->addDays(10), Carbon::now()->startofMonth()->addDays(19)])->sum('price');
+        $rest = Sale::where('seller_id', Auth::id())->whereBetween('created_at',[Carbon::now()->startOfMonth()->addDays(20), Carbon::now()->endofMonth()])->sum('price');
+        $perTenDaySale = [$firstTen, $secondTen, $rest];
+        return view('user.website.dashboard',compact('years','yearlySales','perTenDaySale'));
     }
 
 
@@ -82,7 +92,7 @@ class DashboardController extends Controller
         return view('user.website.setting',compact('settings'));
     }   
 
-        
+    
 
     public function prompts(Request $request){
        
@@ -333,7 +343,6 @@ class DashboardController extends Controller
     public function purchases(){
         return view('user.website.purchases');
     }
-
     public function copyToClickBoard($id){
         $ch_message = DB::table('ch_messages')->find($id);
 

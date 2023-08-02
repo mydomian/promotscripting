@@ -6,7 +6,7 @@
 @endphp --}}
 @extends('user.website.includes.master')
 
-@section('title', '| Profile')
+@section('title', '| Settings')
 @section('profile', 'active')
 @section('content')
 
@@ -179,8 +179,8 @@
     @endsection
 
    
-    @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@push('scripts')
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
     $(document).ready(function () {
         
@@ -220,43 +220,5 @@
         });
     });
  </script>
- {{-- <script>
-    $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
- </script>
- <script>
-    $(document).ready(function(){
-        // var sale_email = $('#sale_email').val()
-        // var order_email = $('#order_email').val()
-        // var favourite_email = $('#favourite_email').val()
-        // var sale_notification = $('#sale_notification').val()
-        // var order_notification = $('#order_notification').val()
-        // var favourite_notification = $('#favourite_notification').val()
-        // var data =[
-        //     'new_sale_email' => sale_email,
-        //     'new_sale_notification' => sale_notification,
-        //     'new_order_email' => order_email,
-        //     'new_order_notfication' => order_notification,
-        //     'new_favourite_email' => favourite_email,
-        //     'new_favourite_notification' => favourite_notification
-        // ]
-        $('#sale_email').on('change',function(){
-           var sale_email = $('#sale_email').is(":checked") ? 1 : 0
-            $.ajax({
-                url: "{{route('change.notification')}}",
-                method:'post',
-                data: {
-                    sale_email:sale_email
-                },success:function(res){
-                    console.log('ok')
-                }
-            })
-        })
-      
-    })
- </script> --}}
 @endpush
 

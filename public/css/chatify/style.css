@@ -148,6 +148,15 @@ body {
 }
 
 
+ @media only screen and (max-width: 1240px) {
+  .m-header {
+    margin-top: 76px;
+  }
+  .messenger-infoView nav{
+     margin-top: 76px;
+  }
+} 
+
 .m-header-right {
   display: flex;
   align-items: center;

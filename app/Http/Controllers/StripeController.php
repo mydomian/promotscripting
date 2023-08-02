@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Charge;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\CustomerPaymentInfo;
 use App\Models\Order;
 use App\Models\PaymentInfo;
@@ -56,7 +57,7 @@ class StripeController extends Controller
             $stripe = new \Stripe\StripeClient($secret_key);
             $data =  $stripe->accountLinks->create([
                 'account' => $user->stripe_id,
-                'refresh_url' => env('APP_URL').'/connect-bank',
+                'refresh_url' => env('APP_URL') . '/connect-bank',
                 'return_url' => route('onboarding.completed', encrypt($user->stripe_id)),
                 'type' => 'account_onboarding',
             ]);
@@ -91,7 +92,7 @@ class StripeController extends Controller
             'seller_id'         => $product->user_id
         ]);
 
-        createNotification($order->id,'orders');
+        createNotification($order->id, 'orders');
 
         $customer = $stripe->customers->create([
             'description' => $product->id,
@@ -118,7 +119,7 @@ class StripeController extends Controller
                 ],
             ],
             'mode' => 'payment',
-            'success_url' => env('APP_URL').'/success?session_id={CHECKOUT_SESSION_ID}&order_id='.encrypt($order->id),
+            'success_url' => env('APP_URL') . '/success?session_id={CHECKOUT_SESSION_ID}&order_id=' . encrypt($order->id),
             'cancel_url'  => route('marketplace'),
         ]);
 
@@ -183,7 +184,7 @@ class StripeController extends Controller
                 $account->stripe_id,
             );
 
-            if($success->deleted == 'true'){
+            if ($success->deleted == 'true') {
                 $account->update([
                     'stripe_id' => NULL,
                     'is_onboarding_completed' => 0
@@ -192,5 +193,30 @@ class StripeController extends Controller
             }
         }
         return back()->with('error', "You haven't connect a stripe account yet");
+    }
+
+    public function payout()
+    {
+
+        $secret_key = PaymentInfo::first()->secret_key;
+        $stripe = new \Stripe\StripeClient($secret_key);
+        $account = User::find(Auth::id());
+        $balance = $stripe->balance->retrieve([], ['stripe_account' => $account->stripe_id]);
+        foreach($balance->available as $amount){
+            $availableAmount =  $amount->amount / 100;
+            $currency = $amount->currency;
+        }
+        foreach($balance->pending as $amount){
+            $pendingAmount =  $amount->amount / 100;
+        }
+        $totalBalance = $availableAmount + $pendingAmount;
+        $info = $stripe->accounts->retrieve(
+            $account->stripe_id
+          );
+        $schedule = $info->settings->payouts->schedule->interval;
+        $minimum_payout = Currency::where('country_code', $info->country)->first();
+        $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
+       
+        return view('user.website.payout',compact('availableAmount', 'currency', 'pendingAmount', 'totalBalance', 'schedule','minimum_payout', 'payoutList'));
     }
 }

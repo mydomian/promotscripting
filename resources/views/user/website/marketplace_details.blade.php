@@ -10,11 +10,11 @@
       <!--// bg-holder  -->
       <div class="container">
         <h2 class="text-center text-capitalize text-white mb-1">
-          Details
-          <span class="fw-semibold text-primary">Marketplace</span>
+          Prompt
+          <span class="fw-semibold text-primary">Details</span>
         </h2>
         <p class="text-white text-center mb-0">
-          Show in details of the prompt
+          Show details of the prompt
         </p>
       </div>
     </section>
@@ -50,6 +50,7 @@
                 <h4 class="fw-bolder"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
                 @if(Auth::id() !== $product->user_id)
                     <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
+                    <a href="" id="add_cart" data-id="{{$product->id}}" class="btn btn-md btn-primary mx-2 text-light"><i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i> Add To Cart</a>
                 @endif
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
@@ -64,7 +65,7 @@
             <div class="col-md-6 col-sm-12">
                
                 @if ($product->subSubCategory->subCategory->category->id == 1)
-                    <div class="row gap-0 chatGpt" style="height:1000px; overflow:auto">
+                    <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
                         <div class="col-12 m-0 p-4 border border-secondary">
                             <h5>Prompt Details</h5>
                             <strong>Category:</strong><br>
@@ -109,14 +110,14 @@
     </section>
 
 
-    <section class="profile-details mt-5 text-white">
+    <div class="profile-details  text-white">
         <div class="container">
             
             <div class="row">
                 <div class="col-sm-12 p-0 m-0 gap-0">
-                    <div class="search-profiles section text-white">
+                    <div class="search-profiles text-white">
                         <div class="container-fluid">
-                          <h6 class="text-primary">More from @ {{ strstr($product->user->name, ' ', true) ?? "" }}</h6>
+                          <h6 class="text-primary">More from  <a class="btn btn-primary btn-sm px-3 py-1 text-light">{{'@'. strstr($product->user->name, ' ', true) ?? "" }}</a></h6>
                           <div class="search-profiles-slider">
                             @if (Auth::check())
                                 @php
@@ -199,12 +200,7 @@
                 
             </div>
         </div>
-    </section>
-
-
-
-
-
+    </div>
   </main>
 @endsection
 @push('scripts')
@@ -244,11 +240,20 @@
         });
 
 
-        document.oncontextmenu = function() {return false;};
-        $('body').mousedown(function(e) { return false;});
-        $('body').mouseup(function(e) { return false;});
-        $('body').keyup(function(e) { return false;});
-        $('body').keydown(function(e) { return false;});
+        // document.oncontextmenu = function() {return false;};
+        // $('body').mousedown(function(e) { return false;});
+        // $('body').mouseup(function(e) { return false;});
+        // $('body').keyup(function(e) { return false;});
+        // $('body').keydown(function(e) { return false;});
     });
+ </script>
+ <script>
+    $(document).ready(function(){
+        $('#add_cart').on('click', function(e){
+            e.preventDefault();
+            const product_id = $(this).attr('data-id')
+           
+        })
+    })
  </script>
 @endpush
