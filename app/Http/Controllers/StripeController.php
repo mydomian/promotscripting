@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Charge;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\CustomerPaymentInfo;
 use App\Models\Order;
 use App\Models\PaymentInfo;
@@ -209,7 +210,13 @@ class StripeController extends Controller
             $pendingAmount =  $amount->amount / 100;
         }
         $totalBalance = $availableAmount + $pendingAmount;
-        
-        return view('user.website.payout',compact('availableAmount', 'currency', 'pendingAmount', 'totalBalance'));
+        $info = $stripe->accounts->retrieve(
+            $account->stripe_id
+          );
+        $schedule = $info->settings->payouts->schedule->interval;
+        $minimum_payout = Currency::where('country_code', $info->country)->first();
+        $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
+       
+        return view('user.website.payout',compact('availableAmount', 'currency', 'pendingAmount', 'totalBalance', 'schedule','minimum_payout', 'payoutList'));
     }
 }

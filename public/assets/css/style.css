@@ -7,8 +7,13 @@
     }
     .custom, 
     .logout,
-    .menu-chat{
+    .menu-chat,
+    .mobile-cart{
         display: inline-block !important;
+    }
+    #cart_menu,
+    .cart_count{
+        display: none;
     }
 
 }
