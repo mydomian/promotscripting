@@ -177,7 +177,7 @@
                             </div>
                           </div>
                         @empty
-                        <small>No data found</small>
+                        <small class="text-white">No data found</small>
                         @endforelse
                       </div>
                     </form>

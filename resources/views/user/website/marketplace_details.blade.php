@@ -50,7 +50,12 @@
                 <h4 class="fw-bolder"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
                 @if(Auth::id() !== $product->user_id)
                     <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
+                    @if(!checkCart($product->id))
                     <a href="" id="add_cart" data-id="{{$product->id}}" class="btn btn-md btn-primary mx-2 text-light"><i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i> Add To Cart</a>
+                    @else
+                    <button class="btn btn-secondary mx-2 text-light incart">In Your Cart</button>
+                    @endif
+                    <button class="btn btn-secondary mx-2 text-light incart hide">Now, in your cart</button>
                 @endif
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
@@ -251,8 +256,28 @@
     $(document).ready(function(){
         $('#add_cart').on('click', function(e){
             e.preventDefault();
-            const product_id = $(this).attr('data-id')
-           
+            var product_id = $(this).attr('data-id')
+           $.ajax({
+            url: "{{route('add.cart')}}",
+            method: "get",
+            data:{
+                product_id:product_id
+            },success:function(res){
+                if(res.success == true ){
+                    $('.cart_count').text(res.total)
+                    $('#add_cart').prop('disabled',true)
+                    $('#add_cart').addClass('hide')
+                    $('.incart').removeClass('hide')
+                    
+                }
+                if(res.success == false){
+                    $('#add_cart').addClass('hide')
+                    $('.incart').removeClass('hide')
+                    $('.incart').text(res.message)
+                }
+
+            }
+           })
         })
     })
  </script>

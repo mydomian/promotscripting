@@ -300,9 +300,9 @@ $system = App\Models\Setting::first();
                             </li>
 
                             <li class="nav-item" id="cart_menu">
-                                <a class="nav-link" href=""> <i class="fa-solid fa-cart-shopping fa-lg cart_icon"
+                                <a class="nav-link @yield('cart')" href="{{route('cart.list')}}"> <i class="fa-solid fa-cart-shopping fa-lg cart_icon"
                                         style="color: #ffffff;"></i></a>
-                                <span class="cart_count">10</span>
+                                <span class="cart_count">{{cartCount() ?? 0}}</span>
                             </li>
                             <li class="nav-item d-none mobile-cart">
                                 <a class="nav-link" href="">Cart</a>
