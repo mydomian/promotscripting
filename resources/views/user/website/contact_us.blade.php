@@ -1,7 +1,7 @@
 @extends('user.website.includes.master')
 
 @section('title')
-    Contact Us
+   | Contact Us
 @endsection
 @section('contact','active')
 @section('content')

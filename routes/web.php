@@ -70,10 +70,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
         Route::get('/delete', 'accountDelete')->name('account.delete');
-
         Route::get('/settings','settings')->name('user.settings');
-
-
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
         Route::get('/sales','sales')->name('user.sales');
@@ -90,7 +87,10 @@ Route::middleware(['user','verified'])->group(function () {
 
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
-
+        //cart
+        Route::get('/add-cart','cart')->name('add.cart');
+        Route::get('/cart','cartList')->name('cart.list');
+        Route::get('/cart-delete/{cart}','cartdelete')->name('cart.delete');
        
         Route::get('/logout','logout')->name('user.logout');
    });
