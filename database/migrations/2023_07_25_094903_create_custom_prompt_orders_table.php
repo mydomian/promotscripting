@@ -13,18 +13,22 @@ return new class extends Migration
     {
         Schema::create('custom_prompt_orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->unsignedBigInteger('seller_id');
+            $table->string('from_id');
+            $table->string('to_id');
+            $table->text('title');
+            $table->longText('description');
             $table->float('price');
-            $table->float('charge_percentage');
-            $table->float('charge_amount');
-            $table->float('collected_price');
-            $table->longText('transaction_id');
-            $table->enum('is_paid',['paid','unpaid']);
-            $table->enum('status',['pending','approve','cancel'])->default('pending');
+            $table->float('charge_percentage')->nullable();
+            $table->float('charge_amount')->nullable();
+            $table->float('collected_price')->nullable();
+            $table->string('delivery');
+            $table->string('revision')->nullable();
+            $table->string('expire')->nullable();
+            $table->longText('transaction_id')->nullable();
+            $table->enum('is_paid',['paid','unpaid'])->nullable();
+            $table->enum('status',['pending','approve'])->default('pending');
             $table->timestamps();
 
-            $table->foreign('seller_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
         });
     }

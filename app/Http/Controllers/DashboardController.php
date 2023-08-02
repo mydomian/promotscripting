@@ -15,14 +15,17 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Sale;
 use App\Models\SubCategory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Str;
+use DB;
+use Chatify\Facades\ChatifyMessenger as Chatify;
 class DashboardController extends Controller
 {
-
+    
     private $services; 
     public function __construct(Services $services)
     {
@@ -219,25 +222,35 @@ class DashboardController extends Controller
         return view('user.website.favourites',compact('favs'));
     }
 
-    public function promptCustomOrder($userId,$sellerId){
-
-        if(is_numeric($userId) and is_numeric($sellerId)){
+    public function promptCustomOrder(Request $request){
+        
+       
+       $data = $request->formData;
+       
+        if(isset($data ) && !empty($data)){
             $sk = PaymentInfo::first()->secret_key;
             $stripe = new \Stripe\StripeClient($sk);
             $charge = Charge::first()->buyer_charge;
-            $chargeAmount = number_format((49.99 * ($charge / 100)), 2) * 100;
-            $collected_price = $chargeAmount  > 50 ? 49.99 + ($chargeAmount / 100) : 49.99;
+            
+            $chargeAmount = number_format(($data['price'] * ($charge / 100)), 2) * 100;
+            $collected_price = $chargeAmount  > 50 ? $data['price'] + ($chargeAmount / 100) : $data['price'];
         
             $order = CustomPromptOrder::create([
-                'user_id'           => $userId,
-                'seller_id'         => $sellerId,
-                'price'             => 49.99,
-                'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
+                'to_id'           => $data['to_id'],
+                'from_id'         => $data['from_id'],
+                'title'           => $data['title'],
+                'title'           => $data['title'],
+                'description'     => $data['description'],
+                'price'           => $data['price'],
+                'delivery'        => $data['delivery'],
+                'revision'        => $data['revision'],
+                'expire'          => $data['expire'],
+                'charge_amount'   => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
                 'charge_percentage' => $charge,
-                'collected_price'   =>  $collected_price,
-                'transaction_id'    => "",
-                'is_paid'           => "unpaid",
-                'status'            => "approve",
+                'collected_price' =>  $collected_price,
+                'transaction_id'  => "",
+                'is_paid'         => "unpaid",
+                'status'          => "approve",
             ]);
 
             $session = $stripe->checkout->sessions->create([
@@ -248,15 +261,16 @@ class DashboardController extends Controller
                             'product_data' => [
                                 'name' => "Custom Order"
                             ],
-                            'unit_amount'  => 49.99 * 100
+                            'unit_amount'  => $data['price'] * 100
                         ],
                         'quantity' => 1,
                     ],
                 ],
                 'mode' => 'payment',
                 'success_url' => env('APP_URL')."/custom-order/success?session_id={CHECKOUT_SESSION_ID}&order_id=".encrypt($order->id),
-                'cancel_url'  => url('/promptscripting-chat',$userId),
+                'cancel_url'  => url('/promptscripting-chat',$data['to_id']),
             ]);
+
 
             if ($chargeAmount > 50) {
                 $stripe->charges->create([
@@ -266,13 +280,13 @@ class DashboardController extends Controller
                 ]);
             }
 
-
              return redirect()->away($session->url);
-            
+
+
+
         }else{
             return redirect('/promptscripting-chat');
         }
-
         
     }
 
@@ -318,5 +332,14 @@ class DashboardController extends Controller
     }
     public function purchases(){
         return view('user.website.purchases');
+    }
+
+    public function copyToClickBoard($id){
+        $ch_message = DB::table('ch_messages')->find($id);
+
+        return response()->json([
+            'status'=>true,
+            'message'=>$ch_message->body
+        ]);
     }
 }

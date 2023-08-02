@@ -444,12 +444,14 @@ function IDinfo(id) {
  *-------------------------------------------------------------
  */
 function sendMessage() {
+
   temporaryMsgId += 1;
   let tempID = `temp_${temporaryMsgId}`;
   let hasFile = !!$(".upload-attachment").val();
   const inputValue = $.trim(messageInput.val());
   if (inputValue.length > 0 || hasFile) {
     const formData = new FormData($("#message-form")[0]);
+
     formData.append("id", getMessengerId());
     formData.append("temporaryMsgId", tempID);
     formData.append("_token", csrfToken);
@@ -487,6 +489,7 @@ function sendMessage() {
         messageInput.focus();
       },
       success: (data) => {
+        
         if (data.error > 0) {
           // message card error status
           errorMessageCard(tempID);
@@ -1678,7 +1681,44 @@ emojiPicker.on("emoji", (emoji) => {
   el.selectionStart = el.selectionEnd = startPos + emoji.length;
   el.focus();
 });
+/**
+ *-------------------------------------------------------------
+ * custom Order
+ *-------------------------------------------------------------
+ */
+ $(document).on("click", ".customOfferOrder", function (e) {
+  e.preventDefault();
 
+  var delivery = $('#delivery').val();
+  var revision = $('#revision').val();
+  var expire = $('#expire').val();
+  var price = $('#price').val();
+  var title = $('#title').val();
+  var to_id = $('#to_id').val();
+  var from_id = $('#from_id').val();
+  var description = $('#description').val();
+
+  var formData={"from_id": from_id,"to_id": to_id,"delivery": delivery,"revision": revision,"expire": expire,"price": price,"title": title,"description": description};
+  var formData = $.param({ formData: formData });
+
+  if(!delivery || !price || !title || !description || !to_id){
+     $('#customOrderModal').modal('show');
+     alert('Something is wrong? Plese Reload The Page!');
+     location.reload(true);
+  }else{
+    
+    $('#customOrderModal').modal('hide');
+    var appendData = $(".m-send").html("<div class='card' style='width: 18rem;'><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvd464oR4-0qr4Z8U66pUy-6cLuN1bt201mqDSTiD1mA&s' class='card-img-top' alt=''><div class='card-body'><h5 class='card-title'>"+title+"</h5><small><strong>Price:</strong> "+price+"</small><br><small><strong>Revision:</strong> "+delivery+"</small><br><small><strong>Revision:</strong> "+revision+"</small><br><small><strong>Expire:</strong> "+expire+"</small><br><small style='text-align: justify'><strong>Description:</strong> "+description+"</small><br><br><a href='http://127.0.0.1:8000/prompt-custom-order/?"+formData+"' class='btn btn-sm btn-primary'>Place order</a></div></div>");
+    
+    $('#customOrderModal').on('hidden.bs.modal', function () {
+      $(this).find('form').trigger('reset');
+    })
+
+   
+  }
+ 
+});
+ 
 /**
  *-------------------------------------------------------------
  * Notification sounds

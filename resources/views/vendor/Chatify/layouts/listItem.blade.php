@@ -4,14 +4,14 @@
         <tr data-action="0">
             {{-- Avatar side --}}
             <td>
-            <div class="saved-messages avatar av-m">
-                <span class="far fa-bookmark"></span>
+            <div class="saved-messages avatar av-m ">
+                <span class="far fa-bookmark text-primary"></span>
             </div>
             </td>
             {{-- center side --}}
             <td>
-                <p data-id="{{ Auth::user()->id }}" data-type="user">Saved Messages <span>You</span></p>
-                <span>Save messages secretly</span>
+                <p data-id="{{ Auth::user()->id }}" data-type="user" class="text-primary">Saved Messages <span>You</span></p>
+                <span class="text-primary">Save messages secretly</span>
             </td>
         </tr>
     </table>
@@ -74,8 +74,9 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         </td>
         {{-- center side --}}
         <td>
-            <p data-id="{{ $user->id }}" data-type="user">
-            {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
+            <p class="text-primary" data-id="{{ $user->id }}" data-type="user">
+                {{ strlen($user->name) > 12 ? trim(substr($user->name,0,12)).'..' : $user->name }}
+            </p>
         </td>
 
     </tr>
