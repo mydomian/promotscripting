@@ -104,9 +104,13 @@ Route::middleware(['user','verified'])->group(function () {
         Route::post('/connect-acc','createAcc')->name('create.acc'); 
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::get('/success','success')->name('success');
+        Route::get('/cart-checkout-success','cartSuccess')->name('cart.checkout');
         Route::get('/onboarding-completed/{id}','completed')->name('onboarding.completed');
         Route::get('/delete-stripe','destroy')->name('account.stripe.delete');
-         Route::get('/payout','payout')->name('user.payout');
+        Route::get('/payout','payout')->name('user.payout');
+
+        //cart checkout
+        Route::get('/chckout','cartCheckout')->name('cart.checkout');
    });
 });
 

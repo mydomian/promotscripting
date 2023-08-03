@@ -35,7 +35,8 @@ class DashboardController extends Controller
     }
 
     public function dashboard()
-    {
+    {   
+       
         $registerDate = User::find(Auth::id())->created_at;
         $registerDate = Carbon::parse($registerDate);
         $years = [$registerDate->format('Y')];
