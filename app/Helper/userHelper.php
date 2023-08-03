@@ -124,3 +124,7 @@ function cartCount(){
 function checkCart($id){
     return Cart::where(['user_id'=> Auth::id(), 'product_id' => $id])->exists();
 }
+
+function cart(){
+    return Cart::with('product')->where('user_id', Auth::id())->latest()->get();
+}

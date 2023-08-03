@@ -9,7 +9,8 @@
             <div class="bg-holder bg-body bg-opacity-25"></div>
             <!--// bg-holder  -->
             <div class="container d-flex justify-content-center">
-               <div class="row">
+              @if ($cartList->count())
+              <div class="row">
                 <div class="col-md-8  ">
                     @forelse($cartList as $cart)
                     <div class="card marketplace--card border-2 shadow-lg bg-transparent mb-3">
@@ -36,23 +37,34 @@
                     <div class="card marketplace--card border-2 shadow-lg bg-transparent" >
                         <div class="row g-0">
                           <div class="col-md-12">
-                            <div class="card-header d-flex justify-content-between">
-                                <h5 class="card-title text-primary">Cart</h5>
-                                <small class="text-light">Total Product ({{$cartList->count()}})</small>
+                            <div class="card-header">
+                                <h5 class="card-title text-primary">Your Cart</h5>
                             </div>
-                            <div class="card-body">
-                              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <div class="card-body mb-0">
+                              <div class="d-flex justify-content-between">
+                                <p class="text-light">Product Quantity</p>
+                                <p class="text-primary"> {{$cartList->count()}}</p>
+                              </div>
+                              <div class="d-flex justify-content-between">
+                                <p class="text-light">Total Amount</p>
+                                <p class="text-primary"> {{'$'.$cartList->sum('price')}}</p>
+                              </div>
                             </div>
-                            <div class="cart-footer d-flex justify-content-between p-2">
-                                <h5 class="card-title text-primary">Total</h5>
-                                <p class="text-white">{{$cartList->sum('price')}}</p>
-                            </div>
+                           <div class="card-footer">
+                            <a href="{{route('cart.checkout')}}" class="btn btn-outline-primary w-100">Checkout</a>
+                           </div>
                           </div>
                         </div>
                       </div>
                    </div>
                </div>
+              @else
+              <div class="card marketplace--card border-2 shadow-lg bg-transparent mb-3">
+                  <div class="card-body">
+                    <h5 class="text-light">You haven't cart any product</h5>
+                  </div>
+              </div>
+              @endif
                 
                 
             </div>

@@ -257,7 +257,8 @@
         $('#add_cart').on('click', function(e){
             e.preventDefault();
             var product_id = $(this).attr('data-id')
-           $.ajax({
+           @if(auth()->user()){
+            $.ajax({
             url: "{{route('add.cart')}}",
             method: "get",
             data:{
@@ -275,9 +276,24 @@
                     $('.incart').removeClass('hide')
                     $('.incart').text(res.message)
                 }
-
             }
            })
+           }
+           @else{
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Please login to cart prompt'
+            })
+           }
+           @endif
         })
     })
  </script>
