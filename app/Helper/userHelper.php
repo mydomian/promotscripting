@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Favourite;
@@ -115,4 +115,16 @@ function systemSetting()
 function userSetting()
 {
     return NotificationSetting::where('user_id',Auth::id())->first();
+}
+
+function cartCount(){
+    return Cart::where('user_id', Auth::id())->count();
+}
+
+function checkCart($id){
+    return Cart::where(['user_id'=> Auth::id(), 'product_id' => $id])->exists();
+}
+
+function cart(){
+    return Cart::with('product')->where('user_id', Auth::id())->latest()->get();
 }

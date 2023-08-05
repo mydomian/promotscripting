@@ -70,10 +70,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/dashboard','dashboard')->name('user.dashboard');
         Route::match(['get','post'],'/profile/{user}','profile')->name('user.profile');
         Route::get('/delete', 'accountDelete')->name('account.delete');
-
         Route::get('/settings','settings')->name('user.settings');
-
-
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::match(['get','post'],'/prompts','prompts')->name('user.prompts');
         Route::get('/sales','sales')->name('user.sales');
@@ -90,7 +87,10 @@ Route::middleware(['user','verified'])->group(function () {
 
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
-
+        //cart
+        Route::get('/add-cart','cart')->name('add.cart');
+        Route::get('/cart','cartList')->name('cart.list');
+        Route::get('/cart-delete/{cart}','cartdelete')->name('cart.delete');
        
         Route::get('/logout','logout')->name('user.logout');
    });
@@ -104,9 +104,13 @@ Route::middleware(['user','verified'])->group(function () {
         Route::post('/connect-acc','createAcc')->name('create.acc'); 
         Route::get('/prompt/{id}','getPrompt')->name('get.prompt');
         Route::get('/success','success')->name('success');
+        Route::get('/cart-checkout-success','cartSuccess')->name('cart.checkout');
         Route::get('/onboarding-completed/{id}','completed')->name('onboarding.completed');
         Route::get('/delete-stripe','destroy')->name('account.stripe.delete');
-         Route::get('/payout','payout')->name('user.payout');
+        Route::get('/payout','payout')->name('user.payout');
+
+        //cart checkout
+        Route::get('/chckout','cartCheckout')->name('cart.checkout');
    });
 });
 

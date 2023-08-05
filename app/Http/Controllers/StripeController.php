@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\CartOrder;
 use App\Models\Charge;
 use App\Models\Country;
 use App\Models\Currency;
@@ -88,7 +90,7 @@ class StripeController extends Controller
             'price'             => $product->price,
             'charge_amount'     => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
             'charge_percentage' => $charge,
-            'collect_price'     =>  $chargeAmount  > 50 ? $product->price + ($chargeAmount / 100) : $product->price,
+            'collect_price'     => $chargeAmount  > 50 ? $product->price + ($chargeAmount / 100) : $product->price,
             'seller_id'         => $product->user_id
         ]);
 
@@ -218,5 +220,111 @@ class StripeController extends Controller
         $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
        
         return view('user.website.payout',compact('availableAmount', 'currency', 'pendingAmount', 'totalBalance', 'schedule','minimum_payout', 'payoutList'));
+    }
+
+
+    public function cartCheckout(){
+        $cart           = cart();
+        $totalAmount    =  $cart->sum('price');
+        $charge         = Charge::first()->buyer_charge;
+        $chargeAmount   = number_format(($totalAmount * ($charge / 100)), 2) * 100;
+        $sk             = PaymentInfo::first()->secret_key;
+        $stripe         = new \Stripe\StripeClient($sk);
+        foreach($cart as $product){
+            $products[] = $product->product_id;
+        }
+       
+        $cart_order = CartOrder::create([
+            'buyer_id'          => Auth::id(),
+            'product_quantity'  => $cart->count(),
+            'product_id'    => json_encode($products),
+            'cart_total'    => $totalAmount,
+            'charge_amount' => $chargeAmount  > 50 ? $chargeAmount / 100 : '0.00',
+            'charge_percentage'  => $charge,
+            'total_amount'       => $chargeAmount  > 50 ? $totalAmount + ($chargeAmount / 100) : $totalAmount,
+        ]);
+        foreach($cart as $product){
+            $perPoductChargeAmount   = number_format(($product->product->price * ($charge / 100)), 2) * 100;
+             Order::create([
+                'user_id'           => Auth::id(),
+                'product_id'        => $product->product_id,
+                'price'             => $product->product->price,
+                'charge_amount'     => $perPoductChargeAmount  > 50 ? $perPoductChargeAmount / 100 : '0.00',
+                'charge_percentage' => $charge,
+                'collect_price'     => $perPoductChargeAmount  > 50 ? $product->product->price + ($perPoductChargeAmount / 100) : $product->product->price,
+                'seller_id'         => $product->product->user_id,
+                'cart_order_id'     => $cart_order->id
+            ]);
+        }
+        $customer = $stripe->customers->create([
+            'description' => 'cart checkout',
+        ]);
+      
+        $session = $stripe->checkout->sessions->create([
+            'customer'   => $customer,
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency'     => 'usd',
+                        'product_data' => [
+                            'name' => 'Checkout From Cart'
+                        ],
+                        'unit_amount'  => $totalAmount * 100
+                    ],
+                    'quantity' => $cart->count(),
+                ],
+            ],
+            'mode' => 'payment',
+            'success_url' => env('APP_URL') . '/cart-checkout-success?session_id={CHECKOUT_SESSION_ID}&cart_order_id=' . encrypt($cart_order->id),
+            'cancel_url'  => route('marketplace'),
+        ]);
+        if ($chargeAmount > 50) {
+            $stripe->charges->create([
+                'amount'    => $chargeAmount,
+                'currency'  => 'usd',
+                'source'    => 'tok_amex',
+            ]);
+        }
+
+
+        return redirect()->away($session->url);
+
+        
+    }
+
+    public function cartSuccess(Request $request){
+        $cartOrder = CartOrder::find(decrypt($request->cart_order_id));
+        $secret_key = PaymentInfo::first()->secret_key;
+        $stripe = new \Stripe\StripeClient($secret_key);
+        $session = $stripe->checkout->sessions->retrieve(
+            $request->session_id
+        );
+
+        $cartOrder->update([
+            'is_paid'        => $session->payment_status,
+            'transaction_id' => $session->payment_intent
+        ]);
+       
+        foreach(json_decode($cartOrder->product_id)  as $order){
+           
+           $orderedProduct = Order::where('user_id', Auth::id())->where('product_id', $order)->where('cart_order_id', decrypt($request->cart_order_id))->first();
+           
+            $orderedProduct->update([
+                'is_paid'        => $session->payment_status,
+                'transaction_id' => $session->payment_intent
+            ]);
+            Sale::create([
+                'user_id'       => $orderedProduct->user_id,
+                'product_id'    => $orderedProduct->product_id,
+                'price'         => $orderedProduct->price,
+                'seller_id'     => $orderedProduct->product->user_id,
+                'order_id'      => $orderedProduct->id
+            ]);
+            $cart = Cart::where('user_id',Auth::id())->where('product_id',$order)->first();
+            $cart->delete();
+            
+        }
+        
+        return redirect()->route('user.dashboard');
     }
 }
