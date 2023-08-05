@@ -214,7 +214,12 @@ class StripeController extends Controller
         foreach($cart as $product){
             $products[] = $product->product_id;
         }
-       
+    
+        $cartedOrder = CartOrder::where('buyer_id', Auth::id())->whereNull('transaction_id')->first();
+         if($cartedOrder){
+            $cartedOrder->delete();
+         };
+
         $cart_order = CartOrder::create([
             'buyer_id'          => Auth::id(),
             'product_quantity'  => $cart->count(),

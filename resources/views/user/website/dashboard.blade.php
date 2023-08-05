@@ -26,11 +26,15 @@
                             id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
                             role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+
+                    @if ($userData)
+                        <li class="nav-item" role="presentation">
                             <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                                 role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
                     </li>
+                    @endif
+                    
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
@@ -238,7 +242,7 @@
                         </div>
                     </div>
 
-
+                    @if($userData)
                     <div class="tab-pane fade" id="pills-payouts" role="tabpanel"
                         aria-labelledby="pills-payouts-tab" tabindex="0">
                         <div>
@@ -298,7 +302,7 @@
                         </div>
 
                     </div>
-
+                    @endif
 
                     <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
                         tabindex="0">
