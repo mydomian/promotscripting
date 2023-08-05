@@ -138,29 +138,33 @@ function payoutDetails()
         $secret_key = PaymentInfo::first()->secret_key;
         $stripe = new \Stripe\StripeClient($secret_key);
         $account = User::find(Auth::id());
-        $balance = $stripe->balance->retrieve([], ['stripe_account' => $account->stripe_id]);
-        foreach($balance->available as $amount){
-            $availableAmount =  $amount->amount / 100;
-            $currency = $amount->currency;
-        }
-        foreach($balance->pending as $amount){
-            $pendingAmount =  $amount->amount / 100;
-        }
-        $totalBalance = $availableAmount + $pendingAmount;
-        $info = $stripe->accounts->retrieve(
-            $account->stripe_id
-          );
-        $schedule = $info->settings->payouts->schedule->interval;
-        $minimum_payout = Currency::where('country_code', $info->country)->first();
-        $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
-        return [
-            'availableAmount' => $availableAmount,
-            'currency'        => $currency,
-            'pendingAmount'   => $pendingAmount,
-            'totalBalance'    => $totalBalance,
-            'schedule'        => $schedule,
-            'minimum_payout'  => $minimum_payout,
-            'payoutList'      => $payoutList
-        ];
+        if($account->stripe_id){
+            $balance = $stripe->balance->retrieve([], ['stripe_account' => $account->stripe_id]);
+       foreach($balance->available as $amount){
+           $availableAmount =  $amount->amount / 100;
+           $currency = $amount->currency;
+       }
+       foreach($balance->pending as $amount){
+           $pendingAmount =  $amount->amount / 100;
+       }
+       
+       $totalBalance = $availableAmount + $pendingAmount;
+       $info = $stripe->accounts->retrieve(
+           $account->stripe_id
+         );
+       $schedule = $info->settings->payouts->schedule->interval;
+       $minimum_payout = Currency::where('country_code', $info->country)->first();
+       $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
+       return [
+           'availableAmount' => $availableAmount,
+           'currency'        => $currency,
+           'pendingAmount'   => $pendingAmount,
+           'totalBalance'    => $totalBalance,
+           'schedule'        => $schedule,
+           'minimum_payout'  => $minimum_payout,
+           'payoutList'      => $payoutList
+       ];
+    }
+    return false;
         
 }

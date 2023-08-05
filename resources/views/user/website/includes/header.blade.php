@@ -321,8 +321,12 @@ $system = App\Models\Setting::first();
                                             class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
                                             class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
-                                <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
+                                @if (Auth::user()->stripe_id)
+                                    <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                             class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                                @endif
+                                
+
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
                                             class="fa fa-heart"></i> <small>Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
@@ -376,11 +380,33 @@ $system = App\Models\Setting::first();
         </nav>
     </header>
 
-    @push('all-modals')
+    <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#burger').on('click', function() {
+                    var value = $('.order-1').attr("aria-expanded")
+                    if (value == 'true') {
+                        $('#burger').addClass('hide')
+                        $('.cross').removeClass('hide')
+                    }
+                })
+                $('.cross').on('click', function() {
+                    $('.cross').addClass('hide')
+                    $('#burger').removeClass('hide')
+                })
+            })
+        </script>
+    @endpush
+
+
+    {{-- notification Modal --}}
+  
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title">Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
             <div class="modal-body">
@@ -518,24 +544,4 @@ $system = App\Models\Setting::first();
         </div>
         </div>
     </div>
-    @endpush
     
-   
-    <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#burger').on('click', function() {
-                    var value = $('.order-1').attr("aria-expanded")
-                    if (value == 'true') {
-                        $('#burger').addClass('hide')
-                        $('.cross').removeClass('hide')
-                    }
-                })
-                $('.cross').on('click', function() {
-                    $('.cross').addClass('hide')
-                    $('#burger').removeClass('hide')
-                })
-            })
-        </script>
-    @endpush
