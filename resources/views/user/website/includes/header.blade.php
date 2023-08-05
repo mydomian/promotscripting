@@ -137,27 +137,13 @@ $system = App\Models\Setting::first();
                             </li>
 
 
-                            {{-- <div class="dropdown ms-lg-3 flex-shrink-0">
-                  <button type="button" class=" btn btn-sm btn-primary rounded-5 position-relative" style="margin-top:10px;" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-bell"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
-                  </button>
-                
-
-                <ul class="dropdown-menu bg-dark w-auto p-2">
-                  <li class="p-1 d-flex justify-content">
-                    <img src="https://picsum.photos/200" alt="Avatar" width="50" height="50" class="rounded-pill object-fit-cover" />
-                    <h6 class="text-white">dsfgfdhfthythjytjuy</h6>
-                  </li>
-                  
-                </ul>
-              </div> --}}
-
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:;" data-bs-toggle="modal" data-bs-target="#notificationModal">
+                                    <i class="fa fa-bell fa-lg" style="color: #ffffff;"></i>
+                                </a>
+                            </li>
 
                             <div class="dropstart">
-                                <a class=" nav-link position-relative" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-bell fa-lg" style="color: #ffffff;"></i> {{-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99</span> --}}
-
-                                </a>
                                 @php
                                     $setting = App\Models\NotificationSetting::where('user_id', Auth::id())->first();
                                 @endphp
@@ -311,14 +297,8 @@ $system = App\Models\Setting::first();
                             <li class="nav-item logout d-none">
                                 <a class="nav-link" href="{{ route('user.logout') }}"> Log Out </a>
                             </li>
-
                         @endauth
-
-
                     </ul>
-                    {{-- <a href="#" class="link-primary ms-lg-3 flex-shrink-0">
-              Create Account
-            </a> --}}
                     @auth
                         <div class="dropdown ms-lg-3 flex-shrink-0" id="user_profile">
                             <a href="" class="btn btn-outline-primary dropdown-toggle" type="button"
@@ -339,7 +319,8 @@ $system = App\Models\Setting::first();
                                             class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.purchases') }}"><i
                                             class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
-                                {{-- <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists',['user'=>Auth::user()->id]) }}"><i class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li> --}}
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
+                                            class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                             class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
@@ -357,9 +338,6 @@ $system = App\Models\Setting::first();
                             </ul>
                         </div>
                     @endauth
-
-
-
                     @guest
                         <a href="{{ route('user.register') }}"
                             class="btn btn-outline-primary ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-none d-sm-inline  @yield('register')">Create
@@ -368,8 +346,6 @@ $system = App\Models\Setting::first();
                             class="btn btn-outline-primary ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-none d-sm-inline @yield('login')">Login
                         </a>
                     @endguest
-
-
 
                 </div>
                 <button class="btn btn-outline-primary rounded-pill ms-auto search-trigger-btn d-lg-none"
@@ -389,7 +365,6 @@ $system = App\Models\Setting::first();
 
 
                 {{-- @endif --}}
-
                 @guest
                     <a href="{{ route('user.login') }}"
                         class="btn btn-outline-primary rounded-pill ms-2 ms-sm-3 me-2 me-sm-3 me-lg-0 d-sm-none px-2">
@@ -400,6 +375,152 @@ $system = App\Models\Setting::first();
             </div>
         </nav>
     </header>
+
+    @push('all-modals')
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+            <div class="modal-body">
+                <div class="row">
+                    @php
+                        $setting = App\Models\NotificationSetting::where('user_id', Auth::id())->first();
+                    @endphp
+                    @if(isset($setting))
+                    <div class="col-sm-12">
+                        @if ($setting->new_favourites_notification == 1)
+                                @php
+                                    $notifications = App\Models\Notification::where('type', 'favourites')
+                                        ->where(
+                                            'created_at',
+                                            '>',
+                                            Carbon\Carbon::now()
+                                                ->subHours(3)
+                                                ->toDateTimeString(),
+                                        )
+                                        ->get();
+                                @endphp
+                                <small class="text-primary px-2">Favourites</small><br>
+
+                                @foreach ($notifications as $notification)
+                                    @php
+                                        $notific = App\Models\Favourite::with('product')->find($notification->type_id);
+                                    @endphp
+
+                                    @if ($notific->product->user_id == Auth::id())
+                                        <li style="display: inline-block">
+                                            <img src="@if ($notific->product->image) {{ asset('/storage/products/thumbnil/' . $notific->product->image) }} @else https://picsum.photos/200 @endif"
+                                                alt="Avatar" width="50" height="40"
+                                                class="rounded-pill object-fit-cover" />
+                                            <small class="text-primary m-atuo">{{ $notific->product->title }}</small>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                            @if ($setting->new_prompt_notification == 1)
+                                @php
+                                    $notifications = App\Models\Notification::where('type', 'prompts')
+                                        ->where(
+                                            'created_at',
+                                            '>',
+                                            Carbon\Carbon::now()
+                                                ->subHours(3)
+                                                ->toDateTimeString(),
+                                        )
+                                        ->get();
+                                @endphp
+                                <br><br><small class="text-primary px-2">Prompts</small><br>
+
+                                @foreach ($notifications as $notification)
+                                    @php
+                                        $prompt = App\Models\Product::with('user')->find($notification->type_id);
+                                    @endphp
+
+                                    @if ($prompt->user_id == Auth::id())
+                                        <li style="display: inline-block">
+                                            <img src="@if ($prompt->image) {{ asset('/storage/products/thumbnil/' . $prompt->image) }} @else https://picsum.photos/200 @endif"
+                                                alt="Avatar" width="50" height="40"
+                                                class="rounded-pill object-fit-cover" />
+                                            <small class="text-primary m-atuo">{{ $prompt->title }}</small>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                            @if ($setting->new_sale_notification == 1)
+                                @php
+                                    $notifications = App\Models\Notification::where('type', 'orders')
+                                        ->where(
+                                            'created_at',
+                                            '>',
+                                            Carbon\Carbon::now()
+                                                ->subHours(3)
+                                                ->toDateTimeString(),
+                                        )
+                                        ->get();
+                                @endphp
+                                <br><br><small class="text-primary px-2">Sales</small>
+
+                                @foreach ($notifications as $notification)
+                                    @php
+                                        $sale = App\Models\Order::with('product')->find($notification->type_id);
+                                    @endphp
+
+                                    @if ($sale->seller_id == Auth::id())
+                                        <li style="display: inline-block">
+                                            <img src="@if ($sale->product->image) {{ asset('/storage/products/thumbnil/' . $sale->product->image) }} @else https://picsum.photos/200 @endif"
+                                                alt="Avatar" width="50" height="40"
+                                                class="rounded-pill object-fit-cover" />
+                                            <small
+                                                class="text-primary m-atuo">{{ $sale->product->title }}</small>
+                                        </li>
+                                  
+                                    @endif
+                                    
+                                @endforeach
+                             
+                            @endif
+                            <br>
+                            @if ($setting->new_purchase_notification == 1)
+                                @php
+                                    $notifications = App\Models\Notification::where('type', 'orders')
+                                        ->where(
+                                            'created_at',
+                                            '>',
+                                            Carbon\Carbon::now()
+                                                ->subHours(3)
+                                                ->toDateTimeString(),
+                                        )
+                                        ->get();
+                                @endphp
+                                <br><br><small class="text-primary px-2">New Purchases</small>
+
+                                @foreach ($notifications as $notification)
+                                    @php
+                                        $purchase = App\Models\Order::with('product')->find($notification->type_id);
+                                    @endphp
+
+                                    @if ($purchase->user_id == Auth::id())
+                                        <li style="display: inline-block">
+                                            <img src="@if ($purchase->product->image) {{ asset('/storage/products/thumbnil/' . $purchase->product->image) }} @else https://picsum.photos/200 @endif"
+                                                alt="Avatar" width="50" height="40"
+                                                class="rounded-pill object-fit-cover" />
+                                            <small class="text-primary m-auto">{{ $purchase->product->title }}</small>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            @endif
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    @endpush
+    
+   
     <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
     @push('scripts')
         <script>

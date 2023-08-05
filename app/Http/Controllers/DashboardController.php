@@ -17,7 +17,6 @@ use App\Models\Sale;
 use App\Models\SubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -316,19 +315,8 @@ class DashboardController extends Controller
         return view('user.website.custom_order_success');
     }
 
-    public function customOrderLists(Request $request, User $user){
-        $customOrders = CustomPromptOrder::with('user')->where(['user_id'=>$user->id,'status'=>'approve','is_paid'=>'paid'])->paginate(200);
-        if($request->isMethod('post')){
-            if($request->filterType == "search"){
-
-                $customOrders = CustomPromptOrder::whereHas('user', function($query) use ($request) {
-                    $query->where('name','like','%'.$request->value.'%');
-                })->where(['user_id'=>$user->id,'status'=>'approve','is_paid'=>'paid'])->latest()->paginate(100);
-                return view('user.website.includes.custom_order_append',compact('customOrders'));
-            }
-        }
-        $customOrders = $customOrders->appends($request->all());
-        return view('user.website.custom_orders',compact('customOrders'));
+    public function customOrderLists(){
+        return view('user.website.custom_orders');
     }
     public function accountDelete(){
        $user = User::find(Auth::id());
@@ -345,10 +333,9 @@ class DashboardController extends Controller
     }
     public function copyToClickBoard($id){
         $ch_message = DB::table('ch_messages')->find($id);
-
         return response()->json([
             'status'=>true,
-            'message'=>$ch_message->body
+            'message'=>html_entity_decode($ch_message->body)
         ]);
     }
 }

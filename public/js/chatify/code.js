@@ -1001,6 +1001,7 @@ function getSharedPhotos(user_id) {
     data: { _token: csrfToken, user_id: user_id },
     dataType: "JSON",
     success: (data) => {
+      
       $(".shared-photos-list").html(data.shared);
     },
     error: () => {

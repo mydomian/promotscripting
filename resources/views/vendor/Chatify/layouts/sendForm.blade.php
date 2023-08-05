@@ -4,6 +4,7 @@
         <label><span class="fas fa-plus-circle text-primary"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
         <button class="emoji-button"></span><span class="fas fa-smile text-primary"></button>
         <span class="resetForm"><i class="fa fa-paint-brush text-primary"></i></span>
+        <span class="forPaste"><i class="fa fa-save text-primary"></i></span>
         <textarea readonly='readonly' name="message" class="m-send app-scroll text-primary" placeholder="Type a message.."></textarea>
         <button disabled='disabled' class="send-button"><span class="fas fa-paper-plane text-primary"></span></button>
     </form>
@@ -112,6 +113,18 @@
         $('.appendcreateOfferForId').val(to_id);
     });
 
+    
+    $(".forPaste").on("click", function() {
+        navigator.clipboard.readText()
+        .then(function(pastedText) {
+          $(".m-send").val(pastedText);
+          alert("Text pasted from clipboard.");
+        })
+        .catch(function(err) {
+          console.error("Failed to paste text from clipboard: ", err);
+        });
+    });
+    
     $(document).on("click", ".resetForm", function () {
         $(".m-send").empty();
         $("#message-form").trigger("reset");

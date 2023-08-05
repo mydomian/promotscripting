@@ -11,8 +11,12 @@ class CustomPromptOrder extends Model
     protected $guarded = ['id'];
     protected $casts = ['price' => 'decimal:2','charge_percentage' => 'decimal:2','charge_amount' => 'decimal:2','collected_price'=>'decimal:2'];
 
-    public function user(){
-        return $this->belongsTo(User::class,'seller_id');
+    public function from_user(){
+        return $this->belongsTo(User::class,'from_id');
+    }
+
+    public function to_user(){
+        return $this->belongsTo(User::class,'to_id');
     }
 
 }
