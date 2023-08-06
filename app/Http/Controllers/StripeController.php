@@ -199,27 +199,8 @@ class StripeController extends Controller
 
     public function payout()
     {
-
-        $secret_key = PaymentInfo::first()->secret_key;
-        $stripe = new \Stripe\StripeClient($secret_key);
-        $account = User::find(Auth::id());
-        $balance = $stripe->balance->retrieve([], ['stripe_account' => $account->stripe_id]);
-        foreach($balance->available as $amount){
-            $availableAmount =  $amount->amount / 100;
-            $currency = $amount->currency;
-        }
-        foreach($balance->pending as $amount){
-            $pendingAmount =  $amount->amount / 100;
-        }
-        $totalBalance = $availableAmount + $pendingAmount;
-        $info = $stripe->accounts->retrieve(
-            $account->stripe_id
-          );
-        $schedule = $info->settings->payouts->schedule->interval;
-        $minimum_payout = Currency::where('country_code', $info->country)->first();
-        $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
-       
-        return view('user.website.payout',compact('availableAmount', 'currency', 'pendingAmount', 'totalBalance', 'schedule','minimum_payout', 'payoutList'));
+        $userData = payoutDetails();
+        return view('user.website.payout',compact('userData'));
     }
 
 
@@ -233,7 +214,12 @@ class StripeController extends Controller
         foreach($cart as $product){
             $products[] = $product->product_id;
         }
-       
+    
+        $cartedOrder = CartOrder::where('buyer_id', Auth::id())->whereNull('transaction_id')->first();
+         if($cartedOrder){
+            $cartedOrder->delete();
+         };
+
         $cart_order = CartOrder::create([
             'buyer_id'          => Auth::id(),
             'product_quantity'  => $cart->count(),

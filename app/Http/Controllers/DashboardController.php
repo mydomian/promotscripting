@@ -26,6 +26,7 @@ use Carbon\Carbon;
 use Str;
 use DB;
 use Chatify\Facades\ChatifyMessenger as Chatify;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
