@@ -168,6 +168,16 @@
                                     <textarea name="instructions" class="form-control bg-transparent" rows="3"
                                         placeholder="To use this prompt you need to...">{{ old('instructions') }}</textarea>
                                 </div>
+                                <div class="col-md-12 mb-3 d-flex flex-column text-white ">
+                                    <label for="" class="form-label"><span class="text-danger">*</span>Prompt
+                                        Tags</label>
+                                    <i class="text-secondary mb-1"><small>Keywords of your prompt. Example: Keyword1, Keyword2...</small></i>
+                                    <input name="prompt_tags" class="form-control prompt_tags" value="{{old('prompt_tags')}}" rows="3"
+                                    data-role="tagsinput">
+                                    @error('prompt_tags')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
                                 <div class="col-md-4">
                                     <div class="d-flex align-items-center  pt-4 mt-4 pt-xxl-5 mt-xl-5">
                                         <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
@@ -433,6 +443,18 @@
                                         @enderror
                                     </div>
                                 @endif
+
+                                <div class="col-md-12 mb-3 d-flex flex-column text-white ">
+                                    <label for="" class="form-label"><span class="text-danger">*</span>Prompt
+                                        Tags</label>
+                                    <i class="text-secondary mb-1"><small>Keywords of your prompt. Example: Keyword1, Keyword2...</small></i>
+                                    <input name="prompt_tags" class="form-control prompt_tags" value="{{old('prompt_tags')}}" rows="3"
+                                    data-role="tagsinput">
+                                    @error('prompt_tags')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
+
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Next
@@ -449,6 +471,32 @@
     </main>
 @endsection
 @push('scripts')
+
+    
+   <script src='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'></script>
+
+   <script>
+      $(function () {
+         $('input').on('change', function (event) {
+
+            var $element = $(event.target);
+            var $container = $element.closest('.example');
+
+            if (!$element.data('tagsinput'))
+               return;
+
+            var val = $element.val();
+            if (val === null)
+               val = "null";
+            var items = $element.tagsinput('items');
+
+            $('code', $('pre.val', $container)).html(($.isArray(val) ? JSON.stringify(val) : "\"" + val.replace('"', '\\"') + "\""));
+            $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
+
+
+         }).trigger('change');
+      });
+   </script>
     <script>
         $(document).ready(function() {
             $('#image_width').on('change', function() {

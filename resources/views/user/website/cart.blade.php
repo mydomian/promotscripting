@@ -61,7 +61,7 @@
               @else 
               <div class=" col-8 card marketplace--card border-2 shadow-lg bg-transparent mb-3 shadow">
                   <div class="card-body text-center">
-                    <h5 class="text-light mb-0">{{ucwords("no product in your cart")}}</h5>
+                    <h5 class="text-light mb-0">{{ucwords("you haven't cart any prompt")}}</h5>
                   </div>
               </div>
               @endif
