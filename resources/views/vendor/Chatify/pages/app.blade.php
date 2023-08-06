@@ -15,7 +15,7 @@
                     <div class="d-flex align-items-center gap-2 mb-2">
                       <div class="profile-avatar--sm position-relative">
                         <img
-                          src="@if(Auth::user()->profile_photo_path) {{ asset('/storage/profile/'.Auth::user()->profile_photo_path) }} @else {{ asset('/storage/profile/avatar.png') }} @endif"
+                          src="@if(Auth::user()->profile_photo_path) {{ asset('/storage/profile/'.Auth::user()->profile_photo_path) }} @else {{ asset('/storage/profile/'.Auth::user()->avatar) }} @endif"
                           alt="Avatar"
                           width="121"
                           height="121"

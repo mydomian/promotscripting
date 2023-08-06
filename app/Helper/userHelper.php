@@ -128,3 +128,8 @@ function checkCart($id){
 function cart(){
     return Cart::with('product')->where('user_id', Auth::id())->latest()->get();
 }
+
+function checkPurchaseOrder($product_id){
+    $order = Order::with('product')->where(['user_id'=>Auth::id(),'product_id'=>$product_id,'status'=>'approve','is_paid'=>'paid','is_order'=>'regular'])->whereNotNull('transaction_id')->first();
+    return $order;
+}

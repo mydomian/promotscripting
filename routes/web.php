@@ -33,7 +33,6 @@ Route::controller(HomeController::class)->group(function(){
 
      Route::get('hire','hire')->name('hire');
      Route::get('/public-profile/{user}','publicProfile')->name('public.profile');
-
      Route::get('/prompt-favourite/{product}/{type?}','userFavourite')->name('userFavourite');
      
 });
@@ -76,7 +75,6 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/sales','sales')->name('user.sales');
         Route::get('/purchases','purchases')->name('user.purchases');
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
-        
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
@@ -84,13 +82,17 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/prompt-custom-order','promptCustomOrder')->name('user.promptCustomOrder');
         Route::get('/custom-order/success','CustomOrderSuccess');
         Route::get('/message-copytoclickboard/{id}','copyToClickBoard')->name('user.copyToClickBoard');
-
-        // deleted route
-        Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
         //cart
         Route::get('/add-cart','cart')->name('add.cart');
         Route::get('/cart','cartList')->name('cart.list');
         Route::get('/cart-delete/{cart}','cartdelete')->name('cart.delete');
+        //data downloads
+        Route::get('file-dawonloads/{product}','fileDawonload')->name('user.fileDawonload');
+
+
+        // deleted route
+        Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
+       
        
         Route::get('/logout','logout')->name('user.logout');
    });
@@ -153,14 +155,16 @@ Route::prefix('/admin')->group(function (){
         Route::get('/category-status-active/{category}',[CategoryController::class,'categoryStatusActive'])->name('admin.categoryStatusActive');
         Route::get('/category-status-inactive/{category}',[CategoryController::class,'categoryStatusInactive'])->name('admin.categoryStatusInactive');
         Route::get('/blog-status/{blog}',[BlogController::class,'blogStatus'])->name('admin.blogStatus');
+        //transactions
+        Route::get('/checkouts',[AdminStripeController::class,'checkouts'])->name('admin.checkouts');
+        Route::get('/charges',[AdminStripeController::class,'charges'])->name('admin.charges');
+        
         //deleted route
         Route::get('/category-delete/{category}',[CategoryController::class,'destroy'])->name('admin.categoryDestroy');
         Route::get('/sub-category-delete/{subcategory}',[SubCategoryController::class,'destroy'])->name('admin.subCategoryDestroy');
         Route::get('/sub-sub-category-delete/{subsubcategory}',[SubSubCategoryController::class,'destroy'])->name('admin.subSubCategoryDestroy');
         Route::get('/blog-delete/{blog}',[BlogController::class,'destroy'])->name('admin.blogDestroy');
-        //transactions
-        Route::get('/checkouts',[AdminStripeController::class,'checkouts'])->name('admin.checkouts');
-        Route::get('/charges',[AdminStripeController::class,'charges'])->name('admin.charges');
+        
 
         Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     });
