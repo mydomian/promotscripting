@@ -48,15 +48,21 @@
                 <p style="text-align: justify;"><small >{{ $product->preview_input }}</small></p>
                 <p style="text-align: justify;"><small >{{ $product->description }}</small></p>
                 <h4 class="fw-bolder"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
-                @if(Auth::id() !== $product->user_id)
-                    <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
-                    @if(!checkCart($product->id))
-                    <a href="" id="add_cart" data-id="{{$product->id}}" class="btn btn-md btn-primary mx-2 text-light"><i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i> Add To Cart</a>
-                    @else
-                    <button class="btn btn-secondary mx-2 text-light incart">In Your Cart</button>
+               
+                @if (checkPurchaseOrder($product->id))
+                    <a href="{{ route('user.fileDawonload',$product->id) }}" class="btn btn-outline-success btn-sm">Download Files</a>
+                @else
+                    @if(Auth::id() !== $product->user_id)
+                        <a href="{{route('get.prompt',encrypt($product->id))}}" class="btn btn-md btn-outline-primary">Get Prompt</a>
+                        @if(!checkCart($product->id))
+                        <a href="" id="add_cart" data-id="{{$product->id}}" class="btn btn-md btn-primary mx-2 text-light"><i class="fa-solid fa-cart-shopping fa-beat-fade" style="color: #ffffff;"></i> Add To Cart</a>
+                        @else
+                        <button class="btn btn-secondary mx-2 text-light incart">In Your Cart</button>
+                        @endif
+                        <button class="btn btn-secondary mx-2 text-light incart hide">Now, in your cart</button>
                     @endif
-                    <button class="btn btn-secondary mx-2 text-light incart hide">Now, in your cart</button>
                 @endif
+                
                 <p style="text-align: justify; margin-top:10px;"><small >{{ $product->instructions}}</small></p>
                 <p style="text-align: justify;"><small >By purchasing this prompt, you agree to our <a href="#">terms of service.</a></small></p>
                 <h6>{{ $product->created_at->diffForHumans() }}</h6>

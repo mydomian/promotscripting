@@ -28,7 +28,7 @@ $system = App\Models\Setting::first();
                 
                 <div class="col-sm-12 col-md-4  d-flex text-center h-100">
                     <div class="w-100 p-5 m-0" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
-                        <img class="img-fluid w-100 rounded-circle objit-fit-fill" src="@if(isset($user->profile_photo_path)){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else https://picsum.photos/200 @endif" alt="profile-image">
+                        <img class="img-fluid w-50 h-50 rounded-circle objit-fit-fill" src="@if($user->profile_photo_path){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else {{ asset('/storage/profile/'.$user->avatar) }} @endif" alt="profile-image">
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->name }}</a>
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->email }}</a>
                     </div>

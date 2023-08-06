@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use App\Models\Blog;
+use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Favourite;
 use App\Models\Order;
@@ -16,7 +17,9 @@ class HomeController extends Controller
 {
     public function home(){
         $setting = Setting::first();
-        return view('user.website.index',compact('setting'));
+        $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
+        $prompts = Product::with('subSubCategory')->where('status','active')->inRandomOrder()->limit(4)->get();
+        return view('user.website.index',compact('setting','categories','prompts'));
     }
 
     public function contactus(Request $request, Contact $contact){

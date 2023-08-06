@@ -454,12 +454,12 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($notific->product->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                    <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($notific->product->title,'-'),'product'=>$notific->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($notific->product->image) {{ asset('/storage/products/thumbnil/' . $notific->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-atuo">{{ $notific->product->title }}</small>
-                                        </li>
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-atuo">{{ $notific->product->title }}</small>
+                                    </a><br>
                                     @endif
                                 @endforeach
                             @endif
@@ -483,12 +483,14 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($prompt->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="text-decoration-none">
                                             <img src="@if ($prompt->image) {{ asset('/storage/products/thumbnil/' . $prompt->image) }} @else https://picsum.photos/200 @endif"
-                                                alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-atuo">{{ $prompt->title }}</small>
-                                        </li>
+                                                    alt="Avatar" width="50" height="40"
+                                                    class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-auto">{{ $prompt->title }}</small>
+                                        </a>
+                                            
+                                        <br>
                                     @endif
                                 @endforeach
                             @endif
@@ -512,13 +514,13 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($sale->seller_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($sale->product->title,'-'),'product'=>$sale->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($sale->product->image) {{ asset('/storage/products/thumbnil/' . $sale->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
                                             <small
                                                 class="text-primary m-atuo">{{ $sale->product->title }}</small>
-                                        </li>
+                                        </a><br>
                                   
                                     @endif
                                     
@@ -546,18 +548,18 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($purchase->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        < <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($purchase->product->title,'-'),'product'=>$purchase->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($purchase->product->image) {{ asset('/storage/products/thumbnil/' . $purchase->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-auto">{{ $purchase->product->title }}</small>
-                                        </li>
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-auto">{{ $purchase->product->title }}</small>
+                                        </a><br>
                                     @endif
                                 @endforeach
                             @endif
                     </div>
                     @endif
-                </div>
+                </a>
             </div>
         </div>
         </div>

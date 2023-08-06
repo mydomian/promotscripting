@@ -16,10 +16,13 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Sale;
 use App\Models\SubCategory;
+use App\Models\Tempfile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 use Str;
 use DB;
 use Chatify\Facades\ChatifyMessenger as Chatify;
@@ -378,5 +381,11 @@ class DashboardController extends Controller
     public function cartdelete(Cart $cart){
         $cart->delete();
         return back()->with('success', 'Prompt removed from your cart!');
+    }
+
+    public function fileDawonload($product_id){
+        $tempFile = Tempfile::where(['user_id'=>Auth::id(),'product_id'=>$product_id])->first();
+        $zipPath = storage_path($tempFile->zip_file);
+        return Response::download($zipPath, $tempFile->zip_file)->deleteFileAfterSend(false);
     }
 }

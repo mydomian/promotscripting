@@ -15,6 +15,7 @@ use App\Services\Services;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class SellController extends Controller
@@ -149,6 +150,8 @@ class SellController extends Controller
             'is_type'                  => $type,
         ]);
 
+        
+
         if($request->file('image')){
             $upload = $this->services->imageUpload($request->file('image'),'products/thumbnil/');
             $product->image = $upload;
@@ -165,6 +168,7 @@ class SellController extends Controller
                 ]);
             }           
         }
+        $this->services->createFile($product->productImages,$product);
 
         if($request->prompt_tags){
            $tags =  explode(',',$request->prompt_tags);

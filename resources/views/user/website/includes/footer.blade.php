@@ -20,27 +20,27 @@ $system = App\Models\Setting::first();
                 class="img-fluid"
               />
             </a>
-            <p class="mt-5">
+            <p class="mt-5 text-white">
               Join us on our collaborative platform working with top prompt
               engineers!
             </p>
-            <p>We are glad to make you part of our team.</p>
+            <p class="text-white">We are glad to make you part of our team.</p>
           </div>
           <div class="col-md-5 col-lg-6">
             <ul
               class="navbar-nav flex-lg-row justify-content-lg-end gap-lg-5 mt-md-5"
             >
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href=""> Home </a>
+                <a class="nav-link text-white" aria-current="page" href="{{ route('home') }}"> Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> About Us </a>
+                <a class="nav-link text-white" href="{{ route('aboutus') }}"> About Us </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> Blogs </a>
+                <a class="nav-link text-white" href="{{ route('blogs') }}"> Blogs </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"> Contact </a>
+                <a class="nav-link text-white" href="{{ route('contactus') }}"> Contact </a>
               </li>
             </ul>
           </div>
@@ -52,7 +52,7 @@ $system = App\Models\Setting::first();
     <!-- >>>>>>>>>> Footer Copyright <<<<<<<<< -->
     <div class="footer-copyright">
       <div class="container">
-        <p class="text-capitalize">
+        <p class="text-capitalize text-white">
           Copyright &copy;
           <script>
             document.write(new Date().getFullYear());
@@ -87,10 +87,10 @@ $system = App\Models\Setting::first();
       });
       
   </script>
+@stack('scripts')
+@stack('all-modals')
 
-  @stack('all-modals')
-
-  @stack('scripts')
+  
 
 </body>
 </html>
