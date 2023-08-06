@@ -374,10 +374,6 @@
 
                     <div class="tab-pane fade   show active" id="pills-sells" role="tabpanel" aria-labelledby="pills-sells-tab"
                         tabindex="0">
-                        <div>
-                            <h5>Sales</h5>
-                            <hr>
-                        </div>
 
                         <div class="row g-3 mb-5">
 
@@ -395,9 +391,9 @@
 
                                     @forelse ($sales as $sale)
                                         <tr>
-                                            <td>{{ '$'.$sale->price }}</td>
-                                            <td><span class="badge text-bg-secondary">{{ ucfirst($sale->order->is_paid ?? 'unknown') }}</span></td>
-                                            <td><a href="{{ route('marketplaceDetails', ['slug' => Str::slug($sale->product->title, '-'), 'product' => $sale->product->id]) }}" class="text-decoration-none">{{ $sale->product->title }}</a></td>
+                                            <td>{{ $sale->price }}</td>
+                                            <td>{{ $sale->order->is_paid ?? 'unknown' }}</td>
+                                            <td><a href="{{ route('marketplaceDetails', ['slug' => Str::slug($sale->product->title, '-'), 'product' => $sale->product->id]) }}">{{ $sale->product->title }}</a></td>
                                             <td>{{ $sale->user->name }}</td>
                                             <td>{{ $sale->created_at->format("D, M 'y") }}</td>
                                         </tr>
@@ -408,9 +404,12 @@
                                 </tbody>
                             </table>
                             @if (sales()->count() < 1)
-                                <p class="text-white">No sales yet !</p>
-                            @endif
+                            <p class="text-white">No sales yet !</p>
+                        @endif
                         </div>
+
+
+
                     </div>
 
 
