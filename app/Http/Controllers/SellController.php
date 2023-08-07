@@ -172,6 +172,8 @@ class SellController extends Controller
 
         $this->services->createFile($product->productImages,$product);
 
+        
+
         createNotification($product->id,'prompts');
         
         if(Auth::user()->is_onboarding_completed == 1){
