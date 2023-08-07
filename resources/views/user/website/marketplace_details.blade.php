@@ -13,9 +13,9 @@
           Prompt
           <span class="fw-semibold text-primary">Details</span>
         </h2>
-        <p class="text-white text-center mb-0">
+        {{-- <p class="text-white text-center mb-0">
           Show details of the prompt
-        </p>
+        </p> --}}
       </div>
     </section>
     <!-- Hero Marketplace -->
@@ -94,26 +94,24 @@
 
                         </div>
                     </div>
-                {{-- @elseif($product->subSubCategory->subCategory->category->id == 5)
-                
-                    <div class="row gap-0 midJourney" style="height:1000px; overflow:auto">
-                        @forelse ($images = $product->productImages as $image)
-                            <div class="col-4 d-flex justify-content m-0 p-0">
-                                <img class="img-fluid w-100 object-fit-fill"  src="@if(isset($image->images)) {{ asset('/storage/products/'.$image->images) }} @else https://img.freepik.com/free-vector/white-blurred-background_1034-249.jpg @endif" alt="mid-journey">
-                            </div>
-                        @empty
-                            No images found
-                        @endforelse
-                        @forelse ($images = $product->productImages as $image)
-                            <div class="col-12 m-0 p-0">
-                                <img class="img-fluid object-fit-fill" style="width:100%; height:300px;"  src="@if(isset($image->images)) {{ asset('/storage/products/'.$image->images) }} @else https://img.freepik.com/free-vector/white-blurred-background_1034-249.jpg @endif" alt="mid-journey">
-                            </div>
-                        @empty
-                        @endforelse
+                @elseif($product->subSubCategory->subCategory->category->id == 5 || $product->subSubCategory->subCategory->category->id == 6 || $product->subSubCategory->subCategory->category->id == 7 || $product->subSubCategory->subCategory->category->id == 8)
+
+                    <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
+                        <div class="col-12 m-0 p-4 border border-secondary">
+                            <h5>Prompt Details</h5>
+                            <strong>Category:</strong><br>
+                            <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
+                            <strong>Subcategory:</strong><br>
+                            <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
+                            <strong>Sub Subcategory:</strong><br>
+                            <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
+                            @if ($product->midjourney_profile)
+                                <strong>Profile Link:</strong><br>
+                                <small > {{ $product->midjourney_profile ?? "" }}</small><br><br>
+                            @endif
+                        </div>
                     </div>
-                    <p style="text-align: justify;"><small >Puzzle effect is a watermark and not part of the image.</small></p>
-                    <p style="text-align: justify;"><small >{{ $product->midjourney_text ?? "" }}</small></p>
-                    <a href="#" style="text-align: justify;"><small >{{ $product->midjourney_profile ?? "" }}</small></a> --}}
+
                 @endif
             </div>
         </div>
@@ -139,11 +137,12 @@
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
                                             <div class="card-body bg-image" style="background-color: #c4c4c4; background-image: url('@if(isset($marketPlace->image)) {{ asset('/storage/products/thumbnil/'.$marketPlace->image)}} @endif');">
                                             <div class="bg-holder"></div>
-                                            <h4 class="h2 text-white">{{ Str::limit($marketPlace->title,25) ?? "" }}</h4>
-                                            <p class="p text-white">{{ $marketPlace->subSubCategory->subCategory->category->category_name ?? "" }}</p>
-                                            <p class="fw-medium">${{ $marketPlace->price }}</p>
+                                            
                                             </div>
+                                            <h6 class="h6 text-white mt-2 mb-1">{{ Str::limit($marketPlace->title,25) ?? "" }}</h6>
+                                            <p class="fw-medium mb-1 text-white">${{ $marketPlace->price }}</p>
                                         </a>
+                                     
                                     </div>
                                 @empty
                                     No data found
@@ -167,10 +166,10 @@
                                           <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
                                               <div class="card-body bg-image" style="background-color: #c4c4c4; background-image: url('@if(isset($marketPlace->image)) {{ asset('/storage/products/thumbnil/'.$marketPlace->image)}} @endif');">
                                               <div class="bg-holder"></div>
-                                              <h4 class="h2 text-white">{{ Str::limit($marketPlace->title,25) ?? "" }}</h4>
-                                              <p class="p text-white">{{ $marketPlace->subSubCategory->subCategory->category->category_name ?? "" }}</p>
-                                              <p class="fw-medium">${{ $marketPlace->price }}</p>
+                                             
                                               </div>
+                                              <h6 class="h6 text-white mt-2 mb-1">{{ Str::limit($marketPlace->title,25) ?? "" }}</h6>
+                                              <p class="fw-medium mb-1 text-white">${{ $marketPlace->price }}</p>
                                           </a>
                                       </div>
                                   @empty
@@ -190,11 +189,11 @@
                                           <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="card search-profile--card ">
                                               <div class="card-body bg-image" style="background-color: #c4c4c4; background-image: url('@if(isset($marketPlace->image)) {{ asset('/storage/products/thumbnil/'.$marketPlace->image)}} @endif');">
                                               <div class="bg-holder"></div>
-                                              <h4 class="h2 text-white">{{ Str::limit($marketPlace->title,25) ?? "" }}</h4>
-                                              <p class="p text-white">{{ $marketPlace->subSubCategory->subCategory->category->category_name ?? "" }}</p>
-                                              <p class="fw-medium">${{ $marketPlace->price }}</p>
                                               </div>
+                                              <h6 class="h6 text-white mt-2 mb-1">{{ Str::limit($marketPlace->title,25) ?? "" }}</h6>
+                                              <p class="fw-medium mb-1 text-white">${{ $marketPlace->price }}</p>
                                           </a>
+                                          
                                       </div>
                                   @empty
                                       No data found

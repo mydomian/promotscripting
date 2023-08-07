@@ -119,7 +119,7 @@
                             <div class="search-profiles-slider">
                                   @forelse ($gpts as $gpt)
                                     <div class="slick-slide">
-                                        <a href="#" class="card top-author--card">
+                                        <a href="{{ route('public.profile',['user'=>$gpt->user->id]) }}" class="card top-author--card">
                                             <div class="top-img-wrapper">
                                             <img
                                                 src="https://picsum.photos/200"
@@ -159,7 +159,7 @@
                             <div class="search-profiles-slider">
                                   @forelse ($stablediffusions as $stablediffusion)
                                     <div class="slick-slide">
-                                        <a href="#" class="card top-author--card">
+                                        <a href="{{ route('public.profile',['user'=>$stablediffusion->user->id]) }}" class="card top-author--card">
                                             <div class="top-img-wrapper">
                                             <img
                                                 src="https://picsum.photos/200"
@@ -199,7 +199,7 @@
                             <div class="search-profiles-slider">
                                   @forelse ($dalles as $dalle)
                                     <div class="slick-slide">
-                                        <a href="#" class="card top-author--card">
+                                        <a href="{{ route('public.profile',['user'=>$dalle->user->id]) }}" class="card top-author--card">
                                             <div class="top-img-wrapper">
                                             <img
                                                 src="https://picsum.photos/200"
@@ -235,11 +235,11 @@
                         </div>
 
                         <div class="container-fluid mt-4">
-                            <h6 class="text-primary">Top Prompt Base Prompt Enginer ({{ $dalles->count() }})</h6>
+                            <h6 class="text-primary">Top Prompt Base Prompt Enginer ({{ $promptbases->count() }})</h6>
                             <div class="search-profiles-slider">
                                   @forelse ($promptbases as $promptbase)
                                     <div class="slick-slide">
-                                        <a href="#" class="card top-author--card">
+                                        <a href="{{ route('public.profile',['user'=>$promptbase->user->id]) }}" class="card top-author--card">
                                             <div class="top-img-wrapper">
                                             <img
                                                 src="https://picsum.photos/200"

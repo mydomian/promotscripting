@@ -34,7 +34,7 @@
                   Find a Prompt
                   <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
-                <a href="{{ route('sell.index') }}" class="link-light"> Sell a prompt </a>
+                <a href="{{ route('sell.index') }}" class="link-light mx-sm-3 home-sell-prompt"> Sell a prompt </a>
               </div>
               </div>
               <div class="col-md-6 mt-sm-4">
