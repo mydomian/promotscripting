@@ -339,8 +339,10 @@ $system = App\Models\Setting::first();
                                             class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
                                             class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
+                                @if (Auth::user()->stripe_id)
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                             class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                                @endif
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
                                             class="fa fa-heart"></i> <small>Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
