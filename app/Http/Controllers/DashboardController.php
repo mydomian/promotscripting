@@ -386,7 +386,7 @@ class DashboardController extends Controller
     }
 
     public function fileDawonload($product_id){
-        $tempFile = Tempfile::where(['user_id'=>Auth::id(),'product_id'=>$product_id])->first();
+        $tempFile = Tempfile::where(['product_id'=>$product_id])->first();
         $zipPath = storage_path($tempFile->zip_file);
         return Response::download($zipPath, $tempFile->zip_file)->deleteFileAfterSend(false);
     }

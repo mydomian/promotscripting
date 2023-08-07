@@ -483,7 +483,7 @@ $system = App\Models\Setting::first();
                                         )
                                         ->get();
                                 @endphp
-                                <br><br><small class="text-primary px-2">Sales</small>
+                                <br><br><small class="text-primary px-2">Sales</small><br>
 
                                 @foreach ($notifications as $notification)
                                     @php
@@ -517,7 +517,7 @@ $system = App\Models\Setting::first();
                                         )
                                         ->get();
                                 @endphp
-                                <br><br><small class="text-primary px-2">New Purchases</small>
+                                <br><br><small class="text-primary px-2">New Purchases</small><br>
 
                                 @foreach ($notifications as $notification)
                                     @php
@@ -525,7 +525,7 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if (isset($purchase) && $purchase->user_id == Auth::id())
-                                        < <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($purchase->product->title,'-'),'product'=>$purchase->product->id]) }}" class="text-decoration-none">
+                                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($purchase->product->title,'-'),'product'=>$purchase->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($purchase->product->image) {{ asset('/storage/products/thumbnil/' . $purchase->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
                                                 class="rounded-pill object-fit-cover mx-2 my-2" />
