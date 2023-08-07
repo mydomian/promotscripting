@@ -20,8 +20,8 @@
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="nav-link active badge rounded-pill text-secondary text-decoration-none p-2"
-                            id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
-                            role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
+                            id="pills-settings-tab" data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"
+                            role="tab" aria-controls="pills-settings" aria-selected="false">Settings</a>
                     </li>
                 </ul>
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
@@ -47,8 +47,8 @@
             <div class="col-12 text-white">
                 <div class="tab-content" id="pills-tabContent">
 
-                    <div class="tab-pane fade show active" id="pills-payouts" role="tabpanel"
-                        aria-labelledby="pills-payouts-tab" tabindex="0">
+                    <div class="tab-pane fade show active" id="pills-settings" role="tabpanel"
+                        aria-labelledby="pills-settings-tab" tabindex="0">
                         <div>
                             <h5>Balance</h5>
                             <hr>
@@ -57,26 +57,26 @@
                             <table class="table bg-transparent table-borderless">
                                 <thead>
                                     <tr>
-                                        <th class="text-primary">Total balance <i class="fa-solid fa-circle-exclamation tips" style="color: #9ac6b7;" ></i></th>
-                                        <th class="text-primary">Available to payout <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Available soon <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Min. Payout Threshold <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Payout Schedule <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
+                                      <th class="text-primary">Total balance <i class="fa-solid fa-circle-exclamation tips" style="color: #9ac6b7;" ></i></th>
+                                      <th class="text-primary">Available to payout <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
+                                      <th class="text-primary">Available soon <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
+                                      <th class="text-primary">Min. Payout Threshold <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
+                                      <th class="text-primary">Payout Schedule <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
                                     </tr>
                                   </thead>
                                   <tbody class="text-white">
                                     <tr>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["totalBalance"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["availableAmount"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["pendingAmount"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["minimum_payout"]->minimum_payout,2)}}  <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{ucfirst($userData["schedule"])}}</td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($totalBalance,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($availableAmount,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($pendingAmount,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($minimum_payout->minimum_payout,2)}}  <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{ucfirst($schedule)}}</td>
                                     </tr>
                                   </tbody>
                             </table>
                         </div>
                         <div>
-                            <h5 class="">Payouts</h5>
+                            <h5>Payouts</h5>
                             <hr>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-12  table-responsive mb-3">
@@ -90,18 +90,18 @@
                                     </tr>
                                   </thead>
                                   <tbody class="text-white">
-                                    @foreach($userData['payoutList'] as $payout )
+                                    @foreach($payoutList as $payout )
                                     <tr>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($payout->amount/100,2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$payout->status}}</td>
-                                      <td class="fs-5">{{date('m-j-Y',$payout->created)}}</td>
-                                      <td class="fs-5">{{date('m-j-Y',$payout->arrival_date)}}</td>
+                                      <td class="p-0 fs-5">{{$minimum_payout->symbol.number_format($payout->amount/100,2)}} <small>{{ucfirst($currency)}}</small></td>
+                                      <td class="p-0 fs-5">{{$payout->status}}</td>
+                                      <td class="p-0 fs-5">{{date('m-j-Y',$payout->created)}}</td>
+                                      <td class="p-0 fs-5">{{date('m-j-Y',$payout->arrival_date)}}</td>
                                     </tr>
                                     @endforeach
                                   </tbody>
                             </table>
-                            @if (!count($userData["payoutList"]))
-                                <p class="">No Payouts Yet!</p>
+                            @if (!$payoutList)
+                                <p class="">No Payouts Yet</p>
                              @endif
                         </div>
 

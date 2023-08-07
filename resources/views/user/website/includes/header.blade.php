@@ -40,7 +40,6 @@ $system = App\Models\Setting::first();
     <link rel="stylesheet" href="{{ asset('storage/website/assets') }}/styles/style.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <link rel='stylesheet' href='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'>
     @stack('css')
     <style>
         .hide {
@@ -84,23 +83,6 @@ $system = App\Models\Setting::first();
             align-items: center;
 
         }
-        .bootstrap-tagsinput{
-            background-color: transparent !important;
-            
-        }
-        .bootstrap-tagsinput input{
-            color: white !important;
-        }
-        .bootstrap-tagsinput .tag {
-         margin-right: 2px;
-         color: white !important;
-         background-color: #9ac6b7;
-         padding: .0em .5em;
-         font-size: 90%;
-         font-weight: 500;
-         vertical-align: baseline;
-         border-radius: .25em;
-      }
     </style>
 </head>
 
@@ -339,12 +321,8 @@ $system = App\Models\Setting::first();
                                             class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
                                             class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
-                                @if (Auth::user()->stripe_id)
-                                    <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                             class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
-                                @endif
-                                
-
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
                                             class="fa fa-heart"></i> <small>Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
@@ -398,33 +376,11 @@ $system = App\Models\Setting::first();
         </nav>
     </header>
 
-    <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#burger').on('click', function() {
-                    var value = $('.order-1').attr("aria-expanded")
-                    if (value == 'true') {
-                        $('#burger').addClass('hide')
-                        $('.cross').removeClass('hide')
-                    }
-                })
-                $('.cross').on('click', function() {
-                    $('.cross').addClass('hide')
-                    $('#burger').removeClass('hide')
-                })
-            })
-        </script>
-    @endpush
-
-
-    {{-- notification Modal --}}
-  
+    @push('all-modals')
     <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Notifications</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
             <div class="modal-body">
@@ -454,12 +410,12 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($notific->product->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                    <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($notific->product->title,'-'),'product'=>$notific->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($notific->product->image) {{ asset('/storage/products/thumbnil/' . $notific->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-atuo">{{ $notific->product->title }}</small>
-                                        </li>
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-atuo">{{ $notific->product->title }}</small>
+                                    </a><br>
                                     @endif
                                 @endforeach
                             @endif
@@ -483,12 +439,14 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($prompt->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="text-decoration-none">
                                             <img src="@if ($prompt->image) {{ asset('/storage/products/thumbnil/' . $prompt->image) }} @else https://picsum.photos/200 @endif"
-                                                alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-atuo">{{ $prompt->title }}</small>
-                                        </li>
+                                                    alt="Avatar" width="50" height="40"
+                                                    class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-auto">{{ $prompt->title }}</small>
+                                        </a>
+                                            
+                                        <br>
                                     @endif
                                 @endforeach
                             @endif
@@ -512,13 +470,13 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($sale->seller_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($sale->product->title,'-'),'product'=>$sale->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($sale->product->image) {{ asset('/storage/products/thumbnil/' . $sale->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
                                             <small
                                                 class="text-primary m-atuo">{{ $sale->product->title }}</small>
-                                        </li>
+                                        </a><br>
                                   
                                     @endif
                                     
@@ -546,20 +504,40 @@ $system = App\Models\Setting::first();
                                     @endphp
 
                                     @if ($purchase->user_id == Auth::id())
-                                        <li style="display: inline-block">
+                                        < <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($purchase->product->title,'-'),'product'=>$purchase->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($purchase->product->image) {{ asset('/storage/products/thumbnil/' . $purchase->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
-                                                class="rounded-pill object-fit-cover" />
-                                            <small class="text-primary m-auto">{{ $purchase->product->title }}</small>
-                                        </li>
+                                                class="rounded-pill object-fit-cover mx-2 my-2" />
+                                            <small class="text-primary mx-auto">{{ $purchase->product->title }}</small>
+                                        </a><br>
                                     @endif
                                 @endforeach
                             @endif
                     </div>
                     @endif
-                </div>
+                </a>
             </div>
         </div>
         </div>
     </div>
+    @endpush
     
+   
+    <!-- >>>>>>>>>> Header Main <<<<<<<<< -->
+    @push('scripts')
+        <script>
+            $(document).ready(function() {
+                $('#burger').on('click', function() {
+                    var value = $('.order-1').attr("aria-expanded")
+                    if (value == 'true') {
+                        $('#burger').addClass('hide')
+                        $('.cross').removeClass('hide')
+                    }
+                })
+                $('.cross').on('click', function() {
+                    $('.cross').addClass('hide')
+                    $('#burger').removeClass('hide')
+                })
+            })
+        </script>
+    @endpush
