@@ -15,9 +15,9 @@
           Explore
           <span class="fw-semibold text-primary">Marketplace</span>
         </h2>
-        <p class="text-white text-center mb-0">
+        {{-- <p class="text-white text-center mb-0">
           Find the very best ChatGPT And Midjourney Prompt Scripts for your Project today
-        </p>
+        </p> --}}
       </div>
     </section>
     <!-- Hero Marketplace -->

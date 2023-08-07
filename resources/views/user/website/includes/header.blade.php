@@ -309,7 +309,7 @@ $system = App\Models\Setting::first();
                                 <span class="cart_count">{{cartCount() ?? 0}}</span>
                             </li>
                             <li class="nav-item d-none mobile-cart">
-                                <a class="nav-link" href="">Cart</a>
+                                <a class="nav-link" href="{{route('cart.list')}}">Cart</a>
                             </li>
 
                             <li class="nav-item logout d-none">
@@ -328,23 +328,21 @@ $system = App\Models\Setting::first();
                             <ul class="dropdown-menu bg-dark w-100 ">
                                 <li><a class="dropdown-item text-primary"
                                         href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"><i
-                                            class="fa fa-user-circle"></i> <small>Public Profile</small></a></li>
+                                            class="fa fa-user-circle"></i> <small class="mx-1">Public Profile</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.dashboard') }}"><i
-                                            class="fa fa-dashboard"></i> <small>Dashboard</small></a></li>
+                                            class="fa fa-dashboard"></i> <small class="mx-1">Dashboard</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i
-                                            class="fa fa-list"></i> <small>Prompts</small></a></li>
-                                <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i
-                                            class="fa fa-shopping-cart"></i> <small>Sales</small></a></li>
+                                            class="fa fa-list"></i> <small  class="mx-1">Prompts</small></a></li>
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i class="fa-solid fa-scale-balanced"></i> <small class="mx-1">Sales</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.purchases') }}"><i
-                                            class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
-                                <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
-                                            class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
+                                            class="fa-solid fa-bag-shopping"></i> <small class="mx-1">Purchases</small></a></li>
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i class="fa-solid fa-arrow-down-up-across-line"></i> <small class="mx-1">Custom Orders</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
-                                            class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                                            class="fa-solid fa-money-check-dollar"></i> <small class="mx-1">Payouts</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
-                                            class="fa fa-heart"></i> <small>Favourites</small></a></li>
+                                            class="fa fa-heart"></i> <small class="mx-1">Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
-                                            class="fa fa-gear"></i> <small>Settings</small></a></li>
+                                            class="fa fa-gear"></i> <small class="mx-1">Settings</small></a></li>
 
                                 @if (Auth::user()->is_admin == 'admin')
                                     <li><a class="dropdown-item text-primary" href="{{ route('admin.dashboard') }}"><i

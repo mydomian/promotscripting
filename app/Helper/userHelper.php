@@ -8,7 +8,9 @@ use App\Models\Notification;
 use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Setting;
+use App\Models\User;
 use App\Models\View;
 use Illuminate\Support\Carbon;
 
@@ -132,4 +134,20 @@ function cart(){
 function checkPurchaseOrder($product_id){
     $order = Order::with('product')->where(['user_id'=>Auth::id(),'product_id'=>$product_id,'status'=>'approve','is_paid'=>'paid','is_order'=>'regular'])->whereNotNull('transaction_id')->first();
     return $order;
+}
+
+function totalProduct(){
+    return Product::where('status','active')->count();
+}
+
+function totalSale(){
+    return Sale::count();
+}
+
+function totalUser(){
+    return User::where('is_admin','user')->count();
+}
+
+function totalOrder(){
+    return Order::where('is_paid','paid')->count();
 }
