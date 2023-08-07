@@ -341,7 +341,7 @@ $system = App\Models\Setting::first();
 
                                 @if (Auth::user()->stripe_id)
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
-                                            class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                                            class="fa-solid fa-money-check-dollar"></i> <small class="mx-1">Payouts</small></a></li>
                                 @endif
 
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i

@@ -32,7 +32,8 @@ class SellController extends Controller
      */
     public function index()
     {   
-        return view('user.website.sell');
+        $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
+        return view('user.website.sell',compact('categories'));
     }
 
     /**
