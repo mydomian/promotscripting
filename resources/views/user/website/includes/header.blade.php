@@ -161,7 +161,7 @@ $system = App\Models\Setting::first();
                                 </a>
                             </li>
 
-                            <div class="dropstart">
+                            {{-- <div class="dropstart">
                                 @php
                                     $setting = App\Models\NotificationSetting::where('user_id', Auth::id())->first();
                                 @endphp
@@ -251,7 +251,7 @@ $system = App\Models\Setting::first();
                                                     $sale = App\Models\Order::with('product')->find($notification->type_id);
                                                 @endphp
 
-                                                @if ($sale->seller_id == Auth::id())
+                                                @if (isset($sale) && $sale->seller_id == Auth::id())
                                                     <li class="p-1 d-flex justify-content">
                                                         <img src="@if ($sale->product->image) {{ asset('/storage/products/thumbnil/' . $sale->product->image) }} @else https://picsum.photos/200 @endif"
                                                             alt="Avatar" width="50" height="40"
@@ -297,7 +297,7 @@ $system = App\Models\Setting::first();
 
                                     </ul>
                                 @endif
-                            </div>
+                            </div> --}}
 
                             <li class="nav-item menu-chat d-none">
                                 <a class="nav-link" href="{{ url('/promptscripting-chat') }}"> Chat </a>
@@ -335,10 +335,20 @@ $system = App\Models\Setting::first();
                                             class="fa fa-list"></i> <small  class="mx-1">Prompts</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i class="fa-solid fa-scale-balanced"></i> <small class="mx-1">Sales</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.purchases') }}"><i
+
                                             class="fa-solid fa-bag-shopping"></i> <small class="mx-1">Purchases</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i class="fa-solid fa-arrow-down-up-across-line"></i> <small class="mx-1">Custom Orders</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                             class="fa-solid fa-money-check-dollar"></i> <small class="mx-1">Payouts</small></a></li>
+
+                                            class="fa fa-shopping-cart"></i> <small>Purchases</small></a></li>
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i 
+                                            class="fa fa-shopping-cart"></i> <small>Custom Orders</small></a></li>
+                                @if (Auth::user()->stripe_id)
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
+                                            class="fa-solid fa-money-check-dollar"></i> <small>Payouts</small></a></li>
+                                @endif
+
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
                                             class="fa fa-heart"></i> <small class="mx-1">Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
@@ -425,7 +435,7 @@ $system = App\Models\Setting::first();
                                         $notific = App\Models\Favourite::with('product')->find($notification->type_id);
                                     @endphp
 
-                                    @if ($notific->product->user_id == Auth::id())
+                                    @if (isset($notific) && $notific->product->user_id == Auth::id())
                                     <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($notific->product->title,'-'),'product'=>$notific->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($notific->product->image) {{ asset('/storage/products/thumbnil/' . $notific->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
@@ -454,7 +464,7 @@ $system = App\Models\Setting::first();
                                         $prompt = App\Models\Product::with('user')->find($notification->type_id);
                                     @endphp
 
-                                    @if ($prompt->user_id == Auth::id())
+                                    @if (isset($prompt) && $prompt->user_id == Auth::id())
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="text-decoration-none">
                                             <img src="@if ($prompt->image) {{ asset('/storage/products/thumbnil/' . $prompt->image) }} @else https://picsum.photos/200 @endif"
                                                     alt="Avatar" width="50" height="40"
@@ -485,7 +495,7 @@ $system = App\Models\Setting::first();
                                         $sale = App\Models\Order::with('product')->find($notification->type_id);
                                     @endphp
 
-                                    @if ($sale->seller_id == Auth::id())
+                                    @if (isset($sale) && $sale->seller_id == Auth::id())
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($sale->product->title,'-'),'product'=>$sale->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($sale->product->image) {{ asset('/storage/products/thumbnil/' . $sale->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"
@@ -519,7 +529,7 @@ $system = App\Models\Setting::first();
                                         $purchase = App\Models\Order::with('product')->find($notification->type_id);
                                     @endphp
 
-                                    @if ($purchase->user_id == Auth::id())
+                                    @if (isset($purchase) && $purchase->user_id == Auth::id())
                                         < <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($purchase->product->title,'-'),'product'=>$purchase->product->id]) }}" class="text-decoration-none">
                                             <img src="@if ($purchase->product->image) {{ asset('/storage/products/thumbnil/' . $purchase->product->image) }} @else https://picsum.photos/200 @endif"
                                                 alt="Avatar" width="50" height="40"

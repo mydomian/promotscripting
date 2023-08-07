@@ -17,9 +17,9 @@ $system = App\Models\Setting::first();
             Profile
             <span class="fw-semibold text-primary">Update</span>
         </h2>
-        <p class="text-white text-center mb-0">
+        {{-- <p class="text-white text-center mb-0">
             Update Your Personal Information To Show Lookratip
-        </p>
+        </p> --}}
         </div>
     </section>
     <section class="prompt-details custom-offers section text-white bg-body">
@@ -28,13 +28,13 @@ $system = App\Models\Setting::first();
                 
                 <div class="col-sm-12 col-md-4  d-flex text-center h-100">
                     <div class="w-100 p-5 m-0" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
-                        <img class="img-fluid w-50 h-50 rounded-circle objit-fit-fill" src="@if($user->profile_photo_path){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else {{ asset('/storage/profile/'.$user->avatar) }} @endif" alt="profile-image">
+                        <img class="img-fluid w-50 h-50 rounded-circle objit-fit-fill" src="@if($user->profile_photo_path){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else {{ asset('/storage/profile/avatar.png') }} @endif" alt="profile-image"><br>
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->name }}</a>
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->email }}</a>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-8 p-3 rounded" style="background: linear-gradient(to right, #485563, #29323c);">
-                    <div class="auth-form-wrapper  m-3">
+                    <div class="auth-form-wrapper m-3">
                         <div class="text-white text-center mb-5">
                             <h5 class="mb-0">Profile Informaytion</h5>
                             <small>Please give your information!</small>

@@ -52,7 +52,7 @@ $system = App\Models\Setting::first();
                                         
                                             <button type="submit" class="btn btn-outline-primary form-control mb-2">Login</button>
                                             <a href="{{ url('authorized/google') }}" class="btn btn-light form-control">
-                                                <img src="{{asset('storage/brands/google.svg')}}" alt="" class="img-fluid">
+                                                <img src="https://cdn.pixabay.com/photo/2015/12/11/11/43/google-1088004_1280.png" width="20px" height="20px" alt="" class="img-fluid">
                                                 {{-- <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 488 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#fafafa}</style><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg> --}}
                                                 Google
                                             </a>
@@ -75,7 +75,7 @@ $system = App\Models\Setting::first();
                         <div class="col-sm-12 col-md-6 col-lg-6 d-flex text-center">
                             <div class="align-self-center  mx-5 user-register">
                                <h3 class="text-primary">Welcome to the platform.</h3>
-                               <small class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus </small>
+                               <small class="px-5">Alternatively called a sign in, a login or logon is a set of credentials used to access an area requiring proper authorization. Logins grant access to and control of computers, networks, and bulletin boards, and online accounts and other services or devices.</small>
                             </div>
                         </div>
                     </div>

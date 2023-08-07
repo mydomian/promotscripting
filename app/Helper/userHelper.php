@@ -1,12 +1,14 @@
 <?php
 
 use App\Models\Cart;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Favourite;
 use App\Models\Notification;
 use App\Models\NotificationSetting;
 use App\Models\Order;
+use App\Models\PaymentInfo;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Setting;
@@ -136,6 +138,7 @@ function checkPurchaseOrder($product_id){
     return $order;
 }
 
+
 function totalProduct(){
     return Product::where('status','active')->count();
 }
@@ -151,3 +154,40 @@ function totalUser(){
 function totalOrder(){
     return Order::where('is_paid','paid')->count();
 }
+
+function payoutDetails()
+{
+        $secret_key = PaymentInfo::first()->secret_key;
+        $stripe = new \Stripe\StripeClient($secret_key);
+        $account = User::find(Auth::id());
+        if($account->stripe_id){
+            $balance = $stripe->balance->retrieve([], ['stripe_account' => $account->stripe_id]);
+       foreach($balance->available as $amount){
+           $availableAmount =  $amount->amount / 100;
+           $currency = $amount->currency;
+       }
+       foreach($balance->pending as $amount){
+           $pendingAmount =  $amount->amount / 100;
+       }
+       
+       $totalBalance = $availableAmount + $pendingAmount;
+       $info = $stripe->accounts->retrieve(
+           $account->stripe_id
+         );
+       $schedule = $info->settings->payouts->schedule->interval;
+       $minimum_payout = Currency::where('country_code', $info->country)->first();
+       $payoutList = $stripe->payouts->all(['limit'=>5],['stripe_account' => $account->stripe_id])->data;
+       return [
+           'availableAmount' => $availableAmount,
+           'currency'        => $currency,
+           'pendingAmount'   => $pendingAmount,
+           'totalBalance'    => $totalBalance,
+           'schedule'        => $schedule,
+           'minimum_payout'  => $minimum_payout,
+           'payoutList'      => $payoutList
+       ];
+    }
+    return false;
+        
+}
+

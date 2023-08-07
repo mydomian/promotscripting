@@ -124,7 +124,7 @@ class DashboardController extends Controller
     {
 
         $prompt = Product::with('user', 'subSubCategory')->find($product);
-
+       
         if ($request->isMethod('post')) {
             $request->validate([
                 'image'                 => 'nullable',
@@ -135,14 +135,16 @@ class DashboardController extends Controller
                 'instructions'          => 'required',
             ]);
 
+            if ($request->hasFile('image')) $this->services->imageDestroy($prompt->image, '/products/thumbnil/');
+            if ($request->hasFile('image')) $prompt->image = $this->services->imageUpload($request->file('image'), 'products/thumbnil/');
+
             if ($prompt->subSubCategory->subCategory->category->id == 1) {
                 $request->validate(['prompt_testing' => 'required', 'preview_input' => 'required', 'preview_output' => 'required']);
 
                 $prompt->prompt_testing = $request->prompt_testing;
                 $prompt->preview_input = $request->preview_input;
                 $prompt->preview_output = $request->preview_output;
-                if ($request->hasFile('image')) $this->services->imageDestroy($prompt->image, '/products/thumbnil/');
-                if ($request->hasFile('image')) $prompt->image = $this->services->imageUpload($request->file('image'), 'products/thumbnil/');
+               
             }
             if ($prompt->subSubCategory->subCategory->category->id == 5) {
                 $request->validate(['midjourney_text' => 'required', 'midjourney_profile' => 'required', 'images' => 'nullable']);
