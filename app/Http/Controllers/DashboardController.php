@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Validator;
 use Str;
 use DB;
 use Chatify\Facades\ChatifyMessenger as Chatify;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
