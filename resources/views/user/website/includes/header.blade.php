@@ -40,6 +40,7 @@ $system = App\Models\Setting::first();
     <link rel="stylesheet" href="{{ asset('storage/website/assets') }}/styles/style.css" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'>
     @stack('css')
     <style>
         .hide {
@@ -83,6 +84,23 @@ $system = App\Models\Setting::first();
             align-items: center;
 
         }
+        .bootstrap-tagsinput{
+            background-color: transparent !important;
+            
+        }
+        .bootstrap-tagsinput input{
+            color: white !important;
+        }
+        .bootstrap-tagsinput .tag {
+         margin-right: 2px;
+         color: white !important;
+         background-color: #9ac6b7;
+         padding: .0em .5em;
+         font-size: 90%;
+         font-weight: 500;
+         vertical-align: baseline;
+         border-radius: .25em;
+      }
     </style>
 </head>
 

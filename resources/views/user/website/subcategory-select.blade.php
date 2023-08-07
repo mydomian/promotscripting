@@ -168,6 +168,16 @@
                                     <textarea name="instructions" class="form-control bg-transparent" rows="3"
                                         placeholder="To use this prompt you need to...">{{ old('instructions') }}</textarea>
                                 </div>
+                                <div class="col-md-12 mb-3 d-flex flex-column text-white ">
+                                    <label for="" class="form-label"><span class="text-danger">*</span>Prompt
+                                        Tags</label>
+                                    <i class="text-secondary mb-1"><small>Keywords of your prompt. Example: Keyword1, Keyword2...</small></i>
+                                    <input name="prompt_tags" class="form-control prompt_tags" value="{{old('prompt_tags')}}" rows="3"
+                                    data-role="tagsinput">
+                                    @error('prompt_tags')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
                                 <div class="col-md-4">
                                     <div class="d-flex align-items-center  pt-4 mt-4 pt-xxl-5 mt-xl-5">
                                         <a href="{{ URL::previous() }}" class="btn btn-outline-secondary">
@@ -433,6 +443,18 @@
                                         @enderror
                                     </div>
                                 @endif
+
+                                <div class="col-md-12 mb-3 d-flex flex-column text-white ">
+                                    <label for="" class="form-label"><span class="text-danger">*</span>Prompt
+                                        Tags</label>
+                                    <i class="text-secondary mb-1"><small>Keywords of your prompt. Example: Keyword1, Keyword2...</small></i>
+                                    <input name="prompt_tags" class="form-control prompt_tags" value="{{old('prompt_tags')}}" rows="3"
+                                    data-role="tagsinput">
+                                    @error('prompt_tags')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                </div>
+
                                 <div class="col-md-4">
                                     <button type="submit" class="btn btn-primary">
                                         Next
@@ -449,6 +471,30 @@
     </main>
 @endsection
 @push('scripts')
+<script src='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'></script>
+
+<script>
+   $(function () {
+      $('input').on('change', function (event) {
+
+         var $element = $(event.target);
+         var $container = $element.closest('.example');
+
+         if (!$element.data('tagsinput'))
+            return;
+
+         var val = $element.val();
+         if (val === null)
+            val = "null";
+         var items = $element.tagsinput('items');
+
+         $('code', $('pre.val', $container)).html(($.isArray(val) ? JSON.stringify(val) : "\"" + val.replace('"', '\\"') + "\""));
+         $('code', $('pre.items', $container)).html(JSON.stringify($element.tagsinput('items')));
+
+
+      }).trigger('change');
+   });
+</script>
     <script>
         $(document).ready(function() {
             $('#image_width').on('change', function() {
@@ -571,346 +617,5 @@
         });
     </script>
 
-    {{-- <script>
-        (function($) {
-            $(document).ready(function() {
-
-                // generateID()
-                choose()
-                generateOption()
-                selectionOption()
-                removeClass()
-                uploadImage()
-                submit()
-                resetButton()
-                removeNotification()
-                autoRemoveNotification()
-                autoDequeue()
-
-                var ID
-                var way = 0
-                var queue = []
-                var fullStock = 10
-                var speedCloseNoti = 1000
-
-
-                function choose() {
-                    var li = $('.ways li')
-                    var section = $('.sections section')
-                    var index = 0
-                    li.on('click', function() {
-                        index = $(this).index()
-                        $(this).addClass('active')
-                        $(this).siblings().removeClass('active')
-
-                        section.siblings().removeClass('active')
-                        section.eq(index).addClass('active')
-                        if (!way) {
-                            way = 1
-                        } else {
-                            way = 0
-                        }
-                    })
-                }
-
-                function generateOption() {
-                    var select = $('select option')
-                    var selectAdd = $('.select-option .option')
-                    $.each(select, function(i, val) {
-                        $('.select-option .option').append('<div rel="' + $(val).val() + '">' + $(val)
-                            .html() + '</div>')
-                    })
-                }
-
-                function selectionOption() {
-                    var select = $('.select-option .head')
-                    var option = $('.select-option .option div')
-
-                    select.on('click', function(event) {
-                        event.stopPropagation()
-                        $('.select-option').addClass('active')
-                    })
-
-                    option.on('click', function() {
-                        var value = $(this).attr('rel')
-                        $('.select-option').removeClass('active')
-                        select.html(value)
-
-                        $('select#category').val(value)
-                    })
-                }
-
-                function removeClass() {
-                    $('body').on('click', function() {
-                        $('.select-option').removeClass('active')
-                    })
-                }
-
-                function uploadImage() {
-                    var button = $('.images .pic')
-                    var uploader = $('.uploader')
-                    var images = $('.images')
-                    var imageArr = []
-
-
-                    button.on('click', function() {
-                        var len = $('.img-len').length + 1;
-                        console.log(len)
-                        if (len <= 9) {
-                            uploader.click()
-
-                        } else {
-                            button.addClass('hide')
-                        }
-
-
-                    })
-
-                    uploader.on('change', function() {
-
-
-                        var reader = new FileReader()
-                        reader.onload = function(event) {
-                            images.prepend(
-                                '<div class="img img-len" style="background-image: url(\'' +
-                                event.target.result + '\');" rel="' + event.target.result +
-                                '"><span>remove</span></div>')
-                        }
-                        reader.readAsDataURL(uploader[0].files[0])
-                        for (var i = 0; i < images.length; i++) {
-                            imageArr.push({
-                                url: $(images[i]).attr('rel')
-                            })
-                            consle.log(imageArr)
-                        }
-                    })
-
-                    images.on('click', '.img', function() {
-                        button.removeClass('hide')
-                        $(this).remove()
-                    })
-
-                }
-
-                function submit() {
-                    var button = $('#send')
-
-                    button.on('click', function() {
-                        if (!way) {
-                            var title = $('#title')
-                            var cate = $('#category')
-                            var images = $('.images .img')
-                            //   var imageArr = []
-
-
-                            //   for(var i = 0; i < images.length; i++) {
-                            //     imageArr.push({url: $(images[i]).attr('rel')})
-                            //   }
-
-                            var newStock = {
-                                title: title.val(),
-                                category: cate.val(),
-                                images: imageArr,
-                                type: 1
-                            }
-
-                            saveToQueue(newStock)
-                        } else {
-                            // discussion
-                            var topic = $('#topic')
-                            var message = $('#msg')
-
-                            var newStock = {
-                                title: topic.val(),
-                                message: message.val(),
-                                type: 2
-                            }
-
-                            saveToQueue(newStock)
-                        }
-                    })
-                }
-
-                function removeNotification() {
-                    var close = $('.notification')
-                    close.on('click', 'span', function() {
-                        var parent = $(this).parent()
-                        parent.fadeOut(300)
-                        setTimeout(function() {
-                            parent.remove()
-                        }, 300)
-                    })
-                }
-
-                function autoRemoveNotification() {
-                    setInterval(function() {
-                        var notification = $('.notification')
-                        var notiPage = $(notification).children('.btn')
-                        var noti = $(notiPage[0])
-
-                        setTimeout(function() {
-                            setTimeout(function() {
-                                noti.remove()
-                            }, speedCloseNoti)
-                            noti.fadeOut(speedCloseNoti)
-                        }, speedCloseNoti)
-                    }, speedCloseNoti)
-                }
-
-                function autoDequeue() {
-                    var notification = $('.notification')
-                    var text
-
-                    setInterval(function() {
-
-                        if (queue.length > 0) {
-                            if (queue[0].type == 2) {
-                                text = ' Your discusstion is sent'
-                            } else {
-                                text = ' Your order is allowed.'
-                            }
-
-                            notification.append(
-                                '<div class="success btn"><p><strong>Success:</strong>' + text +
-                                '</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>'
-                                )
-                            queue.splice(0, 1)
-
-                        }
-                    }, 10000)
-                }
-
-                function resetButton() {
-                    var resetbtn = $('#reset')
-                    resetbtn.on('click', function() {
-                        reset()
-                    })
-                }
-
-                // helpers
-                function saveToQueue(stock) {
-                    var notification = $('.notification')
-                    var check = 0
-
-                    if (queue.length <= fullStock) {
-                        if (stock.type == 2) {
-                            if (!stock.title || !stock.message) {
-                                check = 1
-                            }
-                        } else {
-                            if (!stock.title || !stock.category || stock.images == 0) {
-                                check = 1
-                            }
-                        }
-
-                        if (check) {
-                            notification.append(
-                                '<div class="error btn"><p><strong>Error:</strong> Please fill in the form.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>'
-                                )
-                        } else {
-                            notification.append('<div class="success btn"><p><strong>Success:</strong> ' + ID +
-                                ' is submitted.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>'
-                                )
-                            queue.push(stock)
-                            reset()
-                        }
-                    } else {
-                        notification.append(
-                            '<div class="error btn"><p><strong>Error:</strong> Please waiting a queue.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>'
-                            )
-                    }
-                }
-
-                function reset() {
-
-                    $('#title').val('')
-                    $('.select-option .head').html('Category')
-                    $('select#category').val('')
-
-                    var images = $('.images .img')
-                    for (var i = 0; i < images.length; i++) {
-                        $(images)[i].remove()
-                    }
-
-                    var topic = $('#topic').val('')
-                    var message = $('#msg').val('')
-                }
-            })
-        })(jQuery)
-    </script> --}}
 @endpush
 
-{{-- @push('css')
-    <style>
-        .images {
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .images .img,
-        .images .pic {
-            flex-basis: 20%;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid white;
-        }
-
-        .images .img {
-            width: 100px;
-            height: 93px;
-            background-size: cover;
-            margin-right: 10px;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .images .img:nth-child(4n) {
-            margin-right: 0;
-        }
-
-        .images .img span {
-            display: none;
-            text-transform: capitalize;
-            z-index: 2;
-        }
-
-        .images .img::after {
-            content: '';
-            width: 100%;
-            height: 100%;
-            display: block;
-            transition: opacity .1s ease-in;
-            border-radius: 4px;
-            opacity: 0;
-            position: absolute;
-        }
-
-        .images .img:hover::after {
-            display: block;
-            background-color: #000;
-            opacity: .5;
-        }
-
-        .images .img:hover span {
-            display: block;
-            color: #fff;
-        }
-
-        .images .pic {
-            /* background-color: #F5F7FA; */
-            align-self: center;
-            text-align: center;
-            padding: 40px 0;
-            text-transform: uppercase;
-            color: #848EA1;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
-@endpush --}}
