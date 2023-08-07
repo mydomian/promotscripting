@@ -351,10 +351,10 @@ $system = App\Models\Setting::first();
 
                                 @if (Auth::user()->is_admin == 'admin')
                                     <li><a class="dropdown-item text-primary" href="{{ route('admin.dashboard') }}"><i
-                                                class="fa fa-sign-out"></i> <small>Logout</small></a></li>
+                                                class="fa fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
                                 @else
                                     <li><a class="dropdown-item text-primary" href="{{ route('user.logout') }}"><i
-                                                class="fa fa-sign-out"></i> <small>Logout</small></a></li>
+                                                class="fa fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
                                 @endif
                             </ul>
                         </div>
