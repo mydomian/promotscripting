@@ -112,7 +112,7 @@
                                 <textarea name="midjourney_text" class="form-control bg-body opacity-50 w-100 mt-2 @error('midjourney_text') is-invalid @enderror" placeholder="Enter Mid Journey Text">{{$prompt->midjourney_text}}</textarea>
                                 <small class="form-label">Mid Journey Profile</small>
                                 <textarea name="midjourney_profile" class="form-control bg-body opacity-50 w-100 mt-2 @error('midjourney_profile') is-invalid @enderror" placeholder="Enter Mid Journey Profile">{{$prompt->midjourney_profile}}</textarea>
-                                <small class="form-label">Images (images*9)</small>
+                                <small class="form-label">Images (images*6)</small>
                                 <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                             @endif 
 
@@ -160,7 +160,7 @@
                                 <input type="text" name="negative_prompt" placeholder="Enter Negative Prompt" class="form-control bg-body opacity-50 @error('negative_prompt') is-invalid @enderror" value="{{ $prompt->negative_prompt }}" id="">
 
                                 
-                                <small class="form-label">Images (images*9)</small>
+                                <small class="form-label">Images (images*6)</small>
                                 <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                                 
                                 <small class="form-label">Clip Guidance</small>
@@ -168,14 +168,14 @@
                             @endif 
 
                             @if($prompt->subSubCategory->subCategory->category->id == 7 )
-                                <small class="form-label">Images (images*9)</small>
+                                <small class="form-label">Images (images*6)</small>
                                 <input type="file" name="images[]" class="form-control bg-body opacity-50 " accept="image/*" multiple>
                                 <small class="form-label">Image Verification Links</small>
                                 <input type="text" class="form-control bg-body opacity-50 @error('image_verification') is-invalid @enderror" placeholder="Enter Image Verification Link" value="{{ $prompt->image_verification }}" name="image_verification">
                             @endif
 
                         @if($prompt->subSubCategory->subCategory->category->id == 8 )
-                            <small class="form-label">Images (images*9)</small>
+                            <small class="form-label">Images (images*6)</small>
                             <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                         @endif
                         

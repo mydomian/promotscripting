@@ -1,9 +1,9 @@
 @extends('user.website.includes.master')
 
 @section('title')
-   Hire
+   Public Profile
 @endsection
-@section('hire','active')
+@section('profile','active')
 @push('css')
 
 @endpush
@@ -52,10 +52,10 @@
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="card search-profile--card ">
                                             <div class="card-body bg-image" style="background-color: #c4c4c4; background-image: url('@if(isset($prompt->image)) {{ asset('/storage/products/thumbnil/'.$prompt->image)}} @endif');">
                                             <div class="bg-holder"></div>
-                                            <h4 class="h2 text-white">{{ Str::limit($prompt->title,25) ?? "" }}</h4>
-                                            <p class="p text-white">{{ $prompt->subSubCategory->subCategory->category->category_name ?? "" }}</p>
-                                            <p class="fw-medium">${{ $prompt->price }}</p>
+                                            
                                             </div>
+                                            <h6 class="h6 text-white mt-2 mb-1">{{ Str::limit($prompt->title,25) ?? "" }}</h6>
+                                            <p class="fw-medium mb-1 text-white">${{ $prompt->price }}</p>
                                         </a>
                                     </div>
                                 @empty

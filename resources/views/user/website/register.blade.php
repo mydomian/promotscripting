@@ -73,7 +73,7 @@ $system = App\Models\Setting::first();
                         <div class="col-sm-12 col-md-6 col-lg-6 d-flex text-center">
                             <div class="align-self-center  mx-5 user-register">
                                <h3 class="text-primary">Welcome to the platform.</h3>
-                               <small class="px-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi odit sit ullam nostrum laborum, excepturi omnis quasi molestias. Ipsum deserunt tempore molestiae, accusamus ad sunt officiis modi repellendus omnis deleniti error nulla totam. Ullam assumenda suscipit consequuntur optio debitis deserunt cumque ad similique quaerat rerum eius nisi nobis ducimus ab, culpa nostrum Lorem</small>
+                               <small class="px-5">In most cases, register refers to the act of recording an event, transaction, name, or other information, or an aggregation of stored data, usually containing past events, transactions, names or other information</small>
                             </div>
                         </div>
                     </div>
