@@ -57,7 +57,7 @@ $system = App\Models\Setting::first();
           <script>
             document.write(new Date().getFullYear());
           </script>
-          - Al rights reserved.
+          - All rights reserved.
         </p>
       </div>
     </div>
