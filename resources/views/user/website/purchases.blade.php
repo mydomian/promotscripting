@@ -3,7 +3,7 @@
 @endphp
 @extends('user.website.includes.master')
 
-@section('title', '| Profile')
+@section('title', '| Purchases')
 @section('profile', 'active')
 @section('content')
 

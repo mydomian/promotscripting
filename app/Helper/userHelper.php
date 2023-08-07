@@ -10,6 +10,7 @@ use App\Models\NotificationSetting;
 use App\Models\Order;
 use App\Models\PaymentInfo;
 use App\Models\Product;
+use App\Models\Sale;
 use App\Models\Setting;
 use App\Models\User;
 use App\Models\View;
@@ -137,6 +138,23 @@ function checkPurchaseOrder($product_id){
     return $order;
 }
 
+
+function totalProduct(){
+    return Product::where('status','active')->count();
+}
+
+function totalSale(){
+    return Sale::count();
+}
+
+function totalUser(){
+    return User::where('is_admin','user')->count();
+}
+
+function totalOrder(){
+    return Order::where('is_paid','paid')->count();
+}
+
 function payoutDetails()
 {
         $secret_key = PaymentInfo::first()->secret_key;
@@ -172,3 +190,4 @@ function payoutDetails()
     return false;
         
 }
+

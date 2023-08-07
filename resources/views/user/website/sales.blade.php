@@ -6,7 +6,7 @@
 @endphp
 @extends('user.website.includes.master')
 
-@section('title', '| Profile')
+@section('title', '| Sales')
 @section('profile', 'active')
 @section('content')
 
