@@ -58,10 +58,10 @@
                       </div>
                    </div>
                </div>
-              @else 
-              <div class=" col-8 card marketplace--card border-2 shadow-lg bg-transparent mb-3 shadow">
-                  <div class="card-body text-center">
-                    <h5 class="text-light mb-0">{{ucwords("you haven't cart any prompt")}}</h5>
+              @else
+              <div class="card marketplace--card border-2 shadow-lg bg-transparent mb-3">
+                  <div class="card-body">
+                    <h5 class="text-light">You haven't cart any product</h5>
                   </div>
               </div>
               @endif

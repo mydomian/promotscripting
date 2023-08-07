@@ -9,7 +9,6 @@ use App\Models\ProductImage;
 use Illuminate\Support\Str;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Services\Services;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +70,7 @@ class SellController extends Controller
      */
     public function store(Request $request)
     {
+
         //      $request->validate([
         //     'category_id'           => 'required',
         //     'sub_category_id'       => 'required',
@@ -100,7 +100,6 @@ class SellController extends Controller
             'image'                 => 'required',
             'images'                => 'required_if:category_id,5|array|size:6',
             'instructions'          => 'required|string',
-            'prompt_tags'           => 'required',
             'image_verification'    => 'required_if:category_id,7',
             'model_version'         => 'required_if:category_id,6',
             'sampler'               => 'required_if:category_id,6',
@@ -168,17 +167,10 @@ class SellController extends Controller
                 ]);
             }           
         }
-        $this->services->createFile($product->productImages,$product);
 
-        if($request->prompt_tags){
-           $tags =  explode(',',$request->prompt_tags);
-            foreach($tags as $tag){
-               $tags = Tag::create([
-                    'product_id' => $product->id,
-                    'tag'        => $tag
-                ]);
-            }
-        }
+
+
+        $this->services->createFile($product->productImages,$product);
 
         createNotification($product->id,'prompts');
         

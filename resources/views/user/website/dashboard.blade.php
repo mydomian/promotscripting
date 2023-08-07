@@ -4,7 +4,6 @@
     $favs = favourites();
     $prompts = prompts();
     $settings = userSetting();
-    $userData = payoutDetails();
 @endphp
 @extends('user.website.includes.master')
 
@@ -26,15 +25,11 @@
                             id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"
                             role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
                     </li>
-
-                    @if ($userData)
-                        <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation">
                             <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                                 role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
                     </li>
-                    @endif
-                    
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                             id="pills-prompts-tab" data-bs-toggle="pill" data-bs-target="#pills-prompts" type="button"
@@ -242,67 +237,96 @@
                         </div>
                     </div>
 
-                    @if($userData)
-                    <div class="tab-pane fade" id="pills-payouts" role="tabpanel"
-                        aria-labelledby="pills-payouts-tab" tabindex="0">
+
+                    <div class="tab-pane fade" id="pills-payouts" role="tabpanel" aria-labelledby="pills-payouts-tab"
+                        tabindex="0">
                         <div>
-                            <h5>Balance</h5>
+                            <h5>Payouts</h5>
                             <hr>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12  table-responsive mb-5">
-                            <table class="table bg-transparent table-borderless">
-                                <thead>
-                                    <tr>
-                                        <th class="text-primary">Total balance <i class="fa-solid fa-circle-exclamation tips" style="color: #9ac6b7;" ></i></th>
-                                        <th class="text-primary">Available to payout <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Available soon <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Min. Payout Threshold <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                        <th class="text-primary">Payout Schedule <i class="fa-solid fa-circle-exclamation" style="color: #9ac6b7;"></i></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="text-white">
-                                    <tr>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["totalBalance"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["availableAmount"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["pendingAmount"],2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($userData["minimum_payout"]->minimum_payout,2)}}  <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{ucfirst($userData["schedule"])}}</td>
-                                    </tr>
-                                  </tbody>
-                            </table>
+                        <div class="col-sm-10 col-md-8 col-lg-6">
+                            <h4 class="mb-0">Account</h4>
+                            <small class="text-secondary">Your unique username displayed across PromptScripting.</small>
+                            <div class="col-md-4 col-sm-10 col-lg-4 d-flex mt-3 mb-5">
+                                <h5 class="fw-bolder mt-3 d-block">@</h5>
+                                <input type="text" name="username" class="form-control bg-transparent mx-2"
+                                    value="{{ auth()->user()->username }}">
+                            </div>
+
+                            <h4>Notification Settings</h4>
+                            <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
+                                <div class="col-md-6 col-sm-6 cl-lg-6"></div>
+                                <div class="col-md-3 col-sm-3 col-lg-3">Email</div>
+                                <div class="col-md-3 col-sm-3 col-lg-3 mx-2">Notification</div>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <div class="d-flex justify-content-start mb-0">
+                                    <div class="col-md-6 col-sm-6 col-lg-6 d-flex flex-column">
+                                        <p class="fw-bolder mb-0">New Sales</p>
+                                        <small class="text-secondary">Whenever you make a sale</small>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-lg-3 d-flex justify-content-start"><input
+                                            type="checkbox" name="sales_email" class="form-check-input" id=""
+                                            checked></div>
+                                    <div class="col-md-3 col-sm-3 col-lg-3 mx-2 d-flex justify-content-start"><input
+                                            type="checkbox" name="sales_notification" class="form-check-input"
+                                            id="" checked></div>
+                                </div>
+                                <hr class="mt-1">
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-lg-12 d-flex justify-content-end mb-2">
+                                <div class="col-md-6 col-sm-6 cl-lg-6"></div>
+                                <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
+                                        class="form-check-input" id="" checked></div>
+                                <div class="col-md-3 col-sm-3 col-lg-3"><input type="checkbox" name="sales_email"
+                                        class="form-check-input" id="" checked></div>
+                            </div>
+
+                            <div class="col-md-12 ">
+                                <div class="d-flex justify-content-end mb-0">
+                                    <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                                        <p class="fw-bolder mb-0">New Favourites</p>
+                                        <small class="text-secondary">Whenever someone favorites your prompts.</small>
+                                    </div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="favourite_email"
+                                            class="form-check-input" id="" checked></div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox"
+                                            name="favourite_notification" class="form-check-input" id=""
+                                            checked></div>
+                                </div>
+                                <hr class="mt-1">
+                            </div>
+
+                            <div class="col-md-12 ">
+                                <div class="d-flex justify-content-end mb-0">
+                                    <div class="col-md-6 col-sm-8 col-lg-6 d-flex flex-column me-auto">
+                                        <p class="fw-bolder mb-0">New Followers</p>
+                                        <small class="text-secondary">Whenever someone follows you.</small>
+                                    </div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3"><input type="checkbox" name="follower_email"
+                                            class="form-check-input" id="" checked></div>
+                                    <div class="col-md-3 col-sm-2 col-lg-3 mx-2"><input type="checkbox"
+                                            name="follower_notification" class="form-check-input" id="" checked>
+                                    </div>
+                                </div>
+                                <hr class="mt-1">
+                            </div>
+                            <a href="{{ route('user.logout') }}" class="btn btn-outline-secondary my-4 px-5"><span
+                                    class="fw-bolder fs-5">Log Out</span></a>
                         </div>
-                        <div>
-                            <h5 class="">Payouts</h5>
-                            <hr>
-                        </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12  table-responsive mb-3">
-                            <table class="table bg-transparent table-borderless mb-0">
-                                <thead>
-                                    <tr>
-                                      <th class="text-primary">Amount </th>
-                                      <th class="text-primary">Status </th>
-                                      <th class="text-primary">Initiated </th>
-                                      <th class="text-primary">Est. Arrival </th>
-                                    </tr>
-                                  </thead>
-                                  <tbody class="text-white">
-                                    @foreach($userData['payoutList'] as $payout )
-                                    <tr>
-                                      <td class="fs-5">{{$userData["minimum_payout"]->symbol.number_format($payout->amount/100,2)}} <small style="font-size: 0.7rem">{{strtoupper($userData["currency"])}}</small></td>
-                                      <td class="fs-5">{{$payout->status}}</td>
-                                      <td class="fs-5">{{date('m-j-Y',$payout->created)}}</td>
-                                      <td class="fs-5">{{date('m-j-Y',$payout->arrival_date)}}</td>
-                                    </tr>
-                                    @endforeach
-                                  </tbody>
-                            </table>
-                            @if (!count($userData["payoutList"]))
-                                <p class="">No Payouts Yet!</p>
-                             @endif
+                        <div
+                            class="col-md-12 col-sm-12 col-lg-12 border border-danger rounded mt-5 p-3 d-flex flex-column">
+                            <h5>Danger Zone</h5>
+                            <small class="">Delete Account</small>
+                            <small class="text-secondary"><i>Once you delete your account there is no going back, please be
+                                    certain.</i></small>
+                            <a href=""
+                                class="btn btn-outline-secondary btn-box col-md-2 col-lg-2 col-sm-4 btn-sm mt-3 p-1">Delete
+                                Account</a>
                         </div>
 
                     </div>
-                    @endif
+
 
                     <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
                         tabindex="0">
@@ -428,6 +452,7 @@
                                 <p class="text-white">No sales yet!</p>
                             @endif
                         </div>
+
 
 
                     </div>
