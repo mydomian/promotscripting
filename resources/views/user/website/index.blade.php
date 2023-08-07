@@ -49,7 +49,8 @@
                                   height="240"
                                   alt="Author Banner"
                                   class="img-fluid top-banner-img"
-                                  style="aspect-ratio: 420 / 350"
+                                  style="aspect-ratio: 420 / 350; object-fit:fill"
+                                  
                               />
                               </div>
                               <small class="text-white text-center mt-2">{{ $item->category_name }}</small>
