@@ -7,7 +7,7 @@
 @section('content')
     <main class="flex-shrink-o">
         <!-- Hero Home -->
-        <section class="hero-marketplace page-header bg-body">
+        <section class="hero-marketplace page-header bg-dark">
           <div class="bg-holder bg-black bg-opacity-25"></div>
             <div class="container">
                 <div class="row">
