@@ -1232,6 +1232,7 @@ div.loadingPlaceholder-date {
  .messenger-infoView{
     background: #181b1a !important;
     border:none !important;
+    display: none;
  }
  .message-card.mc-sender .message{
     background: white !important;
@@ -1252,7 +1253,9 @@ div.loadingPlaceholder-date {
     transition: 0.1s;
 }
 .messenger-list-item.m-list-active{
-  background: none !important;
+  background: linear-gradient(to right, #394746,#3a4746) !important;
+  border-radius: 8px;
+  transition: 0.1s;
 }
 table tr:hover td:first-child {
   border-top-left-radius: 8px;
@@ -1261,6 +1264,9 @@ table tr:hover td:first-child {
 table tr:hover td:last-child {
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
+}
+tr td p{
+  color: white !important;
 }
 tr:hover td p{
   color: white !important;
