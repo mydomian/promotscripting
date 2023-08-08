@@ -97,7 +97,7 @@
                                     <small class="text-secondary">One example of your prompt with all variables filled in,
                                         e.g. if your prompt contained a variable like [Tone of voice], this variable should
                                         be changed to "happy" or "sad" in your test prompt. Buyers will not see this, it is
-                                        only for PromptBase's internal testing.</small>
+                                        only for PromptScripting's internal testing.</small>
                                     <textarea name="prompt_testing" id="testing_prompt" class="form-control bg-transparent" rows="10">{{ old('prompt_testing') }}</textarea>
                                     {{-- <div class="error-div"></div> --}}
                                 </div>
