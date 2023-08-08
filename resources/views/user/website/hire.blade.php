@@ -235,7 +235,9 @@
                         </div>
 
                         <div class="container-fluid mt-4">
+
                             <h6 class="text-primary">Top PromptScripting Prompt Enginer ({{ $promptbases->count() }})</h6>
+
                             <div class="search-profiles-slider">
                                   @forelse ($promptbases as $promptbase)
                                     <div class="slick-slide">

@@ -13,7 +13,7 @@
       <div class="container">
         <h2 class="text-center text-capitalize text-white mb-4">
           Prompts
-          <span class="fw-semibold text-primary">Page</span>
+          <span class="fw-semibold text-primary">Explore</span>
         </h2>
         {{-- <p class="text-white text-center mb-0">
           Find Your ChatGPT And Midjourney Prompt Scripts for your Project
