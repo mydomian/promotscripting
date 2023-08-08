@@ -37,9 +37,9 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, $subCategory)
     {
-       
+        $subCategory = SubCategory::find($subCategory);
         $subCategory = $this->services->subCategoryUpdate($subCategory, $request->all());
         if($subCategory) return back()->with('success','Subcategory Updated');
     }

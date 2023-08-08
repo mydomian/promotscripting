@@ -17,7 +17,7 @@
       <div class="container">
         <h2 class="text-center text-capitalize text-white mb-4">
           Custom
-          <span class="fw-semibold text-primary">Orders Page</span>
+          <span class="fw-semibold text-primary">Orders</span>
         </h2>
         {{-- <p class="text-white text-center mb-0">
           Find Your ChatGPT And Midjourney Prompt Scripts for your Project
