@@ -101,6 +101,13 @@ $system = App\Models\Setting::first();
          vertical-align: baseline;
          border-radius: .25em;
       }
+      .apexcharts-legend-text{
+        color: white !important;
+      }
+
+        text {
+        fill: white !important;
+      }
     </style>
 </head>
 
@@ -330,7 +337,7 @@ $system = App\Models\Setting::first();
                                         href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"><i
                                             class="fa fa-user-circle"></i> <small class="mx-1">Public Profile</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.dashboard') }}"><i
-                                            class="fa fa-dashboard"></i> <small class="mx-1">Dashboard</small></a></li>
+                                            class="fa-solid fa-dashboard"></i> <small class="mx-1">Dashboard</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.prompts') }}"><i
                                             class="fa fa-list"></i> <small  class="mx-1">Prompts</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.sales') }}"><i class="fa-solid fa-scale-balanced"></i> <small class="mx-1">Sales</small></a></li>
@@ -345,16 +352,16 @@ $system = App\Models\Setting::first();
                                 @endif
 
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
-                                            class="fa fa-heart"></i> <small class="mx-1">Favourites</small></a></li>
+                                            class="fa-regular fa-heart"></i> <small class="mx-1">Favourites</small></a></li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.settings') }}"><i
-                                            class="fa fa-gear"></i> <small class="mx-1">Settings</small></a></li>
+                                            class="fa-solid fa-gear"></i> <small class="mx-1">Settings</small></a></li>
 
                                 @if (Auth::user()->is_admin == 'admin')
                                     <li><a class="dropdown-item text-primary" href="{{ route('admin.dashboard') }}"><i
-                                                class="fa fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
+                                                class="fa-solid fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
                                 @else
                                     <li><a class="dropdown-item text-primary" href="{{ route('user.logout') }}"><i
-                                                class="fa fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
+                                                class="fa-solid fa-sign-out"></i> <small class="mx-1">Logout</small></a></li>
                                 @endif
                             </ul>
                         </div>
