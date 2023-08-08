@@ -75,7 +75,7 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
         </td>
         {{-- center side --}}
         <td>
-            <p class="text-primary" data-id="{{ $user->id }}" data-type="user">
+            <p class="text-white" data-id="{{ $user->id }}" data-type="user">
                 {{ strlen($user->name) > 18 ? trim(substr($user->name,0,15)).'..' : $user->name }}
             </p>
         </td>
