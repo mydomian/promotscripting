@@ -48,9 +48,9 @@ class DashboardController extends Controller
         }
         $yearlySales = [];
         foreach ($years as $year) {
-            $yearlySales[] = Sale::where('seller_id', Auth::id())->whereYear('created_at', $year)->sum('price');
+            $yearlySales[] = number_format(Sale::where('seller_id', Auth::id())->whereYear('created_at', $year)->sum('price'), 2);
         }
-
+       
         $firstTen = Sale::where('seller_id', Auth::id())->whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->startOfMonth()->addDays(9)])->sum('price');
         $secondTen = Sale::where('seller_id', Auth::id())->whereBetween('created_at', [Carbon::now()->startOfMonth()->addDays(10), Carbon::now()->startofMonth()->addDays(19)])->sum('price');
         $rest = Sale::where('seller_id', Auth::id())->whereBetween('created_at', [Carbon::now()->startOfMonth()->addDays(20), Carbon::now()->endofMonth()])->sum('price');
