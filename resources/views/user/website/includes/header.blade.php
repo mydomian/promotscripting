@@ -135,6 +135,11 @@ $system = App\Models\Setting::first();
                                 Home
                             </a>
                         </li>
+                        @auth
+                        <li class="nav-item d-none mobile-dashboard">
+                            <a class="nav-link" href="{{route('user.dashboard')}}">Dashboard</a>
+                        </li>
+                        @endauth
                         <li class="nav-item">
                             {{-- {{route('marketplace')}} --}}
                             <a class="nav-link @yield('marketplace')" href="{{ route('marketplace') }}"> Marketplace </a>

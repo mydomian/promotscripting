@@ -77,7 +77,7 @@ function totalPurchase(){
     return Order::where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve');
 }
 function thisMonthSale(){
-    return  Order::where(['user_id'=>Auth::id(),'status'=>'approve','is_paid'=>'paid'])->whereMonth('created_at', Carbon::now()->month);
+    return  Sale::where(['seller_id'=>Auth::id()])->whereYear('created_at', Carbon::now()->year)->whereMonth('created_at', Carbon::now()->month);
 }
 
 function createNotification($typeId, $type){
