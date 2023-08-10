@@ -13,8 +13,8 @@
             <div class="row">
                 <div class="col-sm-5 m-auto">
                 <h2 class="text-center text-capitalize text-white mb-4">
-                    Hire
-                    <span class="fw-semibold text-primary">Marketplace</span>
+                    Hire a
+                    <span class="fw-semibold text-primary">Prompt Engineer</span>
                 </h2>
                 <p class="text-white text-center mb-0">
                     Commission custom prompts from top prompt engineers, save on time & API costs, become a prompt engineer
