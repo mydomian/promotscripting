@@ -16,6 +16,9 @@
     .cart_count{
         display: none;
     }
+    .user-photo{
+        display: inline-block !important;
+    }
 
 }
 

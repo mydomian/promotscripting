@@ -36,6 +36,13 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('/prompt-favourite/{product}/{type?}','userFavourite')->name('userFavourite');
      
 });
+
+Route::controller(DashboardController::class)->group(function(){
+    //cart
+    Route::get('/add-cart','cart')->name('add.cart');
+    Route::get('/cart','cartList')->name('cart.list');
+    Route::get('/cart-delete/{cart}','cartdelete')->name('cart.delete');
+});
 //======================EmailVerification========================
 Route::get('/email/verify', function () { return view('auth.verify-email');})->middleware('auth')->name('verification.notice');
 
@@ -82,10 +89,7 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/prompt-custom-order','promptCustomOrder')->name('user.promptCustomOrder');
         Route::get('/custom-order/success','CustomOrderSuccess');
         Route::get('/message-copytoclickboard/{id}','copyToClickBoard')->name('user.copyToClickBoard');
-        //cart
-        Route::get('/add-cart','cart')->name('add.cart');
-        Route::get('/cart','cartList')->name('cart.list');
-        Route::get('/cart-delete/{cart}','cartdelete')->name('cart.delete');
+        
         //data downloads
         Route::get('file-dawonloads/{product}','fileDawonload')->name('user.fileDawonload');
 
