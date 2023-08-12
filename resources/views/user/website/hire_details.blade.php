@@ -11,18 +11,18 @@
 @section('content')
 <main class="flex-shrink-0 bg-body">
     <!-- Hero Marketplace -->
-    <section class="hero-marketplace page-header">
+    <section class="hero-marketplace" style="margin-top:4.7rem">
       <div class="bg-holder bg-black bg-opacity-25"></div>
       <div class="container">
         <div class="row">
            
            <div class="col-sm-12">
-                <img src="https://picsum.photos/200"  class="img-fluid object-fit-fill w-100 h-25 position-relative" style="z-index: -1">
-                <div style="margin-left:50px; margin-top:-90px; z-index: 1 ">
-                    <img src="@if(isset($user->profile_photo_path)) {{ asset('/storage/profile/'.$user->profile_photo_path) }} @else https://picsum.photos/200 @endif"  class="img-fluid object-fit-fill rounded-circle" style="width: 160px;">
+                <img src="https://picsum.photos/200"  class="img-fluid  w-100 position-relative rounded" style="z-index: -1; height:250px" >
+                <div style="margin-top:-90px; margin-left:5px; z-index: 1 ">
+                    <img src="@if(isset($user->profile_photo_path)) {{ asset('/storage/profile/'.$user->profile_photo_path) }} @else https://picsum.photos/200 @endif"  class="img-fluid object-fit-fill rounded-circle" style="width: 160px; height:160px">
                 </div>
                 <small class="p-0 text-white" style="float: right;margin-top:-35px;"><a href="@if(Auth::check()) {{ url('promptscripting-chat',$user->id) }} @else {{ route('user.login') }} @endif" class="btn btn-sm btn-primary">Message</a></small>
-                <div class="text-white" style="margin-left: 65px; margin-top:20px;">
+                <div class="text-white" style="margin-top:20px;">
                     <h6>@ {{ strstr( $user->name . ' ', ' ', true ); }}</h6>
                     <small>Is artificial intelligence less than our intelligence?</small>
                     <div class="d-flex d-inline">

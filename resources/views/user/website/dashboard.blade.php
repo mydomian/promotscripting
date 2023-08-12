@@ -1,10 +1,10 @@
 @php
     $purchases = purchases();
-    $sales = sales();
-    $favs = favourites();
-    $prompts = prompts();
-    $settings = userSetting();
-    $userData = payoutDetails();
+    $sales     = sales();
+    $favs      = favourites();
+    $prompts   = prompts();
+    $settings  = userSetting();
+    $userData  = payoutDetails();
 @endphp
 @extends('user.website.includes.master')
 

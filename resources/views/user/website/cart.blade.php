@@ -16,11 +16,13 @@
                     <div class="card marketplace--card border-2 shadow-lg bg-transparent mb-3">
                         <div class="row g-0">
                           <div class="col-md-4 p-2">
-                            <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="img-fluid rounded-2" alt="...">
+                            <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}">
+                              <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="img-fluid rounded-2" alt="{{$cart->product->title}}">
+                            </a>
                           </div>
                           <div class="col-md-8 p-2">
                             <div class="card-body">
-                              <h5 class="card-title text-light">{{$cart->product->title}}</h5>
+                              <h5 class="card-title text-light"><a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}" class="text-decoration-none">{{$cart->product->title}}</a></h5>
                               <p class="card-text text-light">{{Str::limit($cart->product->description,100)}}</p>
                               <div class="d-flex justify-content-between">
                                 <small class="text-primary" style="align-self: self-end;">{{'$'.number_format($cart->product->price,2)}}</small>
@@ -61,7 +63,7 @@
               @else
               <div class="card marketplace--card border-2 shadow-lg bg-transparent mb-3">
                   <div class="card-body">
-                    <h5 class="text-light">You haven't cart any product</h5>
+                    <h5 class="text-light">"You have ({{cartCount()}}) products in the cart!"</h5>
                   </div>
               </div>
               @endif
