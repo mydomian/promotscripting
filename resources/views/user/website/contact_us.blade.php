@@ -14,8 +14,9 @@
             Contact
             <span class="fw-semibold text-primary">Us</span>
         </h2>
+       
         <p class="text-white text-center mb-0">
-            Please {{ $setting->email ?? "email" }} or {{ $setting->phone ?? "phone" }} us if you have any queries about the site or anything else. <br>
+          Please fill out the form below. If you have any queries about the site or anything else,<br> please email us at <a href="mailto:{{ $setting->email }}">{{ $setting->email ?? "email" }}</a> or call us at <a href="tel:{{ $setting->phone }}">{{ $setting->phone ?? "phone" }}</a>.
             <p class="text-white text-center mb-0">Address: {{ $setting->location }}</p>
         </p>
       

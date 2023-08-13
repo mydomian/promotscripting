@@ -39,7 +39,7 @@ class DashboardController extends Controller
 
     public function dashboard()
     {   
-       
+  
         $registerDate = User::find(Auth::id())->created_at;
         $registerDate = Carbon::parse($registerDate);
         $years = [$registerDate->format('Y')];
@@ -346,9 +346,12 @@ class DashboardController extends Controller
     public function copyToClickBoard($id)
     {
         $ch_message = DB::table('ch_messages')->find($id);
+        $item = json_decode($ch_message->attachment);
+
         return response()->json([
             'status'=>true,
-            'message'=>html_entity_decode($ch_message->body)
+            'message'=>html_entity_decode($ch_message->body),
+            'attachment'=> $item->new_name ?? null
         ]);
     }
 

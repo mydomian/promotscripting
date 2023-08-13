@@ -387,11 +387,15 @@ function IDinfo(id) {
       data: { _token: csrfToken, id },
       dataType: "JSON",
       success: (data) => {
+
         if (!data?.fetch) {
           NProgress.done();
           NProgress.remove();
           return;
         }
+
+        
+        
         // avatar photo
         $(".messenger-infoView")
           .find(".avatar")
@@ -415,6 +419,19 @@ function IDinfo(id) {
         // update info in view
         $(".messenger-infoView .info-name").text(data.fetch.name);
         $(".m-header-messaging .user-name").text(data.fetch.name);
+        if(data.fetch.last_seen == 'Online'){
+          $(".m-header-messaging .isOnline").removeClass('d-none');
+          $(".m-header-messaging .isOffline").addClass('d-none');
+          $(".messenger-infoView .isOnline").removeClass('d-none');
+          $(".messenger-infoView .isOffline").addClass('d-none');
+        }else{
+          $(".m-header-messaging .isOffline").removeClass('d-none');
+          $(".m-header-messaging .isOnline").addClass('d-none');
+          $(".messenger-infoView .isOffline").removeClass('d-none');
+          $(".messenger-infoView .isOnline").addClass('d-none');
+          
+        }
+        
         // Star status
         data.favorite > 0
           ? $(".add-to-favorite").addClass("favorite")

@@ -79,17 +79,17 @@
                     <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
                         <div class="col-12 m-0 p-4 border border-secondary">
                             <h5>Prompt Details</h5>
-                            <strong>Category:</strong><br>
+                            {{-- <strong>Category:</strong><br> --}}
                             <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
-                            <strong>Subcategory:</strong><br>
+                            {{-- <strong>Subcategory:</strong><br> --}}
                             <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
-                            <strong>Sub Subcategory:</strong><br>
+                            {{-- <strong>Sub Subcategory:</strong><br> --}}
                             <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
-                            <strong>Prompt Testing:</strong><br>
+                            {{-- <strong>Prompt Testing:</strong><br> --}}
                             <small > {{ $product->prompt_testing ?? "" }}</small><br><br>
-                            <strong>Preview Input:</strong><br>
+                            {{-- <strong>Preview Input:</strong><br> --}}
                             <small > {{ $product->preview_input ?? "" }}</small><br><br>
-                            <strong>Preview Output:</strong><br>
+                            {{-- <strong>Preview Output:</strong><br> --}}
                             <small > {{ $product->preview_output ?? "" }}</small><br><br>
 
                         </div>
@@ -99,14 +99,14 @@
                     <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
                         <div class="col-12 m-0 p-4 border border-secondary">
                             <h5>Prompt Details</h5>
-                            <strong>Category:</strong><br>
+                            {{-- <strong>Category:</strong><br> --}}
                             <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
-                            <strong>Subcategory:</strong><br>
+                            {{-- <strong>Subcategory:</strong><br> --}}
                             <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
-                            <strong>Sub Subcategory:</strong><br>
+                            {{-- <strong>Sub Subcategory:</strong><br> --}}
                             <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
                             @if ($product->midjourney_profile)
-                                <strong>Profile Link:</strong><br>
+                                {{-- <strong>Profile Link:</strong><br> --}}
                                 <small > {{ $product->midjourney_profile ?? "" }}</small><br><br>
                             @endif
                         </div>

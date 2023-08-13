@@ -11,9 +11,9 @@
 <main class="flex-shrink-0 bg-body">
 
 
-  <section class="hero-marketplace page-header">
-    <div class="bg-holder bg-black bg-opacity-25"></div>
-      <div class="container">
+  {{-- <section class="hero-marketplace page-header">
+    <div class="bg-holder bg-black bg-opacity-25"></div> --}}
+      {{-- <div class="container">
           <div class="row">
               <div class="col-md-6 m-auto">
                 <h4 class="text-white fw-bold">
@@ -62,12 +62,98 @@
               </div>
                 
               </div>
-          </div>
+        </div>
           
+      </div> --}}
+      <section class="hero-home page-header bg-body">
+        <div
+          class="bg-holder bg-holder--lg"
+          style="background-image: url('{{ asset('/storage/assets/images/home/hero-home-bg.png') }}')"
+        ></div>
+        <div
+          class="bg-holder bg-holder--sm"
+          style="
+            background-image: url('{{ asset('/storage/assets/images/home/hero-home-figure.png') }}');
+          "
+        ></div>
+
+      <div class="container">
+        <div class="row gy-5 gx-4 align-items-center">
+          <div class="col-lg-7 col-xl-8">
+            <h1 class="text-white fw-bold mb-4">
+              <span class="fw-bolder">
+                Introducing Prompt<span class="text-primary bubble-gradient"
+                  >Scripting</span
+                >.ai
+                <br class="d-none d-sm-block" />
+                A Revolution in AI <br class="d-none d-sm-block" />
+                Collaboration
+              </span>
+            </h1>
+            <p class="text-body-secondary fs-5">
+              Find unique prompts to work with every project.
+            </p>
+            <div
+              class="d-flex align-items-center gap-4 gap-xl-5 pt-4 mt-4 pt-xxl-5 mt-xl-5"
+            >
+              <a href="{{ route('marketplace') }}" class="btn btn-primary">
+                Find a Prompt
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </a>
+              <a href="{{ route('sell.index') }}" class="link-light"> Sell a prompt </a>
+            </div>
+          </div>
+          <div class="col-lg-5 col-xl-4">
+            <div class="prompt-grid">
+              @foreach ($categories->take(4) as $item)
+                <div class="prompt-grid--item bg-image bg-dark-deep img-fluid" style="background-image: url('{{ asset('/storage/category_icon/'.$item->category_icon) }}">
+                  <div class="prompt-grid--header text-gray-light bg-black bg-opacity-50">
+                    <h6 class="fw-normal">⛵ {{ $item->category_name }}</h6>
+                    {{-- <p class="mb-0">Abstract Halftone Risograph Prints</p> --}}
+                  </div>
+                </div>
+              @endforeach
+              {{-- <div class="prompt-grid--item bg-image bg-dark-deep" style="background-image: url('https://images.unsplash.com/photo-1589526261866-ab0d34f8dc19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');">
+                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-50">
+                  <h6 class="fw-normal">⛵ Midjourney</h6>
+                  <p class="mb-0">Abstract Halftone Risograph Prints</p>
+                </div>
+              </div> --}}
+             
+              {{-- <div class="prompt-grid--item bg-image" style="background-image: url('https://images.unsplash.com/photo-1601039727490-458d3e7f2799?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');">
+                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-75">
+                  <h6 class="fw-normal">⛵ Midjourney</h6>
+                  <p class="mb-0">Lego Minifigures</p>
+                </div>
+              </div>
+              <div class="prompt-grid--item bg-image" style="background-image: url('https://images.unsplash.com/photo-1572551798500-53e7d9513aa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGJlZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');">
+                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-75">
+                  <h6 class="fw-normal">⛵ Midjourney</h6>
+                  <p class="mb-0">Lego Minifigures</p>
+                </div>
+              </div>
+
+              <div class="prompt-grid--item bg-image" style="background-color: #567d70">
+                <div class="propmt-grid--testimonial text-light">
+                  <p>
+                    "You won't regret it. I was amazed at the quality of it. I
+                    am really satisfied with my it."
+                  </p>
+                  <div
+                    class="d-flex align-items-center gap-2 justify-content-between mt-4"
+                  >
+                    <h6 class="fw-bold mb-0">-Nathan-</h6>
+                    <i class="fa-solid fa-quote-right"></i>
+                  </div>
+                </div>
+              </div> --}}
+            </div>
+          </div>
+        </div>
       </div>
-      
-  </div>
-  </section>
+    </section>
+    {{-- </div>
+  </section> --}}
 
     <!-- Features Prompts -->
     <section class="prompts-section section">
