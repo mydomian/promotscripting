@@ -447,7 +447,7 @@ $system = App\Models\Setting::first();
 
                 @guest
                     <a href="{{ route('user.login') }}"
-                        class="btn btn-outline-primary rounded-pill  px-2 mx-2">
+                        class="btn btn-outline-primary rounded-pill  p-0 guest-avatar d-none" style="height: 30px; width:30px">
                         <i class="fa-solid fa-user"></i>
                     </a>
                 @endguest

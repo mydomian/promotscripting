@@ -16,7 +16,8 @@
     .cart_count{
         display: none;
     }
-    .user-photo{
+    .user-photo,
+    .guest-avatar{
         display: inline-block !important;
     }
 
