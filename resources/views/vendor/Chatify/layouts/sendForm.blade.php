@@ -5,12 +5,12 @@
         <button class="emoji-button"></span><span class="fas fa-smile text-primary"></button>
         <span class="resetForm"><i class="fa fa-paint-brush text-primary"></i></span>
         <span class="forPaste"><i class="fa fa-save text-primary"></i></span>
-        <textarea readonly='readonly' name="message" class="m-send app-scroll text-primary" placeholder="Type a message.."></textarea>
+        <textarea readonly='readonly' name="message" class="m-send app-scroll text-default" placeholder="Type a message.."></textarea>
         <button disabled='disabled' class="send-button"><span class="fas fa-paper-plane text-primary"></span></button>
     </form>
+   
+      <a class="createOfferForId btn btn-sm btn-primary w-auto mb-2" style="float: right;" data-bs-toggle="modal" data-bs-target="#customOrderModal">Create An Offer</a>
 
-
-    <a class="createOfferForId btn btn-sm btn-primary w-auto mb-2" style="float: right;" data-bs-toggle="modal" data-bs-target="#customOrderModal">Create An Offer</a>
 
 </div>
 

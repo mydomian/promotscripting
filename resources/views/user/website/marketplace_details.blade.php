@@ -35,6 +35,26 @@
                         </a>
                         <h4>{{ $product->title ?? '' }}</h4>
 
+
+            <div class="col-md-6 col-sm-12">
+               
+                @if ($product->subSubCategory->subCategory->category->id == 1)
+                    <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
+                        <div class="col-12 m-0 p-4 border border-secondary">
+                            <h5>Prompt Details</h5>
+                            {{-- <strong>Category:</strong><br> --}}
+                            <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
+                            {{-- <strong>Subcategory:</strong><br> --}}
+                            <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
+                            {{-- <strong>Sub Subcategory:</strong><br> --}}
+                            <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
+                            {{-- <strong>Prompt Testing:</strong><br> --}}
+                            <small > {{ $product->prompt_testing ?? "" }}</small><br><br>
+                            {{-- <strong>Preview Input:</strong><br> --}}
+                            <small > {{ $product->preview_input ?? "" }}</small><br><br>
+                            {{-- <strong>Preview Output:</strong><br> --}}
+                            <small > {{ $product->preview_output ?? "" }}</small><br><br>
+
                         <ul class="list-inline">
                             <li class="list-inline-item"><small>@
                                     {{ strstr($product->user->name, ' ', true) ?? '' }}</small></li>
@@ -63,6 +83,7 @@
                                     {{ ProductViews($product->id) }}</small></li>
 
 
+
                             <li class="list-inline-item" style="cursor: pointer"><small><i
                                         class="user-favourite fa fa-heart @if (userFav($product->id, userLocalIp())) > 0) text-danger @endif"
                                         productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
@@ -78,6 +99,23 @@
                             @endforeach            
                                 
                         </div>
+
+                    </div>
+                @elseif($product->subSubCategory->subCategory->category->id == 5 || $product->subSubCategory->subCategory->category->id == 6 || $product->subSubCategory->subCategory->category->id == 7 || $product->subSubCategory->subCategory->category->id == 8)
+
+                    <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
+                        <div class="col-12 m-0 p-4 border border-secondary">
+                            <h5>Prompt Details</h5>
+                            {{-- <strong>Category:</strong><br> --}}
+                            <small> {{ $product->subSubCategory->subCategory->category->category_name ?? "" }}</small> <br><br>
+                            {{-- <strong>Subcategory:</strong><br> --}}
+                            <small > {{ $product->subSubCategory->subCategory->category_name ?? "" }}</small><br><br>
+                            {{-- <strong>Sub Subcategory:</strong><br> --}}
+                            <small > {{ $product->subSubCategory->category_name ?? "" }}</small><br><br>
+                            @if ($product->midjourney_profile)
+                                {{-- <strong>Profile Link:</strong><br> --}}
+                                <small > {{ $product->midjourney_profile ?? "" }}</small><br><br>
+
                         <hr>
                         <p style="text-align: justify;"><small>{{ $product->preview_input }}</small></p>
                         <p style="text-align: justify;"><small>{{ $product->description }}</small></p>
@@ -101,6 +139,7 @@
                                 @endif
                                 <a href="{{ route('cart.list') }}"
                                     class="btn btn-secondary mx-2 text-light incart hide">Now, in your cart</a>
+
                             @endif
                         @endif
 

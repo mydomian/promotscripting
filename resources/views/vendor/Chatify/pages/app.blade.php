@@ -20,6 +20,7 @@
                           width="121"
                           height="121"
                         />
+                        
                         <span
                           class="online-status"
                           style="
@@ -135,7 +136,7 @@
           </div>
          
       
-          <div class="messenger-messagingView" style="overflow: auto; height:700px;">
+          <div class="messenger-messagingView" style="overflow: auto; height:1035px;">
               <div class="m-header m-header-messaging" >
                   <nav class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
 
@@ -145,12 +146,21 @@
                       <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;"></div>
                       <div>
                         <a href="#" class="user-name text-dark mb-0 mb-md-1 line-clamp">{{ config('chatify.name') }}</a>
-                        <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center gap-2 isOnline">
                           <span
                             class="flex-shrink-0 p-1 rounded-pill"
                             style="background-color: #27ae60"
                           ></span>
                           <small class="">Online</small>
+                          
+                        </div>
+                        <div class="d-flex align-items-center gap-2 isOffline d-none">
+                          <span
+                            class="flex-shrink-0 p-1 rounded-pill"
+                            style="background-color: #969696"
+                          ></span>
+                          <small class="">Offline</small>
+                          
                         </div>
                       </div>
                     </div>
@@ -249,14 +259,19 @@ $system = App\Models\Setting::first();
         //copy to clickboard
         $(document).on("click", ".copyToClick", function () {
             var id = $(this).data('id');
-            // alert(id);
+           
             // console.log(id);
             $.ajax({
                 url: "{{ route('user.copyToClickBoard','') }}"+"/"+id,
                 method: "get",
                 contentType: "application/json",
                 success: function(res) {
+                 
+                
+                  
                     if(res.status === true){
+
+                      if(res.attachment === null){
                         var message = res.message;
                         var temp = $("<input>");
                         $("body").append(temp);
@@ -264,6 +279,16 @@ $system = App\Models\Setting::first();
                         document.execCommand("copy");
                         temp.remove();
                         alert("Text Copied");
+                      }else{
+                        var message = "<img src='http://127.0.0.1:8000/storage/attachments/"+res.attachment+"'>";
+                        var temp = $("<input>");
+                        $("body").append(temp);
+                        temp.val(message).select();
+                        document.execCommand("copy");
+                        temp.remove();
+                        alert("Text Copied");
+                      }
+                    
                        
                     }else{
                         console.log((res));

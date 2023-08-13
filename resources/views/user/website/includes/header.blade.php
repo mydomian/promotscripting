@@ -46,6 +46,7 @@ $system = App\Models\Setting::first();
         href='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'>
     @stack('css')
     <style>
+        
         .hide {
             display: none;
         }
