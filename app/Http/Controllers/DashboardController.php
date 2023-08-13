@@ -67,7 +67,6 @@ class DashboardController extends Controller
     public function profile(Request $request, User $user)
     {
         if ($request->isMethod('post')) {
-
             $request->validate([
                 'name'      => 'required|string',
                 'email'      => 'required|email',
@@ -81,6 +80,7 @@ class DashboardController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->address = $request->address;
+           
             if (isset($request->password)) $user->password = Hash::make($request->password);
             if ($request->hasFile('profile')) $this->services->imageDestroy($user->profile_photo_path, 'profile/');
             if ($request->hasFile('profile')) $user->profile_photo_path = $this->services->imageUpload($request->file('profile'), 'profile/');
@@ -356,29 +356,33 @@ class DashboardController extends Controller
     }
 
     public function cart(Request $request)
-    {
-        $user = auth()->user();
+    {   
+        
+        $user_ip = userLocalIp();
+        
         $product = Product::find($request->product_id);
         if (!checkCart($product->id)) {
             Cart::create([
-                'user_id'       => $user->id,
+                'user_ip'       => $user_ip,
                 'product_id'    => $product->id,
                 'price'         => $product->price
             ]);
-            $cartCount = Cart::where('user_id', $user->id)->count();
+            
+            $cartCount = Cart::Where('user_ip',userLocalIp())->count();
             return response()->json([
                 'success'   => true,
-                'total'     => $cartCount
+                'total'     => $cartCount,
+                'ip'        => $user_ip
             ]);
         }
         return response()->json([
             'success' => false,
-            'message' => 'This product is already in your cart!'
+            'message' => 'This prompt is already in your cart!'
         ]);
     }
 
     public function cartList(){
-        $cartList = Cart::with('product')->where('user_id', Auth::id())->latest()->get();
+        $cartList = Cart::with('product')->where('user_ip',userLocalIp())->latest()->get();
        
         return view('user.website.cart',compact("cartList"))->render();
     }

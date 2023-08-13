@@ -19,7 +19,7 @@ class UserMiddleware
         if(Auth::user() && Auth::user()->is_admin == 'user'){
             return $next($request);
         }
-        return redirect()->route('user.login')->with('error','Not Authorized');
+        return redirect()->route('user.login')->with('error','Please login first');
         
     }
 }

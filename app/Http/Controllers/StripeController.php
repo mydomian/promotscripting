@@ -301,7 +301,7 @@ class StripeController extends Controller
                 'seller_id'     => $orderedProduct->product->user_id,
                 'order_id'      => $orderedProduct->id
             ]);
-            $cart = Cart::where('user_id',Auth::id())->where('product_id',$order)->first();
+            $cart = Cart::where('user_ip',userLocalIp())->where('product_id',$order)->first();
             $cart->delete();
             
         }

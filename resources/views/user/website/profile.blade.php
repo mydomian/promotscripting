@@ -28,7 +28,7 @@ $system = App\Models\Setting::first();
                 
                 <div class="col-sm-12 col-md-4  d-flex text-center h-100">
                     <div class="w-100 p-5 m-0" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
-                        <img class="img-fluid w-50 h-50 rounded-circle objit-fit-fill" src="@if($user->profile_photo_path){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else {{ asset('/storage/profile/avatar.png') }} @endif" alt="profile-image"><br>
+                        <img class="rounded-circle" src="@if($user->profile_photo_path){{ asset('/storage/profile/'.$user->profile_photo_path) }} @else {{ asset('/storage/profile/avatar.png') }} @endif" alt="profile-image"  style="height: 7.875rem; width:7.875rem"><br>
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->name }}</a>
                         <a href="#" class="btn btn-md btn-outline-primary w-auto mt-3">{{ $user->email }}</a>
                     </div>
@@ -106,7 +106,7 @@ $system = App\Models\Setting::first();
                                     <div class="col-sm-6">
                                         <small class="form-label">Enter Your Address</small>
                                         <input type="text" name="address" value="{{$user->address}}" class="form-control @error('address') is-invalid @enderror" placeholder="Enter Address...">
-                                        @error('phone')
+                                        @error('address')
                                             <small class="text-danger">{{$message}}</small>
                                         @enderror
                                     </div>

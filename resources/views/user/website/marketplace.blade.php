@@ -224,6 +224,7 @@
   </main>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
 
@@ -330,4 +331,60 @@
         });
          
     </script>
+     <script>
+      $(document).ready(function() {
+          $('.cart-pic').on('click', function(e) {
+              e.preventDefault();
+              
+              var product_id = $(this).attr('data-id')
+
+              $.ajax({
+                  url: "{{ route('add.cart') }}",
+                  method: "get",
+                  data: {
+                      product_id: product_id
+                  },
+                  success: function(res) {
+                      if (res.success == true) {
+                          $('.cart_count').text(res.total)
+                        
+                          const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              showCloseButton: true,
+                              timer: 3000,
+                              timerProgressBar: true,
+                          });
+
+                          Toast.fire({
+                              icon: 'success',
+                              title: 'Successfully added to Cart!',
+                              text: "Total " + res.total + " items in cart.",
+                              showCloseButton: true
+                          })
+
+                      }
+                      if (res.success == false) {
+                         
+                        const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'top-end',
+                              showConfirmButton: false,
+                              showCloseButton: true,
+                              timer: 3000,
+                              timerProgressBar: true,
+                          });
+
+                          Toast.fire({
+                              icon: 'error',
+                              title: res.message,
+                              showCloseButton: true
+                          })
+                      }
+                  }
+              })
+          })
+      })
+  </script>
 @endpush

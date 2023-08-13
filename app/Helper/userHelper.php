@@ -122,15 +122,15 @@ function userSetting()
 }
 
 function cartCount(){
-    return Cart::where('user_id', Auth::id())->count();
+    return Cart::where('user_ip', userLocalIp())->count();
 }
 
 function checkCart($id){
-    return Cart::where(['user_id'=> Auth::id(), 'product_id' => $id])->exists();
+    return Cart::Where(['user_ip'=>userLocalIp(),'product_id'=>$id])->exists();
 }
 
 function cart(){
-    return Cart::with('product')->where('user_id', Auth::id())->latest()->get();
+    return Cart::with('product')->where('user_ip', userLocalIp())->latest()->get();
 }
 
 function checkPurchaseOrder($product_id){
