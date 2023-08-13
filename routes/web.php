@@ -50,6 +50,7 @@ Route::get('/email/verify', function () { return view('auth.verify-email');})->m
 Route::controller(MarketplaceController::class)->group(function(){
     Route::match(['get','post'],'/marketplace','marketplace')->name('marketplace');
     Route::get('/marketplace/{slug}/{product}','marketplaceDetails')->name('marketplaceDetails');
+    Route::get('/marketplace-filter/{name}','filter')->name('tag.filter');
 });
 
 //============================Sell===========================

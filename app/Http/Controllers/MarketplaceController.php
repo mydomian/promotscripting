@@ -7,6 +7,7 @@ use App\Models\JobPost;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +21,12 @@ class MarketplaceController extends Controller
         $marketPlaces = Product::with('user','subSubCategory')->where('status','active')->paginate(100);
 
         if($request->isMethod('post')){
-
+            
+            // if($request->filterType == "tagFilter"){
+            //     $product_ids = Tag::where( 'tag', $request->tag_name)->select('product_id')->get();
+            //     $marketPlaces = Product::with('user', 'subSubCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
+            //     return view('user.website.marketplace',compact('marketPlaces','categories','subCategories','subSubCategories'));
+            // }else
             if($request->filterType == "priceFilter"){
                 $marketPlaces = Product::where('status','active')->whereBetween('price', [$request->price_start, $request->price_end])->paginate(50);
             }elseif($request->filterType == 'categoryFilter'){
@@ -58,7 +64,17 @@ class MarketplaceController extends Controller
 
     public function marketplaceDetails($slug, $product){
         viewAdd(userLocalIp(),$product);
-        $product = Product::with('user','subSubCategory','productImages')->find($product);
+        $product = Product::with('user','subSubCategory','productImages','tags')->find($product);
         return view('user.website.marketplace_details',compact('product'));
     }
+
+    public function filter($name){
+        $categories = Category::where('status','active')->latest()->get();
+        $subCategories = SubCategory::latest()->get();
+        $subSubCategories = SubSubCategory::latest()->get();
+        $product_ids = Tag::where( 'tag', $name)->select('product_id')->get();
+        $marketPlaces = Product::with('user', 'subSubCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
+         return view('user.website.marketplace',compact('marketPlaces','categories','subCategories','subSubCategories'));
+    }
 }
+

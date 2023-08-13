@@ -68,20 +68,16 @@
                                         productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
 
                         </ul>
-                        {{-- <div class="" >
-                           
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                                <span class="badge bg-primary ">fdjhgdfjh</span>
-                                <span class="badge bg-primary">fdjhgdfjh</span>
-                           
-                            
-                        </div> --}}
+                        <div class="" >     
+                            @foreach ($product->tags as $tag)
+                                <a href="{{route('tag.filter',$tag->tag)}}" class="text-decoration-none">
+                                    <span class="badge bg-primary p-2 mb-1" data-id="{{$tag->id}}">{{'#'.$tag->tag}}</span>
+                                </a>
+                                    
+                                
+                            @endforeach            
+                                
+                        </div>
                         <hr>
                         <p style="text-align: justify;"><small>{{ $product->preview_input }}</small></p>
                         <p style="text-align: justify;"><small>{{ $product->description }}</small></p>
@@ -350,7 +346,7 @@
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
-                                closeButton: true,
+                                showCloseButton: true,
                                 timer: 3000,
                                 timerProgressBar: true,
                             });
@@ -371,6 +367,32 @@
                     }
                 })
             })
+        })
+    </script>
+    <script>
+        $(document).ready(function(){
+           $('.tagFilter').on('click', function(e){
+                 e.preventDefault()
+                var tag_id = $(this).attr('data-id')
+                var tag_name = $(this).text()
+                $.ajax({
+                    url:"{{ route('marketplace') }}",
+                    method:"post",
+                    data:{
+                        tag_id:tag_id,
+                        tag_name:tag_name,
+                        filterType:'tagFilter'},
+                    success:function (response) {
+                        // window.location.href = "/marketplace";
+                      $(".marketplace_append_data").html("");
+                      $(".marketplace_append_data").html(response);
+                     
+                    },
+                    error: function(error) {
+                       console.log((error));
+                    }
+                  });
+           })
         })
     </script>
 @endpush

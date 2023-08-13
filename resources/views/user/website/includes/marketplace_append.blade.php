@@ -39,17 +39,32 @@
                     <img src="@if($marketPlace->image) {{ asset('/storage/products/thumbnil/'.$marketPlace->image) }} @else https://picsum.photos/200/300 @endif" alt="{{ $slug }}" class="img-fluid w-100 rounded-3 object-fit-cover"/>
                     <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $marketPlace->subSubCategory->subCategory->category ? $marketPlace->subSubCategory->subCategory->category->category_name : $marketPlace->subSubCategory->category_name }}</span>
                     </a>
-                    <div class="d-flex justify-content-between gap-3">
-                        <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none">{{ Str::limit($marketPlace->title,18) ?? "" }}</a>
-                        <small class="text-body-tertiary">$ {{ $marketPlace->price }}</small>
-                
-                    </div>
+                   
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none"><small>{{ Str::limit($marketPlace->title,18) ?? "" }}</small></a>
+                            <div class="d-flex justify-content-end mt-1">
+                                @if (Auth::id() !== $marketPlace->user_id)
+                                    <a href="" class="cart-pic" data-id="{{$marketPlace->id}}"> 
+                                        <img src="{{asset('storage/brands/cart.png')}}" alt=""  style="height: auto; width:22px; margin-right: 5px;">
+                                    </a>
+                                @endif
+                                 <a class="text-light btn btn-primary btn-sm px-1"><small>{{'$'.$marketPlace->price }}</small></a>
+                                 {{-- <span class="badge rounded text-bg-primary">Primary</span> --}}
+                            </div>
+                        </div>
+                       <div class="d-flex justify-content-strat">
+                                <div>
+                                    <small class="text-secondary">{{$marketPlace->subSubCategory->subCategory->category->category_name}}</small>
+                                    <small class="text-secondary mx-2">{{$marketPlace->subSubCategory->subCategory->category_name}}</small>
+                                </div>
+                            </div>
+                    
                 </div>
            
         </div>
     </div>
 @empty
-    <p>No Job Posts Available</p>
+    <p class="text-light">Nothing Found!</p>
 @endforelse
 
       

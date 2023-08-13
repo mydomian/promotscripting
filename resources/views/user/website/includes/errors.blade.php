@@ -10,13 +10,15 @@
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
+                closeButton: true,
                 timer: 3000,
                 timerProgressBar: true,
             });
 
             Toast.fire({
                 icon: 'success',
-                title: message
+                title: message,
+                showCloseButton: true
             })
         }
     </script>
@@ -34,11 +36,13 @@
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
+                showCloseButton: true,
             });
 
             Toast.fire({
                 icon: 'error',
-                title: message
+                title: message,
+                showCloseButton: true
             })
         }
     </script>
