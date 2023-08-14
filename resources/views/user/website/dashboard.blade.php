@@ -87,7 +87,7 @@
     </section>
 
     <section class="hero-marketplace bg-body">
-        <div class="container" style="margin-bottom: 100px">
+        <div class="container">
             <div class="col-12 text-white">
                 <div class="tab-content" id="pills-tabContent">
 

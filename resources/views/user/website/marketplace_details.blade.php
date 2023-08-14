@@ -82,8 +82,8 @@
                         <hr>
                         <p style="text-align: justify;"><small>{{ $product->preview_input }}</small></p>
                         <p style="text-align: justify;"><small>{{ $product->description }}</small></p>
-                        <h4 class="fw-bolder"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</h4>
-
+                        <button class="btn btn-primary mb-3 text-light"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</button>
+                        <br>
                         @if (checkPurchaseOrder($product->id))
                             <a href="{{ route('user.fileDawonload', $product->id) }}"
                                 class="btn btn-outline-success btn-sm">Download Files</a>
@@ -107,12 +107,12 @@
 
                         <p style="text-align: justify; margin-top:10px;"><small>{{ $product->instructions }}</small></p>
                         <p style="text-align: justify;"><small>By purchasing this prompt, you agree to our <a
-                                    href="#">terms of service.</a></small></p>
+                                    href="{{route('terms')}}" target="blank">terms of service.</a></small></p>
                         <h6>{{ $product->created_at->diffForHumans() }}</h6>
 
                     </div>
 
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-6 col-sm-12 mb-3">
 
                         @if ($product->subCategory->category->id == 1)
                             <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
@@ -263,7 +263,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4 d-flex justify-content-center m-auto">
+                        <div class="col-sm-4 d-flex justify-content-center my-5">
                             <a href="{{ route('marketplace') }}" class="btn btn-lg btn-outline-primary ">Browse
                                 Marketplace</a>
                         </div>

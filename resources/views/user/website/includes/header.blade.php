@@ -286,9 +286,10 @@ $system = App\Models\Setting::first();
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <div class="navbar-search navbar-search-mobile">
-                    <form class="d-lg-none" role="search">
+                    <form action="{{route('search')}}" class="d-lg-none" role="search" method="POST">
+                        @csrf
                         <div class="d-flex search-box">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" />
+                            <input class="form-control" type="text" name="search" placeholder="Search" />
                             <button class="btn btn-outline-primary" type="submit">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
