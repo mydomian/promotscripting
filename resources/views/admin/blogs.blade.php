@@ -39,7 +39,6 @@
                                         <th>Id</th>
                                         <th>Category</th>
                                         <th>SubCategory</th>
-                                        <th>Sub Subcategory</th>
                                         <th>Title</th>
                                         <th>Image</th>
                                         <th>Description</th>
@@ -53,7 +52,6 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $blog->category ? $blog->category->category_name : '' }}</td>
                                             <td>{{ $blog->subCategory ? $blog->subCategory->category_name : '' }}</td>
-                                            <td>{{ $blog->subSubCategory ? $blog->subSubCategory->category_name : '' }}</td>
                                             <td>{{ $blog->title ?? '' }}</td>
                                             <td>
                                                 <img src="{{ asset('/storage/blog/' . $blog->image) }}"
@@ -155,29 +153,7 @@
                                                                                 @endif
 
                                                                             </select>
-                                                                            <select name="sub_sub_category_id"
-                                                                                class="form-control mt-2"
-                                                                                id="sub_sub_category_id" required>
-                                                                                <option value="">Select Your Sub
-                                                                                    Subcategory</option>
-                                                                                @if (!empty($subCategories))
-                                                                                    @foreach ($subCategories as $subCategory)
-                                                                                        <option value="" disabled>
-                                                                                            {{ $subCategory->category_name }}
-                                                                                        </option>
-                                                                                        @if (!empty($subCategory['subSubCategories']))
-                                                                                            @foreach ($subCategory['subSubCategories'] as $subSubCategory)
-                                                                                                <option
-                                                                                                    value="{{ $subSubCategory->id }}"
-                                                                                                    @if ($subSubCategory->id == $blog->sub_sub_category_id) selected @endif>
-                                                                                                    ➥
-                                                                                                    {{ $subSubCategory->category_name }}
-                                                                                                </option>
-                                                                                            @endforeach
-                                                                                        @endif
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            </select>
+                                                                           
                                                                             <input type="file" name="image"
                                                                                 autocomplete="off" class="form-control mt-2"
                                                                                 accept="image/*">
@@ -254,22 +230,7 @@
                                             @endif
 
                                         </select>
-                                        <select name="sub_sub_category_id" class="form-control mt-2"
-                                            id="sub_sub_category_id" required>
-                                            <option value="">Select Your Sub Subcategory</option>
-                                            @if (!empty($subCategories))
-                                                @foreach ($subCategories as $subCategory)
-                                                    <option value="" disabled>{{ $subCategory->category_name }}
-                                                    </option>
-                                                    @if (!empty($subCategory['subSubCategories']))
-                                                        @foreach ($subCategory['subSubCategories'] as $subSubCategory)
-                                                            <option value="{{ $subSubCategory->id }}"> ➥
-                                                                {{ $subSubCategory->category_name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </select>
+                                     
                                         <input type="file" name="image" autocomplete="off"
                                             class="form-control mt-2" required="" accept="image/*">
                                         <input type="text" name="title" class="form-control mt-2"

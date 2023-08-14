@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class PromptController extends Controller
 {
     public function prompts(Request $request){
-        $prompts = Product::with('user','subSubCategory','productImages')->latest()->paginate(100);
+        $prompts = Product::with('user','subCategory','productImages')->latest()->paginate(100);
         if($request->isMethod('post')){
             return $request->all();
         }

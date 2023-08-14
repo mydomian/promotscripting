@@ -100,18 +100,18 @@ class DashboardController extends Controller
     public function prompts(Request $request)
     {
 
-        $prompts = Product::with('user', 'subSubCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
+        $prompts = Product::with('user', 'subCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
         if ($request->isMethod('post')) {
             if ($request->filterType == "active") {
-                $prompts = Product::with('user', 'subSubCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
+                $prompts = Product::with('user', 'subCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
             } elseif ($request->filterType == "inactive") {
-                $prompts = Product::with('user', 'subSubCategory')->where('user_id', Auth::id())->where('status', 'inactive')->latest()->paginate(100);
+                $prompts = Product::with('user', 'subCategory')->where('user_id', Auth::id())->where('status', 'inactive')->latest()->paginate(100);
             } elseif ($request->filterType == "default") {
-                $prompts = Product::with('user', 'subSubCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
+                $prompts = Product::with('user', 'subCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
             } elseif ($request->filterType == "search") {
-                $prompts = Product::with('user', 'subSubCategory')->where('title', 'like', '%' . $request->value . '%')->where(['user_id' => Auth::id(), 'status' => 'active'])->latest()->paginate(100);
+                $prompts = Product::with('user', 'subCategory')->where('title', 'like', '%' . $request->value . '%')->where(['user_id' => Auth::id(), 'status' => 'active'])->latest()->paginate(100);
             } else {
-                $prompts = Product::with('user', 'subSubCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
+                $prompts = Product::with('user', 'subCategory')->where('user_id', Auth::id())->where('status', 'active')->latest()->paginate(100);
             }
             $prompts = $prompts->appends($request->all());
             return view('user.website.includes.prompts_append', compact('prompts'));
@@ -123,7 +123,7 @@ class DashboardController extends Controller
     public function promptsEdit(Request $request, $product)
     {
 
-        $prompt = Product::with('user', 'subSubCategory')->find($product);
+        $prompt = Product::with('user', 'subCategory')->find($product);
        
         if ($request->isMethod('post')) {
             $request->validate([
@@ -131,14 +131,14 @@ class DashboardController extends Controller
                 'title'                 => 'required',
                 'description'           => 'required',
                 'price'                 => 'required',
-                'sub_sub_category_id'   => 'required',
+                'sub_category_id'   => 'required',
                 'instructions'          => 'required',
             ]);
 
             if ($request->hasFile('image')) $this->services->imageDestroy($prompt->image, '/products/thumbnil/');
             if ($request->hasFile('image')) $prompt->image = $this->services->imageUpload($request->file('image'), 'products/thumbnil/');
 
-            if ($prompt->subSubCategory->subCategory->category->id == 1) {
+            if ($prompt->subCategory->category->id == 1) {
                 $request->validate(['prompt_testing' => 'required', 'preview_input' => 'required', 'preview_output' => 'required']);
 
                 $prompt->prompt_testing = $request->prompt_testing;
@@ -146,14 +146,14 @@ class DashboardController extends Controller
                 $prompt->preview_output = $request->preview_output;
                
             }
-            if ($prompt->subSubCategory->subCategory->category->id == 5) {
+            if ($prompt->subCategory->category->id == 5) {
                 $request->validate(['midjourney_text' => 'required', 'midjourney_profile' => 'required', 'images' => 'nullable']);
 
                 $prompt->midjourney_text = $request->midjourney_text;
                 $prompt->midjourney_profile = $request->midjourney_profile;
                 if ($request->hasFile('images')) $this->multipleProductImage($request, $prompt);
             }
-            if ($prompt->subSubCategory->subCategory->category->id == 6) {
+            if ($prompt->subCategory->category->id == 6) {
                 $request->validate(['model_version' => 'required', 'sampler' => 'required', 'image_width' => 'required', 'image_height' => 'required', 'cfg_scale' => 'required', 'step' => 'required', 'clip' => 'required', 'negative_prompt' => 'required', 'images' => 'nullable']);
 
                 $prompt->model_version = $request->model_version;
@@ -168,20 +168,20 @@ class DashboardController extends Controller
                 if (isset($request->speed)) $prompt->speed = $request->speed;
                 if ($request->hasFile('images')) $this->multipleProductImage($request, $prompt);
             }
-            if ($prompt->subSubCategory->subCategory->category->id == 7) {
+            if ($prompt->subCategory->category->id == 7) {
                 $request->validate(['image_verification' => 'required', 'images' => 'nullable']);
 
                 $prompt->image_verification = $request->image_verification;
                 if ($request->hasFile('images')) $this->multipleProductImage($request, $prompt);
             }
-            if ($prompt->subSubCategory->subCategory->category->id == 8) {
+            if ($prompt->subCategory->category->id == 8) {
                 $request->validate(['images' => 'nullable']);
 
                 if ($request->hasFile('images')) $this->multipleProductImage($request, $prompt);
             }
 
             $prompt->title = $request->title;
-            $prompt->sub_sub_category_id = $request->sub_sub_category_id;
+            $prompt->sub_category_id = $request->sub_category_id;
             $prompt->price = $request->price;
             $prompt->description = $request->description;
             $prompt->instructions = $request->instructions;
@@ -192,7 +192,7 @@ class DashboardController extends Controller
         }
 
         $categories = Category::with('subCategories')->where('status', 'active')->latest()->get();
-        $subCategories = SubCategory::with('subSubCategories')->latest()->get();
+        $subCategories = SubCategory::latest()->get();
         return view('user.website.prompt_deatils', compact('prompt', 'categories', 'subCategories'));
     }
 

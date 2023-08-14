@@ -2,60 +2,71 @@
     <form id="message-form" method="POST" action="{{ route('send.message') }}" enctype="multipart/form-data">
         @csrf
         <div class="user-chat-flex">
-        <div class="user-attachments dropdown dropup">
-          <button
-            type="button"
-            class="btn btn-light border dropdown-toggle"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="fa-solid fa-plus text-black"></i>
-          </button>
-          <div class="dropdown-menu shadow-lg">
-            <ul class="user-attachment-list list-unstyled mb-0">
-              <li>
-                <a href="#" class="user-attachment-item item-orange-red">
-                  <span class="ps-icon">
-                    <i class="fa-solid fa-image"></i>
-                  </span>
-                  <span class="d-none d-sm-block d-md-none d-xl-block">
-                    Image
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="user-attachment-item item-blue">
-                  <span class="ps-icon">
-                    <i class="fa-solid fa-file-lines"></i>
-                  </span>
-                  <span class="d-none d-sm-block d-md-none d-xl-block">
-                    Files
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="user-attachment-item item-purple">
-                  <span class="ps-icon">
-                    <i class="fa-solid fa-address-book"></i>
-                  </span>
-                  <span class="d-none d-sm-block d-md-none d-xl-block">
-                    Contact
-                  </span>
-                </a>
-              </li>
-            </ul>
+          <div class="user-attachments dropdown dropup">
+            <button
+              type="button"
+              class="btn btn-light border dropdown-toggle"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="margin-top: 10px;"
+            >
+              <i class="fa-solid fa-plus text-black"></i>
+            </button>
+            <div class="dropdown-menu shadow-lg">
+              <ul class="user-attachment-list list-unstyled mb-0">
+                <li>
+                  <a href="#" class="user-attachment-item item-orange-red" >
+                    <span class="forPaste"><i class="ps-icon fa-solid fa-save"></i></span>
+                    <span class="d-none d-sm-block d-md-none d-xl-block">
+                      Paste
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="user-attachment-item item-orange-red" >
+                    <span class="resetForm"><i class="ps-icon fa-solid fa-paint-brush"></i></span>
+                    <span class="d-none d-sm-block d-md-none d-xl-block">
+                      Brush
+                    </span>
+                  </a>
+                </li>
+                {{-- <li>
+                  <a href="#" class="user-attachment-item item-orange-red" >
+                    <span class="emoji-button"><i class="ps-icon fa-solid fa-smile"></i></span>
+                    <span class="d-none d-sm-block d-md-none d-xl-block">
+                      Emoji
+                    </span>
+                  </a>
+                </li> --}}
+                <li>
+                  <a href="#" class="user-attachment-item item-orange-red" >
+                    <label style="cursor: pointer"><span class="ps-icon fa-solid fa-file-lines"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
+                    <span class="d-none d-sm-block d-md-none d-xl-block">
+                      Files
+                    </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="user-attachment-item item-orange-red createOfferForId" data-bs-toggle="modal" data-bs-target="#customOrderModal">
+                    <label style="cursor: pointer"><span class="ps-icon fa-solid fa-gift"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
+                    <span class="d-none d-sm-block d-md-none d-xl-block">
+                      Offer
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-    </div>
-        <label><span class="fas fa-plus-circle text-primary"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
+        {{-- <label><span class="fas fa-file text-primary"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label> --}}
         <button class="emoji-button"></span><span class="fas fa-smile text-primary"></button>
-        <span class="resetForm"><i class="fa fa-paint-brush text-primary"></i></span>
-        <span class="forPaste"><i class="fa fa-save text-primary"></i></span>
+        {{-- <span class="resetForm"><i class="fa fa-paint-brush text-primary"></i></span> --}}
+        {{-- <span class="forPaste"><i class="fa fa-save text-primary"></i></span> --}}
         <textarea readonly='readonly' name="message" class="m-send app-scroll text-default" placeholder="Type a message.."></textarea>
         <button disabled='disabled' class="send-button"><span class="fas fa-paper-plane text-primary"></span></button>
     </form>
    
-      <a class="createOfferForId btn btn-sm btn-primary w-auto mb-2" style="float: right;" data-bs-toggle="modal" data-bs-target="#customOrderModal">Create An Offer</a>
+      {{-- <a class="createOfferForId btn btn-sm btn-primary w-auto mb-2" style="float: right;" data-bs-toggle="modal" data-bs-target="#customOrderModal">Create An Offer</a> --}}
 
 
 </div>

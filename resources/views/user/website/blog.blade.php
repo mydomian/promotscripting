@@ -39,7 +39,7 @@
               <div class="card-body" style="height: 100%; overflow:auto">
                 <a href="#" class="latest-post--img">
                   <img
-                    src="{{ asset('/storage/blog/'.$latestFirst->image) }}"
+                    src=" @if(isset($latestFirst->image)) {{ asset('/storage/blog/'.$latestFirst->image) }} @else @endif"
                     alt="Post"
                     width="600"
                     height="700"
@@ -52,14 +52,13 @@
                       href="#"
                       class="link-dark text-decoration-none line-clamp line-clamp-3"
                     >
-                      {{ $latestFirst->title }}
+                      {{ $latestFirst->title ?? "" }}
                     </a>
                   </h3>
                   <small class=""><strong>Writer:</strong> {{ $latestFirst->user->name ?? "" }}</small><br>
                   <small class=""><strong>Category:</strong> {{ $latestFirst->category->category_name ?? ""}}</small><br>
                   <small class=""><strong>Subcategory:</strong> {{ $latestFirst->subCategory->category_name ?? ""}}</small><br>
-                  <small class=""><strong>Sub Subcategory:</strong> {{ $latestFirst->subSubCategory->category_name ?? ""}}</small><br><br>
-                  <small class="published-date">{{ date('d F Y', strtotime($latestFirst->created_at)); }}</small><br>
+                  <small class="published-date">{{ date('d F Y', strtotime($latestFirst->created_at ?? "")) }}</small><br>
                   <div class="peraAppend overflow-hidden">
                     <p class="text-body-tertiary latestFirstDes">
                       {{ $latestFirst->description ?? "" }}
@@ -76,13 +75,13 @@
               <div class="card-body" style="height: 100%; overflow:auto">
                 <a href="#" class="latest-post--img">
                   <img
-                    src="{{ asset('/storage/blog/'.$blog->image) }}"
+                    src="@if(isset($blog->image)){{ asset('/storage/blog/'.$blog->image) }} @else @endif"
                     alt="Post"
                     width="600"
                     height="700"
                     class="img-fluid object-fit-cover"
                   />
-                  <span class="related-tag">{{ $blog->subSubCategory ? $blog->subSubCategory->category_name : "" }}</span>
+                  <span class="related-tag">{{ $blog->subCategory ? $blog->subCategory->category_name : "" }}</span>
                 </a>
                 <div>
                   <h6 class="h6 fw-bold">

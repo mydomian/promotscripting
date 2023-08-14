@@ -71,32 +71,23 @@
                             <small class="form-label">Category</small>
                             <select name="category_id" class="form-control bg-body opacity-50">
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}" @if($category->id == $prompt->subSubCategory->subCategory->category->id) selected @endif disabled>{{ $category->category_name }}</option>
+                                    <option value="{{ $category->id }}" @if($category->id == $prompt->subCategory->category->id) selected @endif disabled>{{ $category->category_name }}</option>
                                 @endforeach
                             </select>
                             <small class="form-label">Subcategory</small>
                             <select name="sub_category_id" class="form-control bg-body opacity-50">
                                 @foreach ($subCategories as $subCategory)
-                                    <option value="{{ $subCategory->id }}" @if($subCategory->id == $prompt->subSubCategory->subCategory->id) selected @endif disabled>{{ $subCategory->category_name }}</option>
+                                    <option value="{{ $subCategory->id }}" @if($subCategory->id == $prompt->subCategory->id) selected @endif disabled>{{ $subCategory->category_name }}</option>
                                 @endforeach
                             </select>
-                            <small class="form-label">Sub Subcategory</small>
-                            <select name="sub_sub_category_id" class="form-control bg-body opacity-50">
-                                @foreach ($subCategories as $subCategory)
-                                    <option disabled>{{ $subCategory->category_name }}</option>
-                                    @foreach ($subCategory['subSubCategories'] as $subSubCategory)
-                                    <option value="{{ $subSubCategory->id }}" @if($subSubCategory->id == $prompt->sub_sub_category_id) selected @endif>{{ $subSubCategory->category_name }}</option>
-                                        
-                                    @endforeach
-                                @endforeach
-                            </select>
+                            
                             <small class="form-label">Instruction</small>
                             <textarea name="instructions" class="form-control bg-body opacity-50 w-100 mt-2 @error('instructions') is-invalid @enderror" placeholder="Enter Instructions">{{$prompt->instructions}}</textarea>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6  d-flex h-100">
                         <div class="w-100 py-5 px-2 m-0" >
-                            @if($prompt->subSubCategory->subCategory->category->id == 1)
+                            @if($prompt->subCategory->category->id == 1)
                                 <small class="form-label">Prompt Testing</small>
                                 <textarea name="prompt_testing" class="form-control bg-body opacity-50 w-100 mt-2 @error('prompt_testing') is-invalid @enderror" placeholder="Enter Prompt Testing">{{ $prompt->prompt_testing }}</textarea>
                                 <small class="form-label">Preview Input</small>
@@ -107,7 +98,7 @@
                             
                             
                         
-                            @if($prompt->subSubCategory->subCategory->category->id == 5 )
+                            @if($prompt->subCategory->category->id == 5 )
                                 <small class="form-label">Mid Journey Text</small>
                                 <textarea name="midjourney_text" class="form-control bg-body opacity-50 w-100 mt-2 @error('midjourney_text') is-invalid @enderror" placeholder="Enter Mid Journey Text">{{$prompt->midjourney_text}}</textarea>
                                 <small class="form-label">Mid Journey Profile</small>
@@ -117,7 +108,7 @@
                             @endif 
 
 
-                            @if($prompt->subSubCategory->subCategory->category->id == 6 )
+                            @if($prompt->subCategory->category->id == 6 )
                                 <small class="form-label">Model</small>
                                 <select name="model_version" class="form-control bg-body opacity-50 @error('model_version') is-invalid @enderror" id="">
                                     <option class="bg-body" value="">Select Your Model</option>
@@ -167,14 +158,14 @@
                                 <input type="checkbox" class="form-check-input @error('clip') is-invalid @enderror" value="1" id="" name="clip" checked>
                             @endif 
 
-                            @if($prompt->subSubCategory->subCategory->category->id == 7 )
+                            @if($prompt->subCategory->category->id == 7 )
                                 <small class="form-label">Images (images*6)</small>
                                 <input type="file" name="images[]" class="form-control bg-body opacity-50 " accept="image/*" multiple>
                                 <small class="form-label">Image Verification Links</small>
                                 <input type="text" class="form-control bg-body opacity-50 @error('image_verification') is-invalid @enderror" placeholder="Enter Image Verification Link" value="{{ $prompt->image_verification }}" name="image_verification">
                             @endif
 
-                        @if($prompt->subSubCategory->subCategory->category->id == 8 )
+                        @if($prompt->subCategory->category->id == 8 )
                             <small class="form-label">Images (images*6)</small>
                             <input type="file" name="images[]" class="form-control bg-body opacity-50" accept="image/*" multiple>
                         @endif

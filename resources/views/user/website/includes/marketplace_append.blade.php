@@ -37,7 +37,7 @@
                         $slug = Str::slug($marketPlace->title,'-');
                     @endphp
                     <img src="@if($marketPlace->image) {{ asset('/storage/products/thumbnil/'.$marketPlace->image) }} @else https://picsum.photos/200/300 @endif" alt="{{ $slug }}" class="img-fluid w-100 rounded-3 object-fit-cover"/>
-                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $marketPlace->subSubCategory->subCategory->category ? $marketPlace->subSubCategory->subCategory->category->category_name : $marketPlace->subSubCategory->category_name }}</span>
+                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $marketPlace->subCategory->category ? $marketPlace->subCategory->category->category_name : '-' }}</span>
                     </a>
                    
                         <div class="d-flex justify-content-between">
@@ -54,8 +54,7 @@
                         </div>
                        <div class="d-flex justify-content-strat">
                                 <div>
-                                    <small class="text-secondary">{{$marketPlace->subSubCategory->subCategory->category->category_name}}</small>
-                                    <small class="text-secondary mx-2">{{$marketPlace->subSubCategory->subCategory->category_name}}</small>
+                                    <small class="text-secondary mx-2">{{$marketPlace->subCategory->category_name}}</small>
                                 </div>
                             </div>
                     

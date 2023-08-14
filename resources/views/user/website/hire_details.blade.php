@@ -23,7 +23,7 @@
                 </div>
                 <small class="p-0 text-white" style="float: right;margin-top:-35px;"><a href="@if(Auth::check()) {{ url('promptscripting-chat',$user->id) }} @else {{ route('user.login') }} @endif" class="btn btn-sm btn-primary">Message</a></small>
                 <div class="text-white" style="margin-top:20px;">
-                    <h6>@ {{ strstr( $user->name . ' ', ' ', true ); }}</h6>
+                    <h6>@ {{ strstr( $user->name . ' ', ' ', true ); }} &nbsp;&nbsp;&nbsp;<img src="{{ $countryFlagUrl }}" alt="HappyFace" width="32px" height="32px"></h6> 
                     <small>Is artificial intelligence less than our intelligence?</small>
                     <div class="d-flex d-inline">
                         <small><i class="fa fa-eye text-primary"></i> {{ userAllProductView($user->id) }} &nbsp;&nbsp;&nbsp;</small>
@@ -34,7 +34,7 @@
                     <small>@ {{ strstr( $user->name . ' ', ' ', true ); }} Charges $49.99 cumtom prompt</small>
                     <div class="d-flex d-inline mt-2">
                         @foreach (userPromotCategoriesWise($user->id) as $item)
-                            <small class="badge rounded-pill bg-primary">{{ $item->subSubCategory->subCategory->category->category_name }}</small> &nbsp;&nbsp;&nbsp;
+                            <small class="badge rounded-pill bg-primary">{{ $item->subCategory->category->category_name }}</small> &nbsp;&nbsp;&nbsp;
                         @endforeach
                     </div>
                 </div>
@@ -45,9 +45,9 @@
                             $userCategoryWisePrompts = App\Models\Product::where(['status'=>'active','user_id'=>$user->id])->get()->unique('is_type');
                         @endphp
                         @forelse ($userCategoryWisePrompts as $item)
-                            <h6 class="text-primary mt-3">MOST POPULAR {{ $item->subSubCategory->subCategory->category->category_name }}</h6>
+                            <h6 class="text-primary mt-3">MOST POPULAR {{ $item->subCategory->category->category_name }}</h6>
                             <div class="search-profiles-slider">
-                                @forelse (userPromotSubCategoryWise($user->id, $item->sub_sub_category_id) as $prompt)
+                                @forelse (userPromotSubCategoryWise($user->id, $item->sub_category_id) as $prompt)
                                     <div class="slick-slide gpa-0">
                                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="card search-profile--card ">
                                             <div class="card-body bg-image" style="background-color: #c4c4c4; background-image: url('@if(isset($prompt->image)) {{ asset('/storage/products/thumbnil/'.$prompt->image)}} @endif');">

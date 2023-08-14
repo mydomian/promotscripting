@@ -48,36 +48,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-12 d-flex flex-column text-white mb-3">
-                                    <label for="" class="form-label">Prompt Sub Type</label>
-                                    <p class="text-secondary">
-                                        Which sub type is that GPT?
-                                    </p>
-                                    <i class="text-secondary"><small>Select what sub type of GPT prompt this is.</small></i>
-                                    <div class="col-md-12">
-                                        <select name="sub_sub_category_id"
-                                            class="form-control mt-2 bg-transparent form-select @error('sub_sub_category_id')is-invalid  @enderror"
-                                            id="">
-                                            <option class="bg-body" value="" selected>Select sub sub category</option>
-                                            @if (!empty($subcategories))
-                                                @foreach ($subcategories as $subcategory)
-                                                    <option value="" disabled>{{ $subcategory->category_name }}
-                                                    </option>
-                                                    @if (!empty($subcategory['subSubCategories']))
-                                                        @foreach ($subcategory['subSubCategories'] as $subSubcategory)
-                                                            <option class="bg-body" value="{{ $subSubcategory->id }}"> ➥
-                                                                {{ $subSubcategory->category_name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            @endif
-
-                                        </select>
-                                        @error('sub_sub_category_id')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
+                             
                                 <div class="col-md-12 mb-3">
                                     <small class="text-secondary">Copy and paste the JSON GPT prompt file from the OpenAI
                                         playground.
@@ -242,37 +213,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-12 d-flex flex-column text-white mb-3">
-                                    <label for="" class="form-label">Prompt sub sub Type</label>
-                                    <p>
-                                        What type of GPT prompt is this?
-                                    </p>
-                                    <i class="text-secondary"><small>Select what type of GPT prompt this is.</small></i>
-                                    <div class="col-md-12">
-                                        <select name="sub_sub_category_id"
-                                            class="form-control mt-2 bg-transparent form-select @error('sub_sub_category_id')is-invalid  @enderror"
-                                            id="">
-                                            <option class="bg-body" value="" selected>Select sub sub category
-                                            </option>
-                                            @if (!empty($subcategories))
-                                                @foreach ($subcategories as $subcategory)
-                                                    <option value="" disabled>{{ $subcategory->category_name }}
-                                                    </option>
-                                                    @if (!empty($subcategory['subSubCategories']))
-                                                        @foreach ($subcategory['subSubCategories'] as $subSubcategory)
-                                                            <option class="bg-body" value="{{ $subSubcategory->id }}"> ➥
-                                                                {{ $subSubcategory->category_name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                            @endif
-
-                                        </select>
-                                        @error('sub_sub_category_id')
-                                            <small class="text-danger">{{ $message }}</small>
-                                        @enderror
-                                    </div>
-                                </div>
+                              
                                 <div class="col-md-12 d-flex flex-column text-white mb-3">
                                     <label for="" class="form-label"><span class="text-danger">*</span>
                                         Prompt</label>

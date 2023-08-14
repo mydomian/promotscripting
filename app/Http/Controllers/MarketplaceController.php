@@ -17,54 +17,41 @@ class MarketplaceController extends Controller
         
         $categories = Category::where('status','active')->latest()->get();
         $subCategories = SubCategory::latest()->get();
-        $subSubCategories = SubSubCategory::latest()->get();
-        $marketPlaces = Product::with('user','subSubCategory')->where('status','active')->paginate(100);
+        $marketPlaces = Product::with('user','subCategory')->where('status','active')->paginate(100);
 
         if($request->isMethod('post')){
-            
-            // if($request->filterType == "tagFilter"){
-            //     $product_ids = Tag::where( 'tag', $request->tag_name)->select('product_id')->get();
-            //     $marketPlaces = Product::with('user', 'subSubCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
-            //     return view('user.website.marketplace',compact('marketPlaces','categories','subCategories','subSubCategories'));
-            // }else
+           
             if($request->filterType == "priceFilter"){
                 $marketPlaces = Product::where('status','active')->whereBetween('price', [$request->price_start, $request->price_end])->paginate(50);
             }elseif($request->filterType == 'categoryFilter'){
                $subCategories = [];
-               $subSubCategories = [];
                if(isset($request->category_id) && !empty($request->category_id)){
                     $subCategories = SubCategory::whereIn('category_id',$request->category_id)->get(['id']);
-                    $subSubCategories = SubSubCategory::whereIn('sub_category_id',$subCategories)->get(['id']);
-                    $marketPlaces = Product::with('user','subSubCategory')->whereIn('sub_sub_category_id',$subSubCategories)->where('status','active')->paginate(50);
+                    $marketPlaces = Product::with('user','subCategory')->whereIn('sub_category_id',$subCategories)->where('status','active')->paginate(50);
                }
             }elseif($request->filterType == 'subCategoryFilter'){
                 $subSubCategories = [];
                 if(isset($request->sub_category_id) && !empty($request->sub_category_id)){
-                     $subSubCategories = SubSubCategory::whereIn('sub_category_id',$request->sub_category_id)->get(['id']);
-                     $marketPlaces = Product::with('user','subSubCategory')->whereIn('sub_sub_category_id',$subSubCategories)->where('status','active')->paginate(50);
-                }
-            }elseif($request->filterType == 'subSubCategoryFilter'){
-                if(isset($request->sub_sub_category_id) && !empty($request->sub_sub_category_id)){
-                    $marketPlaces = Product::with('user','subSubCategory')->whereIn('sub_sub_category_id',$request->sub_sub_category_id)->where('status','active')->paginate(50);
+                     $marketPlaces = Product::with('user','subCategory')->where('sub_category_id',$request->sub_category_id)->where('status','active')->paginate(50);
                 }
             }elseif($request->filterType == 'high'){
-                $marketPlaces = Product::with('user','subSubCategory')->where('status','active')->orderBy('price','DESC')->paginate(50);
+                $marketPlaces = Product::with('user','subCategory')->where('status','active')->orderBy('price','DESC')->paginate(50);
             }elseif($request->filterType == 'low'){
-                $marketPlaces = Product::with('user','subSubCategory')->where('status','active')->orderBy('price','ASC')->paginate(50);
+                $marketPlaces = Product::with('user','subCategory')->where('status','active')->orderBy('price','ASC')->paginate(50);
             }else{
-                $marketPlaces = Product::with('user','subSubCategory')->where('status','active')->paginate(50);
+                $marketPlaces = Product::with('user','subCategory')->where('status','active')->paginate(50);
             }
             $marketPlaces = $marketPlaces->appends($request->all());
-            return view('user.website.includes.marketplace_append',compact('marketPlaces','categories','subCategories','subSubCategories'));
+            return view('user.website.includes.marketplace_append',compact('marketPlaces','categories','subCategories'));
         }
 
         $marketPlaces = $marketPlaces->appends($request->all());
-        return view('user.website.marketplace',compact('marketPlaces','categories','subCategories','subSubCategories'));
+        return view('user.website.marketplace',compact('marketPlaces','categories','subCategories'));
     }
 
     public function marketplaceDetails($slug, $product){
         viewAdd(userLocalIp(),$product);
-        $product = Product::with('user','subSubCategory','productImages','tags')->find($product);
+        $product = Product::with('user','subCategory','productImages','tags')->find($product);
         return view('user.website.marketplace_details',compact('product'));
     }
 
