@@ -47,8 +47,8 @@ function userPromotCategoriesWise($userId){
     $prompts = Product::where(['user_id'=>$userId,'status'=>'active'])->get()->unique('is_type');
     return $prompts;
 }
-function userPromotSubCategoryWise($userId,$subSubCategoryId){
-    $prompts = Product::where(['user_id'=>$userId,'status'=>'active','sub_sub_category_id'=>$subSubCategoryId])->get();
+function userPromotSubCategoryWise($userId,$subCategoryId){
+    $prompts = Product::where(['user_id'=>$userId,'status'=>'active','sub_category_id'=>$subCategoryId])->get();
     return $prompts;
 }
 function viewAdd($userIp,$productId){
@@ -70,6 +70,12 @@ function ProductViews($productId){
 function totalPrompt(){
     return Product::where('user_id',Auth::id());
 }
+function totalScriptPrompt(){
+    return Product::where(['status'=>'active'])->count();
+}
+function totalScriptUser(){
+    return User::count();
+}
 function totalSaleAmount(){
     return Order::where('seller_id',Auth::id())->where('is_paid','paid')->where('status','approve')->sum('price');
 }
@@ -87,74 +93,55 @@ function createNotification($typeId, $type){
     ]);
     return $notification;
 }
-
-
-
 function favourites()
 {
     return  Favourite::with('product')->where('user_ip', userLocalIp())->latest()->paginate(20);
 }
-
 function prompts()
 {
-    return  Product::with('user','subSubCategory')->where('user_id', Auth::id())->latest()->get();
+    return  Product::with('user','subCategory')->where('user_id', Auth::id())->latest()->get();
 }
-
 function purchases()
 {
     return \App\Models\Order::with('product')->where('user_id', Auth::id())->where('is_paid','paid')->where('status','approve')->latest()->get();
 }
-
 function sales()
 {
     return \App\Models\Sale::with('order','product')->where('seller_id', Auth::id())->latest()->get();
 }
-
-
 function systemSetting()
 {
     return Setting::first();
 }
-
 function userSetting()
 {
     return NotificationSetting::where('user_id',Auth::id())->first();
 }
-
 function cartCount(){
     return Cart::where('user_ip', userLocalIp())->count();
 }
-
 function checkCart($id){
     return Cart::Where(['user_ip'=>userLocalIp(),'product_id'=>$id])->exists();
 }
-
 function cart(){
     return Cart::with('product')->where('user_ip', userLocalIp())->latest()->get();
 }
-
 function checkPurchaseOrder($product_id){
     $order = Order::with('product')->where(['user_id'=>Auth::id(),'product_id'=>$product_id,'status'=>'approve','is_paid'=>'paid','is_order'=>'regular'])->whereNotNull('transaction_id')->first();
     return $order;
 }
-
-
 function totalProduct(){
     return Product::where('status','active')->count();
 }
-
 function totalSale(){
     return Sale::count();
 }
-
 function totalUser(){
     return User::where('is_admin','user')->count();
 }
-
 function totalOrder(){
     return Order::where('is_paid','paid')->count();
 }
-
 function payoutDetails()
 {
         $secret_key = PaymentInfo::first()->secret_key;

@@ -45,10 +45,7 @@ $system = App\Models\Setting::first();
                             <li class="nav-item">
                                 <a href="{{ route('subcategories.index') }}" class="nav-link @yield('subcategories')">Sub Categories</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('subsubcategories.index') }}" class="nav-link @yield('subsubcategories')">Sub Sub Categories</a>
-
-                            </li>
+                           
                         </ul>
                     </div>
                 </li>

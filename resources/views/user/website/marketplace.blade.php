@@ -151,38 +151,7 @@
                     </form>
                   </div>
                 </div>
-                <hr class="ps-hr" />
-                <div class="marketplace--sidebar-block">
-                  <header
-                    class="d-flex gap-3 align-items-start justify-content-between py-3"
-                    style="cursor: pointer"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#collapseMarketplaceItem4"
-                    aria-expanded="false"
-                    aria-controls="collapseMarketplaceItem4"
-                  >
-                    <h6>Sub Subcategories</h6>
-                    <i class="fa-solid fa-chevron-up icon"></i>
-                  </header>
-                  <div class="collapse show" id="collapseMarketplaceItem4">
-                    <form action="#" method="post">
-                      <div class="d-flex flex-column gap-1">
-                        
-                        @forelse ($subSubCategories as $subSubCategory)
-                          <div class="ps-marketplace--item d-flex align-items-center justify-content-between">
-                            <div class="form-check">
-                              <input class="form-check-input subSubCategoryFilter" name="subSubCategory[]" type="checkbox" value="{{ $subSubCategory->id }}" id="subSubCategory{{ $subSubCategory->id }}"
-                              />
-                              <label class="form-check-label text-white" style="font-size: 12px;" for="subSubCategory{{ $subSubCategory->id }}">{{ $subSubCategory->category_name ?? "" }}</label>
-                            </div>
-                          </div>
-                        @empty
-                        <small class="text-white">No data found</small>
-                        @endforelse
-                      </div>
-                    </form>
-                  </div>
-                </div>
+               
               </div>
             </aside>
           </div>

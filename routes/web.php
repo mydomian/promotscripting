@@ -9,7 +9,6 @@ use App\Http\Controllers\Admin\PromptController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StripeController as AdminStripeController;
 use App\Http\Controllers\Admin\SubCategoryController;
-use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GoogleController;
@@ -131,7 +130,6 @@ Route::prefix('/admin')->group(function (){
         Route::resources([
             '/categories' => CategoryController::class,
             '/subcategories' => SubCategoryController::class,
-            '/subsubcategories' => SubSubCategoryController::class,
             '/blogs' => BlogController::class,
         ]);
 
@@ -167,7 +165,7 @@ Route::prefix('/admin')->group(function (){
         //deleted route
         Route::get('/category-delete/{category}',[CategoryController::class,'destroy'])->name('admin.categoryDestroy');
         Route::get('/sub-category-delete/{subcategory}',[SubCategoryController::class,'destroy'])->name('admin.subCategoryDestroy');
-        Route::get('/sub-sub-category-delete/{subsubcategory}',[SubSubCategoryController::class,'destroy'])->name('admin.subSubCategoryDestroy');
+       
         Route::get('/blog-delete/{blog}',[BlogController::class,'destroy'])->name('admin.blogDestroy');
         
 

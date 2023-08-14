@@ -37,7 +37,7 @@
                         $slug = Str::slug($prompt->title,'-');
                     @endphp
                     <img src="@if($prompt->image) {{ asset('/storage/products/thumbnil/'.$prompt->image) }} @else https://picsum.photos/200/300 @endif" alt="{{ $slug }}" class="img-fluid w-100 rounded-3 object-fit-cover"/>
-                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $prompt->subSubCategory->subCategory->category ? $prompt->subSubCategory->subCategory->category->category_name : $prompt->subSubCategory->category_name }}</span>
+                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $prompt->subCategory->category ? $prompt->subCategory->category->category_name : $prompt->subCategory->category_name }}</span>
                     </a>
                     <div class="d-flex justify-content-between gap-3">
                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($prompt->title,'-'),'product'=>$prompt->id]) }}" class="link-light text-decoration-none">{{ Str::limit($prompt->title,15) ?? "" }}</a>

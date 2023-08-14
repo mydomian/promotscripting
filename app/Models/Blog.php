@@ -22,8 +22,5 @@ class Blog extends Model
         return $this->belongsTo(SubCategory::class);
     }
 
-    public function subSubCategory(){
-        return $this->belongsTo(SubSubCategory::class);
-    }
 
 }

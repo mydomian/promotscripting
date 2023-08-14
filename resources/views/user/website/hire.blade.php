@@ -7,7 +7,164 @@
 @section('content')
 <main class="flex-shrink-0 bg-body">
     <!-- Hero Marketplace -->
-    <section class="hero-marketplace page-header">
+
+
+
+
+    <section class="hero-hire page-header pb-xl-0 overflow-hidden">
+        <div
+          class="bg-holder bg-holder--lg"
+          style="background-image: url('/storage/assets/images/home/hero-home-bg.png')"
+        ></div>
+        <div class="bg-holder bg-holder-overlay"></div>
+        <!--// bg-holder  -->
+        <div class="container">
+          <div class="row gy-5 gx-5">
+            <div class="col-sm-9 col-md-7 col-lg-4">
+              <h1 class="text-white fw-bold mb-4 bubble-gradient">
+                <span class="fw-bolder">
+                  Hire <br />
+                  Dedicated <br />
+                  Engineers
+                </span>
+              </h1>
+              <p class="text-white fs-5">
+                Our AI-backed Intelligent Talent Cloud helps you source, vet,
+                match, and manage the world's best software developers remotely.
+              </p>
+              <div class="d-grid gap-3 pt-4 mt-4 pb-xl-5 mb-xl-5">
+                <a href="{{ route('marketplace') }}" class="btn btn-lg btn-primary text-uppercase">
+                  <span class="btn-text">Find A Prompt</span>
+                  <span class="btn-trigger bg-black text-white">Go</span>
+                </a>
+                <a
+                  href="{{ route('sell.index') }}"
+                  class="btn btn-lg btn-primary-reverse text-uppercase"
+                >
+                  <span class="btn-text">Sell A Prompt</span>
+                  <span class="btn-trigger bg-black text-white">Go</span>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="row gx-2 gx-sm-3 h-100">
+                <div class="col-md-1"></div>
+                <div class="col-4 col-md-4 col-lg-5">
+                  <div class="horo-hire--item">
+                    <div
+                      class="bg-holder"
+                      style="
+                        background-image: url('/storage/assets/images/hire/hero-hire-1.png');
+                      "
+                    ></div>
+                    <!--// bg-holder  -->
+                    <p
+                      class="overlay-text text-uppercase fw-semibold"
+                      style="color: #e5e5e5"
+                    >
+                      easy sign up
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 col-md-3">
+                  <div class="horo-hire--item">
+                    <div
+                      class="bg-holder"
+                      style="
+                        background-image: url('/storage/assets/images/hire/hero-hire-2.png');
+                      "
+                    ></div>
+                    <!--// bg-holder  -->
+                    <p
+                      class="overlay-text text-uppercase fw-semibold"
+                      style="color: #e5e5e5"
+                    >
+                      {{ totalScriptUser() }}+ talents
+                    </p>
+                  </div>
+                </div>
+                <div class="col-4 col-md-3">
+                  <div class="horo-hire--item">
+                    <div
+                      class="bg-holder"
+                      style="
+                        background-image: url('/storage/assets/images/hire/hero-hire-3.png');
+                      "
+                    ></div>
+                    <!--// bg-holder  -->
+                    <p
+                      class="overlay-text text-uppercase fw-semibold"
+                      style="color: #e5e5e5"
+                    >
+                    {{ totalScriptPrompt() }}+ jobs
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+<!-- Features Prompts -->
+<section class="prompts-section section">
+  <div class="container">
+    <h2 class="text-center text-white text-capitalize mb-4">
+      Top GPT
+      <span class="fw-semibold text-lime-green">Prompts</span> Scripts 
+    </h2>
+    <p class="text-white text-center mb-5">
+      Find the very best ChatGPT Prompt Scripts for your Project today 
+    </p>
+    <nav class="isotope-navbar mb-5">
+      <ul
+        class="navbar-nav flex-row flex-wrap justify-content-center isotope-navbar-nav prompt-isotope-navbar-nav"
+      >
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="*">
+            Show All
+          </a>
+        </li>
+        @foreach ($categories as $item)
+            <li class="nav-item">
+              <a class="nav-link" href=".filter{{ $item->id }}">{{ $item->category_name }} </a>
+            </li>
+        @endforeach
+      </ul>
+    </nav>
+    <div class="prompt-isotope-grid">
+
+      @foreach ($categories as $item)
+
+        @php
+        $subCategories = App\Models\SubCategory::where('category_id',$item->id)->select('id')->get();
+        $products = App\Models\Product::whereIn('sub_category_id',$subCategories)->where('status','active')->inRandomOrder()->limit(20)->get();
+        @endphp
+        @foreach($products as $product)
+          <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($product->title,'-'),'product'=>$product->id]) }}">
+            <div class="prompt-isotope--item filter{{$item->id}}" style="background-color: #222222; background-image: url('{{ asset('/storage/products/thumbnil/'.$product->image) }}');background-repeat: no-repeat;background-size: 100%;">
+              <div class="prompt-grid--header rounded-0 text-gray-light bg-black bg-opacity-50">
+                <h6 class="fw-normal">⛵ {{ $product->subCategory->category->category_name ?? '-' }}</h6>
+                <p class="mb-0">{{ $product->title ?? '-' }}</p>
+              </div>
+           </div>
+          </a>
+        @endforeach
+      @endforeach
+      
+
+
+    </div>
+  </div>
+</section>
+<!-- Features Prompts -->
+
+    {{-- <section class="hero-marketplace page-header">
       <div class="bg-holder bg-black bg-opacity-25"></div>
         <div class="container">
             <div class="row">
@@ -61,8 +218,8 @@
             
         </div>
         
-    </div>
-    </section>
+     
+    </section> --}}
     <!-- Hero Marketplace -->
 
     <!-- Marketplace Area -->

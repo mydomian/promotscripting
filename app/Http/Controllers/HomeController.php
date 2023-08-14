@@ -12,13 +12,14 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
     public function home(){
         $setting = Setting::first();
         $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
-        $prompts = Product::with('subSubCategory')->where('status','active')->inRandomOrder()->limit(4)->get();
+        $prompts = Product::with('subCategory')->where('status','active')->inRandomOrder()->limit(4)->get();
         return view('user.website.index',compact('setting','categories','prompts'));
     }
 
@@ -38,7 +39,7 @@ class HomeController extends Controller
     }
 
     public function blog(){
-        $blogs = Blog::with('category','subCategory','subSubCategory')->where('status','active')->latest()->paginate(3);
+        $blogs = Blog::with('category','subCategory')->where('status','active')->latest()->paginate(3);
         return view('user.website.blog',compact('blogs'));
     }
 
@@ -64,10 +65,21 @@ class HomeController extends Controller
         $stablediffusions = Product::with('user')->where(['status'=>'active','is_type'=>'stablediffusion'])->get()->unique('user_id');
         $dalles = Product::with('user')->where(['status'=>'active','is_type'=>'dalle'])->get()->unique('user_id');
         $promptbases = Product::with('user')->where(['status'=>'active','is_type'=>'promptbase'])->get()->unique('user_id');
-        return view('user.website.hire',compact('mostOrders','midjourneys','gpts','stablediffusions','dalles','promptbases'));
+        $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
+        return view('user.website.hire',compact('mostOrders','midjourneys','gpts','stablediffusions','dalles','promptbases','categories'));
+        
     }
 
-    public function publicProfile(User $user){
-        return view('user.website.hire_details',compact('user'));
+    public function publicProfile(Request $request, User $user){
+        $countryFlagUrl = "";
+        $ipv4Address = $request->ip();
+        $response = Http::get("http://ipinfo.io/{$ipv4Address}/json");
+        if ($response->successful()) {
+           $data = $response->json();
+            $countryCode = $data['country'] ?? 'US';
+            $countryFlagUrl = "https://flagsapi.com/{$countryCode}/flat/64.png";
+        }
+     
+        return view('user.website.hire_details',compact('user','countryFlagUrl'));
     }
 }

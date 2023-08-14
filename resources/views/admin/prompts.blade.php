@@ -38,7 +38,6 @@ Prompts
                     <th>User</th>
                     <th>Category</th>
                     <th>Subcategory</th>
-                    <th>Sub Subcategory</th>
                     <th>Title</th>
                     <th>Price</th>
                     <th>Created At</th>
@@ -51,9 +50,8 @@ Prompts
                         <tr>
                             <td>{{ $prompt->id }}</td>
                             <td>{{ $prompt->user->name ?? "" }}</td>
-                            <td>{{ $prompt->subSubCategory->subCategory->category->category_name ?? "" }}</td>
-                            <td>{{ $prompt->subSubCategory->subCategory->category_name ?? "" }}</td>
-                            <td>{{ $prompt->subSubCategory->category_name ?? "" }}</td>
+                            <td>{{ $prompt->subCategory->category->category_name ?? "" }}</td>
+                            <td>{{ $prompt->subCategory->category_name ?? "" }}</td>
                             <td>{{ $prompt->title ?? "" }}</td>
                             <td>{{ $prompt->price ?? "" }}</td>
                             <td>{{ $prompt->created_at->format('Y-m-d') }}</td>
@@ -167,7 +165,7 @@ Prompts
                                     <label class="text-info">Images</label>
                                     <div class="w-100">
                                        @foreach ($images = $prompt->productImages as $image)
-                                           <img src="{{ asset('/storage/products/'.$image->images) }}" alt="prompt-images">
+                                           <img class="img-fluid" src="{{ asset('/storage/products/'.$image->images) }}" alt="prompt-images">
                                        @endforeach
                                     </div>
                                 @endif

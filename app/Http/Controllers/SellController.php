@@ -61,7 +61,7 @@ class SellController extends Controller
         $data['price']          = $request->price;
         $gptEngines = $GPT_ENGINS = ['text-davinci-003','text-davinci-002','text-curie-001','text-babbage-001','text-ada-001','text-davinci-001','davinci-instruct-beta','davinci','curie','babbage','ada'];
         $categories = Category::with('subCategories')->where('status','active')->latest()->get();
-        $subcategories = SubCategory::with('subSubCategories')->get();
+        $subcategories = SubCategory::get();
         return view('user.website.subcategory-select', compact('categories','subcategories','data','gptEngines'));
 
     }
@@ -73,25 +73,11 @@ class SellController extends Controller
     public function store(Request $request)
     {
 
-        //      $request->validate([
-        //     'category_id'           => 'required',
-        //     'sub_category_id'       => 'required',
-        //     'sub_sub_category_id'    => 'required',
-        //     'prompt_file'           => 'required_if:category_id,1|json',
-        //     'prompt_testing'        => 'required_if:category_id,1',
-        //     'gpt_engine'            => 'required_if:category_id,1',
-        //     'preview_input'         =>  'required_if:category_id,1',
-        //     'preview_output'        =>  'required_if:category_id,1',
-        //     'midjourney_text'       => 'required_if:category_id,2',
-        //     'midjourney_profile'    => 'required_if:category_id,2',
-        //     'images'                => 'required_if:category_id,2|array|size:9',
-        //     'instructions'          => 'required|string'
-        // ]);
+        
 
         $validator = Validator::make($request->all(),[
             'category_id'           => 'required',
             'sub_category_id'       => 'required',
-            'sub_sub_category_id'   => 'required',
             'prompt_file'           => 'required_if:category_id,1|json',
             'prompt_testing'        => 'required_if:category_id,1',
             'gpt_engine'            => 'required_if:category_id,1',
@@ -121,7 +107,7 @@ class SellController extends Controller
 
        $product = Product::create([
             'user_id'                  => Auth::id(),
-            'sub_sub_category_id'      => $request->sub_sub_category_id,
+            'sub_category_id'      => $request->sub_category_id,
             'title'                    => $request->title,
             'image'                    => ' ',
             'price'                    => $request->price,

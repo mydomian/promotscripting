@@ -9,62 +9,6 @@
 @section('content')
 <!-- >>>>>>>>>> Main Sections <<<<<<<<< -->
 <main class="flex-shrink-0 bg-body">
-
-
-  {{-- <section class="hero-marketplace page-header">
-    <div class="bg-holder bg-black bg-opacity-25"></div> --}}
-      {{-- <div class="container">
-          <div class="row">
-              <div class="col-md-6 m-auto">
-                <h4 class="text-white fw-bold">
-                  <span class="fw-bolder">
-                    Introducing Prompt<span class="text-primary bubble-gradient"
-                      >Scripting</span
-                    >.ai
-                    <br class="d-none d-sm-block" />
-                    A Revolution in AI <br class="d-none d-sm-block" />
-                    Collaboration
-                  </span>
-                </h4>
-                <p class="text-body-secondary fs-5">
-                  Find unique prompts to work with every project.
-                </p>
-              <div class="d-flex align-items-center gap-1 gap-xl-5 pt-4 mt-4 pt-xxl-2 mt-xl-2">
-                <a href="{{ route('marketplace') }}" class="btn btn-primary">
-                  Find a Prompt
-                  <i class="fa-solid fa-arrow-right-long"></i>
-                </a>
-                <a href="{{ route('sell.index') }}" class="link-light mx-sm-3 home-sell-prompt"> Sell a prompt </a>
-              </div>
-              </div>
-              <div class="col-md-6 mt-sm-4">
-                <div class="top-author-slider">
-                  @foreach ($categories as $item)
-                      <div class="slick-slide">
-                          <a href="{{ route('marketplace') }}" class="card top-author--card">
-                              <div class="top-img-wrapper">
-                              <img
-                                  src="{{ asset('/storage/category_icon/'.$item->category_icon) }}"
-                                  width="420"
-                                  height="240"
-                                  alt="Author Banner"
-                                  class="img-fluid top-banner-img"
-                                  style="aspect-ratio: 420 / 350; object-fit:fill"
-                                  
-                              />
-                              </div>
-                              <small class="text-white text-center mt-2">{{ $item->category_name }}</small>
-                          </a>
-                      </div>
-                  @endforeach
-              </div>
-               
-              </div>
-                
-              </div>
-        </div>
-          
-      </div> --}}
       <section class="hero-home page-header bg-body">
         <div
           class="bg-holder bg-holder--lg"
@@ -113,40 +57,6 @@
                   </div>
                 </div>
               @endforeach
-              {{-- <div class="prompt-grid--item bg-image bg-dark-deep" style="background-image: url('https://images.unsplash.com/photo-1589526261866-ab0d34f8dc19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');">
-                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-50">
-                  <h6 class="fw-normal">⛵ Midjourney</h6>
-                  <p class="mb-0">Abstract Halftone Risograph Prints</p>
-                </div>
-              </div> --}}
-             
-              {{-- <div class="prompt-grid--item bg-image" style="background-image: url('https://images.unsplash.com/photo-1601039727490-458d3e7f2799?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmVlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60');">
-                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-75">
-                  <h6 class="fw-normal">⛵ Midjourney</h6>
-                  <p class="mb-0">Lego Minifigures</p>
-                </div>
-              </div>
-              <div class="prompt-grid--item bg-image" style="background-image: url('https://images.unsplash.com/photo-1572551798500-53e7d9513aa8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGJlZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60');">
-                <div class="prompt-grid--header text-gray-light bg-black bg-opacity-75">
-                  <h6 class="fw-normal">⛵ Midjourney</h6>
-                  <p class="mb-0">Lego Minifigures</p>
-                </div>
-              </div>
-
-              <div class="prompt-grid--item bg-image" style="background-color: #567d70">
-                <div class="propmt-grid--testimonial text-light">
-                  <p>
-                    "You won't regret it. I was amazed at the quality of it. I
-                    am really satisfied with my it."
-                  </p>
-                  <div
-                    class="d-flex align-items-center gap-2 justify-content-between mt-4"
-                  >
-                    <h6 class="fw-bold mb-0">-Nathan-</h6>
-                    <i class="fa-solid fa-quote-right"></i>
-                  </div>
-                </div>
-              </div> --}}
             </div>
           </div>
         </div>
@@ -188,15 +98,17 @@
 
             @php
             $subCategories = App\Models\SubCategory::where('category_id',$item->id)->select('id')->get();
-            $subSubCategories = App\Models\SubSubCategory::whereIn('sub_category_id',$subCategories)->select('id')->get();
             
-            $products = App\Models\Product::whereIn('sub_sub_category_id',$subSubCategories)->where('status','active')->inRandomOrder()->limit(20)->get();
+            // $subSubCategories = App\Models\SubSubCategory::whereIn('sub_category_id',$subCategories)->select('id')->get();
+            
+            $products = App\Models\Product::whereIn('sub_category_id',$subCategories)->where('status','active')->inRandomOrder()->limit(20)->get();
+          
             @endphp
             @foreach($products as $product)
               <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($product->title,'-'),'product'=>$product->id]) }}">
                 <div class="prompt-isotope--item filter{{$item->id}}" style="background-color: #222222; background-image: url('{{ asset('/storage/products/thumbnil/'.$product->image) }}');background-repeat: no-repeat;background-size: 100%;">
                   <div class="prompt-grid--header rounded-0 text-gray-light bg-black bg-opacity-50">
-                    <h6 class="fw-normal">⛵ {{ $product->subSubCategory->subCategory->category->category_name ?? '-' }}</h6>
+                    <h6 class="fw-normal">⛵ {{ $product->subCategory->category->category_name ?? '-' }}</h6>
                     <p class="mb-0">{{ $product->title ?? '-' }}</p>
                   </div>
                </div>
@@ -237,7 +149,7 @@
                 <div
                   class="prompt-grid--header rounded-0 text-gray-light bg-black bg-opacity-50"
                 >
-                  <h6 class="fw-normal">⛵ {{ $prompt->subSubCategory->subCategory->category->category_name }}</h6>
+                  <h6 class="fw-normal">⛵ {{ $prompt->subCategory->category->category_name }}</h6>
                 </div>
               </div>
               <div class="hottest-prompts--desc">

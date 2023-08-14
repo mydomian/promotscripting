@@ -30,8 +30,9 @@
                             @endphp
                             <img src="@if ($product->image) {{ asset('/storage/products/thumbnil/' . $product->image) }} @else https://picsum.photos/200/300 @endif"
                                 alt="{{ $slug }}" class="img-fluid w-100 rounded-2 object-fit-fill" />
+                              
                             <span class="bg-dark  mt-4 py-2 text-white text-center opacity-50"
-                                style="height:auto">{{ $product->subSubCategory->subCategory->category ? $product->subSubCategory->subCategory->category->category_name : $product->subSubCategory->category_name }}</span>
+                                style="height:auto">{{ $product->subCategory->category ? $product->subCategory->category->category_name : '-' }}</span>
                         </a>
                         <h4>{{ $product->title ?? '' }}</h4>
 
@@ -113,19 +114,17 @@
 
                     <div class="col-md-6 col-sm-12">
 
-                        @if ($product->subSubCategory->subCategory->category->id == 1)
+                        @if ($product->subCategory->category->id == 1)
                             <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
                                 <div class="col-12 m-0 p-4 border border-secondary">
                                     <h5>Prompt Details</h5>
                                     {{-- <strong>Category:</strong><br> --}}
                                     <small>
-                                        {{ $product->subSubCategory->subCategory->category->category_name ?? '' }}</small>
+                                        {{ $product->subCategory->category->category_name ?? '' }}</small>
                                     <br><br>
                                     {{-- <strong>Subcategory:</strong><br> --}}
                                     <small>
-                                        {{ $product->subSubCategory->subCategory->category_name ?? '' }}</small><br><br>
-                                    {{-- <strong>Sub Subcategory:</strong><br> --}}
-                                    <small> {{ $product->subSubCategory->category_name ?? '' }}</small><br><br>
+                                        {{ $product->subCategory->category_name ?? '' }}</small><br><br>
                                     {{-- <strong>Prompt Testing:</strong><br> --}}
                                     <small> {{ $product->prompt_testing ?? '' }}</small><br><br>
                                     {{-- <strong>Preview Input:</strong><br> --}}
@@ -136,22 +135,20 @@
                                 </div>
                             </div>
                         @elseif(
-                            $product->subSubCategory->subCategory->category->id == 5 ||
-                                $product->subSubCategory->subCategory->category->id == 6 ||
-                                $product->subSubCategory->subCategory->category->id == 7 ||
-                                $product->subSubCategory->subCategory->category->id == 8)
+                            $product->subCategory->category->id == 5 ||
+                                $product->subCategory->category->id == 6 ||
+                                $product->subCategory->category->id == 7 ||
+                                $product->subCategory->category->id == 8)
                             <div class="row gap-0 chatGpt rounded-2" style="overflow:auto">
                                 <div class="col-12 m-0 p-4 border border-secondary">
                                     <h5>Prompt Details</h5>
                                     {{-- <strong>Category:</strong><br> --}}
                                     <small>
-                                        {{ $product->subSubCategory->subCategory->category->category_name ?? '' }}</small>
+                                        {{ $product->subCategory->category->category_name ?? '' }}</small>
                                     <br><br>
                                     {{-- <strong>Subcategory:</strong><br> --}}
                                     <small>
-                                        {{ $product->subSubCategory->subCategory->category_name ?? '' }}</small><br><br>
-                                    {{-- <strong>Sub Subcategory:</strong><br> --}}
-                                    <small> {{ $product->subSubCategory->category_name ?? '' }}</small><br><br>
+                                        {{ $product->subCategory->category_name ?? '' }}</small><br><br>
                                     @if ($product->midjourney_profile)
                                         {{-- <strong>Profile Link:</strong><br> --}}
                                         <small> {{ $product->midjourney_profile ?? '' }}</small><br><br>
@@ -170,7 +167,7 @@
 
                 <div class="row">
                     <div class="col-sm-12 p-0 m-0 gap-0">
-                        <div class="search-profiles text-white">
+                        <div class="search-profiles text-white mb-5">
                             <div class="container-fluid">
                                 <h6 class="text-primary">More from <a
                                         class="btn btn-primary btn-sm px-3 py-1 text-light">{{ '@' . strstr($product->user->name, ' ', true) ?? '' }}</a>
@@ -210,7 +207,7 @@
 
                             <div class="container-fluid mt-2">
                                 @php
-                                    $marketPlaces = App\Models\Product::where('sub_sub_category_id', $product->sub_sub_category_id)
+                                    $marketPlaces = App\Models\Product::where('sub_category_id', $product->sub_category_id)
                                         ->where('status', 'active')
                                         ->get();
                                 @endphp

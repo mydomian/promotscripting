@@ -36,7 +36,6 @@ Orders
                     <th>Seller</th>
                     <th>Category</th>
                     <th>Subcategory</th>
-                    <th>Sub Subcategory</th>
                     <th>Price</th>
                     <th>Charge</th>
                     <th>Charge Amount</th>
@@ -54,9 +53,8 @@ Orders
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->user->name ?? "" }}</td>
                             <td>{{ $order->product->user->name ?? "" }}</td>
-                            <td>{{ $order->product->subSubCategory->subCategory->category->category_name ?? "" }}</td>
-                            <td>{{ $order->product->subSubCategory->subCategory->category_name ?? "" }}</td>
-                            <td>{{ $order->product->subSubCategory->category_name ?? "" }}</td>
+                            <td>{{ $order->product->subCategory->category->category_name ?? "" }}</td>
+                            <td>{{ $order->product->subCategory->category_name ?? "" }}</td>
                             <td>{{ $order->price ?? "" }}</td>
                             <td>{{ $order->charge_percentage ?? "" }}</td>
                             <td>{{ $order->charge_amount ?? "" }}</td>
@@ -103,18 +101,15 @@ Orders
                                 <br>
                                 <label class="text-info"> Category </label>
                                 <div class="w-100">
-                                    <input type="text" readonly class="form-control" value="{{ $order->product->subSubCategory->subCategory->category->category_name ?? "" }}">
+                                    <input type="text" readonly class="form-control" value="{{ $order->product->subCategory->category->category_name ?? "" }}">
                                 </div>
                                 <br>
                                 <label class="text-info"> Subcategory </label>
                                 <div class="w-100">
-                                    <input type="text" readonly class="form-control" value="{{ $order->product->subSubCategory->subCategory->category_name ?? "" }}">
+                                    <input type="text" readonly class="form-control" value="{{ $order->product->subCategory->category_name ?? "" }}">
                                 </div>
                                 <br>
-                                <label class="text-info"> Sub Subcategory </label>
-                                <div class="w-100">
-                                    <input type="text" readonly class="form-control" value="{{ $order->product->subSubCategory->category_name ?? "" }}">
-                                </div>
+                                
                                 <br>
                                 <label class="text-info"> Title </label>
                                 <div class="w-100">

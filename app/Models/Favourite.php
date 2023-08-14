@@ -12,6 +12,6 @@ class Favourite extends Model
 
     
     public function product(){
-        return $this->belongsTo(Product::class)->with('user','subSubCategory','productImages');
+        return $this->belongsTo(Product::class)->with('user','subCategory','productImages');
     }
 }

@@ -37,7 +37,7 @@
                         $slug = Str::slug($fav->product->title,'-');
                     @endphp
                     <img src="@if($fav->product->image) {{ asset('/storage/products/thumbnil/'.$fav->product->image) }} @else https://picsum.photos/200/300 @endif" alt="{{ $slug }}" class="img-fluid w-100 rounded-3 object-fit-cover"/>
-                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $fav->product->subSubCategory->subCategory->category ? $fav->product->subSubCategory->subCategory->category->category_name : $fav->product->subSubCategory->category_name }}</span>
+                    <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $fav->product->subCategory->category ? $fav->product->subCategory->category->category_name : "-" }}</span>
                     </a>
                     <div class="d-flex justify-content-between gap-3">
                         <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($fav->product->title,'-'),'product'=>$fav->product->id]) }}" class="link-light text-decoration-none">{{ Str::limit($fav->product->title,15) ?? "" }}</a>

@@ -93,7 +93,7 @@
                                                     alt="{{ $slug }}"
                                                     class="img-fluid w-100 rounded-3 object-fit-cover" />
                                                 <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50"
-                                                    style="height: 25px;">{{ $purchase->product->subSubCategory->subCategory->category ? $purchase->product->subSubCategory->subCategory->category->category_name : $purchase->product->subSubCategory->category_name }}</span>
+                                                    style="height: 25px;">{{ $purchase->product->subCategory->category ? $purchase->product->subCategory->category->category_name : "-" }}</span>
                                             </a>
                                             <div class="d-flex justify-content-between gap-3">
                                                 <a href="{{ route('marketplaceDetails', ['slug' => Str::slug($purchase->product->title, '-'), 'product' => $purchase->product->id]) }}"
