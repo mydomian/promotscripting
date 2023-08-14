@@ -10,6 +10,7 @@ use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Setting;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -69,5 +70,24 @@ class HomeController extends Controller
 
     public function publicProfile(User $user){
         return view('user.website.hire_details',compact('user'));
+    }
+
+    public function terms(){
+        return view('user.website.termsOfService');
+    }
+
+    public function search(Request $request){
+        
+        $tags =  explode('#', $request->search);
+      foreach($tags as $tag){
+        $products = Tag::where('tag', 'LIKE', '%'.$tag.'%')->select('product_id')->get();
+      }
+
+        $marketPlaces = Product::whereIn('id', $products)->orWhere('title', 'LIKE', '%'.$request->search.'%')->where('status','active')->get();
+        
+        // $users = User::where('username', 'LIKE', '%'.$request->search.'%' )->where('is_admin','user')->where('status','active')->get();
+       
+
+        return view('user.website.search', compact('marketPlaces'));
     }
 }
