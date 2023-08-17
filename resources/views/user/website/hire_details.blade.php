@@ -27,6 +27,7 @@
                     <small>Is artificial intelligence less than our intelligence?</small>
                     <div class="d-flex d-inline">
                         <small><i class="fa fa-eye text-primary"></i> {{ userAllProductView($user->id) }} &nbsp;&nbsp;&nbsp;</small>
+                        
                         <small><i class="fa fa-heart text-primary"></i> {{ userAllProductFav($user->id) }} &nbsp;&nbsp;&nbsp;</small>
                         <small><i class="fa fa-tags text-primary"></i> {{ totalPromptSell($user->id) }} &nbsp;&nbsp;&nbsp;</small>
                         <small>Joined: {{ $user->created_at->format('d M Y') }}</small>
@@ -45,7 +46,7 @@
                             $userCategoryWisePrompts = App\Models\Product::where(['status'=>'active','user_id'=>$user->id])->get()->unique('is_type');
                         @endphp
                         @forelse ($userCategoryWisePrompts as $item)
-                            <h6 class="text-primary mt-3">MOST POPULAR {{ $item->subCategory->category->category_name }}</h6>
+                            <h6 class="text-primary mt-3">{{ $item->subCategory->category->category_name }}</h6>
                             <div class="search-profiles-slider">
                                 @forelse (userPromotSubCategoryWise($user->id, $item->sub_category_id) as $prompt)
                                     <div class="slick-slide gpa-0">
@@ -80,4 +81,7 @@
   </main>
 @endsection
 @push('scripts')
+<script>
+  
+</script>
 @endpush

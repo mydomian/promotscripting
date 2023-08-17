@@ -412,7 +412,7 @@
     </main>
 @endsection
 @push('scripts')
-<script src='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'></script>
+
 
 <script>
    $(function () {

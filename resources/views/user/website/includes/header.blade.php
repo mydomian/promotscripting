@@ -136,6 +136,16 @@ $system = App\Models\Setting::first();
         text {
             fill: white !important;
         }
+        .profile-avatar .offline-status{
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50rem;
+            position: absolute;
+            top: 80%;
+            left: 90%;
+            transform: translate(-50%, -50%);
+            background-color: #969696;
+        }
     </style>
 </head>
 
