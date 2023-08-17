@@ -111,7 +111,7 @@
                             </div>
                             <div class="card col-sm-10 col-md-5 col-lg-5 monthlySaleChart  marketplace--card rounded">
                                 <div class="card-header  text-white  d-flex justify-content-between">
-                                    <h5 class="card-title text-primary align-self-center">This Month Sell (<span
+                                    <h5 class="card-title text-primary align-self-center">This Month's Sell (<span
                                         class="text-danger">{{'$' . number_format(thisMonthSale()->sum('price'), 2) }}</span>)</h5>
                                     <span class="card-subtitle text-secondary align-self-center">Monthly
                                         sell</span>
