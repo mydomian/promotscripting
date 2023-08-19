@@ -112,6 +112,65 @@ $system = App\Models\Setting::first();
                                     </div>
                                 </div>
                                 <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Profession</small>
+                                        <input type="text" name="profession" value="{{$user->profession}}" class="form-control @error('profession') is-invalid @enderror" placeholder="Enter Profession...">
+                                        @error('profession')
+                                            <small class="text-danger">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Experience</small>
+                                        <input type="number" name="experience" value="{{$user->experience}}" class="form-control @error('experience') is-invalid @enderror" placeholder="Enter Experience...">
+                                        @error('experience')
+                                            <small class="text-danger">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Laguages</small>
+                                        <input type="text" name="language" value="{{$user->language}}" class="form-control @error('language') is-invalid @enderror" placeholder="Enter Language (Example: English, Bangla, Hind...)">
+                                        @error('language')
+                                            <small class="text-danger">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Video</small>
+                                        <input type="file" name="video" class="form-control @error('video') is-invalid @enderror" placeholder="Enter Video..." accept="video/*">
+                                        @error('video')
+                                            <small class="text-danger">{{$message}}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Description</small>
+                                        <textarea name="description" id="" cols="10" rows="5" placeholder="Enter Description..."
+                                                    class="form-control bg-transparent  @error('description') is-invalid @enderror">{{ $user->description ?? "" }}</textarea>
+                                        @error('description')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <small class="form-label">Enter Your Education</small>
+                                        <textarea name="education" id="" cols="10" rows="5" placeholder="Enter Education..."
+                                                    class="form-control bg-transparent  @error('education') is-invalid @enderror">{{ $user->education ?? "" }}</textarea>
+                                        @error('education')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div  class="col-sm-12">
+                                        <small class="form-label">Enter Your Skills</small>
+                                        <input name="tagsinput" class="form-control tagsinput" value="{{old('tagsinput')}}" @error('tagsinput') is-invalid @enderror data-role="tagsinput" style="width:100%;height:auto;">
+                                        @error('tagsinput')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
                                     <div  class="col-sm-6">
                                         <small class="form-label">Enter Your Password</small>
                                         <input type="password" name="password" class="form-control  @error('password') is-invalid @enderror" placeholder="Enter Password...">
@@ -138,3 +197,4 @@ $system = App\Models\Setting::first();
         </div>
       </section>
 @endsection
+

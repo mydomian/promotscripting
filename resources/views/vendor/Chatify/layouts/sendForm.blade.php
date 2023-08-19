@@ -39,16 +39,18 @@
                   </a>
                 </li> --}}
                 <li>
+                  
                   <a href="#" class="user-attachment-item item-orange-red" >
                     <label style="cursor: pointer"><span class="ps-icon fa-solid fa-file-lines"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
                     <span class="d-none d-sm-block d-md-none d-xl-block">
                       Files
                     </span>
                   </a>
-                </li>
+                </li> 
                 <li>
+                 
                   <a href="#" class="user-attachment-item item-orange-red createOfferForId" data-bs-toggle="modal" data-bs-target="#customOrderModal">
-                    <label style="cursor: pointer"><span class="ps-icon fa-solid fa-gift"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chatify.attachments.allowed_images'))}}, .{{implode(', .',config('chatify.attachments.allowed_files'))}}" /></label>
+                    <label style="cursor: pointer"><span class="ps-icon fa-solid fa-gift"></span></label>
                     <span class="d-none d-sm-block d-md-none d-xl-block">
                       Offer
                     </span>

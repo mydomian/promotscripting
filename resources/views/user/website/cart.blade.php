@@ -17,7 +17,9 @@
                         <div class="row g-0">
                           <div class="col-md-4 p-2">
                             <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}">
-                              <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="rounded-2" alt="{{$cart->product->title}}" style="height:172px; width:100%">
+
+                              <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="rounded-2" style="height: 150px;width:100%" alt="{{$cart->product->title}}">
+
                             </a>
                           </div>
                           <div class="col-md-8 p-2">
