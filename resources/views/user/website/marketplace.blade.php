@@ -159,7 +159,9 @@
             <div
               class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3"
             >
-              
+              @if (session()->has('tag_name'))
+                  <p class="text-primary my-2">{{'#'.ucfirst(session()->get('tag_name'))}} Listings</p>
+              @endif
               <div class="d-flex align-items-center gap-2 gap-lg-3 ms-auto">
                 <select class="ps-select ps-select--unstyled filter-price-value">
                     <option value="default">Default</option>
@@ -315,6 +317,9 @@
                   },
                   success: function(res) {
                       if (res.success == true) {
+                        if(res.total > 0){
+                                $(".cart_count").removeClass('d-none')
+                            }
                           $('.cart_count').text(res.total)
                         
                           const Toast = Swal.mixin({

@@ -85,7 +85,7 @@ $system = App\Models\Setting::first();
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            font-size: 12px;
+            font-size: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -101,7 +101,7 @@ $system = App\Models\Setting::first();
             border-radius: 50%;
             width: 20px;
             height: 20px;
-            font-size: 12px;
+            font-size: 15px;
             font-weight: 700;
             display: flex;
             justify-content: center;
@@ -205,14 +205,18 @@ $system = App\Models\Setting::first();
                                 <a class="nav-link" href="{{ url('/promptscripting-chat') }}"> Chat </a>
                             </li>
                         @endauth
+{{-- Cart --}}
+
                         <li class="nav-item" id="cart_menu">
                             <a class="nav-link @yield('cart')" href="{{ route('cart.list') }}"> <i
                                     class="fa-solid fa-cart-shopping fa-lg cart_icon" style="color: #ffffff;"></i></a>
-                            <span class="cart_count">{{ cartCount() ?? 0 }}</span>
+                            <span class="cart_count {{cartCount() == 0 ? 'd-none' : ''}}">{{ cartCount() ?? 0 }}</span>
                         </li>
-                        <li class="nav-item d-none mobile-cart">
+                        {{-- <li class="nav-item d-none mobile-cart">
                             <a class="nav-link" href="{{ route('cart.list') }}">Cart</a>
-                        </li>
+                        </li> --}}
+
+
                         @auth
                             <li class="nav-item logout d-none">
                                 <a class="nav-link" href="{{ route('user.logout') }}"> Log Out </a>
@@ -229,9 +233,11 @@ $system = App\Models\Setting::first();
 
                             <ul class="dropdown-menu bg-dark w-100 ">
                                 <li><a class="dropdown-item text-primary"
-                                        href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"><i
+                                        href="{{ route('public.profile', ['user' => Auth::user()->id]) }}"><i
                                             class="fa fa-user-circle"></i> <small class="mx-1">Public
-                                            Profile</small></a></li>
+                                            Profile</small></a>
+                                            {{-- {{ route('user.profile', ['user' => Auth::user()->id]) }} --}}
+                                </li>
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.dashboard') }}"><i
                                             class="fa-solid fa-dashboard"></i> <small class="mx-1">Dashboard</small></a>
                                 </li>
@@ -304,7 +310,7 @@ $system = App\Models\Setting::first();
                     id="cart_menu1"  style="height: 30px; width:30px">
                     <a  href="{{ route('cart.list') }}"> <i
                             class="fa-solid fa-cart-shopping fa-sm cart_icon" style="color: #9ac6b7;"></i></a>
-                    <span class="cart_count">{{ cartCount() ?? 0 }}</span>
+                    <span class="cart_count {{cartCount() == 0 ? 'd-none' : ''}}">{{ cartCount() ?? 0 }}</span>
                 </div>
 
 

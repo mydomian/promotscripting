@@ -64,5 +64,8 @@
    .monthlySaleChart{
     margin-top: 10px;
    }
+   #profile-cover{
+    height: 200px !important;
+   }
     
 }

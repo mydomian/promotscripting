@@ -333,6 +333,10 @@
                     success: function(res) {
                         if (res.success == true) {
                             $('.cart_count').text(res.total)
+                            console.log(res.total)
+                            if(res.total > 0){
+                                $(".cart_count").removeClass('d-none')
+                            }
                             $('#add_cart').prop('disabled', true)
                             $('#add_cart').addClass('hide')
                             $('.incart').removeClass('hide')

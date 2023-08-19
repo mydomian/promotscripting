@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Setting;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\UserFavourite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -101,5 +102,22 @@ class HomeController extends Controller
        
 
         return view('user.website.search', compact('marketPlaces'));
+    }
+
+    public function personFavourite($user){
+       
+        $user_ip = userLocalIp();
+        $personFavourite = UserFavourite::where(['user_ip' => $user_ip, 'user_id' => $user])->first();
+        if($personFavourite){
+            $personFavourite->delete();
+            return back()->with('success','Removed From Your Favourite User List');
+        }
+
+        UserFavourite::create([
+            'user_ip' => $user_ip,
+            'user_id' => $user
+        ]);
+        
+        return back()->with('success','Added to Favourite User List');
     }
 }
