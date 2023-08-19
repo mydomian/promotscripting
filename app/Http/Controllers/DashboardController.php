@@ -72,6 +72,12 @@ class DashboardController extends Controller
                 'email'      => 'required|email',
                 'phone'     => 'required|string',
                 'address'   => 'required|string',
+                'profession'=> 'required',
+                'experience'=> 'required',
+                'language'  => 'required',
+                'video'     => 'required',
+                'description'=> 'required',
+                'education' => 'required',
                 'password'   => 'nullable',
                 'confirm_password' => 'nullable|same:password',
             ]);
@@ -80,11 +86,18 @@ class DashboardController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->address = $request->address;
+            $user->profession = $request->profession;
+            $user->experience = $request->experience;
+            $user->language = $request->language;
+            $user->description = $request->description;
+            $user->education = $request->education;
+            
            
             if (isset($request->password)) $user->password = Hash::make($request->password);
             if ($request->hasFile('profile')) $this->services->imageDestroy($user->profile_photo_path, 'profile/');
             if ($request->hasFile('profile')) $user->profile_photo_path = $this->services->imageUpload($request->file('profile'), 'profile/');
             if ($request->hasFile('profile')) $user->avatar = $this->services->imageUpload($request->file('profile'), 'profile/');
+            if ($request->hasFile('video')) $user->video = $this->services->imageUpload($request->file('video'), 'profile/');
             $user->save();
             return redirect()->back()->with('success', 'Profile Updated');
         }
@@ -393,8 +406,21 @@ class DashboardController extends Controller
     }
 
     public function fileDawonload($product_id){
+        
         $tempFile = Tempfile::where(['product_id'=>$product_id])->first();
-        $zipPath = storage_path($tempFile->zip_file);
+        $zipPath = storage_path('app/public/'.$tempFile->zip_file);
         return Response::download($zipPath, $tempFile->zip_file)->deleteFileAfterSend(false);
+    }
+
+    public function hireDeveloper(Request $request){
+        $sellers = Product::where(['status'=>'active'])->select('user_id')->get()->unique('user_id');
+        $users = User::whereIn('id',$sellers)->paginate(20);
+        if($request->isMethod('post')){
+            $users = User::where('profession', 'like', '%' . $request->profession . '%')->where('name', 'like', '%' . $request->name . '%')->where('language', 'like', '%' . $request->language . '%')->where('experience', 'like', '%' . $request->experience . '%')->latest()->paginate(20);
+            
+            return view('user.website.hire_developer',compact('users'));
+        }
+        $users = $users->appends($request->all());
+        return view('user.website.hire_developer',compact('users'));
     }
 }

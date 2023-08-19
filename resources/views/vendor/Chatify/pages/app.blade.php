@@ -280,7 +280,7 @@ $system = App\Models\Setting::first();
                         temp.remove();
                         alert("Text Copied");
                       }else{
-                        var message = "<img src='http://127.0.0.1:8000/storage/attachments/"+res.attachment+"'>";
+                        var message = "<img style='width:100%;height:auto' src='http://127.0.0.1:8000/storage/attachments/"+res.attachment+"'>";
                         var temp = $("<input>");
                         $("body").append(temp);
                         temp.val(message).select();

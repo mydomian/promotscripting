@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/core/core.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/flatpickr/flatpickr.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/demo1/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/vendors/core/core.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/vendors/flatpickr/flatpickr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/fonts/feather-font/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/css/demo1/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/admin/assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}"/>
     <style>
         .MyInput {

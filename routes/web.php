@@ -85,6 +85,8 @@ Route::middleware(['user','verified'])->group(function () {
         Route::get('/sales','sales')->name('user.sales');
         Route::get('/purchases','purchases')->name('user.purchases');
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
+        //hire developer
+        Route::match(['get','post'],'/hire-developer','hireDeveloper')->name('user.hireDeveloper');
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
@@ -95,7 +97,6 @@ Route::middleware(['user','verified'])->group(function () {
         
         //data downloads
         Route::get('file-dawonloads/{product}','fileDawonload')->name('user.fileDawonload');
-
 
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
