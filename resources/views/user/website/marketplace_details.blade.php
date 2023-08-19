@@ -74,15 +74,13 @@
                                 <a href="{{route('tag.filter',$tag->tag)}}" class="text-decoration-none">
                                     <span class="badge bg-primary p-2 mb-1" data-id="{{$tag->id}}">{{'#'.$tag->tag}}</span>
                                 </a>
-                                    
-                                
                             @endforeach            
                                 
                         </div>
                         <hr>
                         <p style="text-align: justify;"><small>{{ $product->preview_input }}</small></p>
                         <p style="text-align: justify;"><small>{{ $product->description }}</small></p>
-                        <button class="btn btn-primary mb-3 text-light"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</button>
+                        <a href="{{ route('get.prompt', encrypt($product->id)) }}" class="btn btn-primary mb-3 text-light"><i class="fa fa-dollar" style="font-size:15px"></i>{{ $product->price }}</a>
                         <br>
                         @if (checkPurchaseOrder($product->id))
                             <a href="{{ route('user.fileDawonload', $product->id) }}"

@@ -21,7 +21,12 @@
                 <div style="margin-top:-90px; margin-left:5px; z-index: 1 ">
                     <img src="@if(isset($user->profile_photo_path)) {{ asset('/storage/profile/'.$user->profile_photo_path) }} @else https://picsum.photos/200 @endif"  class="img-fluid object-fit-fill rounded-circle" style="width: 160px; height:160px">
                 </div>
-                <small class="p-0 text-white" style="float: right;margin-top:-35px;"><a href="@if(Auth::check()) {{ url('promptscripting-chat',$user->id) }} @else {{ route('user.login') }} @endif" class="btn btn-sm btn-primary">Message</a></small>
+                <small class="p-0 text-white" style="float: right;margin-top:-35px;">
+                    @auth
+                        <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}" class="btn btn-primary btn-sm text-light">Edit Profile</a>
+                    @endauth
+                    <a href="@if(Auth::check()) {{ url('promptscripting-chat',$user->id) }} @else {{ route('user.login') }} @endif" class="btn btn-sm btn-primary text-light">Message</a>
+                </small>
                 <div class="text-white" style="margin-top:20px;">
                     <h6>@ {{ strstr( $user->name . ' ', ' ', true ); }} &nbsp;&nbsp;&nbsp;<img src="{{ $countryFlagUrl }}" alt="HappyFace" width="32px" height="32px"></h6> 
                     <small>Is artificial intelligence less than our intelligence?</small>
@@ -33,9 +38,9 @@
                         <small>Joined: {{ $user->created_at->format('d M Y') }}</small>
                     </div>
                     <small>@ {{ strstr( $user->name . ' ', ' ', true ); }} Charges $49.99 cumtom prompt</small>
-                    <div class="d-flex d-inline mt-2">
+                    <div class=" mt-2">
                         @foreach (userPromotCategoriesWise($user->id) as $item)
-                            <small class="badge rounded-pill bg-primary">{{ $item->subCategory->category->category_name }}</small> &nbsp;&nbsp;&nbsp;
+                            <small class="badge rounded-pill bg-primary mr-1">{{ $item->subCategory->category->category_name }}</small>
                         @endforeach
                     </div>
                 </div>
