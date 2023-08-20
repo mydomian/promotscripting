@@ -94,7 +94,8 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/prompt-custom-order','promptCustomOrder')->name('user.promptCustomOrder');
         Route::get('/custom-order/success','CustomOrderSuccess');
         Route::get('/message-copytoclickboard/{id}','copyToClickBoard')->name('user.copyToClickBoard');
-        
+        //rating
+        Route::match(['get','post'],'/user-rating','userRating')->name('user.rating');
         //data downloads
         Route::get('file-dawonloads/{product}','fileDawonload')->name('user.fileDawonload');
 

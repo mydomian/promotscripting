@@ -40,7 +40,7 @@ $system = App\Models\Setting::first();
     <link rel="stylesheet" href="{{ asset('storage/website/assets') }}/styles/main.css" />
     <link rel="stylesheet" href="{{ asset('storage/website/assets') }}/styles/main.res.css" />
     <link rel="stylesheet" href="{{ asset('storage/website/assets') }}/styles/style.css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('storage/assets/css/style.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel='stylesheet'
         href='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css'>

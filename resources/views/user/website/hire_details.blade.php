@@ -5,7 +5,16 @@
 @endsection
 @section('profile','active')
 @push('css')
+<style>
+    .checked {
+      color: #c59b08;
 
+    }
+    .star:hover{
+      color: #c59b08;
+      cursor: pointer;
+    }
+  </style>
 @endpush
 
 @section('content')
@@ -29,6 +38,40 @@
                 </small>
                 <div class="text-white" style="margin-top:20px;">
                     <h6>@ {{ strstr( $user->name . ' ', ' ', true ); }} &nbsp;&nbsp;&nbsp;<img src="{{ $countryFlagUrl }}" alt="HappyFace" width="32px" height="32px"></h6> 
+                    
+                    
+                    <div class="d-flex gap-3">
+                        @php
+                            $rating = App\Models\Rating::where(['from_id'=>Auth::id(),'to_id'=>$user->id])->first();
+                            $ratingSum = App\Models\Rating::where('to_id',$user->id)->sum('rating') ;
+                            $ratingCount = App\Models\Rating::where('to_id',$user->id)->count();
+            
+                            if ($ratingCount != 0) {
+                                $ratingAvg = $ratingSum / $ratingCount;
+                            }else{
+                              $ratingAvg = 0;
+                            }
+                        @endphp
+                        @if (isset($rating))
+                          <div>
+                            <?php $count = 1; while ($count <= $rating->rating) { ?>
+                              <span class="star fa fa-star checked" data-id="{{ $user->id }}" value="{{ $rating->rating }}"></span>
+                            <?php $count ++; } ?>
+                          </div> ({{$ratingAvg }})
+                        @else
+                          <div class="rating" userId="{{ $user->id }}">
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="1"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="2"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="3"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="4"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="5"></span>
+                          </div> ({{ $ratingAvg }})
+                        @endif
+                      </div>
+
+
+
+
                     <small>Is artificial intelligence less than our intelligence?</small>
                     <div class="d-flex d-inline">
                         <small><i class="fa fa-eye text-primary"></i> {{ userAllProductView($user->id) }} &nbsp;&nbsp;&nbsp;</small>
@@ -86,7 +129,50 @@
   </main>
 @endsection
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-  
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(".star").on('click',function () {
+                var userId = $(this).data('id');
+                var value = $(this).attr('value');
+               
+                $.ajax({
+                  url:"{{ route('user.rating') }}",
+                  method:"post",
+                  data:{userId:userId,value:value},
+                  success:function (response) {
+                    if(response.status == 'added'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'success',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            location.reload(true);
+                          }
+                        })
+                    }
+                    if(response.status == 'exits'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'warning',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                          }
+                        })
+                      
+                    }
+                  },
+                  error: function(error) {
+                     console.log((error));
+                  }
+                });
+            });
+
+        
+    
 </script>
 @endpush

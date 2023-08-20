@@ -2,6 +2,20 @@
 @section('title')
     Marketplace
 @endsection
+@push('css')
+  <style>
+    .checked {
+      color: #c59b08;
+
+    }
+    .star:hover{
+      color: #c59b08;
+      cursor: pointer;
+    }
+
+
+  </style>
+@endpush
 @section('content')
     <main class="flex-shrink-0 bg-body">
         <!-- Hero Marketplace -->
@@ -69,6 +83,39 @@
                                         productId="{{ $product->id }}"></i> {{ totalFav($product->id) }}</small></li>
 
                         </ul>
+
+
+                        <div class="d-flex gap-3" style="margin-top:-10px; margin-bottom:10px;">
+                            @php
+                                $rating = App\Models\Rating::where(['from_id'=>Auth::id(),'to_id'=>$product->user->id])->first();
+                                $ratingSum = App\Models\Rating::where('to_id',$product->user->id)->sum('rating') ;
+                                $ratingCount = App\Models\Rating::where('to_id',$product->user->id)->count();
+                
+                                if ($ratingCount != 0) {
+                                    $ratingAvg = $ratingSum / $ratingCount;
+                                }else{
+                                  $ratingAvg = 0;
+                                }
+                            @endphp
+                            @if (isset($rating))
+                              <div>
+                                <?php $count = 1; while ($count <= $rating->rating) { ?>
+                                  <span class="star fa fa-star checked" data-id="{{ $product->user->id }}" value="{{ $rating->rating }}"></span>
+                                <?php $count ++; } ?>
+                              </div> ({{$ratingAvg }})
+                            @else
+                              <div class="rating" userId="{{ $product->user->id }}">
+                                <span class="star fa fa-star" data-id="{{ $product->user->id }}" value="1"></span>
+                                <span class="star fa fa-star" data-id="{{ $product->user->id }}" value="2"></span>
+                                <span class="star fa fa-star" data-id="{{ $product->user->id }}" value="3"></span>
+                                <span class="star fa fa-star" data-id="{{ $product->user->id }}" value="4"></span>
+                                <span class="star fa fa-star" data-id="{{ $product->user->id }}" value="5"></span>
+                              </div> ({{ $ratingAvg }})
+                            @endif
+                          </div>
+
+
+
                         <div class="" >     
                             @foreach ($product->tags as $tag)
                                 <a href="{{route('tag.filter',$tag->tag)}}" class="text-decoration-none">
@@ -390,4 +437,46 @@
            })
         })
     </script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(".star").on('click',function () {
+                var userId = $(this).data('id');
+                var value = $(this).attr('value');
+               
+                $.ajax({
+                  url:"{{ route('user.rating') }}",
+                  method:"post",
+                  data:{userId:userId,value:value},
+                  success:function (response) {
+                    if(response.status == 'added'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'success',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            location.reload(true);
+                          }
+                        })
+                    }
+                    if(response.status == 'exits'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'warning',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                          }
+                        })
+                      
+                    }
+                  },
+                  error: function(error) {
+                     console.log((error));
+                  }
+                });
+            });
+</script>
 @endpush

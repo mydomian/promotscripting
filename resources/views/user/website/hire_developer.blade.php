@@ -2,7 +2,20 @@
 
 @section('title') Hire Developer @endsection
 @section('hire-developer','active')
+@push('css')
+  <style>
+    .checked {
+      color: #c59b08;
 
+    }
+    .star:hover{
+      color: #c59b08;
+      cursor: pointer;
+    }
+
+
+  </style>
+@endpush
 @section('content')
 <main class="flex-shrink-0 bg-body">
     <!-- Hero Search -->
@@ -111,6 +124,3 @@
     <!-- Search Result -->
   </main>
 @endsection
-@push('scripts')
-    
-@endpush

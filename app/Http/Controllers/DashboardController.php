@@ -13,6 +13,7 @@ use App\Models\PaymentInfo;
 use App\Models\User;
 use App\Services\Services;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\ProductImage;
 use App\Models\Sale;
 use App\Models\SubCategory;
@@ -416,11 +417,31 @@ class DashboardController extends Controller
         $sellers = Product::where(['status'=>'active'])->select('user_id')->get()->unique('user_id');
         $users = User::whereIn('id',$sellers)->paginate(20);
         if($request->isMethod('post')){
-            $users = User::where('profession', 'like', '%' . $request->profession . '%')->where('name', 'like', '%' . $request->name . '%')->where('language', 'like', '%' . $request->language . '%')->where('experience', 'like', '%' . $request->experience . '%')->latest()->paginate(20);
+            $users = User::where('profession', 'like', '%' . $request->profession . '%')->orWhere('name', 'like', '%' . $request->name . '%')->orWhere('language', 'like', '%' . $request->language . '%')->orWhere('experience', 'like', '%' . $request->experience . '%')->latest()->paginate(20);
             
             return view('user.website.hire_developer',compact('users'));
         }
         $users = $users->appends($request->all());
         return view('user.website.hire_developer',compact('users'));
+    }
+
+    public function userRating(Request $request){
+        $rating = Rating::where(['from_id'=>Auth::id(),'to_id'=>$request->userId])->first();
+        if(isset($rating)){
+            return response()->json([
+                'status'=>'exits',
+                'title'=>"Rating Already Exits For This User"
+            ]);
+        }else{
+            $rating = new Rating;
+            $rating->from_id = Auth::id();
+            $rating->to_id = $request->userId;
+            $rating->rating = $request->value;
+            $rating->save();
+            return response()->json([
+                'status'=>'added',
+                'title'=>"Thanks For Rating"
+            ]);
+        }
     }
 }
