@@ -33,6 +33,7 @@ Route::controller(HomeController::class)->group(function(){
      Route::get('hire','hire')->name('hire');
      Route::get('/public-profile/{user}','publicProfile')->name('public.profile');
      Route::get('/prompt-favourite/{product}/{type?}','userFavourite')->name('userFavourite');
+     Route::get('/user-favourite/{person}','personFavourite')->name('person.favourite');
 
      Route::get('/terms-of-service', 'terms')->name('terms');
      Route::match(['get','post'],'/search', 'search')->name('search');

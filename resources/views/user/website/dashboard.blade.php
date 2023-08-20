@@ -77,9 +77,10 @@
                         </li>
                     @endif
                     <li class="nav-item" role="presentation">
-                        <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
+                        <a href="{{ route('public.profile', ['user' => Auth::user()->id]) }}"
                             class="nav-link  badge text-bg-light rounded-pill text-secondary text-decoration-none p-2">Public
                             Profile</a>
+                            {{-- {{ route('user.profile', ['user' => Auth::user()->id]) }} --}}
                     </li>
                 </ul>
             </div>
@@ -99,11 +100,11 @@
                         <div class="row mb-5 d-flex justify-content-around">
                             <div class="card col-sm-10 col-md-5 col-lg-5 marketplace--card rounded">
                                 <div class="card-header  text-white  d-flex justify-content-between">
-                                    <h5 class="card-title text-primary align-self-center">Total Sell (<span
+                                    <h5 class="card-title text-primary align-self-center">Sales (<span
                                             class="text-danger">{{ '$' . number_format(sales()->sum('price'), 2) }}</span>)
                                     </h5>
-                                    <span class="card-subtitle text-secondary align-self-center">Statistics of total
-                                        sell</span>
+                                    {{-- <span class="card-subtitle text-secondary align-self-center">Statistics of total
+                                        sell</span> --}}
                                 </div>
                                 <div class="card-body">
                                     <div id="total_sell"></div>
@@ -111,10 +112,10 @@
                             </div>
                             <div class="card col-sm-10 col-md-5 col-lg-5 monthlySaleChart  marketplace--card rounded">
                                 <div class="card-header  text-white  d-flex justify-content-between">
-                                    <h5 class="card-title text-primary align-self-center">This Month's Sell (<span
+                                    <h5 class="card-title text-primary align-self-center">This Month's Sales (<span
                                         class="text-danger">{{'$' . number_format(thisMonthSale()->sum('price'), 2) }}</span>)</h5>
-                                    <span class="card-subtitle text-secondary align-self-center">Monthly
-                                        sell</span>
+                                    {{-- <span class="card-subtitle text-secondary align-self-center">Monthly
+                                        sell</span> --}}
                                 </div>
                                 <div class="card-body">
                                     <div id="monthly_sales"></div>

@@ -10,11 +10,12 @@ use App\Models\SubSubCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class MarketplaceController extends Controller
 {
     public function marketplace(Request $request){
-        
+        Session::flush('tag_name');
         $categories = Category::where('status','active')->latest()->get();
         $subCategories = SubCategory::latest()->get();
         $marketPlaces = Product::with('user','subCategory')->where('status','active')->inRandomOrder()->paginate(100);
@@ -56,12 +57,12 @@ class MarketplaceController extends Controller
     }
 
     public function filter($name){
+        Session::put('tag_name', $name);
         $categories = Category::where('status','active')->latest()->get();
         $subCategories = SubCategory::latest()->get();
-        $subSubCategories = SubSubCategory::latest()->get();
         $product_ids = Tag::where( 'tag', $name)->select('product_id')->get();
-        $marketPlaces = Product::with('user', 'subSubCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
-         return view('user.website.marketplace',compact('marketPlaces','categories','subCategories','subSubCategories'));
+        $marketPlaces = Product::with('user', 'subCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
+         return view('user.website.marketplace',compact('marketPlaces','categories','subCategories'));
     }
 }
 

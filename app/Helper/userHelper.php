@@ -13,7 +13,9 @@ use App\Models\Product;
 use App\Models\Sale;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\UserFavourite;
 use App\Models\View;
+use Database\Factories\UserFactory;
 use Illuminate\Support\Carbon;
 
 function model(){
@@ -176,5 +178,9 @@ function payoutDetails()
     }
     return false;
         
+}
+
+function checkFavouriteUser($user){
+    return UserFavourite::where(['user_ip' => userLocalIp(), 'user_id' => $user])->exists();
 }
 
