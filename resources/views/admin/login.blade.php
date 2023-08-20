@@ -14,12 +14,12 @@ $system = App\Models\Setting::first();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/core/core.css')}}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/vendors/core/core.css')}}">
    
-    <link rel="stylesheet" href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/demo1/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/fonts/feather-font/css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/css/demo1/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/storage/assets/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('/storage/images/favicon/'.$system->favicon) }}"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
@@ -85,9 +85,9 @@ $system = App\Models\Setting::first();
     </div>
 </section>
 <!-- core:js -->
-<script src="{{ asset('assets/vendors/core/core.js') }}"></script>
-<script src="{{ asset('assets/vendors/feather-icons/feather.min.js') }}"></script>
-<script src="{{ asset('assets/js/template.js') }}"></script>
+<script src="{{ asset('/storage/assets/vendors/core/core.js') }}"></script>
+<script src="{{ asset('/storage/assets/vendors/feather-icons/feather.min.js') }}"></script>
+<script src="{{ asset('/storage/assets/js/template.js') }}"></script>
 <script>
     $(document).ready(function(){
         $("#togglePassword").click(function (e) {

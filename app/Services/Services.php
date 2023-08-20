@@ -125,43 +125,48 @@ class Services{
      }
 
      function createFile($productImages,$product){
-      try{
+      Storage::deleteDirectory('public/zip');
+     try{
 
-            $fileName = rand(1000, 9999) . time().'_promptscriting.txt';
-            $prompt_file = $product->prompt_file ? $product->prompt_file : $product->midjourney_text;
-            Storage::put('public/zip/'.$fileName, $prompt_file);
-            if(isset($productImages)){
-               foreach($productImages as $productImage){
-                  
-                  $newPathWithName = 'public/zip/'.$productImage->images;
-                  Storage::copy('public/products/'.$productImage->images , $newPathWithName); 
-               }    
-            }
-            $zipFileName =  rand(1000, 9999) . time().'_promptscriting.zip';
-            $imagesPath = public_path('storage\zip');
-            
-            $zipPath = storage_path($zipFileName);
-            $zip = new ZipArchive();
-            if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
-               $files = File::allFiles($imagesPath);
-               
-               foreach ($files as $file) {
-                  // Add each file to the zip archive
-                  $localPath = $file->getRelativePathname();
-                  $zip->addFile($file->getPathname(), $localPath);
-               }
-      
-               $zip->close();
-               $this->tempfiles($product,$zipFileName);
-               Response::download($zipPath, $zipFileName)->deleteFileAfterSend(true);
-            } 
-
-            Storage::deleteDirectory('public/zip');
-      }
-      catch (\Exception $e) {
-       return $e->getMessage();
-      }
-   }
+           $fileName = rand(1000, 9999) . time().'_promptscriting.txt';
+           
+           $prompt_file = $product->prompt_file ? $product->prompt_file : $product->midjourney_text;
+           
+           Storage::put('public/zip/'.$fileName, $prompt_file);
+           
+           if(isset($productImages)){
+              foreach($productImages as $productImage){
+                 
+                 $newPathWithName = 'public/zip/'.$productImage->images;
+                 Storage::copy('public/products/'.$productImage->images , $newPathWithName); 
+              }    
+           }
+           
+           $zipFileName =  rand(1000, 9999) . time().'_promptscriting.zip';
+           
+           $imagesPath = public_path('storage/zip');
+           
+           $zipPath = storage_path('app/public/'.$zipFileName);
+           $zip = new ZipArchive();
+           if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
+              $files = File::allFiles($imagesPath);
+              
+              foreach ($files as $file) {
+                 // Add each file to the zip archive
+                 $localPath = $file->getRelativePathname();
+                 $zip->addFile($file->getPathname(), $localPath);
+              }
+     
+              $zip->close();
+              $this->tempfiles($product,$zipFileName);
+              Response::download($zipPath, $zipFileName)->deleteFileAfterSend(true);
+           } 
+        Storage::deleteDirectory('public/zip');
+     }
+     catch (\Exception $e) {
+      return $e->getMessage();
+     }
+  }
 
    function tempfiles($product,$zipFileName){
    

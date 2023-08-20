@@ -18,7 +18,7 @@ class MarketplaceController extends Controller
         Session::flush('tag_name');
         $categories = Category::where('status','active')->latest()->get();
         $subCategories = SubCategory::latest()->get();
-        $marketPlaces = Product::with('user','subCategory')->where('status','active')->paginate(100);
+        $marketPlaces = Product::with('user','subCategory')->where('status','active')->inRandomOrder()->paginate(100);
 
         if($request->isMethod('post')){
            
