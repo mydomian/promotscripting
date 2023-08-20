@@ -16,6 +16,11 @@ use App\Models\Category;
 use App\Models\Tempfile;
 use App\Models\Favourite;
 use App\Services\Services;
+use App\Models\Product;
+use App\Models\Rating;
+use App\Models\ProductImage;
+use App\Models\Sale;
+use App\Models\Skill;
 use App\Models\PaymentInfo;
 use App\Models\SubCategory;
 use App\Models\ProductImage;
@@ -447,6 +452,29 @@ class DashboardController extends Controller
         }
     }
 
+
+    public function skill(Request $request){
+        $user_id = Auth::id();
+        if($request->skill){
+            $skills =  explode(',',$request->skill);
+             foreach($skills as $skill){
+                    Skill::create([
+                     'user_id' => $user_id,
+                     'skill'        => $skill
+                 ]);
+             }
+         }
+         return back()->with('success', "Skills Added Successfully!");
+    }
+
+    public function removeSkill(Request $request){
+       $skill = Skill::where('id',$request->id)->first();
+       $skill->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Skill Removed.'
+        ]);
+
     public function hireDeveloperStore(Request $request){
         $hireDev = new HireDeveloper;
         $hireDev->type = $request->type;
@@ -483,5 +511,6 @@ class DashboardController extends Controller
             $sample->hire_developer_id = $hireDev->id;
             $sample->save();
         }
+
     }
 }
