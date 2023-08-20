@@ -86,11 +86,13 @@ $lastMessageBody = strlen($lastMessageBody) > 30 ? mb_substr($lastMessageBody, 0
 
 {{-- -------------------- Shared photos Item -------------------- --}}
 @if($get == 'sharedPhoto')
+
 @php
     $extension = pathinfo(storage_path($image), PATHINFO_EXTENSION);
     $filename = pathinfo($image, PATHINFO_FILENAME);
 @endphp
 @if ($extension == 'zip' || $extension == 'rar' || $extension == 'txt')
+
 <a href="{{ $image }}" class="mb-2 text-decoration-none gap-2" download="" style="color: #6e747d !important;">
     <svg
       class="ps-icon"

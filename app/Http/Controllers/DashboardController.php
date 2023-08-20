@@ -2,30 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use DB;
+use Str;
+use Carbon\Carbon;
 use App\Models\Cart;
-use App\Models\Charge;
-use App\Models\Category;
-use App\Models\CustomPromptOrder;
-use App\Models\Favourite;
-use App\Models\NotificationSetting;
-use App\Models\Order;
-use App\Models\PaymentInfo;
-use App\Models\User;
-use App\Services\Services;
-use App\Models\Product;
-use App\Models\Rating;
-use App\Models\ProductImage;
 use App\Models\Sale;
-use App\Models\SubCategory;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Charge;
+use App\Models\Rating;
+use App\Models\Product;
+use App\Models\Category;
 use App\Models\Tempfile;
+use App\Models\Favourite;
+use App\Services\Services;
+use App\Models\PaymentInfo;
+use App\Models\SubCategory;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use App\Models\HireDeveloper;
+use App\Models\CustomPromptOrder;
+use App\Models\HireDeveloperSample;
+use App\Models\NotificationSetting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Response;
-use Carbon\Carbon;
-use Str;
-use DB;
+use Illuminate\Support\Facades\Validator;
 use Chatify\Facades\ChatifyMessenger as Chatify;
 
 
@@ -442,6 +444,44 @@ class DashboardController extends Controller
                 'status'=>'added',
                 'title'=>"Thanks For Rating"
             ]);
+        }
+    }
+
+    public function hireDeveloperStore(Request $request){
+        $hireDev = new HireDeveloper;
+        $hireDev->type = $request->type;
+        $hireDev->price = $request->price;
+        $hireDev->title = $request->title;
+        $hireDev->description = $request->description;
+        $hireDev->to_id = $request->to_id;
+        $hireDev->from_id = Auth::id();
+        $hireDev->save();
+
+        if ($request->hasFile('sample')) $this->hireDeveloperSample($request,$hireDev);
+
+        return back()->with('success','Hire Developer Assigned');
+        
+
+    }
+
+    public function hireDeveloperLists(Request $request){
+        $hireDevs = HireDeveloper::with('to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('from_id',Auth::id())->get();
+        return view('user.website.hire_developer_lists',compact('hireDevs'));
+    }
+
+    public function hireDeveloperSample($request, $hireDev)
+    {
+        
+        $samples = HireDeveloperSample::where('hire_developer_id', $hireDev->id)->get();
+        foreach ($samples as $sample) {
+            $this->services->imageDestroy($sample->sample, 'hire_developer/');
+            $sample->delete();
+        }
+        foreach ($request->file('sample') as $file) {
+            $sample = new HireDeveloperSample;
+            $sample->sample = $this->services->imageUpload($file, 'hire_developer/');
+            $sample->hire_developer_id = $hireDev->id;
+            $sample->save();
         }
     }
 }

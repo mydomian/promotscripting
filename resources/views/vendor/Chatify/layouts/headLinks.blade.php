@@ -21,17 +21,17 @@ $system = App\Models\Setting::first();
 {{-- scripts --}}
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ asset('js/chatify/font.awesome.min.js') }}"></script>
-<script src="{{ asset('js/chatify/autosize.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('/storage/js/chatify/font.awesome.min.js') }}"></script>
+<script src="{{ asset('/storage/js/chatify/autosize.js') }}"></script>
+<script src="{{ asset('/storage/js/app.js') }}"></script>
 <script src='https://unpkg.com/nprogress@0.2.0/nprogress.js'></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script> --}}
 
 
 <link rel='stylesheet' href='https://unpkg.com/nprogress@0.2.0/nprogress.css'/>
-<link href="{{ asset('css/chatify/style.css') }}" rel="stylesheet" />
-<link href="{{ asset('css/chatify/'.$dark_mode.'.mode.css') }}" rel="stylesheet" />
-<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+<link href="{{ asset('/storage/css/chatify/style.css') }}" rel="stylesheet" />
+<link href="{{ asset('/storage/css/chatify/'.$dark_mode.'.mode.css') }}" rel="stylesheet" />
+<link href="{{ asset('/storage/css/app.css') }}" rel="stylesheet" />
 
 
 <style>
