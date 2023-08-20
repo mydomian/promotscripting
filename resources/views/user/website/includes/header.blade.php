@@ -262,6 +262,9 @@ $system = App\Models\Setting::first();
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.customOrderLists') }}"><i
                                             class="fa-solid fa-arrow-down-up-across-line"></i> <small
                                             class="mx-1">Custom Orders</small></a></li>
+                                <li><a class="dropdown-item text-primary" href="{{ route('user.hireDeveloperLists') }}"><i
+                                            class="fab fa-hire-a-helper"></i> <small
+                                            class="mx-1">Hire Developers</small></a></li>
 
                                 @if (Auth::user()->stripe_id)
                                     <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
