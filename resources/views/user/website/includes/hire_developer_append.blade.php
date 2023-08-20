@@ -102,14 +102,21 @@
                   Send Message
                   <i class="fa-regular fa-comments"></i>
                 </a>
-                <a
-                  href="#"
-                  target="_blank"
-                  class="btn btn-lime-green"
-                >
-                  Hire Me
-                  <i class="fa-solid fa-hand-holding-dollar"></i>
-                </a>
+                @php
+                    $hireDev = App\Models\HireDeveloper::where(['to_id'=>$user->id,'from_id'=>Auth::id(),'status'=>'pending'])->orWhere('status','accept')->first()
+                @endphp
+                @if (isset($hireDev))
+                    <a href="#" class="btn btn-warning disabled" data-bs-toggle="modal" data-bs-target="#hireDevModal{{ $user->id }}">
+                      Already Hired
+                      <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </a>
+                 @else
+                  <a href="#" class="btn btn-lime-green" data-bs-toggle="modal" data-bs-target="#hireDevModal{{ $user->id }}">
+                    Hire Me
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                  </a>
+                @endif
+                
               </div>
              
             </div>
@@ -139,12 +146,101 @@
           </div>
         </div>
         <hr class="ps-hr" />
+
+        @push('all-modals')
+        <!-- Modal -->
+        <div class="modal fade" id="hireDevModal{{ $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 9999">
+          <div class="modal-dialog modal-dialog-centered">
+            <form action="{{ route('user.hireDeveloperStore') }}" method="post" enctype="multipart/form-data">
+              @csrf
+            <div class="modal-content bg-dark">
+              <div class="modal-header">
+                <h5 class="modal-title text-primary" id="exampleModalLabel">Hire Developer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                      <div class="card-body">
+                          <div class="row g-4">
+                           
+                            
+                            <div class="col-sm-6">
+                              <label class="text-primary">Type?</label>
+                              <select name="type" id="type" class="ps-select wide bg-transparent text-primary" required>
+                                <option value="">Select</option>
+                                <option value="hourly">Hourly</option>
+                                <option value="dalily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                              </select>
+                            </div>
+                            <div class="col-sm-6">
+                              <label class="text-primary">Price?</label>
+                              <input
+                                type="number"
+                                name="price"
+                                id="price"
+                                placeholder="Enter Price..."
+                                class="form-control bg-transparent" 
+                                style="border:1px solid #9AC6B7"
+                                step="any"
+                                required
+                              />
+                            </div>
+                            <div class="col-sm-12">
+                              <label class="text-primary">Title?</label>
+                              <input
+                                  type="text"
+                                  name="title"
+                                  id="title"
+                                  placeholder="Enter Title..."
+                                  class="form-control bg-transparent" 
+                                  style="border:1px solid #9AC6B7"
+                                  required
+                              />
+                            </div>
+                            <div class="col-sm-12">
+                              <label class="text-primary">Description?</label>
+                              <textarea name="description" style="border:1px solid #9AC6B7" id="description" class="form-control bg-transparent"  placeholder="Enter Description..." required></textarea>
+                             
+                            </div>
+                            <div class="col-sm-12">
+                              <label class="text-primary">Sample? (Optional)</label>
+                              <input type="file" name="sample[]" class="form-control bg-transparent" style="border:1px solid #9AC6B7" accept="image/*" multiple>
+                             
+                            </div>
+                            <input type="hidden" name="to_id" id="to_id"  value="{{ $user->id }}">
+                          </div>
+                        </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary customOfferOrder">Custom Order</button>
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      @endpush
+
+
+
+
     @empty
         No Data Found
     @endforelse
-    
-    
   </div>
+
+
+
+ 
+
+
+
+
+
+
+
+
   @push('scripts')
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>

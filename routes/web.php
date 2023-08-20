@@ -88,6 +88,8 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/prompts-edit/{product}','promptsEdit')->name('user.promptsEdit');
         //hire developer
         Route::match(['get','post'],'/hire-developer','hireDeveloper')->name('user.hireDeveloper');
+        Route::match(['get','post'],'/hire-developer-store','hireDeveloperStore')->name('user.hireDeveloperStore');
+        Route::match(['get','post'],'/hire-developer-lists','hireDeveloperLists')->name('user.hireDeveloperLists');
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
