@@ -50,7 +50,7 @@ class SellController extends Controller
 
         $request->validate([
             'category_id'   => 'required',
-            'title'         => 'required|string',
+            'title'         => 'required|string|max:65',
             'description'   => 'required|string',
             'price'         => 'required|numeric'
         ]);
