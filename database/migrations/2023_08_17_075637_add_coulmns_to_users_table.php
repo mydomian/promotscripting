@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('profession')->nullable();
             $table->longText('description')->nullable();
             $table->text('language')->nullable();
+            $table->text('skills')->nullable();
             $table->string('video')->nullable();
         });
     }

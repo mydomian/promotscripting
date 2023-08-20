@@ -29,7 +29,34 @@
                             <strong>{{ strtolower('@'.strstr($user->name . ' ', ' ', true)) }}</strong>
                             <img src="{{ $countryFlagUrl }}" class="mx-1" alt="HappyFace" width="32px" height="32px">
                            </div>
-
+<div class="d-flex gap-3">
+                        @php
+                            $rating = App\Models\Rating::where(['from_id'=>Auth::id(),'to_id'=>$user->id])->first();
+                            $ratingSum = App\Models\Rating::where('to_id',$user->id)->sum('rating') ;
+                            $ratingCount = App\Models\Rating::where('to_id',$user->id)->count();
+            
+                            if ($ratingCount != 0) {
+                                $ratingAvg = rand($ratingSum / $ratingCount,2);
+                            }else{
+                              $ratingAvg = 0;
+                            }
+                        @endphp
+                        @if (isset($rating))
+                          <div>
+                            <?php $count = 1; while ($count <= $rating->rating) { ?>
+                              <span class="star fa fa-star checked" data-id="{{ $user->id }}" value="{{ $rating->rating }}"></span>
+                            <?php $count ++; } ?>
+                          </div> ({{$ratingAvg }})
+                        @else
+                          <div class="rating" userId="{{ $user->id }}">
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="1"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="2"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="3"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="4"></span>
+                            <span class="star fa fa-star" data-id="{{ $user->id }}" value="5"></span>
+                          </div> ({{ $ratingAvg }})
+                        @endif
+                      </div>
                             <div>
                                 @auth
                                     <a href="{{ route('user.profile', ['user' => Auth::user()->id]) }}"
@@ -73,8 +100,7 @@
                                         ->unique('is_type');
                                 @endphp
                                 @forelse ($userCategoryWisePrompts as $item)
-                                    <h6 class="text-primary mt-3">MOST POPULAR
-                                        {{ $item->subCategory->category->category_name }}</h6>
+                                    <h6 class="text-primary mt-3">{{ $item->subCategory->category->category_name }}</h6>
                                     <div class="search-profiles-slider">
                                         @forelse (userPromotSubCategoryWise($user->id, $item->sub_category_id) as $prompt)
                                             <div class="slick-slide gpa-0">
@@ -112,23 +138,48 @@
     </main>
 @endsection
 @push('scripts')
-    {{-- <script>
-    $(document).ready(function(){
-        $('#person_favourite').on('click', function(e){
-            e.preventDefault()
-           var user = $(this).attr('data-id');
-           $.ajax({
-            url: "{{route('person.favourite')}}",
-            method: "get",
-            data:{
-                user: user
-            },success: function(res){
-               if(res.success == true){
-                checkFavouriteUser($user->id)
-               }
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-           })
-        })    
-    })
-  </script> --}}
+        });
+        $(".star").on('click',function () {
+                var userId = $(this).data('id');
+                var value = $(this).attr('value');
+               
+                $.ajax({
+                  url:"{{ route('user.rating') }}",
+                  method:"post",
+                  data:{userId:userId,value:value},
+                  success:function (response) {
+                    if(response.status == 'added'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'success',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            location.reload(true);
+                          }
+                        })
+                    }
+                    if(response.status == 'exits'){
+                      Swal.fire({
+                          title: response.title,
+                          icon: 'warning',
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                          }
+                        })
+                      
+                    }
+                  },
+                  error: function(error) {
+                     console.log((error));
+                  }
+                });
+            });
+</script>
 @endpush
+
