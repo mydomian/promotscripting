@@ -1,7 +1,7 @@
 <?php
 $system = App\Models\Setting::first();
 ?>
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     @include('admin.layout.head')

@@ -42,22 +42,24 @@
                     <span class="bg-dark mx-2 mt-2 text-white text-center opacity-50" style="height: 25px;">{{ $marketPlace->subCategory->category ? $marketPlace->subCategory->category->category_name : '-' }}</span>
                     </a>
                    
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none"><small>{{ Str::limit($marketPlace->title,18) ?? "" }}</small></a>
-                            <div class="d-flex justify-content-end mt-1">
-                                @if (Auth::id() !== $marketPlace->user_id)
-                                    <a href="" class="cart-pic" data-id="{{$marketPlace->id}}"> 
-                                        <img src="{{asset('storage/brands/cart.png')}}" alt=""  style="height: auto; width:22px; margin-right: 5px;">
-                                    </a>
-                                @endif
-                                 <a class="text-light btn btn-primary btn-sm px-1"><small>{{'$'.$marketPlace->price }}</small></a>
-                                 {{-- <span class="badge rounded text-bg-primary">Primary</span> --}}
-                            </div>
-                        </div>
-                       <div class="d-flex justify-content-strat">
-                                <div>
-                                    <small class="text-secondary mx-2">{{$marketPlace->subCategory->category_name}}</small>
-                                </div>
+                        
+                        <div style="height: 3.5rem">
+                            <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($marketPlace->title,'-'),'product'=>$marketPlace->id]) }}" class="link-light text-decoration-none"><small>{{ $marketPlace->title }}</small></a>
+                        </div>                           
+                        
+                       <div class="d-flex align-items-center justify-content-between">
+                                
+                                    <small class="text-secondary mt-2">{{$marketPlace->subCategory->category_name}}</small>
+                                    <div class="d-flex justify-content-end mt-1">
+                                        @if (Auth::id() !== $marketPlace->user_id)
+                                            <a href="" class="cart-pic" data-id="{{$marketPlace->id}}"> 
+                                                <img src="{{asset('storage/brands/cart.png')}}" alt=""  style="height: auto; width:25px; margin-right: 5px; margin-top:4px;">
+                                            </a>
+                                        @endif
+                                         <a href="{{ route('get.prompt', encrypt($marketPlace->id)) }}" class="text-dark btn btn-primary btn-sm px-1"><small class="fs-6 fw-bold">{{'$'.$marketPlace->price }}</small></a>
+                                         {{-- <span class="badge rounded text-bg-primary">Primary</span> --}}
+                                    </div>
+                                
                             </div>
                     
                 </div>
@@ -67,5 +69,3 @@
 @empty
     <p class="text-light">Nothing Found!</p>
 @endforelse
-
-      
