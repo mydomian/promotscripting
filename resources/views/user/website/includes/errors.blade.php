@@ -1,7 +1,7 @@
 @if ($message = Session::get('success'))
-    <link rel="stylesheet" href="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
-    <script src="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ URL::asset('admin/assets/js/sweet-alert.js') }}"></script>
+    <link rel="stylesheet" href="{{ URL::asset('storage/admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ URL::asset('storage/admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ URL::asset('storage/admin/assets/js/sweet-alert.js') }}"></script>
     <script>
         SuccessMessage('{{ Session::get('success') }}');
 
@@ -23,9 +23,9 @@
         }
     </script>
 @elseif($message = Session::get('error'))
-    <link rel="stylesheet" href="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
-    <script src="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
-    <script src="{{ URL::asset('admin/assets/js/sweet-alert.js') }}"></script>
+    <link rel="stylesheet" href="{{ URL::asset('storage/admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
+    <script src="{{ URL::asset('storage/admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ URL::asset('storage/admin/assets/js/sweet-alert.js') }}"></script>
     <script>
         ErrorMessage('{{ Session::get('error') }}');
 

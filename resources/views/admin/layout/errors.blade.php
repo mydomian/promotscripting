@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
     <script src="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/sweet-alert.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         SuccessMessage('{{ Session::get('success') }}');
 
@@ -24,6 +25,7 @@
     <link rel="stylesheet" href="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
     <script src="{{ URL::asset('admin/assets/vendors/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ URL::asset('admin/assets/js/sweet-alert.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         ErrorMessage('{{ Session::get('error') }}');
 
