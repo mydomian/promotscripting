@@ -16,6 +16,7 @@ use App\Models\Product;
 use App\Models\Rating;
 use App\Models\ProductImage;
 use App\Models\Sale;
+use App\Models\Skill;
 use App\Models\SubCategory;
 use App\Models\Tempfile;
 use Illuminate\Http\Request;
@@ -443,5 +444,28 @@ class DashboardController extends Controller
                 'title'=>"Thanks For Rating"
             ]);
         }
+    }
+
+    public function skill(Request $request){
+        $user_id = Auth::id();
+        if($request->skill){
+            $skills =  explode(',',$request->skill);
+             foreach($skills as $skill){
+                    Skill::create([
+                     'user_id' => $user_id,
+                     'skill'        => $skill
+                 ]);
+             }
+         }
+         return back()->with('success', "Skills Added Successfully!");
+    }
+
+    public function removeSkill(Request $request){
+       $skill = Skill::where('id',$request->id)->first();
+       $skill->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Skill Removed.'
+        ]);
     }
 }

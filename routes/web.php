@@ -103,6 +103,10 @@ Route::middleware(['user','verified'])->group(function () {
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
        
+       //skills
+       Route::post('/skill-add','skill')->name('skills');
+       Route::get('/remove-skill','removeSkill')->name('remove.skill');
+
        
         Route::get('/logout','logout')->name('user.logout');
    });
