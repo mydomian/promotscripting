@@ -47,7 +47,7 @@
                             $ratingCount = App\Models\Rating::where('to_id',$user->id)->count();
             
                             if ($ratingCount != 0) {
-                                $ratingAvg = $ratingSum / $ratingCount;
+                                $ratingAvg = rand($ratingSum / $ratingCount,2);
                             }else{
                               $ratingAvg = 0;
                             }
