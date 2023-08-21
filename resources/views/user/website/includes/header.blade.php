@@ -85,6 +85,7 @@ $system = App\Models\Setting::first();
             width: 20px;
             height: 20px;
             font-size: 15px;
+            font-weight: 700;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -153,18 +154,20 @@ $system = App\Models\Setting::first();
     <header class="header-main fixed-top">
         <nav class="navbar navbar-expand-lg">
             <div class="container">
+                <button class="navbar-toggler burger-1 order-lg-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarMainContent" aria-controls="navbarMainContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span id="burger" class="navbar-toggler-icon"></span>
+                    <span class="d-flex"><i class="fa-solid fa-xmark align-self-center cross btn btn-outline-primary rounded-circle px-2 hide"
+                            style="color: #9ac6b7;"></i></span>
+
+                </button>
+
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img src="{{ asset('/storage/images/logo/' . $system->logo) }}" alt="Prompt Scripting"
                         width="316" height="118" class="img-fluid" />
                 </a>
-                <button class="navbar-toggler order-1 order-lg-0" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarMainContent" aria-controls="navbarMainContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span id="burger" class="navbar-toggler-icon"></span>
-                    <span class="d-flex"><i class="fa-solid fa-xmark align-self-center cross hide"
-                            style="color: #9ac6b7;"></i></span>
-
-                </button>
+                
                 <div class="collapse navbar-collapse order-2 order-lg-0" id="navbarMainContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-lg-auto">
                         <li class="nav-item">
@@ -265,11 +268,11 @@ $system = App\Models\Setting::first();
                                             class="fab fa-hire-a-helper"></i> <small
                                             class="mx-1">Hire Developers</small></a></li>
 
-                                @if (Auth::user()->stripe_id)
+                                {{-- @if (Auth::user()->stripe_id)
                                     <li><a class="dropdown-item text-primary" href="{{ route('user.payout') }}"><i
                                                 class="fa-solid fa-money-check-dollar"></i> <small
                                                 class="mx-1">Payouts</small></a></li>
-                                @endif
+                                @endif --}}
 
                                 <li><a class="dropdown-item text-primary" href="{{ route('user.favourites') }}"><i
                                             class="fa-regular fa-heart"></i> <small class="mx-1">Favourites</small></a>
@@ -321,7 +324,7 @@ $system = App\Models\Setting::first();
                 <div class="btn btn-outline-primary rounded-pill mx-1 d-sm-none px-2 mx-2"
                     id="cart_menu1"  style="height: 30px; width:30px">
                     <a  href="{{ route('cart.list') }}"> <i
-                            class="fa-solid fa-cart-shopping fa-sm cart_icon" style="color: #9ac6b7;"></i></a>
+                            class="fa-solid fa-cart-shopping fa-sm cart_icon" style="color: #9ac6b7; margin-top: 1em;"></i></a>
                     <span class="cart_count {{cartCount() == 0 ? 'd-none' : ''}}">{{ cartCount() ?? 0 }}</span>
                 </div>
 
@@ -329,7 +332,7 @@ $system = App\Models\Setting::first();
                 @guest
                     <a href="{{ route('user.login') }}"
                         class="btn btn-outline-primary rounded-pill  p-0 guest-avatar d-none" style="height: 30px; width:30px">
-                        <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-user" style="margin-top: 0.3em;"></i>
                     </a>
                 @endguest
 
@@ -503,7 +506,7 @@ $system = App\Models\Setting::first();
             <script>
                 $(document).ready(function() {
                     $('#burger').on('click', function() {
-                        var value = $('.order-1').attr("aria-expanded")
+                        var value = $('.burger-1').attr("aria-expanded")
                         if (value == 'true') {
                             $('#burger').addClass('hide')
                             $('.cross').removeClass('hide')

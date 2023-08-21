@@ -43,41 +43,6 @@
                                 <img src="{{ $countryFlagUrl }}" class="mx-1" alt="HappyFace" width="32px"
                                     height="32px">
                             </div>
-                            <div class="d-flex gap-3">
-                                @php
-                                    $rating = App\Models\Rating::where(['from_id' => Auth::id(), 'to_id' => $user->id])->first();
-                                    $ratingSum = App\Models\Rating::where('to_id', $user->id)->sum('rating');
-                                    $ratingCount = App\Models\Rating::where('to_id', $user->id)->count();
-                                    
-                                    if ($ratingCount != 0) {
-                                        $ratingAvg = rand($ratingSum / $ratingCount, 2);
-                                    } else {
-                                        $ratingAvg = 0;
-                                    }
-                                @endphp
-                                @if (isset($rating))
-                                    <div>
-                                        <?php $count = 1; while ($count <= $rating->rating) { ?>
-                                        <span class="star fa fa-star checked" data-id="{{ $user->id }}"
-                                            value="{{ $rating->rating }}"></span>
-                                        <?php $count ++; } ?>
-                                    </div> ({{ $ratingAvg }})
-                                @else
-                                    <div class="rating" userId="{{ $user->id }}">
-                                        <span class="star fa fa-star" data-id="{{ $user->id }}" value="1"></span>
-                                        <span class="star fa fa-star" data-id="{{ $user->id }}" value="2"></span>
-                                        <span class="star fa fa-star" data-id="{{ $user->id }}" value="3"></span>
-                                        <span class="star fa fa-star" data-id="{{ $user->id }}" value="4"></span>
-                                        <span class="star fa fa-star" data-id="{{ $user->id }}" value="5"></span>
-                                    </div> ({{ $ratingAvg }})
-                                @endif
-                            </div>
-
-                            
-                           <div class="text-white">
-                            <strong>{{ strtolower('@'.strstr($user->name . ' ', ' ', true)) }}</strong>
-                            <img src="{{ $countryFlagUrl }}" class="mx-1" alt="HappyFace" width="32px" height="32px">
-                           </div>
                       
 
                             <div>
