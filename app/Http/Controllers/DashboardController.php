@@ -16,14 +16,10 @@ use App\Models\Category;
 use App\Models\Tempfile;
 use App\Models\Favourite;
 use App\Services\Services;
-use App\Models\Product;
-use App\Models\Rating;
 use App\Models\ProductImage;
-use App\Models\Sale;
 use App\Models\Skill;
 use App\Models\PaymentInfo;
 use App\Models\SubCategory;
-use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\HireDeveloper;
 use App\Models\CustomPromptOrder;
@@ -279,7 +275,6 @@ class DashboardController extends Controller
                 'to_id'           => $data['to_id'],
                 'from_id'         => $data['from_id'],
                 'title'           => $data['title'],
-                'title'           => $data['title'],
                 'description'     => $data['description'],
                 'price'           => $data['price'],
                 'delivery'        => $data['delivery'],
@@ -474,7 +469,7 @@ class DashboardController extends Controller
             'success' => true,
             'message' => 'Skill Removed.'
         ]);
-
+    }
     public function hireDeveloperStore(Request $request){
         $hireDev = new HireDeveloper;
         $hireDev->type = $request->type;

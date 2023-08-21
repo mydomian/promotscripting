@@ -21,7 +21,7 @@ class HomeController extends Controller
 {
     public function home(){
         $setting = Setting::first();
-        $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
+        $categories = Category::where('status','active')->select('id','category_name','category_icon','logo')->get();
         $prompts = Product::with('subCategory')->where('status','active')->inRandomOrder()->limit(4)->get();
         return view('user.website.index',compact('setting','categories','prompts'));
     }
