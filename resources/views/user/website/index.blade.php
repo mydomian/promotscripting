@@ -52,12 +52,7 @@
               @foreach ($categories->take(4) as $item)
                 <div class="prompt-grid--item bg-image bg-dark-deep img-fluid" style="background-image: url('{{ asset('/storage/category_icon/'.$item->category_icon) }}">
                   <div class="prompt-grid--header text-gray-light bg-black bg-opacity-50">
-                    <h6 class="fw-normal">
-                      @if ($item->logo)
-                           <img src="{{ asset('/storage/category_icon/'.$item->logo) }}" style="height:20px; width:20px; background:#ffffff;padding:1px; border-radius:50% " alt="">
-                      @endif
-                     
-                       {{ $item->category_name }}</h6>
+                    <h6 class="fw-normal">⛵ {{ $item->category_name }}</h6>
                     {{-- <p class="mb-0">Abstract Halftone Risograph Prints</p> --}}
                   </div>
                 </div>
@@ -113,11 +108,7 @@
               <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($product->title,'-'),'product'=>$product->id]) }}">
                 <div class="prompt-isotope--item filter{{$item->id}}" style="background-color: #222222; background-image: url('{{ asset('/storage/products/thumbnil/'.$product->image) }}');background-repeat: no-repeat;background-size: 100%;">
                   <div class="prompt-grid--header rounded-0 text-gray-light bg-black bg-opacity-50">
-                    <h6 class="fw-normal">
-                      @if ($product->subCategory->category->logo)
-                           <img src="{{ asset('/storage/category_icon/'.$product->subCategory->category->logo) }}" style="height:20px; width:20px; background:#ffffff;padding:1px; border-radius:50% " alt="">
-                      @endif
-                      {{ $product->subCategory->category->category_name ?? '-' }}</h6>
+                    <h6 class="fw-normal">⛵ {{ $product->subCategory->category->category_name ?? '-' }}</h6>
                     <p class="mb-0">{{ $product->title ?? '-' }}</p>
                   </div>
                </div>
@@ -158,11 +149,7 @@
                 <div
                   class="prompt-grid--header rounded-0 text-gray-light bg-black bg-opacity-50"
                 >
-                  <h6 class="fw-normal">
-                    @if ($prompt->subCategory->category->logo)
-                    <img src="{{ asset('/storage/category_icon/'.$prompt->subCategory->category->logo) }}" style="height:20px; width:20px; background:#ffffff;padding:1px; border-radius:50% " alt="">
-                    @endif
-                    {{ $prompt->subCategory->category->category_name }}</h6>
+                  <h6 class="fw-normal">⛵ {{ $prompt->subCategory->category->category_name }}</h6>
                 </div>
               </div>
               <div class="hottest-prompts--desc">

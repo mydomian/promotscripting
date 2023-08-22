@@ -50,14 +50,11 @@ class Services{
         return $e->getMessage();
        }
     }
-    function categoryUpdate($category,$data,$file,$logo){
+    function categoryUpdate($category,$data,$file){
         try{
              $category->category_name = $data['category_name'];
              if($file){
                 $category->category_icon = $this->imageUpload($file,'category_icon/');
-             }
-             if($logo){
-                $category->logo = $this->imageUpload($logo,'category_icon/');
              }
              
              $category->save();
