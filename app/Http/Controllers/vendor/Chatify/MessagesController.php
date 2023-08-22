@@ -366,7 +366,6 @@ class MessagesController extends Controller
     public function sharedPhotos(Request $request)
     {
         $shared = Chatify::getSharedPhotos($request['user_id']);
-       
         $sharedPhotos = null;
 
         // shared with its template

@@ -10,6 +10,7 @@ use App\Models\Favourite;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Setting;
+use App\Models\Skill;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\UserFavourite;
@@ -20,7 +21,7 @@ class HomeController extends Controller
 {
     public function home(){
         $setting = Setting::first();
-        $categories = Category::where('status','active')->select('id','category_name','category_icon')->get();
+        $categories = Category::where('status','active')->select('id','category_name','category_icon','logo')->get();
         $prompts = Product::with('subCategory')->where('status','active')->inRandomOrder()->limit(4)->get();
         return view('user.website.index',compact('setting','categories','prompts'));
     }
@@ -73,6 +74,7 @@ class HomeController extends Controller
     }
 
     public function publicProfile(Request $request, User $user){
+        $skills = Skill::where('user_id',$user->id)->get();
         $countryFlagUrl = "";
         $ipv4Address = $request->ip();
         $response = Http::get("http://ipinfo.io/{$ipv4Address}/json");
@@ -82,7 +84,7 @@ class HomeController extends Controller
             $countryFlagUrl = "https://flagsapi.com/{$countryCode}/flat/64.png";
         }
      
-        return view('user.website.hire_details',compact('user','countryFlagUrl'));
+        return view('user.website.hire_details',compact('user','countryFlagUrl','skills'));
     }
 
     public function terms(){

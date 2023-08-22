@@ -36,7 +36,8 @@ Categories
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Icon</th>
+                    <th>Logo</th>
+                    <th>Image</th>
                     <th>Status</th>
                     <th>Created At</th>
                     <th>Edit</th>
@@ -48,6 +49,12 @@ Categories
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $category->category_name }}</td>
+                            <td>
+                                @if ($category->logo)
+                                    <a href="{{ asset('/storage/category_icon/'.$category->logo) }}" download><img width="60px" height="40px" src="{{ asset('/storage/category_icon/'.$category->logo) }}" alt="category-logo"></a>
+                                @else
+                                @endif
+                            </td>
                             <td>
                                 @if ($category->category_icon)
                                     <a href="{{ asset('/storage/category_icon/'.$category->category_icon) }}" download><img width="60px" height="40px" src="{{ asset('/storage/category_icon/'.$category->category_icon) }}" alt="category-icon"></a>
@@ -100,8 +107,10 @@ Categories
                                                             <label> Category Name </label>
                                                             <input type="text" name="category_name" autocomplete="off" class="form-control"
                                                                     required="" placeholder="Category Name . . . " value="{{ $category->category_name }}">
-                                                            <label class="mt-2"> Category Icon </label>
+                                                            <label class="mt-2"> Category Image </label>
                                                             <input type="file" name="category_icon" autocomplete="off" class="form-control" accept="image/*">
+                                                            <label class="mt-2"> Category Icon </label>
+                                                            <input type="file" name="logo" autocomplete="off" class="form-control" accept="image/*">
                                                         </div>
                                                     </div>
 

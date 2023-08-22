@@ -80,6 +80,8 @@ $system = App\Models\Setting::first();
   <!-- scripts -->
   <script src="{{asset("storage/website/assets")}}/scripts/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <script src='https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js'></script>
+
  <script>
       $(document).ready(function() {
           //summernote
