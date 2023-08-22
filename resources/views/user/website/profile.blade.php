@@ -161,7 +161,7 @@ $system = App\Models\Setting::first();
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="row mb-2">
+                                {{-- <div class="row mb-2">
                                     <div  class="col-sm-12">
                                         <small class="form-label">Enter Your Skills</small>
                                         <input name="tagsinput" class="form-control tagsinput" value="{{old('tagsinput')}}" @error('tagsinput') is-invalid @enderror data-role="tagsinput" style="width:100%;height:auto;">
@@ -169,7 +169,7 @@ $system = App\Models\Setting::first();
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row mb-2">
                                     <div  class="col-sm-6">
                                         <small class="form-label">Enter Your Password</small>

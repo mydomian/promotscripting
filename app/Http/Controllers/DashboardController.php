@@ -16,9 +16,10 @@ use App\Models\Category;
 use App\Models\Tempfile;
 use App\Models\Favourite;
 use App\Services\Services;
+use App\Models\ProductImage;
+use App\Models\Skill;
 use App\Models\PaymentInfo;
 use App\Models\SubCategory;
-use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Models\HireDeveloper;
 use App\Models\CustomPromptOrder;
@@ -274,7 +275,6 @@ class DashboardController extends Controller
                 'to_id'           => $data['to_id'],
                 'from_id'         => $data['from_id'],
                 'title'           => $data['title'],
-                'title'           => $data['title'],
                 'description'     => $data['description'],
                 'price'           => $data['price'],
                 'delivery'        => $data['delivery'],
@@ -447,6 +447,29 @@ class DashboardController extends Controller
         }
     }
 
+
+    public function skill(Request $request){
+        $user_id = Auth::id();
+        if($request->skill){
+            $skills =  explode(',',$request->skill);
+             foreach($skills as $skill){
+                    Skill::create([
+                     'user_id' => $user_id,
+                     'skill'        => $skill
+                 ]);
+             }
+         }
+         return back()->with('success', "Skills Added Successfully!");
+    }
+
+    public function removeSkill(Request $request){
+       $skill = Skill::where('id',$request->id)->first();
+       $skill->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Skill Removed.'
+        ]);
+    }
     public function hireDeveloperStore(Request $request){
         $hireDev = new HireDeveloper;
         $hireDev->type = $request->type;
@@ -465,6 +488,7 @@ class DashboardController extends Controller
     }
 
     public function hireDeveloperLists(Request $request){
+
         $hireDevs = HireDeveloper::with('samples','to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('from_id',Auth::id())->get();
         $hireMine = HireDeveloper::with('samples','to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('to_id',Auth::id())->get();
         return view('user.website.hire_developer_lists',compact('hireDevs','hireMine'));
@@ -495,6 +519,7 @@ class DashboardController extends Controller
         $hireDev->save();
         return back()->with('success','Project Delivery Successfully');
 
+
     }
 
     public function hireDeveloperSample($request, $hireDev)
@@ -511,5 +536,6 @@ class DashboardController extends Controller
             $sample->hire_developer_id = $hireDev->id;
             $sample->save();
         }
+
     }
 }

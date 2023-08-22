@@ -20,10 +20,6 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->enum('status',['pending','accept','cancel','delivered'])->default('pending');
-            $table->longText('note')->nullable();
-            $table->string('delivery_file')->nullable();
-
-
             $table->timestamps();
 
             $table->foreign('from_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
