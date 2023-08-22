@@ -4,7 +4,7 @@
     $favs      = favourites();
     $prompts   = prompts();
     $settings  = userSetting();
-    $userData  = payoutDetails();
+    // $userData  = payoutDetails();
 @endphp
 @extends('user.website.includes.master')
 
@@ -27,13 +27,13 @@
                             role="tab" aria-controls="pills-dashboard" aria-selected="true">Dashboard</a>
                     </li>
 
-                    @if ($userData)
+                    {{-- @if ($userData)
                         <li class="nav-item" role="presentation">
                             <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
                                 id="pills-payouts-tab" data-bs-toggle="pill" data-bs-target="#pills-payouts" type="button"
                                 role="tab" aria-controls="pills-payouts" aria-selected="false">Payouts</a>
                     </li>
-                    @endif
+                    @endif --}}
                     
                     <li class="nav-item" role="presentation">
                         <a class="nav-link badge rounded-pill text-secondary text-decoration-none p-2"
@@ -243,7 +243,7 @@
                         </div>
                     </div>
 
-                    @if($userData)
+                    {{-- @if($userData)
                     <div class="tab-pane fade" id="pills-payouts" role="tabpanel"
                         aria-labelledby="pills-payouts-tab" tabindex="0">
                         <div>
@@ -303,7 +303,7 @@
                         </div>
 
                     </div>
-                    @endif
+                    @endif --}}
 
                     <div class="tab-pane fade" id="pills-prompts" role="tabpanel" aria-labelledby="pills-prompts-tab"
                         tabindex="0">
