@@ -54,7 +54,6 @@ Route::controller(MarketplaceController::class)->group(function(){
     Route::match(['get','post'],'/marketplace','marketplace')->name('marketplace');
     Route::get('/marketplace/{slug}/{product}','marketplaceDetails')->name('marketplaceDetails');
     Route::get('/marketplace-filter/{name}','filter')->name('tag.filter');
-   
 });
 
 //============================Sell===========================
@@ -91,6 +90,8 @@ Route::middleware(['user','verified'])->group(function () {
         Route::match(['get','post'],'/hire-developer','hireDeveloper')->name('user.hireDeveloper');
         Route::match(['get','post'],'/hire-developer-store','hireDeveloperStore')->name('user.hireDeveloperStore');
         Route::match(['get','post'],'/hire-developer-lists','hireDeveloperLists')->name('user.hireDeveloperLists');
+        Route::get('/hire-developer-cancel/{hireDev}','hireDevStatus')->name('user.hireDevStatus');
+        Route::post('/hire-developer-project-delivered','deliveredProject')->name('user.deliveredProject');
         //favourite
         Route::match(['get','post'],'/favourites','favourites')->name('user.favourites');
         //custom order
@@ -106,10 +107,6 @@ Route::middleware(['user','verified'])->group(function () {
         // deleted route
         Route::get('prompt-delete/{product}','promptDelete')->name('user.promptDelete');
        
-       //skills
-       Route::post('/skill-add','skill')->name('skills');
-       Route::get('/remove-skill','removeSkill')->name('remove.skill');
-
        
         Route::get('/logout','logout')->name('user.logout');
    });

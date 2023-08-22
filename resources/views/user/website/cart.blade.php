@@ -18,15 +18,13 @@
                           <div class="col-md-4 p-2">
                             <a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}">
 
-                              <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="rounded-2" style="height: 100%;width:100%" alt="{{$cart->product->title}}">
+                              <img src="{{asset('storage/products/thumbnil/'.$cart->product->image)}}" class="rounded-2" style="height: 150px;width:100%" alt="{{$cart->product->title}}">
 
                             </a>
                           </div>
                           <div class="col-md-8 p-2">
-                            <div class="card-body ">
-                              <div  style="max-height: 3.5rem; margin-bottom: 20px;">
-                              <h5 class="card-title text-light" ><a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}" class="text-decoration-none">{{$cart->product->title}}</a></h5>
-                              </div>
+                            <div class="card-body">
+                              <h5 class="card-title text-light"><a href="{{ route('marketplaceDetails',['slug'=>Str::slug($cart->product->title,'-'),'product'=>$cart->product->id]) }}" class="text-decoration-none">{{$cart->product->title}}</a></h5>
                               <p class="card-text text-light">{{Str::limit($cart->product->description,100)}}</p>
                               <div class="d-flex justify-content-between">
                                 <small class="text-primary" style="align-self: self-end;">{{'$'.number_format($cart->product->price,2)}}</small>
@@ -53,7 +51,7 @@
                               </div>
                               <div class="d-flex justify-content-between">
                                 <p class="text-light">Total Amount</p>
-                                <p class="text-primary"> {{'$'.number_format($cartList->sum('price'),2)}}</p>
+                                <p class="text-primary"> {{'$'.$cartList->sum('price')}}</p>
                               </div>
                             </div>
                            <div class="card-footer">
