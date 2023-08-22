@@ -225,7 +225,7 @@
                                                 ->get();
                                         @endphp
                                         @forelse ($marketPlaces as $marketPlace)
-                                            <div class="slick-slide gap-0">
+                                            <div class="slick-slide gpa-0">
                                                 <a href="{{ route('marketplaceDetails', ['slug' => Str::slug($marketPlace->title, '-'), 'product' => $marketPlace->id]) }}"
                                                     class="card search-profile--card ">
                                                     <div class="card-body bg-image"
@@ -259,7 +259,7 @@
                                 <h6 class="text-primary">Similar Prompts ({{ $marketPlaces->count() }})</h6>
                                 <div class="search-profiles-slider">
                                     @forelse ($marketPlaces as $marketPlace)
-                                        <div class="slick-slide gap-0">
+                                        <div class="slick-slide gpa-0">
                                             <a href="{{ route('marketplaceDetails', ['slug' => Str::slug($marketPlace->title, '-'), 'product' => $marketPlace->id]) }}"
                                                 class="card search-profile--card ">
                                                 <div class="card-body bg-image"
@@ -288,7 +288,7 @@
                                 <h6 class="text-primary">Latest Prompts ({{ $marketPlaces->count() }})</h6>
                                 <div class="search-profiles-slider">
                                     @forelse ($marketPlaces as $marketPlace)
-                                        <div class="slick-slide gap-0">
+                                        <div class="slick-slide gpa-0">
                                             <a href="{{ route('marketplaceDetails', ['slug' => Str::slug($marketPlace->title, '-'), 'product' => $marketPlace->id]) }}"
                                                 class="card search-profile--card ">
                                                 <div class="card-body bg-image"
@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-center my-5">
+                        <div class="col-sm-4 d-flex justify-content-center my-5">
                             <a href="{{ route('marketplace') }}" class="btn btn-lg btn-outline-primary ">Browse
                                 Marketplace</a>
                         </div>
