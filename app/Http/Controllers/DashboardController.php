@@ -488,8 +488,38 @@ class DashboardController extends Controller
     }
 
     public function hireDeveloperLists(Request $request){
-        $hireDevs = HireDeveloper::with('to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('from_id',Auth::id())->get();
-        return view('user.website.hire_developer_lists',compact('hireDevs'));
+
+        $hireDevs = HireDeveloper::with('samples','to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('from_id',Auth::id())->get();
+        $hireMine = HireDeveloper::with('samples','to_user:id,name,email,profile_photo_path','from_user:id,name,email,profile_photo_path')->where('to_id',Auth::id())->get();
+        return view('user.website.hire_developer_lists',compact('hireDevs','hireMine'));
+    }
+
+    public function hireDevStatus(Request $request, HireDeveloper $hireDev){
+        if($request->type == 'cancel'){
+            $hireDev->status = 'cancel';
+            $hireDev->save();
+            return back()->with('success','Hire Developer Status Canceled Successfully');
+        }
+        if($request->type == 'accept'){
+            $hireDev->status = 'accept';
+            $hireDev->save();
+            return back()->with('success','Hire Developer Status Accepted Successfully');
+        }
+        
+    }
+
+    public function deliveredProject(Request $request){
+
+        if ($request->hasFile('delivery_file')) $delivery_file = $this->services->imageUpload($request->file('delivery_file'), 'hire_developer/delivered/');
+        
+        $hireDev = HireDeveloper::find($request->hire_developer_id);
+        $hireDev->status = 'delivered';
+        $hireDev->note = $request->note ?? "";
+        $hireDev->delivery_file = $delivery_file;
+        $hireDev->save();
+        return back()->with('success','Project Delivery Successfully');
+
+
     }
 
     public function hireDeveloperSample($request, $hireDev)
