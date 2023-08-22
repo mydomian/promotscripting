@@ -16,8 +16,9 @@ class HireDeveloper extends Model
     public function to_user(){
         return $this->belongsTo(User::class,'to_id');
     }
+
     public function samples(){
         return $this->hasMany(HireDeveloperSample::class,'hire_developer_id');
     }
-    
+ 
 }
