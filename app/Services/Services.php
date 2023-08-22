@@ -38,11 +38,12 @@ class Services{
             return $e->getMessage();
         }
     }
-    function categoryCreate($data,$file){
+    function categoryCreate($data,$file,$logo){
        try{
             $category = new Category;
             $category->category_name = $data['category_name'];
             $category->category_icon = $file;
+            $category->logo = $logo;
             $category->save();
             return $category;
        }

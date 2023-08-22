@@ -28,7 +28,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {   
         $upload = $this->services->imageUpload($request->file('category_icon'), 'category_icon/');
-        $category = $this->services->categoryCreate($request->all(),$upload);
+        $logo = $this->services->imageUpload($request->file('logo'), 'category_icon/');
+        $category = $this->services->categoryCreate($request->all(),$upload,$logo);
         if($category) return back()->with('success','Category Created Successfully');
        
     }
@@ -49,6 +50,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
        $this->services->imageDestroy($category->category_icon,'category_icon/');
+       $this->services->imageDestroy($category->logo,'category_icon/');
        $category->delete();
        return back()->with('success','Category Deleted Successfully');
     }
