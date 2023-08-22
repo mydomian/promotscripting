@@ -26,9 +26,10 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $upload = $this->services->imageUpload($request->file('category_icon'), 'category_icon/');
-        $category = $this->services->categoryCreate($request->all(),$upload);
+        $logo = $this->services->imageUpload($request->file('logo'), 'category_icon/');
+        $category = $this->services->categoryCreate($request->all(),$upload,$logo);
         if($category) return back()->with('success','Category Created Successfully');
        
     }
@@ -38,8 +39,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         if($request->hasFile('category_icon')) $this->services->imageDestroy($category->category_icon,$request->file('category_icon'),'category_icon/');
-        if($request->hasFile('logo')) $this->services->imageDestroy($category->logo,$request->file('logo'),'category_icon/');
-        $category = $this->services->categoryUpdate($category, $request->all(), $request->file('category_icon'), $request->file('logo'));
+        $category = $this->services->categoryUpdate($category, $request->all(),$request->file('category_icon'));
         if($category) return back()->with('success','Category Updated Successfully');
     }
 
@@ -49,6 +49,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
        $this->services->imageDestroy($category->category_icon,'category_icon/');
+       $this->services->imageDestroy($category->logo,'category_icon/');
        $category->delete();
        return back()->with('success','Category Deleted Successfully');
     }

@@ -103,7 +103,7 @@
                   <i class="fa-regular fa-comments"></i>
                 </a>
                 @php
-                    $hireDev = App\Models\HireDeveloper::where(['to_id'=>$user->id,'from_id'=>Auth::id(),'status'=>'pending'])->orWhere('status','accept')->first()
+                    $hireDev = App\Models\HireDeveloper::where(['to_id'=>$user->id,'from_id'=>Auth::id()])->where('status','accept')->first()
                 @endphp
                 @if (isset($hireDev))
                     <a href="#" class="btn btn-warning disabled" data-bs-toggle="modal" data-bs-target="#hireDevModal{{ $user->id }}">
@@ -168,8 +168,9 @@
                               <select name="type" id="type" class="ps-select wide bg-transparent text-primary" required>
                                 <option value="">Select</option>
                                 <option value="hourly">Hourly</option>
-                                <option value="dalily">Daily</option>
+                                <option value="daily">Daily</option>
                                 <option value="weekly">Weekly</option>
+                                <option value="byweekly">By Weekly</option>
                                 <option value="monthly">Monthly</option>
                               </select>
                             </div>
@@ -214,7 +215,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary customOfferOrder">Custom Order</button>
+                <button type="submit" class="btn btn-primary customOfferOrder">Hire</button>
               </div>
             </div>
           </form>

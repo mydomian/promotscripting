@@ -38,11 +38,12 @@ class Services{
             return $e->getMessage();
         }
     }
-    function categoryCreate($data,$file){
+    function categoryCreate($data,$file,$logo){
        try{
             $category = new Category;
             $category->category_name = $data['category_name'];
             $category->category_icon = $file;
+            $category->logo = $logo;
             $category->save();
             return $category;
        }
@@ -50,14 +51,11 @@ class Services{
         return $e->getMessage();
        }
     }
-    function categoryUpdate($category,$data,$file,$logo){
+    function categoryUpdate($category,$data,$file){
         try{
              $category->category_name = $data['category_name'];
              if($file){
                 $category->category_icon = $this->imageUpload($file,'category_icon/');
-             }
-             if($logo){
-                $category->logo = $this->imageUpload($logo,'category_icon/');
              }
              
              $category->save();
