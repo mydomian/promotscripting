@@ -19,4 +19,5 @@ class HireDeveloper extends Model
     public function samples(){
         return $this->hasMany(HireDeveloperSample::class,'hire_developer_id');
     }
+    
 }
