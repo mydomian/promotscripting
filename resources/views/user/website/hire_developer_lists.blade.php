@@ -16,7 +16,7 @@
           Hire
           <span class="fw-semibold text-primary">Developer Lists</span>
         </h2>
-        
+
       </div>
     </section>
     <!-- Hero Marketplace -->
