@@ -485,7 +485,16 @@ class DashboardController extends Controller
     }
 
     public function deliveredProject(Request $request){
-        return $request->all();
+
+        if ($request->hasFile('delivery_file')) $delivery_file = $this->services->imageUpload($request->file('delivery_file'), 'hire_developer/delivered/');
+        
+        $hireDev = HireDeveloper::find($request->hire_developer_id);
+        $hireDev->status = 'delivered';
+        $hireDev->note = $request->note ?? "";
+        $hireDev->delivery_file = $delivery_file;
+        $hireDev->save();
+        return back()->with('success','Project Delivery Successfully');
+
     }
 
     public function hireDeveloperSample($request, $hireDev)

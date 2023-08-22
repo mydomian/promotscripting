@@ -35,8 +35,6 @@
         <div class="tab-content mt-5 text-primary" id="myTabContent">
           
           <div class="tab-pane fade  " id="home" role="tabpanel" aria-labelledby="home-tab">
-                
-
             <div class="row g-3 mb-5">
                 @forelse ($hireDevs as $hireDev)
                     <div class="col-md-4 col-lg-3">
@@ -87,33 +85,115 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-dark">
                                                 <li>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hireDevViewModal{{ $hireDev->id }}">Delivery Work</a>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#hireDevModal{{ $hireDev->id }}">Delivery Work</a>
                                                 </li>
                                                 <li>
                                             </ul>
 
 
-                                            {{-- modal --}}
-                                            <div class="modal fade" id="hireDevViewModal{{ $hireDev->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="hireDevModal{{ $hireDev->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h5 class="modal-title" id="exampleModalLabel">Hire Developer View</h5>
+                                                      <h5 class="modal-title" id="exampleModalLabel">Delivery Work</h5>
                                                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                       <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <h5 class="text-center">Description</h5>
-                                                            <p style="text-align: justify">{{ $hireDev->description ?? "" }}</p>
+                                                        <div class="col-sm-12 col-md-8 mt-2">
+                                                            <div class="card marketplace--card rounded-3">
+                                                                <div class="card-body">
+                                                                    <h6>Description</h6>
+                                                                    <small style="text-align: justify">{{ $hireDev->description ?? "" }}</small>
+                                                                    <br><br><h6>Samples</h6>
+                                                                    <div class="row">
+                                                                        @forelse ($hireDev->samples as $sample)
+                                                                        <div class="col-sm-4 my-2">
+                                                                            <a class="" href="{{ asset('/storage/hire_developer/'.$sample->sample) }}" download=""> <img style="width:100%; height:120px;" src="{{ asset('/storage/hire_developer/'.$sample->sample) }}" alt=""></a>
+                                                                         </div>
+                                                                        @empty
+                                                                        <p class="text-center">No Data Found</p>
+                                                                        @endforelse
+                                                                    </div>
+
+                                                                    @if ($hireDev->status == 'delivered')
+                                                                        <div class="mt-2">
+                                                                            <strong>Work Note</strong><br>
+                                                                            <small>{{ $hireDev->note }}</small><br><br>
+                                                                            <strong>Work Submitted</strong><br>
+
+                                                                            <a class="btn btn-sm btn-success" href="{{ asset('/storage/hire_developer/delivered/'.$hireDev->delivery_file) }}" download><i class="fa fa-download"></i> Project Download</a>
+                                                                        </div>
+                                                                    @endif
+                                                                    
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-12">
-                                                            <h5 class="text-center">Samples</h5>
-                                                            @forelse ($hireDev->samples as $sample)
-                                                               <a href="{{ asset('/storage/hire_developer/'.$sample->sample) }}" download=""> <img class="img-fluid w-100" src="{{ asset('/storage/hire_developer/'.$sample->sample) }}" alt=""></a>
-                                                            @empty
-                                                              <p class="text-center">No Data Found</p>
-                                                            @endforelse
+                                                        <div class="col-sm-12 col-md-4 mt-sm-2 mt-2">
+                                                            <div class="card marketplace--card rounded-3 ">
+                                                                <div class="card-body">
+                                                                    <h5 class="text-center">Order Details</h5>
+                                                                    <hr>
+                                                                    <h6 class="text-justify">{{ $hireDev->title ?? "" }}</h6>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span class="text-center">Order By</span>
+                                                                        <small>{{ $hireDev->from_user->name }}</small>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span>Dalivery Date</span>
+                                                                        @if ($hireDev->type == 'hourly')
+                                                                            @php
+                                                                                $delivery_time = Carbon\Carbon::parse($hireDev->created_at)->addHours(1);
+                                                                            @endphp
+                                                                        @elseif($hireDev->type == 'daily')
+                                                                            @php
+                                                                                $delivery_time = Carbon\Carbon::parse($hireDev->created_at)->addDays(1);
+                                                                               
+                                                                            @endphp
+                                                                        @elseif($hireDev->type == 'weekly')
+                                                                            @php
+                                                                                $delivery_time = Carbon\Carbon::parse($hireDev->created_at)->addDays(7);
+                                                                            @endphp   
+                                                                        @elseif($hireDev->type == 'byweekly')
+                                                                            @php
+                                                                                $delivery_time = Carbon\Carbon::parse($hireDev->created_at)->addDays(15);
+                                                                            @endphp  
+                                                                        @elseif($hireDev->type == 'monthly')   
+                                                                            @php
+                                                                                $delivery_time = Carbon\Carbon::parse($hireDev->created_at)->addDays(30);
+                                                                            @endphp 
+                                                                        @endif                                                                       
+                                                                        <small>{{ $delivery_time->format('d M H:i') }}</small>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span class="text-center">Total price</span>
+                                                                        <small>{{ $hireDev->price }}</small>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span class="text-center">Order By</span>
+                                                                        <small>{{ $hireDev->from_user->name }}</small>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span class="text-center">Order Type</span>
+                                                                        <small>{{ $hireDev->type }}</small>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <span class="text-center">Order Staus</span>
+                                                                        <small>
+                                                                            @if ($hireDev->status == 'pending')
+                                                                                <span class="badge bg-info">Pending</span>
+                                                                            @elseif($hireDev->status == 'accept')    
+                                                                                <span class="badge bg-primary">Processing</span>
+                                                                            @elseif($hireDev->status == 'cancel')
+                                                                                <span class="badge bg-danger">Canceled</span>
+                                                                            @elseif($hireDev->status == 'delivered')    
+                                                                                <span class="badge bg-success">Delivered</span>
+                                                                            @endif
+                                                                        </small>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
                                                         </div>
                                                       </div>
                                                     </div>
@@ -255,7 +335,15 @@
                                                                         <p class="text-center">No Data Found</p>
                                                                         @endforelse
                                                                     </div>
-                                                                    
+                                                                    @if ($hireMe->status == 'delivered')
+                                                                        <div class="mt-2">
+                                                                            <strong>Work Note</strong><br>
+                                                                            <small>{{ $hireMe->note }}</small><br><br>
+                                                                            <strong>Work Submitted</strong><br>
+
+                                                                            <a class="btn btn-sm btn-success" href="{{ asset('/storage/hire_developer/delivered/'.$hireMe->delivery_file) }}" download><i class="fa fa-download"></i> Project Download</a>
+                                                                        </div>
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -322,7 +410,7 @@
                                                                         </small>
                                                                     </div>
                                                                 </div>
-                                                                @if ($hireMe->status == 'accept')
+                                                                @if ($hireMe->status == 'accept' || $hireMe->status == 'delivered')
                                                                     <a href="" data-bs-toggle="modal" data-bs-target="#deliverWorkModal" class="btn btn-sm btn-primary w-100">Delivery</a>
                                                                 @endif
                                                             </div>
@@ -358,7 +446,7 @@
                                                                     <label class="">Work Upload (Note: upload your files as zip)</label>
                                                                     <input type="file" class="form-control" name="delivery_file"  accept=".zip,.rar,.7zip" required>
                                                                 </div>
-                                                                <input type="hidden" value="{{ $hireMe->id }}">
+                                                                <input type="hidden" name="hire_developer_id" value="{{ $hireMe->id }}">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
