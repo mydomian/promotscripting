@@ -16,9 +16,7 @@
           Hire
           <span class="fw-semibold text-primary">Developer Lists</span>
         </h2>
-        {{-- <p class="text-white text-center mb-0">
-          Find Your ChatGPT And Midjourney Prompt Scripts for your Project
-        </p> --}}
+        
       </div>
     </section>
     <!-- Hero Marketplace -->
@@ -250,7 +248,6 @@
                 @endforelse
             </div>
 
-            
           </div>
           <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
            
