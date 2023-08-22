@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\JobPost;
 use App\Models\Product;
-use App\Models\Skill;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use App\Models\Tag;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -66,6 +64,5 @@ class MarketplaceController extends Controller
         $marketPlaces = Product::with('user', 'subCategory', 'tags')->whereIn('id', $product_ids)->where('status','active')->paginate(50);
          return view('user.website.marketplace',compact('marketPlaces','categories','subCategories'));
     }
-
 }
 
